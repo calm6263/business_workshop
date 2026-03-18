@@ -1,0 +1,28 @@
+{% load static %}
+<!-- قسم نجاح الإرسال (مع نفس id ليتم استبداله) -->
+<section id="contact-form-section" class="standalone-contact-section">
+    <div class="container">
+        <div class="standalone-contact-container">
+            <!-- العنوان كما هو (بدون نقطة حمراء) -->
+            <div class="standalone-contact-header">
+                <h2 class="standalone-contact-title">Форма обратной связи</h2>
+            </div>
+            
+            <!-- محتوى النجاح: الصورة على اليسار والنص على اليمين -->
+            <div class="standalone-contact-content success-layout">
+                <!-- الصورة (أيقونة النجاح) -->
+                <div class="standalone-contact-image">
+                    <img src="{% static 'images/success-icon.png' %}" alt="Успех" class="contact-img success-img">
+                </div>
+                
+                <!-- رسالة النجاح على اليمين -->
+                <div class="standalone-contact-success">
+                    <div class="success-message">
+                        <h3>Сообщение отправлено!</h3>
+                        <p>Свяжемся в течение двух рабочих дней.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

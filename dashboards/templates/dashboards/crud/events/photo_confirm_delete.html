@@ -1,0 +1,13 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Подтверждение удаления</h2>
+</div>
+<p>Вы уверены, что хотите удалить фотографию "<strong>{{ object.title }}</strong>"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-delete">Да, удалить</button>
+    <a href="{% url 'dashboards:photo_list' %}" class="btn-action btn-view">Отмена</a>
+</form>
+{% endblock %}

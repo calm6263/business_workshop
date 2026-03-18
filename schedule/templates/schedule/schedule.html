@@ -1,0 +1,468 @@
+<!-- schedule.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'schedule/css/schedule.css' %}">
+
+<div class="schedule-page">
+    <!-- Slider Section - UPDATED -->
+    {% if slider_images %}
+    <div class="slider-section">
+        <div class="slider-container" id="mainSlider">
+            {% for slide in slider_images %}
+            <div class="slider-slide">
+                <div class="slide-image">
+                    <img src="{{ slide.image.url }}" alt="{{ slide.title }}" class="slider-img">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide-content">
+                    <div class="container">
+                        <!-- Breadcrumb داخل السلايدر -->
+                        <div class="slider-breadcrumb">
+                            <div class="breadcrumb-content">
+                                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                                <div class="breadcrumb-arrow">
+                                    <div class="arrow-line arrow-top"></div>
+                                    <div class="arrow-line arrow-bottom"></div>
+                                </div>
+                                <span class="breadcrumb-current">Расписание</span>
+                            </div>
+                        </div>
+                        
+                        <!-- عرض المحتوى الأصلي للسلايدر -->
+                        {% if slide.subtitle %}
+                        <div class="slide-subtitle">{{ slide.subtitle }}</div>
+                        {% endif %}
+                        <h1 class="slide-title">{{ slide.title }}</h1>
+                        {% if slide.description %}
+                        <p class="slide-description">{{ slide.description }}</p>
+                        {% endif %}
+                        {% if slide.link and slide.link_text %}
+                        <a href="{{ slide.link }}" class="slide-btn">
+                            {{ slide.link_text }}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Slider Navigation -->
+        <div class="slider-controls">
+            <button class="slider-prev" aria-label="Предыдущий">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="slider-dots" id="sliderDots">
+                <!-- Точки будут добавлены динамически -->
+            </div>
+            <button class="slider-next" aria-label="Следующий">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Breadcrumb Section - только если нет слайдера -->
+    {% if not slider_images %}
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Расписание</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Отладочная информация -->
+    <div style="display: none;" id="debug-info">
+        {% for month in monthly_data %}
+            <div>Месяц: {{ month.month_name }} {{ month.year }} - Программ: {{ month.programs_count }}</div>
+            {% for program in month.programs %}
+                <div>Программа: {{ program.title }} - Тип: {{ program.program_type }} - Дата: {{ program.start_date }} - Активно: {{ program.is_active }}</div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <script>
+    console.log('Отладочная информация:');
+    {% for month in monthly_data %}
+        console.log('Месяц: {{ month.month_name }} {{ month.year }} - Программ: {{ month.programs_count }}');
+        {% for program in month.programs %}
+            console.log('  - {{ program.title }} ({{ program.start_date }})');
+        {% endfor %}
+    {% endfor %}
+    </script>
+
+    <!-- Главный заголовок تم استبداله بمستطيل البحث الجديد -->
+    <div class="search-rectangle-section">
+        <div class="container">
+            <div class="search-rectangle-wrapper">
+                <div class="search-rectangle">
+                    <input type="text" 
+                           class="search-rectangle-input" 
+                           placeholder="Поиск программ..." 
+                           id="scheduleSearch">
+                </div>
+                <button class="search-rectangle-btn" id="scheduleSearchBtn">
+                    <svg width="40" height="40" viewBox="0 0 111 109" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M49.052 1.09342e-07C41.2295 0.000658788 33.5206 1.85024 26.5684 5.39443C19.6163 8.93862 13.6224 14.0747 9.08701 20.374C4.55158 26.6734 1.60608 33.9534 0.496248 41.6067C-0.613585 49.26 0.144434 57.0647 2.70706 64.3696C5.2697 71.6745 9.56263 78.2677 15.2277 83.5993C20.8928 88.9308 27.7657 92.8461 35.2731 95.0184C42.7804 97.1907 50.7046 97.557 58.3843 96.0868C66.0641 94.6167 73.2768 91.3526 79.4206 86.567L100.497 107.399C101.586 108.438 103.044 109.013 104.557 109C106.07 108.987 107.518 108.387 108.588 107.329C109.658 106.272 110.265 104.841 110.278 103.345C110.291 101.85 109.709 100.409 108.658 99.333L87.5813 78.5013C93.2833 71.3517 96.8336 62.76 97.8259 53.7092C98.8182 44.6585 97.2124 33.5145 93.1923 27.3237C89.1721 19.1329 82.9001 12.2261 75.0939 7.39397C67.2877 2.5618 58.2628 -0.000611168 49.052 1.09342e-07ZM11.5385 48.4857C11.5385 38.6522 15.4908 29.2215 22.5259 22.2681C29.5611 15.3148 39.1028 11.4084 49.052 11.4084C59.0012 11.4084 68.5429 15.3148 75.5781 22.2681C82.6132 29.2215 86.5655 38.6522 86.5655 48.4857C86.5655 58.3193 82.6132 67.75 75.5781 74.7034C68.5429 81.6567 59.0012 85.5631 49.052 85.5631C39.1028 85.5631 29.5611 81.6567 22.5259 74.7034C15.4908 67.75 11.5385 58.3193 11.5385 48.4857Z" fill="#7F1726"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrollable Calendar Bar - UPDATED WITH NEW ARROW DESIGN -->
+    <div class="calendar-nav">
+        <div class="container">
+            <div class="calendar-controls">
+                <!-- زر السابق (يسار) -->
+                <button class="calendar-nav-btn prev-btn">
+                    <svg class="calendar-arrow-icon arrow-left" width="24" height="24" viewBox="0 0 56 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(0.725274 -0.68846 0.439823 0.898085 2.25 103.971)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                        <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(0.725274 0.68846 0.439823 -0.898085 2.25 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                
+                <div class="calendar-dates-wrapper">
+                    <div class="calendar-dates" id="calendarDates">
+                        <!-- Будет заполнено JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- زر التالي (يمين) -->
+                <button class="calendar-nav-btn next-btn">
+                    <svg class="calendar-arrow-icon arrow-right" width="24" height="24" viewBox="0 0 56 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(-0.725274 -0.68846 -0.439823 0.898085 53.75 103.971)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                        <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(-0.725274 0.68846 -0.439823 -0.898085 53.75 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Улучшенные фильтры -->
+    <div class="schedule-filter">
+        <div class="container">
+            <div class="filter-grid">
+                <!-- Фильтр типа программы -->
+                <div class="filter-group">
+                    <div class="filter-item custom-dropdown">
+                        <div class="filter-input custom-dropdown-toggle" id="programTypeFilter" aria-expanded="false" aria-controls="programTypeDropdown">
+                            <span class="filter-text">Все программы</span>
+                            <div class="filter-arrow">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1.5L6 6.5L11 1.5" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="custom-dropdown-menu filter-dropdown" id="programTypeDropdown" aria-labelledby="programTypeFilter">
+                            <div class="dropdown-content">
+                                <div class="dropdown-item-custom" data-value="all">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox checked"></div>
+                                        <span>Все программы</span>
+                                    </div>
+                                </div>
+                                {% for program_type in program_types %}
+                                <div class="dropdown-item-custom" data-value="{{ program_type.0 }}">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox"></div>
+                                        <span>{{ program_type.1 }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Фильтр формата - ОБНОВЛЕНО -->
+                <div class="filter-group">
+                    <div class="filter-item custom-dropdown">
+                        <div class="filter-input custom-dropdown-toggle" id="formatFilter" aria-expanded="false" aria-controls="formatDropdown">
+                            <span class="filter-text">Все форматы</span>
+                            <div class="filter-arrow">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1.5L6 6.5L11 1.5" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="custom-dropdown-menu filter-dropdown" id="formatDropdown" aria-labelledby="formatFilter">
+                            <div class="dropdown-content">
+                                <div class="dropdown-item-custom" data-value="all">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox checked"></div>
+                                        <span>Все форматы</span>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item-custom" data-value="offline">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox"></div>
+                                        <span>Очно</span>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item-custom" data-value="blended">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox"></div>
+                                        <span>Очно-заочно</span>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item-custom" data-value="correspondence">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox"></div>
+                                        <span>Заочно</span>
+                                    </div>
+                                </div>
+                                <div class="dropdown-item-custom" data-value="online">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox"></div>
+                                        <span>Онлайн</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Фильтр месяца и года -->
+                <div class="filter-group">
+                    <div class="filter-item custom-dropdown">
+                        <div class="filter-input custom-dropdown-toggle" id="monthYearFilter" aria-expanded="false" aria-controls="monthYearDropdown">
+                            <span class="filter-text">Все месяцы</span>
+                            <div class="filter-arrow">
+                                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1.5L6 6.5L11 1.5" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="custom-dropdown-menu filter-dropdown" id="monthYearDropdown" aria-labelledby="monthYearFilter">
+                            <div class="dropdown-content">
+                                <div class="dropdown-item-custom" data-value="all">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox checked"></div>
+                                        <span>Все месяцы</span>
+                                    </div>
+                                </div>
+                                {% for year in available_years %}
+                                    {% for month_num, month_name in months %}
+                                    <div class="dropdown-item-custom" data-value="{{ year }}-{{ month_num }}">
+                                        <div class="checkbox-item">
+                                            <div class="custom-checkbox"></div>
+                                            <span>{{ month_name }}, {{ year }}</span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الأيقونة الجديدة -->
+                <div class="filter-icon-container">
+                    <div class="filter-icon">
+                        <svg width="60" height="60" viewBox="0 0 122 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M39.3959 12.709C39.3959 11.6978 38.9943 10.7281 38.2793 10.0131C37.5643 9.29816 36.5946 8.89648 35.5834 8.89648C34.5723 8.89648 33.6026 9.29816 32.8876 10.0131C32.1726 10.7281 31.7709 11.6978 31.7709 12.709V20.7407C24.4509 21.3252 19.6523 22.7587 16.1244 26.2917C12.5915 29.8195 11.158 34.6232 10.5684 41.9382H111.432C110.842 34.6182 109.409 29.8195 105.876 26.2917C102.348 22.7587 97.5442 21.3252 90.2293 20.7356V12.709C90.2293 11.6978 89.8276 10.7281 89.1126 10.0131C88.3976 9.29816 87.4279 8.89648 86.4168 8.89648C85.4056 8.89648 84.4359 9.29816 83.7209 10.0131C83.0059 10.7281 82.6043 11.6978 82.6043 12.709V20.4001C79.2239 20.334 75.4317 20.334 71.1668 20.334H50.8334C46.5685 20.334 42.7764 20.334 39.3959 20.4001V12.709Z" fill="#052946"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.166 61C10.166 56.7351 10.166 52.9429 10.2321 49.5625H111.767C111.833 52.9429 111.833 56.7351 111.833 61V71.1667C111.833 90.3359 111.833 99.9231 105.875 105.876C99.9173 111.828 90.3353 111.833 71.166 111.833H50.8327C31.6634 111.833 22.0763 111.833 16.1237 105.876C10.1711 99.918 10.166 90.3359 10.166 71.1667V61ZM86.416 71.1667C87.7642 71.1667 89.0572 70.6311 90.0105 69.6778C90.9638 68.7245 91.4994 67.4315 91.4994 66.0833C91.4994 64.7352 90.9638 63.4422 90.0105 62.4889C89.0572 61.5356 87.7642 61 86.416 61C85.0678 61 83.7749 61.5356 82.8216 62.4889C81.8682 63.4422 81.3327 64.7352 81.3327 66.0833C81.3327 67.4315 81.8682 68.7245 82.8216 69.6778C83.7749 70.6311 85.0678 71.1667 86.416 71.1667ZM86.416 91.5C87.7642 91.5 89.0572 90.9644 90.0105 90.0111C90.9638 89.0578 91.4994 87.7649 91.4994 86.4167C91.4994 85.0685 90.9638 83.7755 90.0105 82.8222C89.0572 81.8689 87.7642 81.3333 86.416 81.3333C85.0678 81.3333 83.7749 81.8689 82.8216 82.8222C81.8682 83.7755 81.3327 85.0685 81.3327 86.4167C81.3327 87.7649 81.8682 89.0578 82.8216 90.0111C83.7749 90.9644 85.0678 91.5 86.416 91.5ZM66.0827 66.0833C66.0827 67.4315 65.5471 68.7245 64.5938 69.6778C63.6405 70.6311 62.3475 71.1667 60.9994 71.1667C59.6512 71.1667 58.3582 70.6311 57.4049 69.6778C56.4516 68.7245 55.916 67.4315 55.916 66.0833C55.916 64.7352 56.4516 63.4422 57.4049 62.4889C58.3582 61.5356 59.6512 61 60.9994 61C62.3475 61 63.6405 61.5356 64.5938 62.4889C65.5471 63.4422 66.0827 64.7352 66.0827 66.0833ZM66.0827 86.4167C66.0827 87.7649 65.5471 89.0578 64.5938 90.0111C63.6405 90.9644 62.3475 91.5 60.9994 91.5C59.6512 91.5 58.3582 90.9644 57.4049 90.0111C56.4516 89.0578 55.916 87.7649 55.916 86.4167C55.916 85.0685 56.4516 83.7755 57.4049 82.8222C58.3582 81.8689 59.6512 81.3333 60.9994 81.3333C62.3475 81.3333 63.6405 81.8689 64.5938 82.8222C65.5471 83.7755 66.0827 85.0685 66.0827 86.4167ZM35.5827 71.1667C36.9309 71.1667 38.2238 70.6311 39.1771 69.6778C40.1305 68.7245 40.666 67.4315 40.666 66.0833C40.666 64.7352 40.1305 63.4422 39.1771 62.4889C38.2238 61.5356 36.9309 61 35.5827 61C34.2345 61 32.9415 61.5356 31.9882 62.4889C31.0349 63.4422 30.4993 64.7352 30.4993 66.0833C30.4993 67.4315 31.0349 68.7245 31.9882 69.6778C32.9415 70.6311 34.2345 71.1667 35.5827 71.1667ZM35.5827 91.5C36.9309 91.5 38.2238 90.9644 39.1771 90.0111C40.1305 89.0578 40.666 87.7649 40.666 86.4167C40.666 85.0685 40.1305 83.7755 39.1771 82.8222C38.2238 81.8689 36.9309 81.3333 35.5827 81.3333C34.2345 81.3333 32.9415 81.8689 31.9882 82.8222C31.0349 83.7755 30.4993 85.0685 30.4993 86.4167C30.4993 87.7649 31.0349 89.0578 31.9882 90.0111C32.9415 90.9644 34.2345 91.5 35.5827 91.5Z" fill="#052946"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Счетчик результатов -->
+            <div class="results-count" id="resultsCount">
+                Найдено программ: <span id="programsCount">{{ total_programs_count }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monthly Sections -->
+    <div id="programsContainer">
+        {% for month in monthly_data|slice:":2" %}
+        <div class="month-section" data-month-year="{{ month.month_year }}">
+            <div class="container">
+                <div class="month-header">
+                    <div class="month-title-container">
+                        <span class="month-dot"></span>
+                        <h2 class="month-title">{{ month.month_name }}</h2>
+                        <div class="current-date">{% now "d.m.Y" %}</div>
+                    </div>
+                    
+                    <div class="programs-count">{{ month.programs_count }} программ</div>
+                </div>
+
+                <!-- Program Cards - التصميم الجديد مع التعديلات المطلوبة -->
+                <div class="programs-grid-new month-programs" id="programs-{{ month.month_year }}">
+                    {% for program in month.programs %}
+                    <a href="{% url 'schedule:program_detail' program.slug %}" class="program-card-link">
+                        <div class="program-card-new" data-program-type="{{ program.program_type }}" data-format="{{ program.format }}" data-date="{{ program.start_date|date:'Y-m-d' }}" data-created="{{ program.created_at|date:'Y-m-d H:i:s' }}">
+                            
+                            <!-- صورة البرنامج - تم تكبيرها -->
+                            <div class="program-image-section-new">
+                                {% if program.image %}
+                                    <img src="{{ program.image.url }}" alt="{{ program.title }}" class="program-image-new">
+                                {% else %}
+                                    <div class="program-image-placeholder-new">
+                                        <span>Картинка</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- محتوى البطاقة -->
+                            <div class="program-content-new">
+                                <!-- عنوان البرنامج -->
+                                <h3 class="program-title-new">{{ program.title }}</h3>
+                                
+                                <!-- الخط الفاصل -->
+                                <div class="program-divider"></div>
+                                
+                                <!-- تفاصيل البرنامج -->
+                                <div class="program-details-new">
+                                    <!-- التكلفة -->
+                                    <div class="detail-row">
+                                        <span class="detail-label">Стоимость:</span>
+                                        <span class="detail-value">
+                                            {% if program.cost %}
+                                                {{ program.cost }} р
+                                            {% else %}
+                                                Уточняйте
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- تاريخ البدء -->
+                                    <div class="detail-row">
+                                        <span class="detail-label">Начало обучения:</span>
+                                        <span class="detail-value">
+                                            {{ program.start_date|date:"j F" }}
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- المدة -->
+                                    <div class="detail-row">
+                                        <span class="detail-label">Длительность:</span>
+                                        <span class="detail-value">
+                                            {% if program.duration %}
+                                                {{ program.duration }}
+                                            {% else %}
+                                                {{ program.duration_hours }} часов
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    
+                                    <!-- حالة التسجيل (بدون عنوان) -->
+                                    <div class="detail-row">
+                                        <span class="detail-value status-{{ program.enrollment_status }}">
+                                            <span class="status-indicator"></span>
+                                            {% if program.enrollment_status == 'postponed' and program.postponed_date %}
+                                                Перенесен на {{ program.postponed_date|date:"d.m.Y" }}
+                                            {% else %}
+                                                {{ program.get_enrollment_status_display }}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                
+                <!-- السهم في أسفل قسم الشهر -->
+                <div class="month-toggle-container">
+                    <div class="month-toggle" onclick="toggleMonth('{{ month.month_year }}')" data-month="{{ month.month_year }}">
+                        <svg class="month-arrow" width="100" height="40" viewBox="0 0 140 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="3.5" y1="-3.5" x2="85.7612" y2="-3.5" transform="matrix(-0.753554 -0.657387 0.926693 -0.37582 139.012 58.6791)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                            <line x1="3.5" y1="-3.5" x2="85.7612" y2="-3.5" transform="matrix(0.753554 -0.657387 -0.926693 -0.37582 0 58.6791)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if not forloop.last %}
+        <!-- Month Navigation Arrow -->
+        <div class="month-navigation">
+            <div class="nav-arrow">
+                <div class="arrow-line"></div>
+                <div class="arrow-line"></div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% empty %}
+        <div class="no-programs">
+            <div class="container">
+                <p class="no-programs-text">В настоящее время нет запланированных программ.</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Archive Programs Carousel - مخفي -->
+    {% if archive_programs %}
+    <div class="archive-carousel-section" style="display: none;">
+        <div class="container">
+            <h2 class="archive-carousel-title">Архивные программы</h2>
+            <div class="carousel-container">
+                <button class="carousel-prev" aria-label="Предыдущий слайд">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="carousel-track" id="archiveCarousel">
+                    {% for program in archive_programs %}
+                    <div class="carousel-slide">
+                        <div class="archive-program-card">
+                            <!-- Добавление изображения программы -->
+                            <div class="archive-program-image">
+                                {% if program.image %}
+                                    <img src="{{ program.image.url }}" alt="{{ program.title }}" class="archive-image">
+                                {% else %}
+                                    <div class="archive-image-placeholder">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="archive-program-date">
+                                {{ program.start_date|date:"j F Y" }}
+                            </div>
+                            <h3 class="archive-program-title">{{ program.title|truncatewords:6 }}</h3>
+                            <div class="archive-program-meta">
+                                <span class="archive-program-type">{{ program.get_program_type_display }}</span>
+                                <span class="archive-program-duration">{{ program.duration_hours }}ч</span>
+                            </div>
+                            <a href="{% url 'schedule:program_detail' program.slug %}" class="archive-program-link">Подробнее</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <button class="carousel-next" aria-label="Следующий слайд">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="carousel-dots" id="carouselDots">
+                <!-- Точки будут добавлены динамически -->
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- إضافة JSON لأنواع البرامج للاستخدام в JavaScript -->
+<script id="programTypesJson" type="application/json">
+    {{ program_types_json|safe }}
+</script>
+
+<script src="{% static 'schedule/js/schedule.js' %}"></script>
+{% endblock %}

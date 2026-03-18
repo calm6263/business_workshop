@@ -1,0 +1,640 @@
+/* home.css - النسخة النهائية مع تعديل شريط البحث للشاشات المتوسطة والصغيرة ليطابق early_issues.css */
+
+.container {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+/* ====== SLIDER SECTION ====== */
+.slider-section {
+    position: relative;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.slider-breadcrumb {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    z-index: 15;
+    backdrop-filter: blur(5px);
+}
+
+.slider-breadcrumb .breadcrumb {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.slider-breadcrumb .breadcrumb-item a {
+    color: #052946;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.slider-breadcrumb .breadcrumb-item.active {
+    color: #7F1726;
+}
+
+.slider-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    color: #052946;
+}
+
+/* ====== SEARCH BAR SECTION ====== */
+.search-section {
+    margin: 60px 0;
+    padding: 0;
+    width: 100%;
+}
+
+.search-wrapper {
+    position: relative;
+    max-width: 90%; /* زيادة العرض ليكون أكبر */
+    margin: 0 auto;
+    border: 4px solid #052946;
+    border-radius: 20px;
+    background: #ffffff;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    color: #B1C4CB;
+    padding: 0 30px;
+    height: 100%;
+    border-radius: 20px;
+    line-height: normal;
+}
+
+.search-input::placeholder {
+    color: #B1C4CB;
+    opacity: 1;
+}
+
+.search-button {
+    position: absolute;
+    right: -70px; /* خارج الحقل على اليمين للشاشات الكبيرة */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+    z-index: 2;
+}
+
+.search-button:hover {
+    opacity: 0.8;
+}
+
+.search-button svg {
+    width: 100%;
+    height: 100%;
+    fill: #7F1726;
+}
+
+/* ====== CAROUSEL SECTIONS ====== */
+.best-section,
+.new-carousel-section,
+.early-issues-section {
+    margin: 4rem 0;
+    padding: 0;
+}
+
+.best-section {
+    margin-top: 0;
+    padding-top: 1rem;
+}
+
+.section-title {
+    font-family: 'Prata', serif;
+    font-size: 3rem;
+    color: #052946;
+    margin: 0 0 3rem 50px;
+}
+
+.best-carousel-container,
+.new-carousel-container,
+.early-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+}
+
+.best-carousel,
+.new-carousel,
+.early-carousel {
+    display: flex;
+    gap: 6.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 50px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.best-carousel::-webkit-scrollbar,
+.new-carousel::-webkit-scrollbar,
+.early-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* ====== CAROUSEL CARDS ====== */
+.best-card,
+.new-card,
+.early-card {
+    min-width: 320px !important;
+    max-width: 320px !important;
+    width: 320px !important;
+    flex-shrink: 0;
+}
+
+.best-card-inner,
+.new-card-inner,
+.early-card-inner {
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.best-cover,
+.new-cover,
+.early-cover {
+    width: 100%;
+    height: 448px;
+    object-fit: cover;
+    display: block;
+}
+
+.best-cover-placeholder,
+.new-cover-placeholder,
+.early-cover-placeholder {
+    width: 100%;
+    height: 448px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.card-date {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 2rem;
+    color: #052946;
+    text-align: left;
+    padding: 12px 5px 10px;
+    background: white;
+    border: none;
+    margin-top: 0;
+    padding-left: 0;
+}
+
+/* ====== CAROUSEL NAVIGATION ARROWS ====== */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    height: auto;
+    background: none;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    transition: opacity 0.2s;
+}
+
+.carousel-nav-btn:hover {
+    opacity: 0.8;
+}
+
+.carousel-nav-btn.prev-best,
+.carousel-nav-btn.prev-new,
+.carousel-nav-btn.prev-early {
+    left: -40px;
+}
+
+.carousel-nav-btn.next-best,
+.carousel-nav-btn.next-new,
+.carousel-nav-btn.next-early {
+    right: -40px;
+}
+
+.carousel-nav-btn svg {
+    width: 32px;
+    height: 32px;
+    stroke: #052946;
+    stroke-width: 7;
+}
+
+.carousel-nav-btn:hover svg {
+    stroke: #7F1726;
+}
+
+/* ====== SEARCH RESULTS SECTION ====== */
+.search-results-section {
+    margin: 3rem 0;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 0 50px;
+}
+
+.result-card {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.result-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.result-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.result-info {
+    padding: 1rem;
+}
+
+.result-title {
+    font-family: 'Prata', serif;
+    font-size: 1.2rem;
+    color: #052946;
+    margin-bottom: 0.5rem;
+}
+
+.result-date {
+    font-family: 'Raleway', sans-serif;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem;
+    color: #6c757d;
+    font-size: 1.2rem;
+}
+
+/* ====== RESPONSIVE ADJUSTMENTS ====== */
+@media (max-width: 1200px) {
+    .search-wrapper {
+        max-width: 90%;
+    }
+}
+
+/* تحسينات الشاشات المتوسطة والصغيرة - مطابقة لـ early_issues.css */
+@media (max-width: 992px) {
+    /* شريط البحث */
+    .search-section {
+        margin: 50px 0;
+        padding: 0 !important;
+    }
+    .search-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: 2px solid #052946 !important;
+        border-radius: 15px !important;
+        background: #ffffff;
+        padding: 6px 15px;
+        height: auto;
+        max-width: 60%;
+        margin: 0 auto;
+        width: 100% !important;
+    }
+    .search-input {
+        flex: 1;
+        font-size: 22px;
+        padding: 5px 0;
+        border: none !important;
+        background: transparent;
+        color: #052946;
+        height: auto;
+        width: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .search-input::placeholder {
+        color: #B1C4CB;
+        font-size: 22px;
+    }
+    .search-button {
+        position: static;
+        transform: none;
+        width: 45px;
+        height: 45px;
+    }
+    .search-button svg {
+        width: 45px;
+        height: 45px;
+    }
+
+    /* الكاروسيل */
+    .section-title {
+        font-size: 2.5rem;
+        margin-left: 30px;
+        margin-bottom: 2.5rem;
+    }
+    .best-carousel,
+    .new-carousel,
+    .early-carousel {
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-left: calc(50% - 140px);
+        padding-right: calc(50% - 140px);
+    }
+    .best-card,
+    .new-card,
+    .early-card {
+        scroll-snap-align: center;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        width: 280px !important;
+    }
+    .best-cover,
+    .new-cover,
+    .early-cover {
+        height: 392px;
+    }
+    .carousel-nav-btn.prev-best,
+    .carousel-nav-btn.prev-new,
+    .carousel-nav-btn.prev-early {
+        left: -30px;
+    }
+    .carousel-nav-btn.next-best,
+    .carousel-nav-btn.next-new,
+    .carousel-nav-btn.next-early {
+        right: -30px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* شريط البحث */
+    .search-wrapper {
+        padding: 5px 12px;
+        border-width: 2px !important;
+        border-radius: 12px !important;
+        gap: 0.5rem;
+    }
+    .search-input {
+        font-size: 18px;
+    }
+    .search-input::placeholder {
+        font-size: 18px;
+    }
+    .search-button {
+        width: 40px;
+        height: 40px;
+    }
+    .search-button svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* الكاروسيل */
+    .section-title {
+        font-size: 2rem !important;
+        margin-left: 20px;
+        margin-bottom: 2rem !important;
+    }
+    .best-carousel,
+    .new-carousel,
+    .early-carousel {
+        padding-left: calc(50% - 120px);
+        padding-right: calc(50% - 120px);
+        gap: 0.8rem;
+    }
+    .best-card,
+    .new-card,
+    .early-card {
+        min-width: 240px !important;
+        max-width: 240px !important;
+        width: 240px !important;
+    }
+    .best-cover,
+    .new-cover,
+    .early-cover {
+        height: 336px;
+    }
+    .card-date {
+        font-size: 1.3rem;
+    }
+    .carousel-nav-btn.prev-best,
+    .carousel-nav-btn.prev-new,
+    .carousel-nav-btn.prev-early {
+        left: -15px;
+    }
+    .carousel-nav-btn.next-best,
+    .carousel-nav-btn.next-new,
+    .carousel-nav-btn.next-early {
+        right: -15px;
+    }
+    .carousel-nav-btn svg {
+        width: 28px;
+        height: 28px;
+    }
+    .results-grid {
+        padding: 0 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    /* شريط البحث */
+    .search-wrapper {
+        padding: 4px 10px;
+        border-width: 1.5px !important;
+        border-radius: 10px !important;
+        gap: 0.3rem;
+    }
+    .search-input {
+        font-size: 16px;
+    }
+    .search-input::placeholder {
+        font-size: 16px;
+    }
+    .search-button {
+        width: 35px;
+        height: 35px;
+    }
+    .search-button svg {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* الكاروسيل */
+    .section-title {
+        font-size: 1.5rem !important;
+        margin-left: 15px;
+        margin-bottom: 1.5rem !important;
+    }
+    .best-carousel,
+    .new-carousel,
+    .early-carousel {
+        padding-left: calc(50% - 100px);
+        padding-right: calc(50% - 100px);
+        gap: 0.5rem;
+    }
+    .best-card,
+    .new-card,
+    .early-card {
+        min-width: 200px !important;
+        max-width: 200px !important;
+        width: 200px !important;
+    }
+    .best-cover,
+    .new-cover,
+    .early-cover {
+        height: 280px;
+    }
+    .card-date {
+        font-size: 1.1rem;
+    }
+    .carousel-nav-btn.prev-best,
+    .carousel-nav-btn.prev-new,
+    .carousel-nav-btn.prev-early {
+        left: -10px;
+    }
+    .carousel-nav-btn.next-best,
+    .carousel-nav-btn.next-new,
+    .carousel-nav-btn.next-early {
+        right: -10px;
+    }
+    .carousel-nav-btn svg {
+        width: 24px;
+        height: 24px;
+        stroke-width: 6;
+    }
+    .results-grid {
+        padding: 0 15px;
+        gap: 1.5rem;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .search-input {
+        font-size: 14px;
+    }
+    .search-input::placeholder {
+        font-size: 14px;
+    }
+    .search-button {
+        width: 32px;
+        height: 32px;
+    }
+    .search-button svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+ /* تخصيص بطاقات "Ранние выпуски" داخل التبويب لتطابق الصفحة المستقلة على الشاشات الكبيرة */
+    @media (min-width: 992px) {
+        .research-main-content .early-issues-section .early-card {
+            min-width: 320px !important;
+            max-width: 320px !important;
+            width: 320px !important;
+        }
+        .research-main-content .early-issues-section .early-cover {
+            height: 448px !important;
+        }
+        .research-main-content .early-issues-section .early-carousel {
+            gap: 6.5rem !important;  /* المسافة بين البطاقات */
+        }
+        /* إذا كان هناك أي هوامش إضافية تؤثر على المحاذاة، يمكن إضافتها هنا */
+        .research-main-content .early-issues-section .early-card-inner {
+            margin: 0;
+        }
+        .research-main-content .early-issues-section .card-date {
+            font-size: 2rem;  /* نفس الحجم المستخدم في الصفحة المستقلة */
+            padding-left: 0;
+        }
+    }
+    .best-carousel,
+.new-carousel,
+.early-carousel {
+    scroll-snap-stop: always;
+}
+/* ===== رفع عنوان Ранние выпуски مثل Лучшее ===== */
+.early-issues-section .section-title {
+    display: block;               /* لضمان سلوك كتلة */
+    font-family: 'Prata', serif;  /* نفس الخط */
+    font-size: 3rem;               /* حجم العنوان على الشاشات الكبيرة */
+    color: #052946;
+    margin: 0 0 3rem 50px;         /* نفس المسافة بين العنوان والكاروسيل مثل Лучшее */
+    text-decoration: none;         /* إزالة underline للرابط */
+}
+
+/* ===== Responsive مثل Лучшее ===== */
+@media (max-width: 992px) {
+    .early-issues-section .section-title {
+        font-size: 2.5rem;
+        margin-left: 30px;
+        margin-bottom: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .early-issues-section .section-title {
+        font-size: 2rem !important;
+        margin-left: 20px;
+        margin-bottom: 2rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .early-issues-section .section-title {
+        font-size: 1.5rem !important;
+        margin-left: 15px;
+        margin-bottom: 1.5rem !important;
+    }
+}
+/* ===== توسيط نص البحث عموديًا ===== */
+.search-section .search-wrapper .search-input {
+    height: 50px; /* تأكد أن هذا يساوي ارتفاع المستطيل */
+    padding: 0 1rem; /* مسافة أفقية داخلية */
+    line-height: 50px; /* نفس ارتفاع الحقل لتوسيط النص عموديًا */
+    font-size: 1rem; /* يمكن تعديل حسب التصميم */
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+/* إذا كانت هناك أي أيقونة داخل الحقل */
+.search-section .search-wrapper button.search-button {
+    height: 50px; /* نفس ارتفاع الحقل */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

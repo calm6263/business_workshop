@@ -1,0 +1,287 @@
+/* ===== patents/static/patents/css/patents.css ===== */
+
+/* Breadcrumb (كما في contacts) */
+.breadcrumb-section {
+    padding: 1rem 0 0.3rem 0;
+    background: #FFFFFF;
+    text-align: left;
+}
+
+.breadcrumb-section .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Raleway', sans-serif;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-section .breadcrumb-link {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #052946;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-section .breadcrumb-link:hover {
+    color: #7F1726;
+    transform: translateY(-1px);
+}
+
+.breadcrumb-section .breadcrumb-current {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #052946;
+}
+
+.breadcrumb-section .breadcrumb-arrow {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breadcrumb-section .breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #052946;
+    border-radius: 2px;
+}
+
+.breadcrumb-section .breadcrumb-arrow .arrow-top {
+    width: 10px;
+    height: 2px;
+    top: 7px;
+    right: 3px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.breadcrumb-section .breadcrumb-arrow .arrow-bottom {
+    width: 10px;
+    height: 2px;
+    bottom: 7px;
+    right: 3px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+/* заголовок ПАТЕНТЫ */
+.patents-title {
+    font-family: 'Prata', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: #7F1726;
+    text-align: center;
+    margin: 2rem 0 1rem;
+    letter-spacing: 4px;
+    line-height: 1.2;
+}
+
+/* الخط العلوي - يمتد بعرض الصفحة بالكامل */
+.divider {
+    width: 100%;
+    height: 5px;
+    background-color: rgba(5, 41, 70, 0.54);
+    margin: 1rem 0 3rem 0;
+    border: none;
+}
+
+/* الحاوية الرئيسية للكاروسيل */
+.carousel-wrapper {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 1rem auto;  /* توسيط ومسافة سفلية */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* الكاروسيل نفسه */
+.patents-carousel {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: none; /* إزالة الظل */
+}
+
+.patents-carousel .carousel-inner {
+    aspect-ratio: 3 / 4;
+    max-height: 800px;
+}
+
+.patents-carousel .carousel-item {
+    height: 100%;
+}
+
+.patents-carousel .carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* مؤشرات الكاروسيل */
+.carousel-indicators [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #052946;
+    opacity: 0.5;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+    background-color: #7F1726;
+}
+
+/* الأسهم المخصصة */
+.custom-carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 70px;
+    height: 70px;
+    background: transparent;
+    border: none;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    z-index: 10;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-carousel-control:hover {
+    opacity: 1;
+}
+
+/* السهم الأيسر - المسافة */
+.carousel-control-prev.custom-carousel-control {
+    left: -120px;
+}
+
+/* السهم الأيمن - المسافة */
+.carousel-control-next.custom-carousel-control {
+    right: -120px;
+}
+
+/* تصغير حجم الأسهم بنسبة 35% (60*0.65=39, 112*0.65=72.8) */
+.custom-carousel-control svg {
+    width: 39px;
+    height: 73px;
+}
+
+/* عكس السهم الأيمن ليشير إلى اليمين */
+.carousel-control-next.custom-carousel-control svg {
+    transform: scaleX(-1);
+}
+
+/* الخط السفلي - خارج الكاروسيل، بنفس عرض الصورة */
+.carousel-divider {
+    width: 100%;
+    max-width: 600px;          /* نفس max-width للكاروسيل */
+    height: 5px;
+    background-color: rgba(5, 41, 70, 0.54);
+    margin: 2rem auto 4rem;    /* مسافة علوية 2rem، سفلي 4rem (زيادة المسافة البيضاء) */
+    border: none;
+    display: block;
+    clear: both;
+}
+
+/* ===== الأنماط الجديدة للنص الديناميكي تحت الخط السفلي ===== */
+.caption-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;    /* المسافة البيضاء بعد الخط */
+    margin-bottom: 5rem;  /* مسافة إضافية قبل التذييل */
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.patent-caption {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 3vw, 40px); /* متجاوب: يبدأ صغيراً ويصل إلى 96px */
+    line-height: 1.2;
+    color: #052946;
+    text-align: center;
+    max-width: 1686px;      /* الحد الأقصى للعرض من التصميم */
+    width: 100%;
+    margin: 0 auto;
+    word-break: break-word;
+}
+
+/* استعلامات الوسائط للشاشات المتوسطة والصغيرة (مع الحفاظ على النص المتجاوب) */
+@media (max-width: 992px) {
+    .patents-title {
+        font-size: 4rem;
+    }
+    .carousel-wrapper {
+        max-width: 500px;
+    }
+    .carousel-divider {
+        max-width: 500px;
+        margin: 2rem auto 3rem;
+    }
+    .custom-carousel-control {
+        width: 60px;
+        height: 60px;
+    }
+    .carousel-control-prev.custom-carousel-control {
+        left: -90px;
+    }
+    .carousel-control-next.custom-carousel-control {
+        right: -90px;
+    }
+    .custom-carousel-control svg {
+        width: 33px;
+        height: 61px;
+    }
+    .caption-container {
+        margin-top: 3rem;
+        margin-bottom: 4rem;
+    }
+    .patent-caption {
+        font-size: clamp(2.5rem, 6vw, 72px);
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumb-section .breadcrumb-content {
+        gap: 0.5rem;
+    }
+    .patents-title {
+        font-size: 3rem;
+    }
+    .carousel-wrapper {
+        max-width: 400px;
+    }
+    .carousel-divider {
+        max-width: 400px;
+        margin: 2rem auto 2.5rem;
+    }
+    .custom-carousel-control {
+        width: 50px;
+        height: 50px;
+    }
+    .carousel-control-prev.custom-carousel-control {
+        left: -70px;
+    }
+    .carousel-control-next.custom-carousel-control {
+        right: -70px;
+    }
+    .custom-carousel-control svg {
+        width: 26px;
+        height: 48px;
+    }
+    .caption-container {
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+    }
+    .patent-caption {
+        font-size: clamp(2rem, 5vw, 48px);
+    }
+}

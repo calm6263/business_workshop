@@ -1,0 +1,179 @@
+ 
+{% load static %}
+
+{% block content %}  <!-- لا حاجة لهذا block، لكننا سنضع المحتوى مباشرة -->
+<!-- استيراد ملف CSS الخارجي (مثل الأصلي) -->
+<link rel="stylesheet" href="{% static 'fta_journal/css/home.css' %}">
+<!-- ====== SEARCH BAR SECTION (مصغر، بدون خلفية للزر) ====== -->
+<div class="search-section">
+    <div class="container-fluid px-0">
+        <form class="search-wrapper" method="GET" action="{% url 'news:news_list' %}">
+            <input type="hidden" name="tab" value="journal">
+            <input type="hidden" name="journal_page" value="home">
+            <input type="text" class="search-input" name="q" placeholder="Поиск выпуска..." value="{{ journal_search_query|default:'' }}">
+            <button class="search-button" type="submit" aria-label="Search">
+                <svg width="83" height="80" viewBox="0 0 83 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M36.5633 7.98265e-08C30.7324 0.000480956 24.9862 1.35079 19.8041 3.93827C14.6219 6.52574 10.1541 10.2754 6.77344 14.8743C3.39274 19.4732 1.19717 24.7881 0.369902 30.3755C-0.457365 35.9628 0.107661 41.6607 2.01784 46.9937C3.92802 52.3267 7.12796 57.1402 11.3507 61.0326C15.5734 64.925 20.6965 67.7833 26.2925 69.3692C31.8885 70.9551 37.7951 71.2226 43.5196 70.1493C49.244 69.076 54.6204 66.693 59.2 63.1992L74.9106 78.4077C75.722 79.1663 76.8087 79.586 77.9366 79.5765C79.0646 79.567 80.1435 79.1291 80.9412 78.357C81.7388 77.5848 82.1912 76.5404 82.201 75.4485C82.2108 74.3566 81.7772 73.3046 80.9936 72.5192L65.2829 57.3107C69.5332 52.0911 72.1796 45.8186 72.9193 39.211C73.6589 32.6035 72.462 25.9278 69.4654 19.948C66.4687 13.9682 61.7936 8.92583 55.9748 5.39805C50.1561 1.87027 43.429 -0.00044619 36.5633 7.98265e-08ZM8.60074 35.3976C8.60074 28.2185 11.5468 21.3335 16.7908 16.2571C22.0348 11.1807 29.1471 8.32884 36.5633 8.32884C43.9794 8.32884 51.0918 11.1807 56.3358 16.2571C61.5797 21.3335 64.5258 28.2185 64.5258 35.3976C64.5258 42.5766 61.5797 49.4617 56.3358 54.538C51.0918 59.6144 43.9794 62.4663 36.5633 62.4663C29.1471 62.4663 22.0348 59.6144 16.7908 54.538C11.5468 49.4617 8.60074 42.5766 8.60074 35.3976Z" fill="#7F1726"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ====== SEARCH RESULTS ====== -->
+{% if journal_search_query %}
+<div class="search-results-section">
+    <div class="container">
+        <h2 class="section-title">Результаты поиска: "{{ journal_search_query }}"</h2>
+        {% if journal_search_results %}
+        <div class="results-grid">
+            {% for issue in journal_search_results %}
+            <a href="?tab=journal&journal_page=detail&pk={{ issue.id }}" class="result-card">
+                {% if issue.cover_image %}
+                <img src="{{ issue.cover_image.url }}" class="result-cover" alt="{{ issue.title }}">
+                {% else %}
+                <div class="result-cover-placeholder">Нет изображения</div>
+                {% endif %}
+                <div class="result-info">
+                    <h3 class="result-title">{{ issue.title }}</h3>
+                    <div class="result-date">{{ issue.publication_date|date:"F Y" }}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <p>По вашему запросу ничего не найдено.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+
+<!-- Лучшее Section -->
+<div class="best-section mb-5">
+    <div class="container position-relative">
+        <h2 class="section-title">{{ journal_section_settings.best_section_title }}</h2>
+        <div class="best-carousel-container">
+            <button class="carousel-nav-btn prev-best" onclick="scrollBest(-1)">
+                <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 -0.804854 -0.324263 0.945967 35.6791 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 0.804854 -0.324263 -0.945967 35.6791 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="carousel-nav-btn next-best" onclick="scrollBest(1)">
+                <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 -0.804854 0.324263 0.945967 2.3209 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 0.804854 0.324263 -0.945967 2.3209 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="best-carousel" id="bestCarousel">
+                {% for issue in journal_best_issues %}
+                <a href="?tab=journal&journal_page=detail&pk={{ issue.id }}" class="best-card-link" style="text-decoration: none; color: inherit;">
+                    <div class="best-card">
+                        <div class="best-card-inner">
+                            {% if issue.cover_image %}
+                            <img src="{{ issue.cover_image.url }}" class="best-cover" alt="{{ issue.title }}">
+                            {% else %}
+                            <div class="best-cover-placeholder">Нет изображения</div>
+                            {% endif %}
+                            <div class="card-date">{{ issue.publication_date|date:"F Y" }}</div>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">Нет выпусков в разделе "{{ journal_section_settings.best_section_title }}"</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Новые поступления Section -->
+<div class="new-carousel-section mb-5">
+    <div class="container position-relative">
+        <h2 class="section-title">{{ journal_section_settings.new_section_title }}</h2>
+        <div class="new-carousel-container">
+            <button class="carousel-nav-btn prev-new" onclick="scrollNew(-1)">
+                <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 -0.804854 -0.324263 0.945967 35.6791 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 0.804854 -0.324263 -0.945967 35.6791 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="carousel-nav-btn next-new" onclick="scrollNew(1)">
+                <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 -0.804854 0.324263 0.945967 2.3209 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 0.804854 0.324263 -0.945967 2.3209 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="new-carousel" id="newCarousel">
+                {% for issue in journal_new_issues %}
+                <a href="?tab=journal&journal_page=detail&pk={{ issue.id }}" class="new-card-link" style="text-decoration: none; color: inherit;">
+                    <div class="new-card">
+                        <div class="new-card-inner">
+                            {% if issue.cover_image %}
+                            <img src="{{ issue.cover_image.url }}" class="new-cover" alt="{{ issue.title }}">
+                            {% else %}
+                            <div class="new-cover-placeholder">Нет изображения</div>
+                            {% endif %}
+                            <div class="card-date">{{ issue.publication_date|date:"F Y" }}</div>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">Нет выпусков в разделе "{{ journal_section_settings.new_section_title }}"</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ранние выпуски Section -->
+<div class="early-issues-section mb-5">
+    <div class="container position-relative">
+        <a href="?tab=journal&journal_page=early" class="section-title" style="text-decoration: none; color: inherit;">{{ journal_section_settings.early_section_title }}</a>
+        <div class="early-carousel-container">
+            <button class="carousel-nav-btn prev-early" onclick="scrollEarly(-1)">
+                <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 -0.804854 -0.324263 0.945967 35.6791 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 0.804854 -0.324263 -0.945967 35.6791 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="carousel-nav-btn next-early" onclick="scrollEarly(1)">
+                <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 -0.804854 0.324263 0.945967 2.3209 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 0.804854 0.324263 -0.945967 2.3209 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="early-carousel" id="earlyCarousel">
+                {% for issue in journal_early_issues %}
+                <a href="?tab=journal&journal_page=detail&pk={{ issue.id }}" class="early-card-link" style="text-decoration: none; color: inherit;">
+                    <div class="early-card">
+                        <div class="early-card-inner">
+                            {% if issue.cover_image %}
+                            <img src="{{ issue.cover_image.url }}" class="early-cover" alt="{{ issue.title }}">
+                            {% else %}
+                            <div class="early-cover-placeholder">Нет изображения</div>
+                            {% endif %}
+                            <div class="card-date">{{ issue.publication_date|date:"F Y" }}</div>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="col-12 text-center py-4">
+                    <p class="text-muted">Нет выпусков в разделе "{{ journal_section_settings.early_section_title }}"</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+<script src="{% static 'fta_journal/js/home.js' %}"></script>
+{% endblock %}

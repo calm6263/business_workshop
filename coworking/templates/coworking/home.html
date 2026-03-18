@@ -1,0 +1,397 @@
+<!-- home.html -->
+{% extends 'coworking/base_coworking.html' %}
+{% load static %}
+
+{% block title %}Коворкинг Башни - Главная{% endblock %}
+
+{% block content %}
+<section class="features-section">
+    <div class="features-grid">
+        <!-- العنصر 1 -->
+        <div class="feature-item">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L13.09 8.26L20 9L14.55 13.47L16.18 20L12 16.77L7.82 20L9.45 13.47L4 9L10.91 8.26L12 2Z" 
+                          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h3>Башни: место, где люди заряжаются идеями</h3>
+            </div>
+        </div>
+        
+        <!-- العنصر 2 -->
+        <div class="feature-item">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" 
+                          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" 
+                          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" 
+                          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" 
+                          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h3>Сотрудничество: совместная работа и взаимопомощь</h3>
+            </div>
+        </div>
+        
+        <!-- العنصر 3 -->
+        <div class="feature-item">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="6" width="18" height="12" rx="2" stroke="white" stroke-width="1.5"/>
+                    <path d="M3 10H21" stroke="white" stroke-width="1.5"/>
+                    <path d="M7 14H9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h3>Гибкая аренда: выбирайте только нужное</h3>
+            </div>
+        </div>
+        
+        <!-- العنصر 4 -->
+        <div class="feature-item">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21C16.1421 21 19.5 17.6421 19.5 13.5C19.5 9.35786 16.1421 6 12 6C7.85786 6 4.5 9.35786 4.5 13.5C4.5 17.6421 7.85786 21 12 21Z" 
+                          stroke="white" stroke-width="1.5"/>
+                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" 
+                          stroke="white" stroke-width="1.5"/>
+                    <path d="M8 3L10.5 5.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M16 3L13.5 5.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="feature-text">
+                <h3>Сообщество единомышленников: место, где люди заряжаются идеями</h3>
+            </div>
+        </div>
+    </div>
+    
+    <div class="actions-section">
+        <a href="#" class="action-button">
+            <span>Провести мероприятие</span>
+        </a>
+        <a href="#" class="action-button">
+            <span>Забронировать</span>
+        </a>
+    </div>
+</section>
+
+<!-- قسم التعريفات المحسن -->
+<section class="tariffs-section">
+    <div class="container">
+        <h2 class="tariffs-title">Тарифы</h2>
+        
+        <div class="tariffs-grid">
+            {% if tariffs %}
+                {% for tariff in tariffs %}
+                <div class="tariff-card">
+                    <div class="tariff-header">
+                        <div class="tariff-image">
+                            {% if tariff.image %}
+                                <img src="{{ tariff.image.url }}" alt="{{ tariff.title }}">
+                            {% else %}
+                                <div class="tariff-image-placeholder">
+                                    {% if tariff.tariff_type == "trial" %}
+                                        🆓 Пробный день
+                                    {% elif tariff.tariff_type == "flex" %}
+                                        🔄 Гибкий график
+                                    {% elif tariff.tariff_type == "office" %}
+                                        🚪 Закрытый кабинет
+                                    {% elif tariff.tariff_type == "meeting_room" %}
+                                        💬 Переговорный кабинет
+                                    {% elif tariff.tariff_type == "executive_office" %}
+                                        👨‍💼 Кабинет руководителя
+                                    {% else %}
+                                        {{ tariff.title }}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <h3 class="tariff-name">
+                            {% if tariff.tariff_type == "trial" %}
+                                🆓 {{ tariff.title }}
+                            {% elif tariff.tariff_type == "flex" %}
+                                🔄 {{ tariff.title }}
+                            {% elif tariff.tariff_type == "office" %}
+                                🚪 {{ tariff.title }}
+                            {% elif tariff.tariff_type == "meeting_room" %}
+                                💬 {{ tariff.title }}
+                            {% elif tariff.tariff_type == "executive_office" %}
+                                👨‍💼 {{ tariff.title }}
+                            {% else %}
+                                {{ tariff.title }}
+                            {% endif %}
+                        </h3>
+                    </div>
+                    
+                    <div class="tariff-divider"></div>
+                    
+                    <div class="tariff-features">
+                        {% for feature in tariff.tariff_features.all %}
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                {% if "рабочее" in feature.feature_text.lower %}
+                                    💻
+                                {% elif "wi-fi" in feature.feature_text.lower or "вай-фай" in feature.feature_text.lower %}
+                                    📶
+                                {% elif "кофе" in feature.feature_text.lower %}
+                                    ☕
+                                {% elif "печати" in feature.feature_text.lower or "печать" in feature.feature_text.lower %}
+                                    🖨️
+                                {% elif "звукоизоляция" in feature.feature_text.lower %}
+                                    🔇
+                                {% elif "розетки" in feature.feature_text.lower or "инструменты" in feature.feature_text.lower %}
+                                    🔌
+                                {% elif "личный" in feature.feature_text.lower or "кабинет" in feature.feature_text.lower %}
+                                    🚪
+                                {% elif "командной" in feature.feature_text.lower %}
+                                    👥
+                                {% else %}
+                                    ✅
+                                {% endif %}
+                            </div>
+                            <span class="feature-text">{{ feature.feature_text }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="tariff-price">{{ tariff.price }}</div>
+                    
+                    <div class="tariff-description">
+                        <p>{{ tariff.description }}</p>
+                    </div>
+                    
+                    <a href="#" class="tariff-button">
+                        {{ tariff.button_text }}
+                    </a>
+                </div>
+                {% endfor %}
+            {% else %}
+            <!-- البطاقات الافتراضية الثابتة -->
+            <!-- البطاقة 1: Пробный день -->
+            <div class="tariff-card">
+                <div class="tariff-header">
+                    <div class="tariff-image-placeholder">🆓 Пробный день</div>
+                    <h3 class="tariff-name">🆓 Пробный день</h3>
+                </div>
+                
+                <div class="tariff-divider"></div>
+                
+                <div class="tariff-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">💻</div>
+                        <span class="feature-text">Рабочее место</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📶</div>
+                        <span class="feature-text">Wi-Fi</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">☕</div>
+                        <span class="feature-text">Кофе поинт</span>
+                    </div>
+                </div>
+                
+                <div class="tariff-price">Бесплатно</div>
+                
+                <div class="tariff-description">
+                    <p>Идеально подходит для знакомства с пространством и командой.</p>
+                </div>
+                
+                <a href="#" class="tariff-button">
+                    Забронировать
+                </a>
+            </div>
+            
+            <!-- البطاقة 2: Гибкий график -->
+            <div class="tariff-card">
+                <div class="tariff-header">
+                    <div class="tariff-image-placeholder">🔄 Гибкий график</div>
+                    <h3 class="tariff-name">🔄 Гибкий график</h3>
+                </div>
+                
+                <div class="tariff-divider"></div>
+                
+                <div class="tariff-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">💻</div>
+                        <span class="feature-text">Рабочее место</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🖨️</div>
+                        <span class="feature-text">До 10 листов печати</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">☕</div>
+                        <span class="feature-text">Кофе поинт</span>
+                    </div>
+                </div>
+                
+                <div class="tariff-price">от 500 ₽ / час</div>
+                
+                <div class="tariff-description">
+                    <p>Подходит тем, кто работает удалённо нерегулярно: раз в неделю, на встрече, на интенсиве.</p>
+                </div>
+                
+                <a href="#" class="tariff-button">
+                    Забронировать
+                </a>
+            </div>
+            
+            <!-- البطاقة 3: Закрытый кабинет -->
+            <div class="tariff-card">
+                <div class="tariff-header">
+                    <div class="tariff-image-placeholder">🚪 Закрытый кабинет</div>
+                    <h3 class="tariff-name">🚪 Закрытый кабинет</h3>
+                </div>
+                
+                <div class="tariff-divider"></div>
+                
+                <div class="tariff-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🚪</div>
+                        <span class="feature-text">Ваш личный кабинет для работы</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🖨️</div>
+                        <span class="feature-text">Безлимитная печать</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔇</div>
+                        <span class="feature-text">Звукоизоляция</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔌</div>
+                        <span class="feature-text">Розетки, лампы и другие инструменты</span>
+                    </div>
+                </div>
+                
+                <div class="tariff-price">от 2000 ₽ / день</div>
+                
+                <div class="tariff-description">
+                    <p>Звукоизолированное пространство для концентрации, встреч или командной работы.</p>
+                </div>
+                
+                <a href="#" class="tariff-button">
+                    Забронировать
+                </a>
+            </div>
+            
+            <!-- البطاقة 4: Переговорный кабинет -->
+            <div class="tariff-card">
+                <div class="tariff-header">
+                    <div class="tariff-image-placeholder">💬 Переговорка 1</div>
+                    <h3 class="tariff-name">💬 Переговорный кабинет</h3>
+                </div>
+                
+                <div class="tariff-divider"></div>
+                
+                <div class="tariff-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">👥</div>
+                        <span class="feature-text">Место для работы командной</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🖨️</div>
+                        <span class="feature-text">До 30 листов печати</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔌</div>
+                        <span class="feature-text">Розетки, лампы и другие инструменты</span>
+                    </div>
+                </div>
+                
+                <div class="tariff-price">от 1000 ₽ / час</div>
+                
+                <div class="tariff-description">
+                    <p>Подходит для защиты проектов, воркшопов, консультаций, интервью</p>
+                </div>
+                
+                <a href="#" class="tariff-button">
+                    Забронировать
+                </a>
+            </div>
+            
+            <!-- البطاقة 5: Переговорный кабинет -->
+            <div class="tariff-card">
+                <div class="tariff-header">
+                    <div class="tariff-image-placeholder">💬 Переговорка 2</div>
+                    <h3 class="tariff-name">💬 Переговорный кабинет</h3>
+                </div>
+                
+                <div class="tariff-divider"></div>
+                
+                <div class="tariff-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">👥</div>
+                        <span class="feature-text">Место для работы командной</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🖨️</div>
+                        <span class="feature-text">До 30 листов печати</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔌</div>
+                        <span class="feature-text">Розетки, лампы и другие инструменты</span>
+                    </div>
+                </div>
+                
+                <div class="tariff-price">от 1000 ₽ / час</div>
+                
+                <div class="tariff-description">
+                    <p>Подходит для защиты проектов, воркшопов, консультаций, интервью</p>
+                </div>
+                
+                <a href="#" class="tariff-button">
+                    Забронировать
+                </a>
+            </div>
+            
+            <!-- البطاقة 6: Кабинет руководителя -->
+            <div class="tariff-card">
+                <div class="tariff-header">
+                    <div class="tariff-image-placeholder">👨‍💼 Кабинет руков.</div>
+                    <h3 class="tariff-name">👨‍💼 Кабинет руководителя</h3>
+                </div>
+                
+                <div class="tariff-divider"></div>
+                
+                <div class="tariff-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🚪</div>
+                        <span class="feature-text">Ваш личный кабинет для работы</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🖨️</div>
+                        <span class="feature-text">Безлимитная печать</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔇</div>
+                        <span class="feature-text">Звукоизоляция</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔌</div>
+                        <span class="feature-text">Розетки, лампы и другие инструменты</span>
+                    </div>
+                </div>
+                
+                <div class="tariff-price">от 32 000 ₽ / месяц</div>
+                
+                <div class="tariff-description">
+                    <p>Звукоизолированное пространство для концентрации, встреч или командной работы.</p>
+                </div>
+                
+                <a href="#" class="tariff-button">
+                    Забронировать
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

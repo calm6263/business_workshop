@@ -1,0 +1,2510 @@
+/* research/static/research/css/research.css */
+
+/* ========== أنماط الصفحة التفصيلية (research_detail) ========== */
+.research-detail-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* جعل الصف (row) يستخدم flex و stretch لمساواة الارتفاع */
+.research-detail-page .row {
+    display: flex;
+    align-items: stretch;
+}
+
+/* جعل أعمدة الصف تأخذ الارتفاع الكامل */
+.research-detail-page .col-lg-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+.research-image-wrapper {
+    height: 100%;
+    min-height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.research-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.research-title {
+    font-family: 'Prata', serif;
+    color: #052946;
+    font-size: 32px;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+}
+
+/* أنماط المعلومات المدمجة */
+.info-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.1rem;
+    gap: 10px;
+}
+
+.info-row .info-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    fill: #052946;
+}
+
+.info-row .info-value {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #052946;
+}
+
+.info-value a {
+    color: #052946;
+    text-decoration: underline;
+}
+
+.info-value a:hover {
+    color: #7F1726;
+}
+
+/* الوسوم */
+.tag {
+    display: inline-block;
+    background: #f8f9fa;
+    color: #37556A;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background: #052946 !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+}
+
+/* قسم الوصف */
+.research-description {
+    margin-top: 3rem;
+}
+
+.research-description h2,
+.related-publications h2 {
+    font-family: 'Prata', serif;
+    color: #052946;
+    font-size: 32px;
+    margin-bottom: 1.5rem;
+    padding-left: 25px;
+    position: relative;
+}
+
+.research-description h2::before,
+.related-publications h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #7F1726;
+    border-radius: 50%;
+}
+
+.description-content {
+    font-family: 'Raleway', sans-serif;
+    color: #37556A;
+    font-size: 17px;
+    line-height: 1.7;
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+/* ========== أنماط البطاقة الجديدة (من research_list) ========== */
+.research-card-new {
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 420px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.research-card-new:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.research-image-new {
+    position: relative;
+    height: 144px;
+    overflow: hidden;
+}
+
+.research-image-new img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.research-date-new {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(168, 180, 190, 0.83);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-family: 'Prata', serif;
+    font-size: 14px;
+    color: #313232;
+    font-weight: 400;
+}
+
+.research-content-new {
+    padding: 16px 12px 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.research-title-new {
+    font-family: 'Prata', serif;
+    font-size: 14px;
+    color: #052946;
+    margin-bottom: 12px;
+    line-height: 1.3;
+    min-height: 40px;
+    font-weight: 400;
+}
+
+.research-separator {
+    width: 100%;
+    height: 2px;
+    background: rgba(5, 41, 70, 0.54);
+    margin-bottom: 15px;
+}
+
+.research-description-new {
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #052946;
+    margin-bottom: 15px;
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.research-type-section {
+    margin-bottom: 20px;
+    padding: 8px;
+    background: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.type-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #052946;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+
+.type-dot:hover {
+    background-color: #7F1726;
+}
+
+.type-value-new {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: #052946;
+}
+
+.research-action {
+    text-align: center;
+    margin-top: auto;
+}
+
+.research-read-btn-new {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    background: #052946;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 35px;
+    padding: 10px 20px;
+    font-family: 'Prata', serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 3px 8px rgba(5, 41, 70, 0.2);
+}
+
+.research-read-btn-new:hover {
+    background: #031a2d;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 12px rgba(5, 41, 70, 0.3);
+}
+
+/* ========== أنماط الهيرو والتابات ========== */
+.research-hero-fullwidth {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    margin-right: calc(-50vw + 50%) !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1;
+}
+
+.hero-background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    max-width: none !important;
+    height: 100%;
+    overflow: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 1;
+}
+
+.hero-background-image {
+    width: 100vw !important;
+    max-width: none !important;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-width: 100vw;
+}
+
+.hero-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #7F1726 0%, #052946 100%);
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb {
+    position: absolute;
+    top: 1.05rem;
+    left: 1.4rem;
+    z-index: 20;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    padding: 0.35rem 0.7rem;
+    border-radius: 25px;
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.56rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb .breadcrumb-link {
+    font-weight: 400;
+    font-size: 0.63rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb .breadcrumb-current {
+    font-weight: 400;
+    font-size: 0.63rem;
+    color: #FFFFFF;
+    opacity: 0.9;
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb .breadcrumb-arrow {
+    position: relative;
+    width: 11.2px;
+    height: 11.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb .breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 2px;
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb .breadcrumb-arrow .arrow-top {
+    width: 7px;
+    height: 2px;
+    top: 5px;
+    right: 2px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.hero-breadcrumb.schedule-slider-breadcrumb .breadcrumb-arrow .arrow-bottom {
+    width: 7px;
+    height: 2px;
+    bottom: 5px;
+    right: 2px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+.hero-content-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 1200px;
+    padding: 0 20px;
+    pointer-events: none;
+}
+
+.hero-text-container {
+    background: transparent !important;
+    padding: 1rem 1.5rem !important;
+    border-radius: 15px;
+    max-width: 900px;
+    width: 100%;
+    pointer-events: auto;
+}
+
+.hero-title {
+    font-family: 'Prata', serif;
+    font-size: 2.24rem;
+    font-weight: 400;
+    color: #ffffff !important;
+    line-height: 1.2;
+    margin: 0 auto 1.05rem;
+    text-shadow: 1px 1px 3px rgba(255,255,255,0.7) !important;
+}
+
+.hero-navigation-tabs {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110px;
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.nav-tab-container {
+    display: flex;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    position: relative;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent 90%, #052946 90%);
+    overflow: visible;
+    justify-content: space-evenly;
+    pointer-events: auto;
+}
+
+.nav-tab-hero {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 80px;
+    text-decoration: none;
+    position: relative;
+    transform-origin: bottom;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.nav-tab-hero:hover {
+    transform: translateY(-7px);
+    z-index: 20;
+}
+
+.nav-tab-hero:hover .nav-tab-background {
+    background: #1a3a5a;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.nav-tab-background {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    background: #052946;
+    border-radius: 0px 0px 60px 60px;
+    transform: matrix(1, 0, 0, -1, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-tab-hero.active .nav-tab-background {
+    background: #FFFFFF;
+    border: 5px solid #052946;
+    border-top: none;
+    height: 55px;
+}
+
+.nav-tab-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+.nav-tab-text {
+    font-family: 'Prata', serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1;
+    text-align: center;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 5px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    white-space: nowrap;
+}
+
+.nav-tab-hero.active .nav-tab-text {
+    color: #052946;
+    font-size: 1.1rem;
+    text-shadow: none;
+}
+
+.research-main-content {
+    margin-top: 5rem;
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.tab-content {
+    transition: opacity 0.3s ease;
+}
+
+/* تحسينات لعرض نص التبويب الطويل على الشاشات الصغيرة - تحديث 2026 */
+@media screen and (max-width: 992px) {
+    .nav-tab-text {
+        font-size: 0.85rem;
+        white-space: normal;
+        line-height: 1.2;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .nav-tab-hero.active .nav-tab-text {
+        font-size: 0.95rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nav-tab-text {
+        white-space: normal;
+        font-size: 0.7rem;
+        line-height: 1.2;
+        padding-left: 4px;
+        padding-right: 4px;
+        word-break: break-word;
+    }
+    .nav-tab-hero.active .nav-tab-text {
+        font-size: 0.75rem;
+    }
+    .hero-navigation-tabs {
+        height: 100px;
+    }
+    .nav-tab-container {
+        height: 65px;
+    }
+    .nav-tab-hero {
+        height: 65px;
+    }
+    .nav-tab-background {
+        height: 40px;
+    }
+    .nav-tab-hero.active .nav-tab-background {
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .nav-tab-text {
+        font-size: 0.6rem;
+        line-height: 1.1;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+    .nav-tab-hero.active .nav-tab-text {
+        font-size: 0.65rem;
+    }
+    .hero-navigation-tabs {
+        height: 85px;
+    }
+    .nav-tab-container {
+        height: 55px;
+    }
+    .nav-tab-hero {
+        height: 55px;
+    }
+    .nav-tab-background {
+        height: 35px;
+    }
+    .nav-tab-hero.active .nav-tab-background {
+        height: 45px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-tab-text {
+        font-size: 0.55rem;
+        line-height: 1.1;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+    .nav-tab-hero.active .nav-tab-text {
+        font-size: 0.6rem;
+    }
+    .hero-navigation-tabs {
+        height: 75px;
+    }
+    .nav-tab-container {
+        height: 48px;
+    }
+    .nav-tab-hero {
+        height: 48px;
+    }
+    .nav-tab-background {
+        height: 30px;
+    }
+    .nav-tab-hero.active .nav-tab-background {
+        height: 40px;
+    }
+}
+
+/* ========== أنماط شريط الفلاتر ========== */
+.filters-section {
+    padding: 0.7rem 0;
+    margin: 2rem 0 3rem 0;
+    position: relative;
+    z-index: 100;
+}
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.main-filter {
+    position: relative;
+    min-width: 160px;
+    flex: 1 1 auto;
+}
+
+.filter-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.45rem 0.8rem;
+    background: #FFFFFF;
+    border: none;
+    border-bottom: 1.5px solid #052946;
+    box-shadow: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+}
+
+.filter-trigger:hover {
+    border-bottom-color: #7F1726;
+}
+
+.filter-trigger.active {
+    border-bottom: 1.5px solid #052946;
+}
+
+.filter-label {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: #052946;
+    text-align: center;
+}
+
+.filter-arrow {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.filter-arrow.open {
+    transform: rotate(180deg);
+}
+
+.filter-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #052946;
+    border-top: none;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0px 6px 11px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-7px);
+    transition: all 0.3s ease;
+    z-index: 1050;
+    overflow: hidden;
+}
+
+.filter-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.filter-options {
+    padding: 0.7rem 0;
+}
+
+.filter-option {
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.filter-option:hover .option-text {
+    color: #7F1726;
+}
+
+.filter-option.active .option-text {
+    color: #052946;
+    font-weight: 500;
+}
+
+.option-text {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #052946;
+    display: block;
+    text-align: center;
+}
+
+/* ========== أنماط القائمة الرأسية في Мы в СМИ ========== */
+.publications-list-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 1.5rem;
+}
+
+.publication-link {
+    font-family: 'Prata', serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-decoration: underline;
+    color: #37556A;
+}
+
+.publication-link:hover {
+    color: #7F1726;
+}
+
+/* تحسين للشاشات الصغيرة */
+@media (max-width: 1200px) {
+    .publication-link {
+        font-size: 42px;
+    }
+}
+@media (max-width: 992px) {
+    .publication-link {
+        font-size: 36px;
+    }
+}
+@media (max-width: 768px) {
+    .research-image-wrapper {
+        height: auto;
+    }
+    .info-row {
+        font-size: 16px;
+    }
+    .info-icon {
+        width: 34px;
+        height: 34px;
+        margin-right: 12px;
+    }
+    .publication-link {
+        font-size: 30px;
+    }
+    .publications-list-vertical {
+        gap: 15px;
+    }
+}
+@media (max-width: 576px) {
+    .research-title {
+        font-size: 28px;
+    }
+    .info-row {
+        font-size: 15px;
+    }
+    .info-icon {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+    .publication-link {
+        font-size: 24px;
+    }
+    .publications-list-vertical {
+        gap: 12px;
+    }
+}
+@media (max-width: 480px) {
+    .publication-link {
+        font-size: 20px;
+    }
+}
+
+/* ========== أنماط جديدة لتفاصيل المؤتمر (مشتقة من events_detail) ========== */
+.event-detail-section {
+    padding: 2rem 0;
+}
+
+.event-detail-image-square {
+    width: 100%;
+    aspect-ratio: 1 / 0.65;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.event-detail-image-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.event-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.event-short-description {
+    font-family: 'Prata', serif;
+    font-size: 1.8rem;
+    line-height: 1.3;
+    color: #052946;
+    margin-bottom: 0.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.info-item .info-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    margin-top: 0;
+}
+
+.info-item .info-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 0.5rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #052946;
+    line-height: 26px;
+}
+
+.info-item .info-label {
+    font-weight: 500;
+    color: rgba(5, 41, 70, 0.7);
+    line-height: 26px;
+}
+
+.info-item .info-value {
+    font-weight: 400;
+    line-height: 26px;
+}
+
+.info-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: #052946;
+}
+
+.register-button-wrapper .btn-register-detail {
+    display: inline-block;
+    background: #052946;
+    border: none;
+    border-radius: 40px;
+    padding: 0.7rem 2.2rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #FDFDFD;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    max-width: 360px;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    text-align: center;
+}
+
+.register-button-wrapper .btn-register-detail:hover {
+    background: #7F1726;
+    transform: translateY(-2px);
+}
+
+.register-button-wrapper .btn-register-detail:disabled,
+.register-button-wrapper .btn-register-detail.registration-ended {
+    background: #4B879E !important;
+    cursor: not-allowed;
+    opacity: 0.9;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
+}
+
+.section-heading {
+    font-family: 'Prata', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #052946;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 24px;
+    line-height: 1.2;
+}
+
+.section-heading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 10px;
+    height: 10px;
+    background: #7F1726;
+    border-radius: 50%;
+    transition: all 0.25s ease;
+}
+
+.section-heading:hover::before {
+    transform: scale(1.6);
+    box-shadow: 0 0 10px rgba(127, 23, 38, 0.5);
+}
+
+.section-heading.no-dot {
+    padding-left: 0;
+}
+
+.section-heading.no-dot::before {
+    display: none;
+}
+
+.detailed-description-content {
+    font-family: 'Inter', 'Raleway', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #37556A;
+    margin-bottom: 2rem;
+    max-width: 100%;
+}
+
+.contacts-location-row {
+    margin-top: 1.5rem;
+}
+
+.contact-details p,
+.location-details p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #052946;
+    margin-bottom: 0.6rem;
+}
+
+.contact-details strong {
+    font-weight: 600;
+    color: #052946;
+}
+
+.contact-detail {
+    font-family: 'Inter', 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    color: #052946;
+}
+
+.map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #052946;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.map-link:hover {
+    background: none;
+    transform: translateY(-1px);
+}
+
+.map-link svg {
+    width: 18px;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.map-link:hover svg {
+    transform: translateX(3px);
+}
+
+.map-link svg path {
+    stroke: #052946;
+}
+
+/* ===== أنماط المشاركة ===== */
+.section-heading-wrapper {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .section-heading-wrapper {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
+
+.section-heading-wrapper .section-heading {
+    margin-bottom: 0;
+}
+
+.share-contact-btn {
+    background: #052946;
+    color: #FDFDFD;
+    border: none;
+    border-radius: 80px;
+    padding: 8px 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+    top: 2px;
+}
+
+.share-contact-btn:hover {
+    background: #7F1726;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(127,23,38,0.3);
+}
+
+.share-contact-btn svg {
+    width: 30px;
+    height: auto;
+    fill: white;
+}
+
+/* ===== مودال المشاركة ===== */
+.share-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    z-index: 30000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.share-modal {
+    background: #FFFFFF;
+    border-radius: 30px;
+    padding: 30px 25px;
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.share-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: #052946;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.share-modal-close:hover {
+    background: #f0f0f0;
+}
+
+.share-modal-title {
+    font-family: 'Prata', serif;
+    font-size: 1.8rem;
+    color: #052946;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.share-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.share-modal-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #052946;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+}
+
+.share-modal-item:hover {
+    background: #e9ecef;
+    transform: translateY(-3px);
+}
+
+.share-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: bold;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.share-icon-tg { background-color: #0088cc; }
+.share-icon-vk { background-color: #4C75A3; }
+.share-icon-tw { background-color: #1DA1F2; }
+.share-icon-copy { background-color: #052946; font-size: 1.4rem; }
+
+.copy-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #052946;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    z-index: 10000;
+    animation: fadeInOut 2s ease forwards;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+}
+
+/* ===== أنماط مودال التسجيل ===== */
+.registration-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    overflow: auto;
+}
+
+.registration-modal.active {
+    display: block;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background: #FFFFFF;
+    border: 2px solid #052946;
+    border-radius: 20px;
+    max-width: 450px;
+    margin: 15px auto;
+    padding: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #052946;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    background: #ffffff;
+    transform: scale(1.1);
+}
+
+.modal-title {
+    font-family: 'Prata', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #052946;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(5, 41, 70, 0.54);
+    font-weight: 500;
+}
+
+.form-input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 45px;
+    background: #FFFFFF;
+    border: 1px solid #052946;
+    border-radius: 12px;
+    padding: 0 15px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    color: #052946;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #7F1726;
+    box-shadow: 0 0 0 3px rgba(127, 23, 38, 0.1);
+}
+
+.form-input::placeholder {
+    color: rgba(5, 41, 70, 0.3);
+}
+
+.agreement-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.agreement-checkbox {
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    accent-color: #052946;
+    flex-shrink: 0;
+}
+
+.agreement-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(5, 41, 70, 0.54);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.submit-registration-btn {
+    width: 100%;
+    height: 50px;
+    background: #052946;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 40px;
+    font-family: 'Prata', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-registration-btn:hover {
+    background: #7F1726;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(127, 23, 38, 0.3);
+}
+
+/* مودال الزوار */
+.guest-modal.active {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.guest-modal .modal-content {
+    position: relative;
+    background: #FFFFFF;
+    border: 2px solid #052946;
+    border-radius: 48px;
+    max-width: 600px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 40px 30px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.guest-modal-title {
+    font-family: 'Prata', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #052946;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    text-align: center;
+    width: 100%;
+}
+
+.guest-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.guest-message {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: #052946;
+    line-height: 1.4;
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.guest-login-btn {
+    background: #052946;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 32px;
+    font-family: 'Prata', serif;
+    font-size: 24px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-align: center;
+    cursor: pointer;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.guest-login-btn:hover {
+    background: #7F1726;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(127, 23, 38, 0.3);
+}
+
+/* ===== مودال النجاح ===== */
+.success-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.success-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.success-icon {
+    font-size: 2.5rem;
+    color: #4CAF50;
+    margin-bottom: 12px;
+}
+
+.success-title {
+    font-family: 'Prata', serif;
+    font-size: 1.3rem;
+    color: #052946;
+    margin-bottom: 12px;
+}
+
+.success-message {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    color: #052946;
+    line-height: 1.3;
+    margin-bottom: 15px;
+}
+
+.success-close-btn {
+    background: #052946;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.success-close-btn:hover {
+    background: #7F1726;
+}
+
+/* ===== قسم الفيديو ===== */
+.event-video-section {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(5, 41, 70, 0.1);
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    margin: 1rem auto 0.5rem;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background: #052946;
+}
+
+.video-wrapper video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+.video-hint {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(5, 41, 70, 0.7);
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.event-video-section .section-heading {
+    font-size: 1.3rem;
+    margin-bottom: 0.2rem;
+    text-align: left;
+}
+
+/* ===== زر العودة الموحد (معدل) ===== */
+.back-button-advanced {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: #052946;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    transition: opacity 0.2s ease;
+    padding: 0;
+}
+
+.back-button-advanced:hover {
+    opacity: 0.7;
+}
+
+.back-button-advanced svg {
+    width: auto;
+    height: 2rem;
+    transition: transform 0.2s ease;
+}
+
+.back-button-advanced:hover svg {
+    transform: translateX(-5px);
+}
+
+/* تحسينات للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .back-button-advanced {
+        font-size: 1.2rem;
+        gap: 10px;
+    }
+    .back-button-advanced svg {
+        height: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-button-advanced {
+        font-size: 1rem;
+    }
+}
+
+.back-button-container {
+    margin-top: -4rem;
+}
+
+/* الصف الرئيسي: اجعل الأعمدة تتمدد بنفس الارتفاع */
+.event-detail-main-row {
+    display: flex;
+    align-items: stretch !important;
+}
+
+.event-detail-main-row .col-md-6:first-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-detail-image-square {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.event-detail-image-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.event-detail-section .section-heading:first-of-type {
+    margin-top: 6.5rem;
+}
+
+.research-detail-page .row {
+    --bs-gutter-x: 3rem;
+}
+
+/* ===== زر تحميل البروشور ===== */
+.brochure-download-wrapper {
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+.brochure-download-btn {
+    display: inline-block;
+    background: #7F1726;
+    border-radius: 40px;
+    padding: 0 25px;
+    height: 45px;
+    line-height: 45px;
+    font-family: 'Prata', serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    max-width: 390px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(127, 23, 38, 0.3);
+}
+
+.brochure-download-btn:hover {
+    background: #a01f30;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(127, 23, 38, 0.4);
+    color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+    .brochure-download-btn {
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        max-width: 85%;
+        border-radius: 30px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .brochure-download-btn {
+        height: auto;
+        line-height: 1.3;
+        font-size: 14px;
+        padding: 10px 15px;
+        white-space: normal;
+        border-radius: 25px;
+        max-width: 90%;
+    }
+}
+
+/* ===== أنماط المجلس ===== */
+#youth-council-content .department-section {
+    padding-left: 0;
+}
+
+#youth-council-content .department-title-wrapper {
+    padding-left: 15px;
+    margin-bottom: 21px;
+    background: transparent !important;
+}
+
+#youth-council-content .department-title-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#youth-council-content .department-circle {
+    width: 14px;
+    height: 14px;
+    background: #7F1726;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+    box-shadow: 0 2px 5px rgba(127, 23, 38, 0.3);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+#youth-council-content .department-title {
+    font-family: 'Prata', serif;
+    font-weight: 400;
+    font-size: 25px;
+    color: #052946;
+    margin: 0;
+    line-height: 1.2;
+    position: relative;
+    text-shadow: none;
+    background: transparent;
+}
+
+#youth-council-content .department-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(127, 23, 38, 0.5), transparent);
+    margin: 28px auto;
+    max-width: 80%;
+}
+
+#youth-council-content .council-card {
+    height: auto;
+    min-height: 168px;
+    margin: 0 0 16px 0;
+    border-radius: 9px;
+    background: #ffffff;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: blur(5px);
+    transition: none;
+}
+
+#youth-council-content .council-card-link {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    padding: 12px;
+}
+
+#youth-council-content .council-card-image {
+    position: relative;
+    width: 242px;
+    height: 284px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-right: 24px;
+    border: none;
+}
+
+#youth-council-content .council-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+#youth-council-content .council-card:hover .council-img {
+    transform: scale(1.05);
+}
+
+#youth-council-content .council-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 5px;
+    background: transparent;
+    transform: none;
+    position: static;
+    height: auto;
+    padding-top: 5px;
+}
+
+#youth-council-content .council-card-name {
+    font-family: 'Raleway', sans-serif;
+    color: #052946;
+    font-size: 1.53rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+
+#youth-council-content .council-card-position {
+    font-family: 'Raleway', sans-serif;
+    color: #052946;
+    font-size: 1.12rem;
+    font-weight: 400;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    line-height: 1.4;
+}
+
+#youth-council-content .view-profile-btn,
+#youth-council-content .teacher-card-overlay {
+    display: none !important;
+}
+
+@media (max-width: 992px) {
+    #youth-council-content .council-card {
+        min-height: 150px;
+    }
+    #youth-council-content .council-card-image {
+        width: 110px;
+        height: 143px;
+        border-radius: 12px;
+    }
+    #youth-council-content .council-card-name {
+        font-size: 1.15rem;
+        margin-bottom: 20px;
+    }
+    #youth-council-content .council-card-position {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #youth-council-content .council-card {
+        min-height: 140px;
+    }
+    #youth-council-content .council-card-image {
+        width: 100px;
+        height: 130px;
+        border-radius: 10px;
+    }
+    #youth-council-content .council-card-name {
+        font-size: 1.08rem;
+        margin-bottom: 18px;
+    }
+    #youth-council-content .council-card-position {
+        font-size: 0.85rem;
+    }
+    #youth-council-content .filters-container .main-filter {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    #youth-council-content .council-card {
+        min-height: 130px;
+    }
+    #youth-council-content .council-card-image {
+        width: 90px;
+        height: 118px;
+        border-radius: 8px;
+    }
+    #youth-council-content .council-card-name {
+        font-size: 0.98rem;
+        margin-bottom: 16px;
+    }
+    #youth-council-content .council-card-position {
+        font-size: 0.78rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #youth-council-content .council-card {
+        min-height: 120px;
+    }
+    #youth-council-content .council-card-image {
+        width: 80px;
+        height: 105px;
+        border-radius: 6px;
+    }
+    #youth-council-content .council-card-name {
+        font-size: 0.9rem;
+        margin-bottom: 14px;
+    }
+    #youth-council-content .council-card-position {
+        font-size: 0.72rem;
+    }
+    #youth-council-content .council-card-name,
+    #youth-council-content .council-card-position {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+}
+
+#youth-council-content .filters-container .main-filter {
+    flex: 0 1 auto;
+    width: 20%;
+    min-width: unset;
+}
+
+#youth-council-content .filter-trigger {
+    border-bottom-width: 0.9px;
+}
+
+#youth-council-content .filters-container {
+    padding-left: 15px;
+}
+
+/* ===== أنماط تفاصيل العضو ===== */
+#youth-council-content .member-detail-inline {
+    margin-top: 1.4rem;
+}
+
+#youth-council-content .member-detail-container {
+    background: #FFFFFF;
+    border-radius: 21px;
+    overflow: hidden;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#youth-council-content .member-detail-header {
+    padding: 2rem;
+    background: #FFFFFF;
+}
+
+#youth-council-content .member-header-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+#youth-council-content .member-detail-image {
+    width: 380px;
+    height: 480px;
+    border-radius: 30px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+#youth-council-content .member-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+#youth-council-content .member-detail-image:hover img {
+    transform: scale(1.02);
+}
+
+#youth-council-content .member-header-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+#youth-council-content .member-detail-name {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: #052946;
+    margin: 0 0 30px 0;
+    line-height: 1.2;
+}
+
+#youth-council-content .member-positions {
+    margin: 0 2rem 2rem 2rem;
+    padding: 0 2rem;
+}
+
+#youth-council-content .member-positions p {
+    position: relative;
+    padding-left: 1.8rem;
+    margin-bottom: 1rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #052946;
+}
+
+#youth-council-content .member-positions p::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 10px;
+    height: 10px;
+    background: #052946;
+    border-radius: 50%;
+}
+
+#youth-council-content .member-full-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #052946;
+    margin: 0 2rem 2rem 2rem;
+    padding: 0 2rem;
+}
+
+#youth-council-content .section-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 2.5rem 0 1.5rem 0;
+    padding: 0 2rem;
+}
+
+#youth-council-content .section-title {
+    font-family: 'Prata', serif;
+    font-weight: 400;
+    font-size: 2.2rem;
+    color: #052946;
+    margin: 0;
+}
+
+#youth-council-content .section-dot.red {
+    width: 12px;
+    height: 12px;
+    background: #7F1726;
+    border-radius: 50%;
+}
+
+#youth-council-content .contact-section {
+    margin: 2rem;
+    padding: 0 2rem;
+}
+
+#youth-council-content .contact-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem 2rem;
+    align-items: baseline;
+    max-width: 800px;
+}
+
+#youth-council-content .contact-label {
+    min-width: 120px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #052946;
+    text-align: right;
+    white-space: nowrap;
+}
+
+#youth-council-content .contact-value {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #052946;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    word-break: break-word;
+}
+
+#youth-council-content .contact-value.phone {
+    font-family: 'Noto Sans Tamil', sans-serif;
+    font-weight: 300;
+    text-decoration: none;
+}
+
+/* ===== زر الرجوع (back-to-cards-btn) ===== */
+#youth-council-content .back-to-cards-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: none;
+    border: none;
+    color: #052946;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    transition: opacity 0.2s ease;
+}
+
+#youth-council-content .back-to-cards-btn svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease;
+}
+
+#youth-council-content .back-to-cards-btn:hover svg {
+    transform: translateX(-5px);
+}
+
+#youth-council-content .back-to-cards-btn:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    #youth-council-content .member-detail-image {
+        width: 300px;
+        height: 300px;
+    }
+    #youth-council-content .member-detail-name {
+        font-size: 2rem;
+    }
+    #youth-council-content .contact-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    #youth-council-content .contact-label {
+        text-align: center;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    #youth-council-content .member-detail-image {
+        width: 240px;
+        height: 240px;
+    }
+    #youth-council-content .member-detail-name {
+        font-size: 1.8rem;
+    }
+    #youth-council-content .back-to-cards-btn {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===== مؤشر التحميل للتفاصيل المحملة ديناميكيًا ===== */
+.detail-loading {
+    text-align: center;
+    padding: 40px;
+    color: #052946;
+    font-family: 'Raleway', sans-serif;
+}
+
+.spinner {
+    border: 4px solid rgba(5, 41, 70, 0.1);
+    border-left-color: #052946;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.conference-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* ===== التعديلات الجديدة للشاشات الصغيرة والمتوسطة ===== */
+@media (max-width: 992px) {
+    .filters-container {
+        gap: 20px;
+    }
+    .main-filter {
+        min-width: 130px;
+    }
+    .filter-label {
+        font-size: 1rem;
+    }
+    .option-text {
+        font-size: 0.9rem;
+    }
+    .filter-dropdown {
+        z-index: 1050;
+    }
+    .research-card-new {
+        max-width: 280px;
+    }
+    .research-hero-fullwidth {
+        height: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .main-filter {
+        width: 100%;
+        max-width: none;
+    }
+    .filter-trigger {
+        justify-content: space-between;
+    }
+    .filter-dropdown {
+        position: absolute;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    .research-card-new {
+        max-width: 260px;
+        min-height: auto;
+    }
+    .research-content-new {
+        padding: 12px 8px 16px;
+    }
+    .research-title-new {
+        font-size: 12px;
+        min-height: 30px;
+    }
+    .research-description-new {
+        font-size: 10px;
+    }
+    .type-value-new {
+        font-size: 10px;
+    }
+    .research-read-btn-new {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+    .research-hero-fullwidth {
+        height: 220px;
+    }
+
+    /* تحسينات صفحة التفاصيل */
+    .research-detail-page .research-image-wrapper {
+        max-height: 400px;
+        min-height: auto;
+    }
+    .research-description .description-content {
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 1.8;
+    }
+
+    /* تحسين نافذة التسجيل */
+    #conferenceRegistrationModalList .modal-content,
+    #conferenceRegistrationModalGuestList .modal-content {
+        max-width: 90%;
+        padding: 15px;
+        margin: 10px auto;
+    }
+    #conferenceRegistrationModalList .modal-title,
+    #conferenceRegistrationModalGuestList .guest-modal-title {
+        font-size: 1.3rem;
+    }
+    #conferenceRegistrationModalList .form-input {
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    #conferenceRegistrationModalList .submit-registration-btn {
+        height: 45px;
+        font-size: 1rem;
+    }
+    #conferenceRegistrationModalGuestList .guest-login-btn {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+    }
+
+    /* تحسين تبويب "Молодежный ученый совет" */
+    .nav-tab-hero[href="#youth-council"] .nav-tab-text {
+        white-space: normal;
+        line-height: 1.2;
+        font-size: 0.7rem;
+        padding-left: 4px;
+        padding-right: 4px;
+        word-break: break-word;
+    }
+    #youth-council-content .filters-container .main-filter {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    #youth-council-content .filter-trigger {
+        justify-content: center;
+        padding: 0.6rem 1rem;
+    }
+    #youth-council-content .filter-label {
+        font-size: 1rem;
+        text-align: center;
+    }
+    #youth-council-content .filter-dropdown {
+        position: absolute;
+        width: 100%;
+        max-height: 250px;
+        overflow-y: auto;
+        background: #ffffff;
+        border: 1px solid #052946;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        z-index: 1060;
+    }
+    #youth-council-content .filter-option {
+        padding: 0.6rem 1rem;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    #youth-council-content .filter-option:last-child {
+        border-bottom: none;
+    }
+    #youth-council-content .filter-option:hover {
+        background: #f5f5f5;
+    }
+    #youth-council-content .filter-option.active {
+        background: #e9ecef;
+        font-weight: 600;
+    }
+    #youth-council-content .filter-arrow {
+        margin-left: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    .research-card-new {
+        max-width: 240px;
+    }
+    .research-title-new {
+        font-size: 11px;
+    }
+    .research-description-new {
+        font-size: 9px;
+    }
+    .research-read-btn-new {
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+    .research-hero-fullwidth {
+        height: 180px;
+    }
+}
+.contacts-location-row .contact-details {
+    margin-top: 1.5rem; /* يمكنك تعديل القيمة حسب الرغبة */
+}
+.contacts-location-row .location-details {
+    margin-top: 1.7rem; /* نفس قيمة margin-top المستخدمة لـ .contact-details */
+}
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+}
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+}
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.2rem;
+    }
+}
+/* research/static/research/css/research.css */
+
+/* ... باقي الأنماط ... */
+
+/* تحسينات لعرض تفاصيل العضو على الشاشات المتوسطة والصغيرة */
+@media (max-width: 768px) {
+    #youth-council-content .member-detail-name {
+        font-size: 1.8rem; /* تصغير حجم الاسم */
+    }
+    #youth-council-content .member-positions p {
+        text-align: right; /* محاذاة المنصب لليمين */
+    }
+    #youth-council-content .section-title {
+        font-size: 1.8rem; /* تصغير حجم "Об участнике" */
+    }
+    #youth-council-content .member-full-description {
+        font-size: 1rem;      /* حجم مناسب للنص */
+        line-height: 1.6;      /* تحسين التباعد */
+        padding: 0 1rem;       /* إضافة مسافة جانبية */
+        margin-bottom: 1.5rem;
+    }
+    #youth-council-content .contact-section {
+        padding: 0 1rem;       /* مسافة جانبية لجهات الاتصال */
+    }
+    #youth-council-content .contact-label,
+    #youth-council-content .contact-value {
+        font-size: 1.2rem;     /* تصغير خط التسميات والقيم */
+    }
+    #youth-council-content .share-contact-btn {
+        font-size: 0.9rem;     /* تصغير خط الزر */
+        padding: 6px 12px;
+    }
+    #youth-council-content .share-contact-btn svg {
+        width: 30px;            /* تصغير الأيقونة */
+        height: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    #youth-council-content .member-detail-name {
+        font-size: 1.5rem;      /* تصغير إضافي للاسم */
+    }
+    #youth-council-content .section-title {
+        font-size: 1.5rem;      /* تصغير إضافي لعنوان "Об участнике" */
+    }
+    #youth-council-content .member-full-description {
+        font-size: 0.95rem;
+        padding: 0 0.5rem;
+    }
+    #youth-council-content .contact-label,
+    #youth-council-content .contact-value {
+        font-size: 1rem;        /* تصغير إضافي لجهات الاتصال */
+    }
+    #youth-council-content .share-contact-btn {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+    #youth-council-content .share-contact-btn svg {
+        width: 24px;
+    }
+}
+/* تحسين عرض المنصب على الشاشات المتوسطة والصغيرة */
+@media (max-width: 768px) {
+    #youth-council-content .member-positions {
+        margin: 0 1rem 1.5rem; /* تقليل الهوامش الجانبية */
+        padding: 0;
+    }
+    #youth-council-content .member-positions p {
+        text-align: left; /* محاذاة النص إلى أقصى اليسار */
+        padding-left: 1.8rem; /* مسافة كافية للنقطة */
+        font-size: 1.1rem; /* تصغير الخط قليلاً */
+        line-height: 1.5;
+        margin-bottom: 0.8rem;
+    }
+    #youth-council-content .member-positions p::before {
+        left: 0; /* النقطة تبقى على اليسار */
+        top: 0.5rem; /* تعديل الوضع الرأسي */
+    }
+}
+
+@media (max-width: 576px) {
+    #youth-council-content .member-positions p {
+        font-size: 1rem;
+        padding-left: 1.5rem;
+    }
+    #youth-council-content .member-positions p::before {
+        width: 8px;
+        height: 8px;
+        top: 0.45rem;
+    }
+}

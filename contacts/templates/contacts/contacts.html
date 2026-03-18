@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Контакты - Бизнес-Мастерская{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'contacts/css/contacts.css' %}">
+
+<div class="contacts-page">
+    <!-- Hero Section (if exists) -->
+    {% if contact_hero %}
+    <div class="contact-hero-section">
+        <div class="hero-container">
+            <img src="{{ contact_hero.image.url }}" alt="{{ contact_hero.title }}" class="hero-background">
+            <div class="hero-overlay"></div>
+            
+            {% if contact_hero.show_breadcrumb %}
+            <div class="hero-breadcrumb">
+                <div class="container">
+                    <div class="breadcrumb-content">
+                        <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                        <div class="breadcrumb-arrow">
+                            <div class="arrow-line arrow-top"></div>
+                            <div class="arrow-line arrow-bottom"></div>
+                        </div>
+                        <span class="breadcrumb-current">Контакты</span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="hero-content">
+                <div class="container">
+                    {% if contact_hero.subtitle %}
+                    <div class="hero-subtitle">{{ contact_hero.subtitle }}</div>
+                    {% endif %}
+                    <h1 class="hero-title">{{ contact_hero.title }}</h1>
+                    {% if contact_hero.description %}
+                    <div class="hero-description">{{ contact_hero.description }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- Regular breadcrumb (no hero) -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Контакты</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Organization full name (still outside the grid as a heading) -->
+    <div class="container" style="margin-top: 2rem; margin-bottom: 1rem;">
+        <div class="org-name">
+            {{ organization_info.full_name|default:"Автономная некоммерческая организация дополнительного профессионального образования “Академия «Пять Башен»”" }}
+        </div>
+    </div>
+
+    <!-- Contact sections grid -->
+<div class="contacts-grid container">
+    <!-- ===== MAIN INFO CARD (full width) ===== -->
+    <div class="contact-card full-width-card">
+        <h2 class="card-title">
+            <span class="red-dot"></span>
+            Основная информация
+        </h2>
+        <div class="contact-details">
+            <!-- Phone line with icon removed -->
+            <div class="contact-row">
+                <span class="contact-label">Телефон:</span>
+                <span class="contact-value">
+                    {% if organization_info.general_phone %}
+                        {{ organization_info.general_phone }}
+                    {% else %}
+                        +7 (968) 418-44-88 ; +7 (495) 000-00-00
+                    {% endif %}
+                </span>
+            </div>
+            <!-- Email line with icon removed -->
+            <div class="contact-row">
+                <span class="contact-label">E-mail:</span>
+                <span class="contact-value">
+                    {% if organization_info.general_email %}
+                        {{ organization_info.general_email }}
+                    {% else %}
+                        info.fta@mail.ru
+                    {% endif %}
+                </span>
+            </div>
+            <!-- Address line with icon removed -->
+            <div class="contact-row">
+                <span class="contact-label">Адрес:</span>
+                <span class="contact-value">
+                    {% if organization_info.address %}
+                        {{ organization_info.address }}
+                    {% else %}
+                        107078, г. Москва, Садовая-Спасская 19к1
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- باقي البطاقات الأربع (ديناميكية أو ثابتة) -->
+    {% for section in contact_sections %}
+    <div class="contact-card">
+        <h2 class="card-title">
+            <span class="red-dot"></span>
+            {{ section.title }}
+        </h2>
+        {% if section.department_name %}
+        <div class="department-name">{{ section.department_name }}</div>
+        {% endif %}
+        <div class="contact-details">
+            <div class="contact-row">
+                <span class="contact-label">Телефон:</span>
+                <span class="contact-value">{{ section.phone }}</span>
+            </div>
+            <div class="contact-row">
+                <span class="contact-label">E-mail:</span>
+                <span class="contact-value">{{ section.email }}</span>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <!-- Fallback sections -->
+    <div class="contact-card">
+        <h2 class="card-title"><span class="red-dot"></span>Прием документов</h2>
+        <div class="contact-details">
+            <div class="contact-row"><span class="contact-label">Телефон:</span><span class="contact-value">+7 (968) 418-44-88</span></div>
+            <div class="contact-row"><span class="contact-label">E-mail:</span><span class="contact-value">info.fta@mail.ru</span></div>
+        </div>
+    </div>
+    <div class="contact-card">
+        <h2 class="card-title"><span class="red-dot"></span>Услуги одного окна</h2>
+        <div class="contact-details">
+            <div class="contact-row"><span class="contact-label">Телефон:</span><span class="contact-value">+7 (968) 418-44-88</span></div>
+            <div class="contact-row"><span class="contact-label">E-mail:</span><span class="contact-value">info.fta@mail.ru</span></div>
+        </div>
+    </div>
+    <div class="contact-card">
+        <h2 class="card-title"><span class="red-dot"></span>Контакты для СМИ</h2>
+        <div class="department-name">Центр по связям с общественностью</div>
+        <div class="contact-details">
+            <div class="contact-row"><span class="contact-label">Телефон:</span><span class="contact-value">+7 (968) 418-44-88</span></div>
+            <div class="contact-row"><span class="contact-label">E-mail:</span><span class="contact-value">info.fta@mail.ru</span></div>
+        </div>
+    </div>
+    <div class="contact-card">
+        <h2 class="card-title"><span class="red-dot"></span>Техническая поддержка IT</h2>
+        <div class="department-name">Управление цифровой трансформации</div>
+        <div class="contact-details">
+            <div class="contact-row"><span class="contact-label">Телефон:</span><span class="contact-value">+7 (968) 418-44-88</span></div>
+            <div class="contact-row"><span class="contact-label">E-mail:</span><span class="contact-value">info.fta@mail.ru</span></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    <!-- Social media (optional) -->
+    {% if social_media %}
+    <div class="social-media-section container">
+        {% for social in social_media %}
+        <a href="{{ social.url }}" target="_blank" class="social-link">
+            {% if social.icon_class %}
+            <i class="{{ social.icon_class }}"></i>
+            {% else %}
+            <i class="fas fa-share-alt"></i>
+            {% endif %}
+            {{ social.name }}
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Мероприятия</h2>
+    <a href="{% url 'dashboards:event_add' %}" class="btn-add">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        Добавить мероприятие
+    </a>
+</div>
+
+<table class="dashboard-table crud-table">
+    <thead>
+        <tr>
+            <th>Изображение</th>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Дата</th>
+            <th>Стоимость</th>
+            <th>Активно</th>
+            <th>Регистраций</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>
+                {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-height: 50px; max-width: 80px; object-fit: cover;">
+                {% else %}
+                —
+                {% endif %}
+            </td>
+            <td>{{ item.title|truncatechars:50 }}</td>
+            <td>
+                {% if item.event_type == 'current' %}
+                    <span class="badge" style="background: #27ae60;">Идут сейчас</span>
+                {% elif item.event_type == 'upcoming' %}
+                    <span class="badge" style="background: #f39c12;">Предстоящие</span>
+                {% else %}
+                    <span class="badge" style="background: #7f8c8d;">Прошедшие</span>
+                {% endif %}
+            </td>
+            <td>{{ item.date|date:"d.m.Y" }}</td>
+            <td>{{ item.price_display }}</td>
+            <td>{% if item.is_active %}✅{% else %}❌{% endif %}</td>
+            <td>
+                <a href="{% url 'dashboards:eventregistration_list' %}?event={{ item.pk }}" class="badge" style="background: #052946; color: white;">
+                    {{ item.registrations_count }}
+                </a>
+            </td>
+            <td class="crud-actions">
+                <a href="{% url 'dashboards:event_edit' item.pk %}" class="btn-action btn-edit" title="Редактировать">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                    </svg>
+                </a>
+                <a href="{% url 'dashboards:event_delete' item.pk %}" class="btn-action btn-delete" title="Удалить" onclick="return confirm('Вы уверены?')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0h10" />
+                    </svg>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center">Нет мероприятий</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+{% endblock %}

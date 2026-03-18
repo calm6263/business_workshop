@@ -1,0 +1,2858 @@
+/* static/schedule/css/schedule.css */
+.schedule-page {
+    background: #FFFFFF;
+    min-height: 100vh;
+    padding-bottom: 1rem;
+}
+
+/* Slider Styles - MODIFIED */
+.slider-section {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border-radius: 0 0 20px 20px;
+}
+
+.slider-container {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.slider-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.slider-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* MODIFIED: إزالة الشفافية الزرقاء */
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+.slide-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    z-index: 2;
+}
+
+/* Breadcrumb داخل السلايدر */
+.slider-breadcrumb {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+ }
+
+.slider-breadcrumb .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.slider-breadcrumb .breadcrumb-link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.slider-breadcrumb .breadcrumb-link:hover {
+    color: rgb(255, 255, 255);
+    transform: translateY(-1px);
+}
+
+.slider-breadcrumb .breadcrumb-current {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    opacity: 0.9;
+}
+
+.slider-breadcrumb .breadcrumb-arrow {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-breadcrumb .breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.slider-breadcrumb .breadcrumb-arrow .arrow-top {
+    width: 10px;
+    height: 2px;
+    top: 7px;
+    right: 3px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.slider-breadcrumb .breadcrumb-arrow .arrow-bottom {
+    width: 10px;
+    height: 2px;
+    bottom: 7px;
+    right: 3px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+/* إخفاء نص test وإظهار محتوى السلايدر الأصلي */
+.test-center {
+    display: none !important;
+}
+
+.slide-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    display: block !important;
+}
+
+.slide-title {
+    font-family: 'Prata', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: block !important;
+}
+
+.slide-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    display: block !important;
+}
+
+.slide-btn {
+    display: inline-block;
+    background: #7F1726;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid #7F1726;
+    display: inline-block !important;
+}
+
+.slide-btn:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* MODIFIED: نقل الأسهم إلى المنتصف */
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 10;
+    transform: translateY(-50%);
+}
+
+.slider-prev,
+.slider-next {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background: #7F1726;
+    border-color: #7F1726;
+    transform: scale(1.1);
+}
+
+.slider-dot {
+    display: none !important;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+    background: #7F1726;
+    transform: scale(1.2);
+}
+
+/* Responsive adjustments for slider */
+@media (max-width: 992px) {
+    .slider-section {
+        height: 400px;
+    }
+    
+    .slide-title {
+        font-size: 2.5rem;
+    }
+    
+    .slide-description {
+        font-size: 1rem;
+        max-width: 500px;
+    }
+    
+    .slider-breadcrumb {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider-section {
+        height: 350px;
+    }
+    
+    .slide-title {
+        font-size: 2rem;
+    }
+    
+    .slide-subtitle {
+        font-size: 1rem;
+    }
+    
+    .slide-description {
+        font-size: 0.9rem;
+        max-width: 400px;
+    }
+    
+    .slider-controls {
+        padding: 0 1rem;
+    }
+    
+    .slider-prev,
+    .slider-next {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .slider-breadcrumb {
+        top: 0.8rem;
+        left: 0.8rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-content {
+        gap: 0.5rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-link,
+    .slider-breadcrumb .breadcrumb-current {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .slider-section {
+        height: 300px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .slide-title {
+        font-size: 1.6rem;
+    }
+    
+    .slide-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .slide-description {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .slide-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .slider-breadcrumb {
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-content {
+        gap: 0.3rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-link,
+    .slider-breadcrumb .breadcrumb-current {
+        font-size: 0.75rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-arrow {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Breadcrumb Styles */
+.breadcrumb-section {
+    padding: 1rem 0 0.3rem 0;
+    background: #FFFFFF;
+}
+
+.breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.breadcrumb-link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #052946;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #7F1726;
+    transform: translateY(-1px);
+}
+
+.breadcrumb-current {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #052946;
+}
+
+.breadcrumb-arrow {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #052946;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-arrow .arrow-top {
+    width: 10px;
+    height: 2px;
+    top: 7px;
+    right: 3px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.breadcrumb-arrow .arrow-bottom {
+    width: 10px;
+    height: 2px;
+    bottom: 7px;
+    right: 3px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+/* Scrollable Calendar Bar */
+.calendar-nav {
+    background: #FFFFFF;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(5, 41, 70, 0.2);
+}
+
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/* ===== IMPROVED CALENDAR NAVIGATION ARROWS ===== */
+.calendar-nav-btn {
+    background: transparent;
+    border: 2px solid #052946;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.calendar-nav-btn:hover:not(:disabled) {
+    background: #052946;
+    transform: scale(1.1);
+}
+
+.calendar-nav-btn:hover:not(:disabled) .calendar-arrow-icon {
+    filter: brightness(0) invert(1);
+}
+
+.calendar-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.calendar-nav-btn:disabled:hover {
+    background: transparent;
+    transform: none;
+}
+
+.calendar-nav-btn:disabled .calendar-arrow-icon {
+    opacity: 0.5;
+}
+
+.calendar-arrow-icon {
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s ease;
+}
+
+.arrow-right {
+    transform: rotate(180deg);
+}
+
+.calendar-dates-wrapper {
+    flex: 1;
+    overflow: hidden;
+}
+
+.calendar-dates {
+    display: flex;
+    gap: 0.5rem;
+    transition: transform 0.3s ease;
+    padding: 0 0.5rem;
+}
+
+.calendar-week {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.calendar-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.calendar-day:hover {
+    background: rgba(127, 23, 38, 0.1);
+    border-color: rgba(127, 23, 38, 0.3);
+}
+
+.calendar-day.active {
+    background: #7F1726;
+    color: #FFFFFF;
+    border-color: #7F1726;
+}
+
+.day-name {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    color: #052946;
+}
+
+.calendar-day.active .day-name {
+    color: #FFFFFF;
+}
+
+.calendar-day.weekend .day-name {
+    color: #7F1726;
+}
+
+.calendar-day.active.weekend .day-name {
+    color: #FFFFFF;
+}
+
+.day-number {
+    font-family: 'Prata', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.calendar-day.weekend .day-number {
+    color: #7F1726;
+}
+
+.calendar-day.active .day-number {
+    color: #FFFFFF;
+}
+
+.calendar-day.active.weekend .day-number {
+    color: #FFFFFF;
+}
+
+/* تحسين استجابة أزرار التنقل */
+@media (max-width: 768px) {
+    .calendar-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .calendar-arrow-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+    .calendar-nav-btn {
+        width: 36px;
+        height: 36px;
+        border-width: 1.5px;
+    }
+    
+    .calendar-arrow-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .calendar-nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .calendar-arrow-icon {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Improved Filters */
+.schedule-filter {
+    background: #FFFFFF;
+    padding: 1.5rem 0;
+    border-bottom: 2px solid rgba(5, 41, 70, 0.54);
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-label {
+    display: none;
+}
+
+.filter-item {
+    position: relative;
+}
+
+.filter-input {
+    width: 100%;
+    height: 48px;
+    border: none !important;
+    border-bottom: 2px solid rgba(5, 41, 70, 0.3) !important;
+    border-radius: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0.5rem 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #052946;
+    background: transparent !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+}
+
+.filter-input:hover {
+    border-bottom-color: #7F1726 !important;
+}
+
+.filter-input[aria-expanded="true"] {
+    border-bottom-color: #7F1726 !important;
+}
+
+.filter-input::before,
+.filter-input::after {
+    display: none !important;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.filter-input:hover {
+    border-color: #7F1726;
+    box-shadow: 0 2px 8px rgba(127, 23, 38, 0.1);
+}
+
+.filter-arrow {
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.filter-input[aria-expanded="true"] .filter-arrow {
+    transform: rotate(180deg);
+}
+
+.filter-input[aria-expanded="true"] .filter-arrow svg path {
+    stroke: #7F1726;
+}
+
+/* ================= FIXED DROPDOWN STYLES ================= */
+/* إصلاح عرض القوائم المنسدلة */
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    width: 100%; /* جعل العرض 100% من العنصر الأب */
+    min-width: 200px; /* حد أدنى للعرض */
+    margin-top: 8px;
+    background: #FFFFFF;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    max-height: 300px;
+    white-space: nowrap; /* منع نقل النص إلى سطر جديد */
+}
+
+/* إظهار القائمة عند النقر */
+.filter-input[aria-expanded="true"] + .filter-dropdown,
+.filter-dropdown.show {
+    display: block !important;
+}
+
+/* إصلاح تموضع القائمة */
+.filter-item {
+    position: relative;
+}
+
+/* منع التصادم مع Bootstrap */
+.filter-input.dropdown-toggle {
+    cursor: pointer;
+}
+
+.filter-input.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* إصلاح القائمة المنسدلة للبرامج */
+#programTypeDropdown,
+#formatDropdown,
+#monthYearDropdown {
+    display: none;
+}
+
+#programTypeDropdown.show,
+#formatDropdown.show,
+#monthYearDropdown.show {
+    display: block;
+}
+
+/* إصلاح شفافية الخلفية */
+.dropdown-menu-custom.filter-dropdown {
+    background: #FFFFFF !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
+/* إصلاح الزوايا */
+.dropdown-menu-custom {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+/* إصلاح العناصر داخل القائمة */
+.dropdown-item-custom {
+    padding: 12px 20px;
+    border-bottom: 1px solid #f5f5f5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* منع التفاف النص */
+    min-width: 100%; /* تأكد من ملء العرض */
+}
+
+.dropdown-item-custom:hover {
+    background: rgba(127, 23, 38, 0.08);
+}
+
+.dropdown-item-custom:last-child {
+    border-bottom: none;
+}
+
+/* إصلاح حالة العنصر النشط */
+.dropdown-item-custom.active {
+    background: rgba(5, 41, 70, 0.1);
+}
+/* ================= END FIXED DROPDOWN STYLES ================= */
+
+/* Improved Dropdown Styles */
+.dropdown-menu-custom.filter-dropdown {
+    width: 100%;
+    max-width: 100%;
+    background: #FFFFFF !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 12px;
+    margin-top: 8px;
+    padding: 12px 0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    overflow: hidden;
+    z-index: 1050;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-menu-custom.filter-dropdown .dropdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+}
+
+.dropdown-item-custom {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #052946 !important;
+    padding: 12px 20px;
+    border: none;
+    background: none;
+    text-align: left;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid #f5f5f5;
+    cursor: pointer;
+}
+
+.dropdown-item-custom:hover {
+    color: #7F1726 !important;
+    background: rgba(127, 23, 38, 0.08);
+    border-bottom-color: #e0e0e0;
+}
+
+.dropdown-item-custom:last-child {
+    border-bottom: none;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.custom-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #052946;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox.checked {
+    background-color: #7F1726 !important; /* اللون الأحمر */
+    border-color: #7F1726 !important;
+}
+
+.custom-checkbox.checked::after {
+    content: '✓';
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Results Count */
+.results-count {
+    text-align: center;
+    margin-top: 0.8rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    color: #052946;
+    font-weight: 500;
+}
+
+/* Новый дизайн карточек программ */
+.programs-grid-new {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    gap: 2rem !important;
+    margin-top: 2rem;
+    justify-items: center;
+}
+
+.program-card-new {
+    max-width: 300px !important;
+    min-height: 360px !important;      /* تقليل min-height قليلاً */
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px !important;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: auto !important;
+}
+
+.program-card-new:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.program-image-section-new {
+    width: 100%;
+    height: 150px !important;
+    overflow: hidden;
+}
+
+.program-image-new {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.program-card-new:hover .program-image-new {
+    transform: scale(1.05);
+}
+
+.program-image-placeholder-new {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #7F1726 0%, #052946 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+}
+
+
+/* تاريخ البرنامج внутри الصورة */
+.program-date-new {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 0.8rem 1.2rem;
+    text-align: center;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 70px;
+}
+
+.date-number {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #7F1726;
+    line-height: 1;
+}
+
+.date-month {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #052946;
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+}
+
+/* محتوى البطاقة */
+.program-content-new {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* عنوان البرنامج */
+.program-title-new {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem !important;
+    font-weight: 500;
+    color: #052946;
+    margin-bottom: 0.8rem !important;
+    line-height: 1.3;
+    min-height: 2.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.program-divider {
+    height: 2px;
+    background: rgba(5, 41, 70, 0.54);
+    border: none;
+    margin: 0 0 1.2rem 0 !important;
+    width: 100%;
+}
+
+.program-details-new {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem !important;
+    /* إزالة margin-top: auto - أصبحت المسافة تدار بـ justify-content */
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem !important;
+    font-weight: 500;
+    color: #052946;
+    flex-shrink: 0;
+}
+
+.detail-value {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.7rem !important;
+    font-weight: 400;
+    color: #052946;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* مؤشر الحالة */
+.status-indicator {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.status-open .status-indicator {
+    background: #28a745;
+}
+
+.status-closed .status-indicator {
+    background: #dc3545;
+}
+
+.status-upcoming .status-indicator {
+    background: #17a2b8;
+}
+
+.status-archive .status-indicator {
+    background: #6c757d;
+}
+
+.status-on_request .status-indicator {
+    background: #ffc107;
+}
+
+.status-open {
+    color: #28a745 !important;
+}
+
+.status-closed {
+    color: #dc3545 !important;
+}
+
+.status-upcoming {
+    color: #17a2b8 !important;
+}
+
+.status-archive {
+    color: #6c757d !important;
+}
+
+.status-on_request {
+    color: #ffc107 !important;
+}
+
+/* زر التفاصيل */
+.program-details-btn-new {
+    background: #7F1726;
+    border: none;
+    border-radius: 25px;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.9rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: auto;
+}
+
+.program-details-btn-new:hover {
+    background: #a51e32;
+    transform: translateY(-2px);
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+/* التكيف مع الشاشات المختلفة */
+@media (max-width: 1200px) {
+    .programs-grid-new {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+    
+    .program-card-new {
+        height: auto; 
+        height: 520px;
+    }
+    
+    .program-image-section-new {
+        height: 300px;
+    }
+    
+    .program-title-new {
+        font-size: 1.3rem;
+    }
+    
+    .detail-label,
+    .detail-value {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .programs-grid-new {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.8rem;
+    }
+    
+    .program-card-new {
+        max-width: 320px;
+        height: 500px;
+    }
+    
+    .program-image-section-new {
+        height: 200px;
+    }
+    
+    .program-content-new {
+        padding: 1.2rem;
+    }
+    
+    .program-title-new {
+        font-size: 1.2rem;
+    }
+    
+    .date-number {
+        font-size: 1.6rem;
+    }
+    
+    .date-month {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .programs-grid-new {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .program-card-new {
+        max-width: 300px;
+        height: 480px;
+    }
+    
+    .program-image-section-new {
+        height: 180px;
+    }
+    
+    .program-content-new {
+        padding: 1rem;
+    }
+    
+    .program-title-new {
+        font-size: 1.1rem;
+        min-height: 3em;
+    }
+    
+    .detail-label,
+    .detail-value {
+        font-size: 0.9rem;
+    }
+    
+    .program-details-new {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .program-details-btn-new {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .program-date-new {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.6rem 1rem;
+    }
+    
+    .date-number {
+        font-size: 1.4rem;
+    }
+    
+    .date-month {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .programs-grid-new {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .program-card-new {
+        max-width: 100%;
+        height: 460px;
+    }
+    
+    .program-image-section-new {
+        height: 170px;
+    }
+    
+    .program-title-new {
+        font-size: 1rem;
+        min-height: 2.8em;
+    }
+    
+    .detail-label,
+    .detail-value {
+        font-size: 0.85rem;
+    }
+    
+    .program-details-btn-new {
+        font-size: 0.85rem;
+        padding: 0.7rem 1.2rem;
+    }
+    
+    .program-date-new {
+        min-width: 60px;
+        padding: 0.5rem 0.8rem;
+    }
+    
+    .date-number {
+        font-size: 1.2rem;
+    }
+    
+    .date-month {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .programs-grid-new {
+        grid-template-columns: 1fr;
+    }
+    
+    .program-card-new {
+        height: 440px;
+    }
+    
+    .program-image-section-new {
+        height: 160px;
+    }
+    
+    .program-content-new {
+        padding: 0.8rem;
+    }
+    
+    .program-title-new {
+        font-size: 0.95rem;
+    }
+    
+    .detail-label,
+    .detail-value {
+        font-size: 0.8rem;
+    }
+    
+    .program-details-btn-new {
+        font-size: 0.8rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
+/* ضبط العناوين وأقسام الشهر */
+.month-section {
+    padding: 2rem 0;
+}
+
+.month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+}
+
+.month-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #052946;
+    margin: 0;
+}
+
+.programs-count {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: #052946;
+}
+
+@media (max-width: 768px) {
+    .month-header {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+    
+    .month-title {
+        font-size: 1.6rem;
+    }
+    
+    .programs-count {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .month-title {
+        font-size: 1.4rem;
+    }
+    
+    .programs-count {
+        font-size: 1rem;
+    }
+}
+
+/* Hidden elements for filtering */
+.month-section.hidden,
+.program-card-new.hidden {
+    display: none;
+}
+
+.date-filter-active {
+    background: rgba(127, 23, 38, 0.1);
+    border: 2px solid #7F1726;
+}
+
+/* Archive Programs Carousel Styles - UPDATED */
+.archive-carousel-section {
+    padding: 3rem 0;
+    background: #FFFFFF;
+    border-top: 2px solid rgba(5, 41, 70, 0.1);
+    margin-top: 2rem;
+}
+
+.archive-carousel-title {
+    font-family: 'Prata', serif;
+    font-size: 1.8rem;
+    color: #052946;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+}
+
+.carousel-slide {
+    flex: 0 0 calc(25% - 1.125rem);
+    min-width: 280px;
+}
+
+/* New Archive Program Card with Image */
+.archive-program-card {
+    background: #FFFFFF;
+    border-radius: 15px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+}
+
+.archive-program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.archive-program-image {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 1rem;
+}
+
+.archive-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.archive-program-card:hover .archive-image {
+    transform: scale(1.05);
+}
+
+.archive-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #7F1726 0%, #052946 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 2rem;
+}
+
+.archive-program-date {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: #7F1726;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.5rem;
+}
+
+.archive-program-date::before {
+    content: '📅';
+    font-size: 0.9rem;
+}
+
+.archive-program-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #052946;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    min-height: 3em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 0 1.5rem;
+}
+
+.archive-program-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 0 1.5rem 1rem 1.5rem;
+    border-bottom: 1px solid rgba(5, 41, 70, 0.1);
+}
+
+.archive-program-type {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    color: #FFFFFF;
+    background: #7F1726;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.archive-program-duration {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: #052946;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.archive-program-duration::before {
+    content: '⏱';
+    font-size: 0.8rem;
+}
+
+.archive-program-link {
+    display: inline-block;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: #7F1726;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid #7F1726;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-align: center;
+    width: calc(100% - 3rem);
+    background: transparent;
+    margin: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.archive-program-link:hover {
+    background: #7F1726;
+    color: #FFFFFF;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #052946;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+    background: #7F1726;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-prev {
+    left: 0;
+}
+
+.carousel-next {
+    right: 0;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #C0D5DD;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot.active {
+    background: #7F1726;
+    transform: scale(1.2);
+}
+
+/* Responsive Improvements */
+@media (max-width: 1200px) {
+    .carousel-slide {
+        flex: 0 0 calc(33.333% - 1rem);
+    }
+}
+
+@media (max-width: 992px) {
+    .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .filter-input {
+        height: 44px;
+        font-size: 0.85rem;
+        padding: 0 1rem;
+    }
+    
+    .dropdown-menu-custom.filter-dropdown {
+        max-width: 100%;
+    }
+    
+    .dropdown-item-custom {
+        font-size: 0.85rem;
+        padding: 10px 16px;
+    }
+    
+    .calendar-controls {
+        gap: 0.5rem;
+    }
+    
+    .calendar-nav-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .calendar-day {
+        min-width: 50px;
+        padding: 0.4rem;
+    }
+    
+    .day-name {
+        font-size: 0.7rem;
+    }
+    
+    .day-number {
+        font-size: 1rem;
+    }
+    
+    .carousel-container {
+        padding: 0 30px;
+    }
+    
+    .carousel-slide {
+        flex: 0 0 calc(50% - 0.75rem);
+    }
+    
+    .archive-carousel-title {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-container {
+        padding: 0 20px;
+    }
+    
+    .carousel-slide {
+        flex: 0 0 100%;
+    }
+    
+    .archive-carousel-section {
+        padding: 2rem 0;
+    }
+    
+    .archive-carousel-title {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .breadcrumb-link,
+    .breadcrumb-current {
+        font-size: 0.85rem;
+    }
+    
+    .breadcrumb-arrow {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .breadcrumb-arrow .arrow-top,
+    .breadcrumb-arrow .arrow-bottom {
+        width: 8px;
+        height: 2px;
+        right: 2px;
+    }
+    
+    .breadcrumb-arrow .arrow-top {
+        top: 6px;
+    }
+    
+    .breadcrumb-arrow .arrow-bottom {
+        bottom: 6px;
+    }
+    
+    .results-count {
+        font-size: 0.95rem;
+    }
+    
+    .calendar-dates {
+        gap: 0.3rem;
+        padding: 0 0.3rem;
+    }
+    
+    .calendar-day {
+        min-width: 45px;
+        padding: 0.3rem;
+    }
+    
+    .day-name {
+        font-size: 0.65rem;
+    }
+    
+    .day-number {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .schedule-filter {
+        padding: 1rem 0;
+    }
+    
+    .filter-input {
+        height: 42px;
+        padding: 0 0.9rem;
+        font-size: 0.78rem;
+    }
+    
+    .dropdown-item-custom {
+        font-size: 0.8rem;
+        padding: 8px 14px;
+    }
+    
+    .checkbox-item {
+        gap: 8px;
+    }
+    
+    .custom-checkbox {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .custom-checkbox.checked::after {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .results-count {
+        font-size: 0.8rem;
+    }
+    
+    .breadcrumb-section {
+        padding: 0.8rem 0 0.2rem 0;
+    }
+    
+    .breadcrumb-content {
+        gap: 0.6rem;
+    }
+    
+    .breadcrumb-link,
+    .breadcrumb-current {
+        font-size: 0.8rem;
+    }
+    
+    .breadcrumb-arrow {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .breadcrumb-arrow .arrow-top,
+    .breadcrumb-arrow .arrow-bottom {
+        width: 6px;
+        height: 2px;
+        right: 2px;
+    }
+    
+    .breadcrumb-arrow .arrow-top {
+        top: 5px;
+    }
+    
+    .breadcrumb-arrow .arrow-bottom {
+        bottom: 5px;
+    }
+    
+    .calendar-nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Search Rectangle Styles */
+.search-rectangle-section {
+    background: #FFFFFF;
+    padding: 1.5rem 0 2rem 0;
+    margin-bottom: 0.5rem;
+}
+
+.search-rectangle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-rectangle {
+    position: relative;
+    flex: 1;
+    height: 60px;
+    border: 3px solid #052946;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(5, 41, 70, 0.1);
+    transition: all 0.3s ease;
+}
+
+.search-rectangle:hover {
+    box-shadow: 0 4px 15px rgba(5, 41, 70, 0.15);
+    transform: translateY(-1px);
+}
+
+.search-rectangle-input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #052946;
+    background: transparent;
+    padding: 0 1rem;
+}
+
+.search-rectangle-input::placeholder {
+    color: rgba(5, 41, 70, 0.6);
+    font-weight: 400;
+}
+
+.search-rectangle-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    width: 50px;
+    height: 50px;
+}
+
+.search-rectangle-btn:hover {
+    transform: translateY(-2px);
+}
+
+.search-rectangle-btn:hover svg {
+    filter: drop-shadow(0 2px 4px rgba(127, 23, 38, 0.3));
+}
+
+.search-rectangle-btn svg {
+    width: 32px;
+    height: 32px;
+    transition: all 0.3s ease;
+}
+
+/* Responsive adjustments for search rectangle */
+@media (max-width: 1200px) {
+    .search-rectangle-wrapper {
+        max-width: 1000px;
+        padding: 0 1rem;
+    }
+    
+    .search-rectangle {
+        height: 55px;
+        padding: 0 1.3rem;
+    }
+    
+    .search-rectangle-input {
+        font-size: 0.95rem;
+    }
+    
+    .search-rectangle-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .search-rectangle-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 992px) {
+    .search-rectangle-wrapper {
+        max-width: 800px;
+        gap: 0.8rem;
+    }
+    
+    .search-rectangle {
+        height: 50px;
+        padding: 0 1.2rem;
+        border-radius: 35px;
+    }
+    
+    .search-rectangle-input {
+        font-size: 0.9rem;
+    }
+    
+    .search-rectangle-btn {
+        width: 42px;
+        height: 42px;
+    }
+    
+    .search-rectangle-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-rectangle-section {
+        padding: 1rem 0 1.5rem 0;
+    }
+    
+    .search-rectangle-wrapper {
+        max-width: 600px;
+        gap: 0.6rem;
+    }
+    
+    .search-rectangle {
+        height: 45px;
+        padding: 0 1rem;
+        border-width: 2px;
+        border-radius: 30px;
+    }
+    
+    .search-rectangle-input {
+        font-size: 0.85rem;
+        padding: 0 0.8rem;
+    }
+    
+    .search-rectangle-btn {
+        width: 40px;
+        height: 40px;
+        border-width: 2px;
+    }
+    
+    .search-rectangle-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-rectangle-wrapper {
+        max-width: 100%;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .search-rectangle {
+        height: 42px;
+        padding: 0 0.8rem;
+        border-width: 1.5px;
+        border-radius: 25px;
+    }
+    
+    .search-rectangle-input {
+        font-size: 0.8rem;
+        padding: 0 0.5rem;
+    }
+    
+    .search-rectangle-input::placeholder {
+        font-size: 0.8rem;
+    }
+    
+    .search-rectangle-btn {
+        width: 38px;
+        height: 38px;
+        border-width: 1.5px;
+    }
+    
+    .search-rectangle-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Special adjustment for very small screens */
+@media (max-width: 400px) {
+    .search-rectangle-wrapper {
+        gap: 0.4rem;
+    }
+    
+    .search-rectangle {
+        height: 40px;
+        padding: 0 0.6rem;
+    }
+    
+    .search-rectangle-input {
+        font-size: 0.75rem;
+    }
+    
+    .search-rectangle-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .search-rectangle-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Ensure the rectangle aligns with the calendar bar */
+@media (min-width: 1200px) {
+    .search-rectangle-wrapper {
+        max-width: calc(100% - 2rem);
+    }
+}
+
+@media (min-width: 1400px) {
+    .search-rectangle-wrapper {
+        max-width: calc(100% - 4rem);
+    }
+}
+
+/* تعديل عرض الفلاتر */
+.filter-grid {
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* حاوية الأيقونة */
+.filter-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+}
+
+/* الأيقونة نفسها */
+.filter-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+}
+
+.filter-icon:hover {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 4px 8px rgba(127, 23, 38, 0.2));
+}
+
+.filter-icon svg {
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+/* تحسين استجابة الفلاتر */
+@media (max-width: 1200px) {
+    .filter-grid {
+        grid-template-columns: repeat(2, 1fr) auto;
+    }
+    
+    .filter-icon-container {
+        grid-column: 3;
+        grid-row: 1 / span 1;
+    }
+}
+
+@media (max-width: 992px) {
+    .filter-grid {
+        grid-template-columns: 1fr auto;
+        gap: 0.8rem;
+    }
+    
+    .filter-group:nth-child(3) {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .filter-icon-container {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-icon-container {
+        grid-column: 1;
+        grid-row: 4;
+        justify-content: flex-end;
+        margin-top: 0.5rem;
+        height: 44px;
+    }
+    
+    .filter-icon svg {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-icon-container {
+        height: 40px;
+    }
+    
+    .filter-icon svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+.program-content-new {
+    justify-content: space-between; /* يوزع المحتوى ويشدّه لتحت */
+}
+
+.program-details-new {
+    margin-top: auto;   /* يدفع التفاصيل لأسفل */
+}
+/* ===== CARD FIX PACK ===== */
+
+/* تكبير مساحة الصورة */
+.program-image-section-new {
+    height: 200px !important;
+}
+
+/* جعل الكرت يتمدد حسب المحتوى بدون فراغ أبيض */
+.program-card-new {
+    height: auto !important;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* توزيع المحتوى داخل البطاقة */
+.program-content-new {
+    flex: 1;
+    padding: 1.2rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;   /* يوزع المساحة بين العناصر */
+}
+
+/* إنزال تفاصيل الكورس للأسفل */
+.program-details-new {
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+/* تثبيت الزر بأسفل البطاقة دائماً */
+.program-details-btn-new {
+    margin-top: 1rem;
+}
+
+/* منع أي مساحات داخلية تسبب فراغ */
+.program-content-new > *:last-child {
+    margin-bottom: 0 !important;
+}
+/* إزالة الخطوط فوق وتحت قسم الفلاتر */
+.schedule-filter {
+    border: none !important;
+}
+
+/* إذا كان في خط جاي من القسم اللي قبله */
+.calendar-nav {
+    border-bottom: none !important;
+}
+
+/* احتياط: أي hr داخل المنطقة */
+.schedule-filter hr,
+.calendar-nav hr {
+    display: none !important;
+}
+
+/* ===== IMPROVED DROPDOWN WIDTH AND ALIGNMENT ===== */
+
+/* محاذاة النص في الفلاتر */
+.filter-input {
+    width: 100%;
+    height: 48px;
+    border: none !important;
+    border-bottom: 2px solid rgba(5, 41, 70, 0.3) !important;
+    border-radius: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0.5rem 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #052946;
+    background: transparent !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* توسيط النص في الفلتر */
+.filter-text {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+}
+
+/* منع الخطوط من الالتفاف */
+.filter-dropdown .dropdown-item-custom span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+/* تحسين استجابة الفلاتر للشاشات الصغيرة */
+@media (max-width: 768px) {
+    .filter-dropdown {
+        min-width: 180px !important;
+        max-width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .filter-input {
+        font-size: 0.9rem;
+    }
+    
+    .dropdown-item-custom {
+        font-size: 0.85rem;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-dropdown {
+        min-width: 160px !important;
+        position: fixed !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 90vw !important;
+    }
+    
+    .filter-input {
+        font-size: 0.85rem;
+    }
+    
+    .dropdown-item-custom {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+}
+
+/* تحسين علامة التأشير عند التحديد */
+.custom-checkbox.checked {
+    background-color: #7F1726;
+    border-color: #7F1726;
+    position: relative;
+}
+
+.custom-checkbox.checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1;
+}
+/* ===== CUSTOM FILTER DROPDOWN FIXES ===== */
+/* فصل كامل بين قوائم الفلاتر والشريط الرئيسي */
+.filter-item.custom-dropdown {
+    position: relative;
+}
+
+.custom-dropdown-toggle {
+    cursor: pointer;
+}
+
+.custom-dropdown-menu.filter-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1060;
+    width: 100%;
+    min-width: 200px;
+    margin-top: 8px;
+    background: #FFFFFF;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    max-height: 300px;
+    white-space: nowrap;
+}
+
+.custom-dropdown-menu.filter-dropdown.show {
+    display: block !important;
+}
+
+/* إصلاح شفافية الخلفية */
+.custom-dropdown-menu.filter-dropdown {
+    background: #FFFFFF !important;
+    border: 1px solid #e0e0e0 !important;
+}
+
+/* إصلاح الزوايا */
+.custom-dropdown-menu.filter-dropdown {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+/* إصلاح العناصر داخل القائمة */
+.custom-dropdown-menu .dropdown-item-custom {
+    padding: 12px 20px;
+    border-bottom: 1px solid #f5f5f5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    min-width: 100%;
+}
+
+.custom-dropdown-menu .dropdown-item-custom:hover {
+    background: rgba(127, 23, 38, 0.08);
+}
+
+.custom-dropdown-menu .dropdown-item-custom:last-child {
+    border-bottom: none;
+}
+
+/* تأكد من أن القوائم تعمل بشكل صحيح على جميع الشاشات */
+@media (min-width: 992px) {
+    /* منع Bootstrap من التداخل على الشاشات الكبيرة */
+    .filter-input.custom-dropdown-toggle::after {
+        display: none !important;
+    }
+    
+    /* تأكد من أن القوائم تظهر فوق كل شيء */
+    .custom-dropdown-menu.filter-dropdown {
+        z-index: 1060 !important;
+    }
+    
+    /* منع أي تأثيرات Bootstrap غير مرغوبة */
+    .custom-dropdown .dropdown-menu {
+        position: absolute !important;
+        inset: auto !important;
+        margin: 0 !important;
+        transform: none !important;
+    }
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 991px) {
+    .custom-dropdown-menu.filter-dropdown {
+        position: fixed !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 90vw !important;
+        max-width: 400px;
+        z-index: 1060 !important;
+    }
+}
+
+/* تحسينات إضافية للفلاتر */
+.filter-input[aria-expanded="true"] .filter-arrow {
+    transform: rotate(180deg);
+}
+
+.filter-input[aria-expanded="true"] .filter-arrow svg path {
+    stroke: #7F1726;
+}
+/* schedule.css - إصلاح القوائم المنسدلة للفلاتر على الشاشات الصغيرة */
+
+/* ===== إصلاح شدة الأهمية لضمان العمل على جميع الشاشات ===== */
+.filter-item.custom-dropdown {
+    position: relative !important;
+}
+
+.custom-dropdown-toggle.filter-input {
+    cursor: pointer !important;
+    z-index: 1 !important;
+    position: relative !important;
+}
+
+.custom-dropdown-menu.filter-dropdown {
+    display: none !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    z-index: 9999 !important; /* زيادة عالية جداً */
+    width: 100% !important;
+    min-width: 220px !important;
+    max-width: 300px !important;
+    margin-top: 8px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    overflow-y: auto !important;
+    max-height: 300px !important;
+    white-space: nowrap !important;
+    animation: fadeIn 0.3s ease !important;
+}
+
+/* عرض القائمة عند التفعيل */
+.custom-dropdown-menu.filter-dropdown.show {
+    display: block !important;
+}
+
+/* إصلاح محتوى القائمة - عمود واحد */
+.custom-dropdown-menu.filter-dropdown .dropdown-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* إصلاح عناصر القائمة */
+.custom-dropdown-menu.filter-dropdown .dropdown-item-custom {
+    padding: 12px 20px !important;
+    border-bottom: 1px solid #f5f5f5 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 0.9rem !important;
+    color: #052946 !important;
+    background: none !important;
+    text-align: left !important;
+    text-decoration: none !important;
+    display: block !important;
+}
+
+.custom-dropdown-menu.filter-dropdown .dropdown-item-custom:hover {
+    background: rgba(127, 23, 38, 0.08) !important;
+    color: #7F1726 !important;
+}
+
+.custom-dropdown-menu.filter-dropdown .dropdown-item-custom:last-child {
+    border-bottom: none !important;
+}
+
+/* إصلاح خانة الاختيار */
+.custom-dropdown-menu.filter-dropdown .checkbox-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+}
+
+.custom-dropdown-menu.filter-dropdown .custom-checkbox {
+    width: 18px !important;
+    height: 18px !important;
+    border: 2px solid #052946 !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    transition: all 0.2s ease !important;
+}
+
+.custom-dropdown-menu.filter-dropdown .custom-checkbox.checked {
+    background-color: #7F1726 !important;
+    border-color: #7F1726 !important;
+}
+
+.custom-dropdown-menu.filter-dropdown .custom-checkbox.checked::after {
+    content: '✓' !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #FFFFFF !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+}
+
+/* شريط التمرير */
+.custom-dropdown-menu.filter-dropdown::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.custom-dropdown-menu.filter-dropdown::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 10px !important;
+}
+
+.custom-dropdown-menu.filter-dropdown::-webkit-scrollbar-thumb {
+    background: #c1c1c1 !important;
+    border-radius: 10px !important;
+}
+
+.custom-dropdown-menu.filter-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8 !important;
+}
+
+/* ===== إصلاحات خاصة للشاشات الصغيرة جداً (هواتف محمولة) ===== */
+@media (max-width: 768px) {
+    .custom-dropdown-menu.filter-dropdown {
+        position: fixed !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+        max-width: 320px !important;
+        max-height: 70vh !important;
+        z-index: 9999 !important; /* أعلى من كل شيء */
+        margin-top: 0 !important;
+        animation: fadeInScale 0.3s ease !important;
+    }
+    
+    /* إضافة خلفية شبه شفافة خلف القائمة */
+    .custom-dropdown-menu.filter-dropdown::before {
+        content: '' !important;
+        position: fixed !important;
+        top: -100vh !important;
+        left: -100vw !important;
+        width: 300vw !important;
+        height: 300vh !important;
+        background: rgba(255, 255, 255, 0.5) !important;
+        z-index: -1 !important;
+    }
+    
+    .custom-dropdown-menu.filter-dropdown .dropdown-item-custom {
+        padding: 14px 20px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .custom-dropdown-menu.filter-dropdown .checkbox-item {
+        gap: 14px !important;
+    }
+    
+    .custom-dropdown-menu.filter-dropdown .custom-checkbox {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-dropdown-menu.filter-dropdown {
+        max-width: 280px !important;
+        max-height: 60vh !important;
+    }
+    
+    .custom-dropdown-menu.filter-dropdown .dropdown-item-custom {
+        padding: 12px 16px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .custom-dropdown-menu.filter-dropdown .checkbox-item {
+        gap: 12px !important;
+    }
+    
+    .custom-dropdown-menu.filter-dropdown .custom-checkbox {
+        width: 18px !important;
+        height: 18px !important;
+    }
+}
+
+/* ===== منع Bootstrap من التداخل ===== */
+/* إخفاء سهم Bootstrap الافتراضي */
+.filter-input.custom-dropdown-toggle.dropdown-toggle::after {
+    display: none !important;
+}
+
+/* منع أي أنماط Bootstrap من التطبيق على هذه القوائم */
+.custom-dropdown-menu.filter-dropdown.dropdown-menu {
+    background: #FFFFFF !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 25px rgba(253, 253, 253, 0.15) !important;
+}
+
+/* ===== رسوم متحركة للظهور ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* ===== JavaScript للمساعدة في العمل على الشاشات الصغيرة ===== */
+/* نضيف هذا النمط لإخفاء القوائم المنسدلة عند النقر خارجها */
+.dropdown-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 9998;
+    display: none;
+}
+
+.dropdown-backdrop.active {
+    display: block;
+}
+/* لون عناصر القوائم المنسدلة على الشاشات الصغيرة فقط */
+@media (max-width: 768px) {
+
+    .dropdown-menu a,
+    .dropdown-menu .dropdown-item {
+        color: #ffffff !important;
+        opacity: 1 !important;
+    }
+
+}
+/* ===== NEW MONTH HEADER STYLES ===== */
+.month-title-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.month-dot {
+    position: absolute;
+    left: -15px;
+    top: 18px; /* تعديل لتكون على سوية اسم الشهر */
+    width: 8px;
+    height: 8px;
+    background-color: #7F1726;
+    border-radius: 50%;
+}
+
+.current-date {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    color: #052946;
+    opacity: 0.7;
+    margin-top: 0.3rem;
+}
+
+.month-toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(5, 41, 70, 0.1);
+}
+
+.month-toggle {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.month-toggle:hover {
+    transform: scale(1.05);
+}
+
+.month-toggle.collapsed .month-arrow {
+    transform: rotate(180deg);
+}
+
+.month-arrow {
+    width: 80px;
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.month-programs.collapsed {
+    display: none !important;
+}
+
+/* تحسين استجابة السهم */
+@media (max-width: 768px) {
+    .month-arrow {
+        width: 60px;
+        height: 25px;
+    }
+    
+    .month-toggle-container {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .month-arrow {
+        width: 50px;
+        height: 20px;
+    }
+    
+    .month-dot {
+        left: -10px;
+        top: 14px;
+        width: 6px;
+        height: 6px;
+    }
+    
+    .month-toggle-container {
+        margin-top: 1rem;
+        padding-top: 0.8rem;
+    }
+}
+ /* ===== FIXED FILTER DROPDOWNS WIDTH ===== */
+ .filter-item.custom-dropdown {
+    position: relative;
+}
+
+.custom-dropdown-menu.filter-dropdown {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    right: auto !important;
+    transform: none !important;
+}
+
+/* إصلاح لعناصر القائمة */
+.dropdown-item-custom {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.calendar-nav-btn {
+    border: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* تعطيل أي hover قديم */
+.calendar-nav-btn:hover {
+    background: transparent !important;
+    transform: none !important;
+}
+/* ===== FORCE CALENDAR ARROWS DIRECTION (FINAL FIX) ===== */
+
+/* إزالة أي دوران سابق */
+.calendar-arrow-icon {
+    transform: rotate(0deg) !important;
+}
+
+/* الزر الأول (يسار) ← */
+.calendar-controls .calendar-nav-btn:first-child .calendar-arrow-icon {
+    transform: rotate(180deg) !important;
+}
+
+/* الزر الثاني (يمين) → */
+.calendar-controls .calendar-nav-btn:last-child .calendar-arrow-icon {
+    transform: rotate(-180deg) !important;
+}
+/* ===== PROGRAM CARDS SIZE REDUCTION BY 30% ===== */
+.program-card-new {
+    max-width: 280px !important;
+    min-height: 360px !important;
+}
+
+.programs-grid-new {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 1.8rem !important;
+}
+
+.program-image-section-new {
+    height: 140px !important;
+}
+
+.program-title-new {
+    font-size: 1rem !important;
+    margin-bottom: 0.7rem !important;
+}
+
+.program-details-new {
+    gap: 0.8rem !important;
+}
+
+.detail-label,
+.detail-value {
+    font-size: 0.7rem !important;
+}
+
+.program-details-btn-new {
+    font-size: 0.7rem !important;
+    padding: 0.6rem 1.4rem !important;
+}
+
+.program-content-new {
+    padding: 1rem !important;
+}
+
+.program-divider {
+    margin: 0 0 1rem 0 !important;
+}
+/* ===== POSTPONED STATUS IN CARDS ===== */
+.status-postponed {
+    color: #e83e8c !important;
+}
+.status-postponed .status-indicator {
+    background-color: #e83e8c;
+}
+.status-indicator {
+    width: 6px !important;   /* تم التصغير من 12px/8px إلى 6px */
+    height: 6px !important;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+@media (max-width: 576px) {
+    .status-indicator {
+        width: 5px !important;
+        height: 5px !important;
+    }
+}

@@ -1,0 +1,13 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Подтверждение удаления</h2>
+</div>
+<p>Вы уверены, что хотите удалить "<strong>{{ object }}</strong>"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-delete">Да, удалить</button>
+    <a href="javascript:history.back()" class="btn-view">Отмена</a>
+</form>
+{% endblock %}

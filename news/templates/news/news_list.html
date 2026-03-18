@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <!-- روابط CSS الأساسية للصفحة -->
+    <link rel="stylesheet" href="{% static 'css/news_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/press_center.css' %}">
+    <!-- روابط CSS لمكونات تبويب журнал FTA -->
+    <link rel="stylesheet" href="{% static 'fta_journal/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'fta_journal/css/early_issues.css' %}">
+    <link rel="stylesheet" href="{% static 'fta_journal/css/detail.css' %}">
+    <script src="{% static 'js/news_list.js' %}"></script>
+    <script src="{% static 'js/press_center.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <!-- تضمين الهيرو والتبويبات -->
+    {% include 'news/news_hero_tabs.html' %}
+
+    <!-- محتوى التبويبات -->
+    <div class="research-main-content">
+
+        <!-- تبويب "Новости" -->
+        <div id="news-content" class="tab-content {% if current_tab == 'news' %}active{% endif %}" {% if current_tab != 'news' %}style="display: none;"{% endif %}>
+            <!-- قسم البحث -->
+            <div class="news-search-section">
+                <div class="container">
+                    <form id="newsSearchForm" method="GET" style="display: contents;">
+                        <input type="hidden" name="tab" value="{{ current_tab }}">
+                        <div class="search-wrapper">
+                            <input type="text" name="q" placeholder="Поиск новостей..." class="news-search-input" value="{{ request.GET.q }}">
+                            <button type="submit" class="search-btn" aria-label="بحث">
+                                <svg width="83" height="80" viewBox="0 0 83 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M36.5633 7.98265e-08C30.7324 0.000480956 24.9862 1.35079 19.8041 3.93827C14.6219 6.52574 10.1541 10.2754 6.77344 14.8743C3.39274 19.4732 1.19717 24.7881 0.369902 30.3755C-0.457365 35.9628 0.107661 41.6607 2.01784 46.9937C3.92802 52.3267 7.12796 57.1402 11.3507 61.0326C15.5734 64.925 20.6965 67.7833 26.2925 69.3692C31.8885 70.9551 37.7951 71.2226 43.5196 70.1493C49.244 69.076 54.6204 66.693 59.2 63.1992L74.9106 78.4077C75.722 79.1663 76.8087 79.586 77.9366 79.5765C79.0646 79.567 80.1435 79.1291 80.9412 78.357C81.7388 77.5848 82.1912 76.5404 82.201 75.4485C82.2108 74.3566 81.7772 73.3046 80.9936 72.5192L65.2829 57.3107C69.5332 52.0911 72.1796 45.8186 72.9193 39.211C73.6589 32.6035 72.462 25.9278 69.4654 19.948C66.4687 13.9682 61.7936 8.92583 55.9748 5.39805C50.1561 1.87027 43.429 -0.00044619 36.5633 7.98265e-08ZM8.60074 35.3976C8.60074 28.2185 11.5468 21.3335 16.7908 16.2571C22.0348 11.1807 29.1471 8.32884 36.5633 8.32884C43.9794 8.32884 51.0918 11.1807 56.3358 16.2571C61.5797 21.3335 64.5258 28.2185 64.5258 35.3976C64.5258 42.5766 61.5797 49.4617 56.3358 54.538C51.0918 59.6144 43.9794 62.4663 36.5633 62.4663C29.1471 62.4663 22.0348 59.6144 16.7908 54.538C11.5468 49.4617 8.60074 42.5766 8.60074 35.3976Z" fill="#7F1726"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- قسم الفلاتر -->
+            <div class="news-filters-section">
+                <div class="container">
+                    <div class="filters-container">
+                        <!-- فلتر التصنيف (категории) -->
+                        <div class="main-filter">
+                            <div class="filter-trigger">
+                                <span class="filter-label">
+                                    {% if request.GET.category %}
+                                        {{ selected_category_name|default:"Все" }}
+                                    {% else %}
+                                        Все
+                                    {% endif %}
+                                </span>
+                                <div class="filter-arrow">
+                                    <svg width="30" height="15" viewBox="0 0 54 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <line x1="2" y1="-2" x2="33.5624" y2="-2" transform="matrix(0.734757 -0.678331 -0.918944 -0.394389 0 24.123)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                        <line x1="2" y1="-2" x2="33.5624" y2="-2" transform="matrix(-0.734757 -0.678331 0.918944 -0.394389 54 24.123)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown">
+                                <div class="filter-options">
+                                    <div class="filter-option {% if not request.GET.category %}active{% endif %}" data-filter-category="">
+                                        <span class="option-text">Все</span>
+                                    </div>
+                                    {% for category in categories %}
+                                        <div class="filter-option {% if request.GET.category == category.id|stringformat:'s' %}active{% endif %}" data-filter-category="{{ category.id }}">
+                                            <span class="option-text">{{ category.name }}</span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- فلتر الترتيب (сортировка) -->
+                        <div class="main-filter">
+                            <div class="filter-trigger">
+                                <span class="filter-label">
+                                    {% if request.GET.sort == 'asc' %}По возрастанию
+                                    {% elif request.GET.sort == 'desc' %}По убыванию
+                                    {% elif request.GET.sort == 'popular' %}Популярные
+                                    {% else %}Новые{% endif %}
+                                </span>
+                                <div class="filter-arrow">
+                                    <svg width="30" height="15" viewBox="0 0 54 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <line x1="2" y1="-2" x2="33.5624" y2="-2" transform="matrix(0.734757 -0.678331 -0.918944 -0.394389 0 24.123)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                        <line x1="2" y1="-2" x2="33.5624" y2="-2" transform="matrix(-0.734757 -0.678331 0.918944 -0.394389 54 24.123)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown">
+                                <div class="filter-options">
+                                    <div class="filter-option {% if request.GET.sort == 'newest' or not request.GET.sort %}active{% endif %}" data-filter-sort="newest">
+                                        <span class="option-text">Новые</span>
+                                    </div>
+                                    <div class="filter-option {% if request.GET.sort == 'asc' %}active{% endif %}" data-filter-sort="asc">
+                                        <span class="option-text">По возрастанию</span>
+                                    </div>
+                                    <div class="filter-option {% if request.GET.sort == 'desc' %}active{% endif %}" data-filter-sort="desc">
+                                        <span class="option-text">По убыванию</span>
+                                    </div>
+                                    <div class="filter-option {% if request.GET.sort == 'popular' %}active{% endif %}" data-filter-sort="popular">
+                                        <span class="option-text">Популярные</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قائمة الأخبار -->
+            <div class="container mt-4">
+                <div class="row news-grid g-2">
+                    {% for item in news %}
+                    <div class="col-lg-4 col-md-6 mb-3 news-item" data-date="{{ item.publish_date|date:'Y-m-d' }}">
+                        <div class="news-card-new">
+                            <div class="news-image-new">
+                                {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                                {% endif %}
+                                <div class="news-date-new">{{ item.publish_date|date:"m.Y" }}</div>
+                            </div>
+                            <div class="news-content-new">
+                                <h3 class="news-title-new">{{ item.title|truncatewords:10 }}</h3>
+                                <div class="news-separator"></div>
+                                <p class="news-description-new">
+                                    {{ item.content|striptags|truncatewords:30 }}
+                                </p>
+                                <div class="news-type-section">
+                                    <span class="type-dot"></span>
+                                    <span class="type-value-new">{{ item.category.name }}</span>
+                                </div>
+                                <div class="news-action">
+                                    <a href="{% url 'news:news_detail' item.id %}?tab={{ current_tab }}" class="news-read-btn-new">Читать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="no-news text-center py-5">
+                            <i class="fas fa-newspaper fa-3x mb-3 text-muted"></i>
+                            <h3 class="text-muted">На данный момент новостей нет</h3>
+                            <p class="text-muted">Новости будут добавлены в ближайшее время.</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- الترقيم (Pagination) -->
+                {% if news.has_other_pages %}
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="news-pagination">
+                            <ul class="pagination justify-content-center">
+                                {% if news.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ news.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}&tab={{ current_tab }}" aria-label="السابق">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                {% for num in news.paginator.page_range %}
+                                    {% if news.number == num %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}&tab={{ current_tab }}">{{ num }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if news.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ news.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}&tab={{ current_tab }}" aria-label="التالي">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- تبويب "Журнал FTA" (محتوى حقيقي) -->
+<div id="journal-content" class="tab-content {% if current_tab == 'journal' %}active{% endif %}" {% if current_tab != 'journal' %}style="display: none;"{% endif %}>
+    <div class="journal-tab-container">  <!-- حاوية جديدة -->
+        {% if journal_page == 'detail' %}
+            {% include 'fta_journal/tab_detail.html' %}
+        {% elif journal_page == 'early' %}
+            {% include 'fta_journal/tab_early.html' %}
+        {% else %}
+            {% include 'fta_journal/tab_home.html' %}
+        {% endif %}
+    </div>
+</div>
+
+        <!-- تبويب "Пресс-центр" (محتوى حقيقي) -->
+        <div id="press-content" class="tab-content {% if current_tab == 'press' %}active{% endif %}" {% if current_tab != 'press' %}style="display: none;"{% endif %}>
+            {% include 'press_center/partials/press_center_content.html' %}
+        </div>
+    </div>
+
+    <!-- قسم الاشتراك في النشرة البريدية -->
+    <div class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-wrapper">
+                <h2 class="newsletter-title">Подпишитесь на новости</h2>
+                <p class="newsletter-subtitle">Будьте в курсе новых событий Академии</p>
+                
+                <form id="subscribeForm" class="newsletter-form">
+                    {% csrf_token %}
+                    <div class="newsletter-input-group">
+                        <input type="email" name="email" class="newsletter-input" placeholder="Электронная почта" required>
+                    </div>
+                    
+                    <div class="newsletter-checkbox">
+                        <input type="checkbox" name="consent" id="consent" required>
+                        <label for="consent">
+                            Я согласен с условиями 
+                            <a href="/terms/" target="_blank" class="policy-link">пользовательского соглашения</a> 
+                            и 
+                            <a href="/privacy/" target="_blank" class="policy-link">политикой конфиденциальности</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="newsletter-btn">Подписаться</button>
+                    
+                    <div class="newsletter-message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+ 
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        var isAuthenticated = {% if user.is_authenticated %}true{% else %}false{% endif %};
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('News page with tabs and press center content initialized');
+        });
+    </script>
+{% endblock %}

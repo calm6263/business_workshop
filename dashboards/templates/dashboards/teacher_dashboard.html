@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Панель преподавателя{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1>Здравствуйте, {{ user.first_name }}! (Преподаватель)</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Мои группы</div>
+                <div class="card-body">Список групп...</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Расписание</div>
+                <div class="card-body">Занятия на сегодня...</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Материалы</div>
+                <div class="card-body">Загруженные файлы...</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

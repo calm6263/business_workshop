@@ -1,0 +1,233 @@
+{% extends "dashboards/crud/base_crud.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'dashboards/css/notifications.css' %}">
+{% endblock %}
+
+{% block crud_content %}
+<div class="notifications-page">
+    <h2 class="page-title">📬 Все уведомления</h2>
+
+    <!-- Панель инструментов -->
+    <div class="notifications-toolbar">
+        <div class="toolbar-left">
+            <a href="?archived=0" class="btn-filter {% if not request.GET.archived or request.GET.archived == '0' %}active{% endif %}">
+                📬 Текущие
+            </a>
+            <a href="?archived=1" class="btn-filter {% if request.GET.archived == '1' %}active{% endif %}">
+                📦 Архив
+            </a>
+        </div>
+        <div class="toolbar-right">
+            {% if not request.GET.archived == '1' %}
+                <button id="archiveAllReadBtn" class="btn-action btn-archive-all">
+                    🗂️ Архивировать прочитанные
+                </button>
+            {% else %}
+                <button id="deleteAllArchivedBtn" class="btn-action btn-delete-all">
+                    🗑️ Очистить архив
+                </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="notifications-grid">
+        {% for notification in notifications %}
+        <div class="notification-card {% if not notification.read %}unread{% endif %} {% if notification.archived %}archived{% endif %}" data-id="{{ notification.id }}">
+            <div class="notification-icon">
+                {% if notification.verb == 'created' %}
+                    <span class="icon-create">➕</span>
+                {% elif notification.verb == 'updated' %}
+                    <span class="icon-update">✏️</span>
+                {% elif notification.verb == 'deleted' %}
+                    <span class="icon-delete">🗑️</span>
+                {% else %}
+                    <span class="icon-default">🔔</span>
+                {% endif %}
+            </div>
+            <div class="notification-content">
+                <div class="notification-header">
+                    <h4 class="notification-title">
+                        {% if notification.link %}
+                            <a href="{{ notification.link }}">{{ notification.message }}</a>
+                        {% else %}
+                            {{ notification.message }}
+                        {% endif %}
+                    </h4>
+                    <span class="notification-time">{{ notification.created_at|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="notification-body">
+                    <p class="notification-message">{{ notification.message }}</p>
+                    {% if notification.target %}
+                    <div class="notification-target">
+                        <small>Объект: {{ notification.target }}</small>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="notification-footer">
+                    <span class="notification-status">
+                        {% if notification.read %}
+                            <span class="badge-read">Прочитано</span>
+                        {% else %}
+                            <span class="badge-unread">Новое</span>
+                        {% endif %}
+                    </span>
+                    
+                    <div class="notification-actions">
+                        {% if not notification.read %}
+                            <button class="btn-mark-read" data-id="{{ notification.id }}" title="Отметить прочитанным">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </button>
+                        {% endif %}
+                        
+                        {% if notification.archived %}
+                            <button class="btn-unarchive" data-id="{{ notification.id }}" title="Восстановить из архива">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0h10"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                            <button class="btn-delete" data-id="{{ notification.id }}" title="Удалить навсегда">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0h10"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        {% else %}
+                            <button class="btn-archive" data-id="{{ notification.id }}" title="Переместить в архив">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="21 8 21 21 3 21 3 8"></polyline>
+                                    <rect x="1" y="3" width="22" height="5"></rect>
+                                    <line x1="10" y1="12" x2="14" y2="12"></line>
+                                </svg>
+                            </button>
+                            <button class="btn-delete" data-id="{{ notification.id }}" title="Удалить">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0h10"></path>
+                                </svg>
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <h3>Нет уведомлений</h3>
+            <p>В этом разделе пока нет записей.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+    <div class="pagination">
+        <div class="pagination-wrapper">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if request.GET.archived %}&archived={{ request.GET.archived }}{% endif %}" class="page-link first" title="Первая">««</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.archived %}&archived={{ request.GET.archived }}{% endif %}" class="page-link prev" title="Предыдущая">«</a>
+            {% endif %}
+
+            <span class="current-page">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.archived %}&archived={{ request.GET.archived }}{% endif %}" class="page-link next" title="Следующая">»</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.archived %}&archived={{ request.GET.archived }}{% endif %}" class="page-link last" title="Последняя">»»</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const csrfToken = '{{ csrf_token }}';
+
+        function sendAction(url, method = 'POST', callback) {
+            fetch(url, {
+                method: method,
+                headers: {'X-CSRFToken': csrfToken}
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok' && callback) callback();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Отметить как прочитанное
+        document.querySelectorAll('.btn-mark-read').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.dataset.id;
+                sendAction(`/notifications/api/mark-read/${id}/`, 'POST', () => {
+                    location.reload();
+                });
+            });
+        });
+
+        // Архивировать
+        document.querySelectorAll('.btn-archive').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.dataset.id;
+                sendAction(`/notifications/api/archive/${id}/`, 'POST', () => {
+                    location.reload();
+                });
+            });
+        });
+
+        // Восстановить из архива
+        document.querySelectorAll('.btn-unarchive').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.dataset.id;
+                sendAction(`/notifications/api/unarchive/${id}/`, 'POST', () => {
+                    location.reload();
+                });
+            });
+        });
+
+        // Удалить
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!confirm('Вы уверены, что хотите удалить это уведомление?')) return;
+                const id = this.dataset.id;
+                sendAction(`/notifications/api/delete/${id}/`, 'POST', () => {
+                    location.reload();
+                });
+            });
+        });
+
+        // Архивировать все прочитанные
+        const archiveAllBtn = document.getElementById('archiveAllReadBtn');
+        if (archiveAllBtn) {
+            archiveAllBtn.addEventListener('click', function() {
+                if (!confirm('Архивировать все прочитанные уведомления?')) return;
+                sendAction('/notifications/api/archive-all-read/', 'POST', () => {
+                    location.reload();
+                });
+            });
+        }
+
+        // Очистить архив
+        const deleteAllArchivedBtn = document.getElementById('deleteAllArchivedBtn');
+        if (deleteAllArchivedBtn) {
+            deleteAllArchivedBtn.addEventListener('click', function() {
+                if (!confirm('Очистить архив? Это действие нельзя отменить.')) return;
+                sendAction('/notifications/api/delete-all-archived/', 'POST', () => {
+                    location.reload();
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}

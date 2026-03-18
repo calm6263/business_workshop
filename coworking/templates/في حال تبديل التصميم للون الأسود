@@ -1,0 +1,954 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коворкинг Башни</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 140px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex: 1;
+        }
+        
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 5px 5%;
+            position: relative;
+            background: white;
+            height: 70px;
+        }
+        
+        .logo-container {
+            position: absolute;
+            left: 0px;
+            top: 8px;
+            display: flex;
+            align-items: flex-start;
+            height: auto;
+            width: 200px;
+            min-width: 200px;
+            z-index: 1001;
+        }
+        
+        .logo-image {
+            position: relative;
+            height: 62.5px;
+            width: 100%;
+            margin-top: 0;
+            z-index: 1002;
+        }
+        
+        .logo-image img {
+            height: 100%;
+            width: auto;
+            display: block;
+            max-width: 250px;
+            min-width: 170px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        /* السهم المتقطع المنحني الجديد */
+        .curved-arrow {
+            position: absolute;
+            left: 200px;
+            top: 10px;
+            width: 120px;
+            height: 40px;
+            z-index: 1003;
+            overflow: hidden;
+        }
+        
+        .curved-arrow::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 120px;
+            height: 40px;
+            border: 2px dashed #313232;
+            border-color: #313232 transparent transparent transparent;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(-5deg);
+            animation: dash-animation 2s linear infinite;
+        }
+        
+        .curved-arrow::after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            right: 5px;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #313232;
+            border-right: 2px solid #313232;
+            transform: rotate(45deg);
+        }
+        
+        @keyframes dash-animation {
+            0% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: 10;
+            }
+        }
+        
+        .slogan {
+            font-family: 'Prata', serif;
+            font-size: 22px;
+            color: #000;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 0 15px;
+            flex: 1;
+            margin: 0 20px;
+            margin-top: 20px;
+            margin-left: -530px; 
+        }
+        
+        .academy-link-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            position: absolute;
+            right: 5%;
+            top: 20px;
+            z-index: 1002;
+            background: white;
+            width: auto;
+            min-width: auto;
+            justify-content: flex-end;
+        }
+        
+        .academy-link {
+            font-family: 'Prata', serif;
+            font-size: 22px;
+            color: #052946;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            padding-right: 25px;
+            white-space: nowrap;
+        }
+        
+        /* السهم الجديد المخصص - يتجه إلى اليمين بشكل صحيح */
+        .custom-arrow {
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .custom-arrow::before,
+        .custom-arrow::after {
+            content: '';
+            position: absolute;
+            background: #052946;
+            border: 2px solid #052946;
+        }
+        
+        .custom-arrow::before {
+            width: 14px;
+            height: 0;
+            top: 6px;
+            right: 0;
+            transform: matrix(0.69, 0.73, -0.69, 0.73, 0, 0);
+        }
+        
+        .custom-arrow::after {
+            width: 14px;
+            height: 0;
+            top: 16px;
+            right: 0;
+            transform: matrix(0.69, -0.73, 0.69, 0.73, 0, 0);
+        }
+        
+        .main-navbar {
+            background: #313232;
+            padding: 25px 5%;
+            position: relative;
+            z-index: 1;
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-coworking {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            flex: 1;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0;
+            padding: 0 80px 0 20px;
+        }
+        
+        .nav-coworking a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Prata', serif;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            padding: 12px 18px;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+            white-space: nowrap;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
+            min-width: 140px;
+            margin: 0 5px;
+        }
+        
+        .nav-coworking a:hover {
+            color: #ccc;
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* إضافة أيقونة المستخدم إلى شريط المهام */
+        .navbar-user-icon {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #E7ECEC;
+            border-radius: 50%;
+            color: #313232;
+            font-size: 22px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .navbar-user-icon:hover {
+            background: #d4d9d9;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* تنسيقات الفوتر الجديدة */
+        footer {
+            background: #313232;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* تنسيقات قسم الشعار والأعمدة الجديد في الفوتر */
+        .footer-logo-columns {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 40px;
+        }
+
+        .footer-logo {
+            flex: 0 0 200px;
+        }
+
+        .footer-logo img {
+            max-width: 100%;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-columns {
+            display: flex;
+            flex: 1;
+            justify-content: space-around;
+        }
+
+        .footer-column {
+            flex: 1;
+            max-width: 250px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            font-family: 'Prata', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            line-height: 1.5;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column li:hover {
+            color: white;
+            cursor: pointer;
+        }
+
+        .footer-main-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .footer-main-title {
+            font-family: 'Prata', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .footer-contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            font-size: 24px; /* تم زيادة حجم الأيقونات */
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .contact-text p {
+            margin: 0;
+            line-height: 2.5;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px; /* تم زيادة حجم الخط */
+        }
+
+        .direction-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            font-size: 18px; /* تم زيادة حجم الخط */
+        }
+
+        .direction-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .direction-arrow {
+            font-size: 20px; /* تم زيادة حجم السهم */
+            transition: transform 0.3s ease;
+        }
+
+        .direction-link:hover .direction-arrow {
+            transform: translateX(3px);
+        }
+
+        .map-section {
+            display: flex;
+            justify-content: center;
+        }
+
+        .map-image {
+            max-width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .logo-container {
+                width: 180px;
+                min-width: 180px;
+                left: 15px;
+            }
+            
+            .logo-image img {
+                max-width: 170px;
+            }
+            
+            .curved-arrow {
+                left: 180px;
+                width: 100px;
+            }
+            
+            .curved-arrow::before {
+                width: 100px;
+            }
+            
+            .main-navbar {
+                padding-left: 200px;
+            }
+            
+            .academy-link-container {
+                right: 3%;
+            }
+            
+            .nav-coworking {
+                padding: 0 70px 0 15px;
+            }
+            
+            .nav-coworking a {
+                font-size: 22px;
+                padding: 10px 15px;
+                min-width: 130px;
+                margin: 0 3px;
+            }
+            
+            .navbar-user-icon {
+                right: 3%;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .slogan {
+                display: none;
+            }
+            
+            .curved-arrow {
+                display: none;
+            }
+            
+            .top-header {
+                height: 65px;
+            }
+            
+            .logo-container {
+                width: 160px;
+                min-width: 160px;
+                left: 10px;
+                top: 5px;
+            }
+            
+            .logo-image {
+                height: 55px;
+            }
+            
+            .logo-image img {
+                max-width: 150px;
+            }
+            
+            .main-navbar {
+                padding-left: 170px;
+                padding-right: 3%;
+            }
+            
+            .academy-link-container {
+                right: 3%;
+                top: 15px;
+            }
+            
+            .nav-coworking {
+                padding: 0 60px 0 10px;
+            }
+            
+            .nav-coworking a {
+                font-size: 20px;
+                padding: 8px 12px;
+                min-width: 120px;
+                margin: 0 2px;
+            }
+            
+            .academy-link {
+                font-size: 20px;
+            }
+            
+            .custom-arrow {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .custom-arrow::before {
+                width: 13px;
+                top: 5px;
+            }
+            
+            .custom-arrow::after {
+                width: 13px;
+                top: 11px;
+            }
+            
+            .navbar-user-icon {
+                right: 3%;
+                width: 42px;
+                height: 42px;
+                font-size: 19px;
+            }
+            
+            /* تصميم متجاوب للشعار والأعمدة */
+            .footer-logo-columns {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                margin-bottom: 30px;
+                flex: 0 0 auto;
+            }
+            
+            .footer-columns {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 130px;
+            }
+            
+            .top-header {
+                flex-direction: column;
+                height: auto;
+                padding: 5px 5%;
+                align-items: center;
+            }
+            
+            .logo-container {
+                position: relative;
+                width: 100%;
+                min-width: auto;
+                justify-content: center;
+                height: 55px;
+                left: 0;
+                top: 0;
+                margin-bottom: 5px;
+            }
+            
+            .logo-image {
+                height: 55px;
+                width: auto;
+            }
+            
+            .logo-image img {
+                max-width: 160px;
+            }
+            
+            .academy-link-container {
+                position: relative;
+                right: auto;
+                top: auto;
+                width: 100%;
+                min-width: auto;
+                justify-content: center;
+                margin-top: 8px;
+                align-items: center;
+            }
+            
+            .main-navbar {
+                flex-direction: column;
+                padding: 15px 10px;
+                gap: 15px;
+            }
+            
+            .nav-coworking {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            .nav-coworking a {
+                font-size: 18px;
+                padding: 8px 12px;
+                min-width: 110px;
+                flex: none;
+                margin: 0;
+            }
+            
+            .navbar-user-icon {
+                position: static;
+                transform: none;
+                margin-top: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .academy-link {
+                font-size: 18px;
+            }
+            
+            .custom-arrow {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .custom-arrow::before {
+                width: 11px;
+                top: 4px;
+            }
+            
+            .custom-arrow::after {
+                width: 11px;
+                top: 10px;
+            }
+
+            /* تصميم متجاوب للفوتر */
+            .footer-contact-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-main-title {
+                font-size: 1.7rem;
+            }
+            
+            .contact-info {
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .map-image {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+            
+            /* تعديلات الخط للشاشات المتوسطة */
+            .contact-text p {
+                font-size: 16px; /* تكبير أقل للشاشات المتوسطة */
+            }
+            
+            .direction-link {
+                font-size: 16px; /* تكبير أقل للشاشات المتوسطة */
+            }
+            
+            .contact-icon {
+                font-size: 22px; /* تكبير أقل للشاشات المتوسطة */
+            }
+            
+            /* تصميم متجاوب للشعار والأعمدة */
+            .footer-columns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-column {
+                max-width: 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            
+            .footer-column:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 100%;
+                height: 50px;
+            }
+            
+            .logo-image {
+                height: 50px;
+            }
+            
+            .logo-image img {
+                max-width: 140px;
+            }
+            
+            .main-navbar {
+                padding: 10px 5px;
+            }
+            
+            .nav-coworking {
+                gap: 8px;
+            }
+            
+            .nav-coworking a {
+                font-size: 16px;
+                padding: 6px 10px;
+                min-width: 100px;
+            }
+            
+            .academy-link {
+                font-size: 16px;
+            }
+            
+            .custom-arrow {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .custom-arrow::before {
+                width: 10px;
+                top: 3px;
+            }
+            
+            .custom-arrow::after {
+                width: 10px;
+                top: 9px;
+            }
+
+            .footer-main-title {
+                font-size: 1.5rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .direction-link {
+                justify-content: center;
+            }
+            
+            /* تعديلات الخط للشاشات الصغيرة */
+            .contact-text p {
+                font-size: 15px; /* تكبير مناسب للشاشات الصغيرة */
+            }
+            
+            .direction-link {
+                font-size: 15px; /* تكبير مناسب للشاشات الصغيرة */
+            }
+            
+            .contact-icon {
+                font-size: 20px; /* تكبير مناسب للشاشات الصغيرة */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط العلوي المدمج -->
+    <div class="top-navbar">
+        <!-- الجزء العلوي مع الشعار والعنوان -->
+        <div class="top-header">
+            <div class="logo-container">
+                <!-- استخدام اللوغو الثانوي -->
+                <div class="logo-image">
+                    <img src="{% static 'images/logo_secondary.png' %}" alt="Коворкинг Башни">
+                </div>
+            </div>
+            <!-- السهم المتقطع المنحني الذي يشير من الشعار إلى الشعار النصي -->
+            <div class="curved-arrow"></div>
+            <div class="slogan">Пространство, где рождаются идеи</div>
+            <div class="academy-link-container">
+                <a href="#" class="academy-link">
+                    Перейти в академию
+                    <span class="custom-arrow"></span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- شريط التنقل الرئيسي -->
+        <nav class="main-navbar">
+            <div class="nav-coworking">
+                <li><a href="#">О пространстве</a></li>
+                <li><a href="#">Тарифы</a></li>
+                <li><a href="#">Фотогалерея</a></li>
+                <li><a href="#">Меню</a></li>
+                <li><a href="#">Мероприятия</a></li>
+                <li><a href="#">Библиотека</a></li>
+                <li><a href="#">Контакты</a></li>
+            </div>
+            <!-- أيقونة تسجيل الدخول في شريط المهام -->
+            <a href="#" class="navbar-user-icon">
+                <i class="fas fa-user"></i>
+            </a>
+        </nav>
+    </div>
+
+    <!-- منطقة المحتوى الرئيسي -->
+    <div class="main-content">
+        {% block content %}
+        <!-- المحتوى سيكون هنا في القوالب الأخرى -->
+        {% endblock %}
+    </div>
+
+    <!-- التذييل المعدل -->
+    <footer>
+        <div class="container">
+            <!-- قسم Контакты الرئيسي (الأعلى) -->
+            <div class="footer-main-section">
+                <h2 class="footer-main-title">Контакты</h2>
+                
+                <div class="footer-contact-content">
+                    <!-- المعلومات على اليسار -->
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div class="contact-text">
+                                <p>г. Москва, Садовая-Спасская 19к1</p>
+                                <p>(м. Красные ворота)</p>
+                                <p>Вход со стороны Красноворотского проезда</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div class="contact-text">
+                                <p>+7 (968) 418-44-88</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">✉️</span>
+                            <div class="contact-text">
+                                <p>info.fta@mail.ru</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">🕒</span>
+                            <div class="contact-text">
+                                <p>Ждем в гости: с 10:00 до 19:00</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <a href="#" class="direction-link">
+                                <span class="direction-text">Как к нам добраться?</span>
+                                <span class="direction-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- خريطة الموقع على اليمين -->
+                    <div class="map-section">
+                        <div class="map-image">
+                            <img src="{% static 'images/image1.jpg' %}" alt="Карта расположения коворкинга">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الشعار والأعمدة الجديدة (الأسفل) -->
+            <div class="footer-logo-columns">
+                <div class="footer-logo">
+                    <img src="{% static 'images/logo 1.png' %}" alt="Коворкинг Башни">
+                </div>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Образование</h3>
+                        <ul>
+                            <li>Профессиональная переподготовка</li>
+                            <li>Повышение квалификации</li>
+                            <li>Тренинги</li>
+                            <li>Коучинг</li>
+                            <li>Семинар</li>
+                            <li>Онлайн</li>
+                            <li>Лекторий</li>
+                            <li>Мастер класс</li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Печать</h3>
+                        <ul>
+                            <li>Печатная продукция</li>
+                            <li>Полиграфические материалы</li>
+                            <li>Готовые решения</li>
+                            <li>Логистика</li>
+                            <li>Издательство</li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Медиа</h3>
+                        <ul>
+                            <li>Журнал FTA</li>
+                            <li>Исследования</li>
+                            <li>Партнерские программмы</li>
+                            <li>Цифровая башня</li>
+                            <li>Реквизиты</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; Коворкинг "Башни". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

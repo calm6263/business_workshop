@@ -1,0 +1,1764 @@
+.projects-page {
+    padding: 0 0 15px 0;
+}
+
+/* أنماط الخبز */
+.breadcrumb-section {
+    padding: 0.7rem 0 0.2rem 0;
+    background: transparent !important;
+}
+
+.breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.breadcrumb-link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #052946;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #7F1726;
+    transform: translateY(-1px);
+}
+
+.breadcrumb-current {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #052946;
+}
+
+.breadcrumb-arrow {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #052946;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-arrow .arrow-top {
+    width: 7px;
+    height: 2px;
+    top: 5px;
+    right: 2px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.breadcrumb-arrow .arrow-bottom {
+    width: 7px;
+    height: 2px;
+    bottom: 5px;
+    right: 2px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+/* الخبز داخل السلايدر - شفاف */
+.slider-breadcrumb {
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    z-index: 10;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0.4rem 0.8rem;
+    border: none !important;
+    border-radius: 0;
+}
+
+.slider-breadcrumb .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.slider-breadcrumb .breadcrumb-link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.slider-breadcrumb .breadcrumb-link:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.slider-breadcrumb .breadcrumb-current {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #FFFFFF;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.slider-breadcrumb .breadcrumb-arrow .arrow-line {
+    background: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ستايلات السلايدر المحسنة */
+.project-slider {
+    margin-top: 0;
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+}
+
+.carousel-inner {
+    overflow: hidden;
+}
+
+.slide-image-container {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slide-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+}
+
+.slide-title {
+    font-family: 'Prata', serif;
+    font-size: 42px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.slide-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+/* زر الاقتراح داخل السلايدر */
+.carousel-propose-btn-container {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.propose-project-btn {
+    background: #7F1726;
+    color: #FDFDFD;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 12px rgba(127, 23, 38, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    line-height: 1.4;
+    width: auto;
+    min-width: 320px;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.propose-project-btn:hover {
+    background: #9a1f32;
+    color: #FDFDFD;
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 6px 20px rgba(127, 23, 38, 0.4);
+}
+
+.carousel-indicators {
+    bottom: 60px;
+}
+
+.carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid transparent;
+}
+
+.carousel-indicators button.active {
+    background-color: white;
+    border-color: #052946;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 45px;
+    height: 45px;
+    background: transparent !important;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.carousel-control-prev {
+    left: 20px;
+}
+
+.carousel-control-next {
+    right: 20px;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
+    background: white;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(15%) sepia(40%) saturate(2000%) hue-rotate(190deg) brightness(90%) contrast(90%);
+}
+
+/* قسم فلاتر التصنيفات مع إمكانية الطي */
+.category-filters-section {
+    margin: 30px 0 25px 0;
+    padding: 0 15px;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* حاوية الفلاتر القابلة للتوسيع */
+.filters-container-collapsible {
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
+}
+
+/* إخفاء الفلاتر الإضافية افتراضياً */
+.extra-filter {
+    display: none;
+}
+
+/* عند توسيع الحاوية، نظهر الفلاتر الإضافية */
+#filtersContainer.expanded .extra-filter {
+    display: flex;
+}
+
+.category-filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* تصميم فلتر - مربع صغير مع اسم */
+.category-tag {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.checkbox-wrapper {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.checkbox-square {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #052946;
+    border-radius: 6px;
+    background: transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.checkmark::before,
+.checkmark::after {
+    content: '';
+    position: absolute;
+    background: #7F1726;
+    border-radius: 2px;
+}
+
+.checkmark::before {
+    width: 8px;
+    height: 2px;
+    top: 6px;
+    left: 3px;
+    transform: rotate(45deg);
+}
+
+.checkmark::after {
+    width: 12px;
+    height: 2px;
+    top: 6px;
+    left: 6px;
+    transform: rotate(-45deg);
+}
+
+/* عندما يكون نشطاً */
+.category-tag.active .checkmark {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.category-tag.active .checkbox-square {
+    border-color: #7F1726;
+    background: rgba(127, 23, 38, 0.1);
+}
+
+.category-name {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    color: #052946;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.category-tag:hover {
+    background: transparent;
+}
+
+.category-tag:hover .checkbox-square {
+    border-color: #7F1726;
+    transform: scale(1.05);
+}
+
+.category-tag:hover .category-name {
+    color: #7F1726;
+}
+
+.category-tag.active .category-name {
+    color: #7F1726;
+    font-weight: 600;
+}
+
+.category-tag:focus {
+    outline: 2px solid #7F1726;
+    outline-offset: 2px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تذييل الفلاتر (السهم والنص) */
+.toggle-footer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(5, 41, 70, 0.1);
+}
+
+.toggle-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background: #ffffff;
+}
+
+.toggle-header:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+ }
+
+.toggle-arrow {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* اتجاه السهم يعتمد على حالة التوسيع */
+#filtersContainer.expanded ~ .toggle-footer-wrapper .toggle-arrow {
+    transform: rotate(180deg);
+}
+
+.toggle-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #052946;
+    font-weight: 500;
+}
+
+.filters-count {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #37556A;
+    font-weight: 500;
+}
+
+/* قسم المشاريع - دائم الظهور */
+.all-projects-section {
+    margin-top: 30px;
+}
+
+.projects-container {
+    overflow: visible;
+    max-height: none;
+    opacity: 1;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+/* بطاقة المشروع الجديدة */
+.project-card-new {
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-new:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.project-image-new {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+.project-date-new {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(168, 180, 190, 0.83);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-family: 'Prata', serif;
+    font-size: 14px;
+    color: #313232;
+    font-weight: 400;
+}
+
+.project-content-new {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title-new {
+    font-family: 'Prata', serif;
+    font-size: 18px;
+    color: #052946;
+    margin-bottom: 12px;
+    line-height: 1.3;
+    min-height: 50px;
+    font-weight: 400;
+}
+
+.project-separator {
+    width: 100%;
+    height: 2px;
+    background: rgba(5, 41, 70, 0.54);
+    margin-bottom: 15px;
+}
+
+.project-description-new {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #052946;
+    margin-bottom: 15px;
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.project-partners-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.partners-label {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #052946;
+    margin-right: 6px;
+}
+
+.partners-list {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #052946;
+}
+
+.project-action {
+    text-align: center;
+    margin-top: auto;
+}
+
+.read-more-btn {
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    background: #052946;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 35px;
+    padding: 12px 25px;
+    font-family: 'Prata', serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 3px 8px rgba(5, 41, 70, 0.2);
+}
+
+.read-more-btn:hover {
+    background: #031a2d;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 12px rgba(5, 41, 70, 0.3);
+}
+
+.no-projects-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 35px 15px;
+    background: #F8F9FA;
+    border-radius: 12px;
+    border: 2px dashed #E0E0E0;
+}
+
+.no-projects-message p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+/* تحسينات للاستجابة */
+@media (max-width: 1200px) {
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .project-title-new {
+        font-size: 16px;
+        min-height: 45px;
+    }
+    
+    .project-description-new {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 992px) {
+    .category-filter-tags {
+        gap: 12px;
+    }
+    
+    .category-tag {
+        padding: 6px 12px;
+        gap: 10px;
+    }
+    
+    .checkbox-wrapper {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .checkmark {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .checkmark::before {
+        width: 7px;
+        height: 2px;
+        top: 5px;
+        left: 3px;
+    }
+    
+    .checkmark::after {
+        width: 10px;
+        height: 2px;
+        top: 5px;
+        left: 5px;
+    }
+    
+    .category-name {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-filters-section {
+        margin: 20px 0 15px 0;
+        padding: 0 10px;
+    }
+    
+    .category-filter-tags {
+        gap: 10px;
+    }
+    
+    .category-tag {
+        padding: 5px 10px;
+        gap: 8px;
+        border-radius: 6px;
+    }
+    
+    .checkbox-wrapper {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .checkbox-square {
+        border-width: 1.5px;
+        border-radius: 4px;
+    }
+    
+    .checkmark {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .checkmark::before {
+        width: 6px;
+        height: 1.5px;
+        top: 4px;
+        left: 2px;
+    }
+    
+    .checkmark::after {
+        width: 8px;
+        height: 1.5px;
+        top: 4px;
+        left: 4px;
+    }
+    
+    .category-name {
+        font-size: 13px;
+    }
+    
+    .propose-project-btn {
+        padding: 12px 28px;
+        font-size: 18px;
+        border-radius: 45px;
+        min-height: 55px;
+        min-width: 280px;
+    }
+    
+    .carousel-propose-btn-container {
+        bottom: 20px;
+    }
+    
+    .slider-breadcrumb {
+        top: 0.8rem;
+        left: 1rem;
+        padding: 0.32rem 0.64rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-link,
+    .slider-breadcrumb .breadcrumb-current {
+        font-size: 0.64rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-arrow {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .toggle-footer-wrapper {
+        margin-top: 10px;
+        padding-top: 8px;
+    }
+    
+    .toggle-header {
+        padding: 6px 12px;
+    }
+    
+    .toggle-arrow {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .toggle-text {
+        font-size: 13px;
+    }
+    
+    .filters-count {
+        font-size: 12px;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+    }
+    
+    .project-content-new {
+        padding: 15px;
+    }
+    
+    .project-title-new {
+        font-size: 14px;
+        min-height: 40px;
+    }
+    
+    .project-description-new {
+        font-size: 12px;
+    }
+    
+    .partners-label,
+    .partners-list {
+        font-size: 12px;
+    }
+    
+    .read-more-btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+    
+    .project-image-new {
+        height: 140px;
+    }
+    
+    .slide-image-container {
+        height: 280px;
+    }
+    
+    .slide-title {
+        font-size: 24px !important;
+    }
+    
+    .slide-description {
+        font-size: 14px !important;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .carousel-control-prev {
+        left: 10px;
+    }
+    
+    .carousel-control-next {
+        right: 10px;
+    }
+    
+    .carousel-indicators {
+        bottom: 50px;
+    }
+}
+
+@media (max-width: 576px) {
+    .category-filters-section {
+        margin: 20px 0 15px 0;
+        padding: 0 10px;
+    }
+    
+    .category-filter-tags {
+        gap: 8px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .category-tag {
+        padding: 4px 8px;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+    
+    .checkbox-wrapper {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .checkmark {
+        width: 9px;
+        height: 9px;
+    }
+    
+    .checkmark::before {
+        width: 5px;
+        height: 1.5px;
+        top: 4px;
+        left: 2px;
+    }
+    
+    .checkmark::after {
+        width: 7px;
+        height: 1.5px;
+        top: 4px;
+        left: 3px;
+    }
+    
+    .category-name {
+        font-size: 12px;
+    }
+    
+    .propose-project-btn {
+        padding: 10px 24px;
+        font-size: 16px;
+        border-radius: 40px;
+        min-height: 50px;
+        min-width: 240px;
+    }
+    
+    .carousel-propose-btn-container {
+        bottom: 15px;
+    }
+    
+    .slider-breadcrumb {
+        top: 0.64rem;
+        left: 0.64rem;
+        padding: 0.24rem 0.48rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-content {
+        gap: 0.4rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-link,
+    .slider-breadcrumb .breadcrumb-current {
+        font-size: 0.56rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-arrow {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .slider-breadcrumb .breadcrumb-arrow .arrow-top,
+    .slider-breadcrumb .breadcrumb-arrow .arrow-bottom {
+        width: 5px;
+        height: 1px;
+    }
+    
+    .toggle-footer-wrapper {
+        margin-top: 8px;
+        padding-top: 6px;
+    }
+    
+    .toggle-header {
+        padding: 4px 8px;
+    }
+    
+    .toggle-arrow {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .toggle-text {
+        font-size: 12px;
+    }
+    
+    .filters-count {
+        font-size: 10px;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .project-card-new {
+        max-width: 100%;
+    }
+    
+    .slide-image-container {
+        height: 220px;
+    }
+    
+    .slide-title {
+        font-size: 18px !important;
+        margin-bottom: 10px;
+    }
+    
+    .slide-description {
+        font-size: 12px !important;
+    }
+    
+    .carousel-indicators {
+        bottom: 40px;
+    }
+    
+    .category-filter-tags::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .category-filter-tags::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 2px;
+    }
+    
+    .category-filter-tags::-webkit-scrollbar-thumb {
+        background: #052946;
+        border-radius: 2px;
+    }
+    
+    .category-filter-tags::-webkit-scrollbar-thumb:hover {
+        background: #031a2d;
+    }
+}
+
+/* ===========================================
+   أنماط النوافذ المنبثقة (بدون تمرير داخلي)
+   =========================================== */
+.proposal-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+    overflow-y: auto; /* التمرير على مستوى المتصفح */
+    padding: 20px 0;
+}
+
+.proposal-modal-content.expanded {
+    position: relative;
+    background: #FFFFFF;
+    margin: 40px auto; /* توسيط عمودي مع تمرير إذا لزم */
+    padding: 0;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 15px 20px 8px;
+    position: relative;
+    text-align: center;
+    border-bottom: none;
+}
+
+.modal-header .modal-title {
+    font-family: 'Prata', serif;
+    font-size: 20px;
+    color: #052946;
+    line-height: 1.2;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 400;
+    width: 100%;
+}
+
+.close-modal {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+}
+
+.close-modal svg {
+    width: 20px;
+    height: 20px;
+}
+
+.person-type-section {
+    margin-bottom: 10px;
+    padding: 0 20px;
+}
+
+.person-type-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.person-type-option {
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.person-type-option.active {
+    transform: translateY(-2px);
+}
+
+.person-type-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #052946;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    display: block;
+    padding: 0 10px;
+}
+
+.person-type-option.active .person-type-text {
+    font-weight: 600;
+    color: #052946;
+}
+
+.person-type-option:hover .person-type-text {
+    color: #7F1726;
+}
+
+.person-type-option.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background: #7F1726;
+    border-radius: 2px;
+}
+
+.legal-underline {
+    display: none;
+}
+
+.modal-body {
+    padding: 0 20px 15px;
+}
+
+.fields-section {
+    margin-bottom: 12px;
+}
+
+.common-fields {
+    margin-bottom: 15px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.proposal-form .form-group {
+    margin-bottom: 10px; /* زيادة المسافة بين الحقول */
+}
+
+.proposal-form .form-control {
+    border: 1px solid #052946;
+    border-radius: 8px; /* زوايا أقل استدارة */
+    padding: 5px 10px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    color: #052946;
+    background: #FFFFFF;
+    box-sizing: border-box;
+    width: 100%;
+    transition: all 0.3s ease;
+    height: 34px;
+    display: block;
+}
+
+.proposal-form .form-control:focus {
+    border-color: #7F1726;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(127, 23, 38, 0.1);
+}
+
+.proposal-form .form-control::placeholder {
+    color: rgba(5, 41, 70, 0.54);
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 1;
+}
+
+.proposal-form textarea.form-control {
+    min-height: 65px;
+    resize: vertical;
+    height: auto;
+    padding: 6px 10px;
+    border-radius: 8px; /* زوايا أقل استدارة */
+    line-height: 1.5;
+    font-size: 12px;
+}
+
+.agreement-section {
+    margin-top: 10px;
+    padding: 0 20px;
+}
+
+.agreement-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+    background: transparent; /* إزالة الخلفية والإطار */
+    /* إزالة border و border-radius */
+}
+
+.agreement-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #052946;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+    border: 2px solid #052946;
+    border-radius: 5px;
+}
+
+.agreement-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    color: rgba(5, 41, 70, 0.54);
+    line-height: 1.3;
+    cursor: pointer;
+    font-weight: 500;
+    flex: 1;
+}
+
+/* أنماط الروابط في اتفاقية الخصوصية */
+.agreement-link {
+    color: #052946;
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.agreement-link:hover {
+    color: #7F1726;
+}
+
+.modal-footer {
+    padding: 10px 20px 15px;
+    background: #FFFFFF;
+    border-radius: 0 0 30px 30px;
+    text-align: center;
+    border-top: 2px solid #f0f0f0;
+}
+
+.submit-proposal-btn {
+    background: #052946;
+    color: #FFFFFF;
+    border-radius: 80px;
+    padding: 7px 20px;
+    font-family: 'Prata', serif;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 230px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 400;
+    min-height: 40px;
+    letter-spacing: 0.5px;
+}
+
+.submit-proposal-btn:hover {
+    background: #031a2d;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(5, 41, 70, 0.3);
+}
+
+.submit-proposal-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.success-message {
+    display: none;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 6px solid #28a745;
+    margin: 0 20px 15px;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.2);
+    animation: slideInDown 0.3s ease-out;
+}
+
+.error-message {
+    display: none;
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 6px solid #dc3545;
+    margin: 0 20px 15px;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+    box-shadow: 0 3px 10px rgba(220, 53, 69, 0.2);
+    animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.loading-spinner {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* أنماط التحقق من صحة الحقول */
+.input-container.error .form-control {
+    border-color: #dc3545;
+    background: #fff5f5;
+}
+
+.input-container.error::after {
+    content: '⚠';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #dc3545;
+    font-size: 14px;
+}
+
+.input-container.valid .form-control {
+    border-color: #28a745;
+    background: #f8fff9;
+}
+
+.input-container.valid::after {
+    content: '✓';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #28a745;
+    font-size: 14px;
+}
+
+/* ===========================================
+   نافذة نجاح التسجيل المنبثقة
+   =========================================== */
+
+.success-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10001;
+    backdrop-filter: blur(5px);
+    animation: modalFadeIn 0.3s ease-out;
+    overflow-y: auto;
+    padding: 20px 0;
+}
+
+.success-modal-content {
+    position: relative;
+    background: #FFFFFF;
+    margin: 40px auto;
+    padding: 0;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 25px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+    animation: successModalSlideIn 0.4s ease-out;
+}
+
+@keyframes successModalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-modal-header {
+    padding: 25px 30px 10px;
+    text-align: center;
+    border-bottom: 2px solid #f0f0f0;
+    position: relative;
+}
+
+.success-icon {
+    margin-bottom: 15px;
+    animation: successIconBounce 0.6s ease-out;
+}
+
+@keyframes successIconBounce {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-modal-title {
+    font-family: 'Prata', serif;
+    font-size: 24px;
+    color: #28a745;
+    margin: 0;
+    font-weight: 500;
+}
+
+.close-success-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+}
+
+.close-success-modal:hover {
+    transform: rotate(90deg);
+    opacity: 1;
+}
+
+.success-modal-body {
+    padding: 25px 30px;
+    text-align: center;
+}
+
+.success-message-content {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #052946;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+.proposal-id-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.proposal-id-label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.proposal-id-value {
+    font-family: 'Prata', serif;
+    font-size: 20px;
+    color: #052946;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #28a745;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.success-modal-footer {
+    padding: 20px 30px 30px;
+    text-align: center;
+    border-top: 2px solid #f0f0f0;
+}
+
+.close-success-btn {
+    background: #28a745;
+    color: #FFFFFF;
+    border-radius: 50px;
+    padding: 12px 35px;
+    font-family: 'Prata', serif;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    display: block;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.close-success-btn:hover {
+    background: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(40, 167, 69, 0.4);
+}
+
+/* تحسينات للاستجابة للنوافذ المنبثقة */
+@media (max-width: 768px) {
+    .proposal-modal-content.expanded {
+        width: 95%;
+        margin: 20px auto;
+    }
+    
+    .modal-body {
+        padding: 0 15px 10px;
+    }
+    
+    .modal-header .modal-title {
+        font-size: 18px;
+    }
+    
+    .person-type-text {
+        font-size: 14px;
+    }
+    
+    .proposal-form .form-control {
+        padding: 4px 8px;
+        font-size: 11px;
+        height: 32px;
+    }
+    
+    .proposal-form textarea.form-control {
+        min-height: 60px;
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+    
+    .submit-proposal-btn {
+        font-size: 13px;
+        padding: 6px 15px;
+        min-height: 38px;
+        max-width: 200px;
+    }
+    
+    .agreement-label {
+        font-size: 10px;
+    }
+    
+    .success-modal-content {
+        width: 95%;
+        margin: 20px auto;
+    }
+    
+    .success-modal-header {
+        padding: 20px 25px 10px;
+    }
+    
+    .success-modal-title {
+        font-size: 20px;
+    }
+    
+    .success-icon svg {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .success-modal-body {
+        padding: 20px 25px;
+    }
+    
+    .success-message-content {
+        font-size: 14px;
+    }
+    
+    .proposal-id-value {
+        font-size: 18px;
+        padding: 8px;
+    }
+    
+    .success-modal-footer {
+        padding: 15px 25px 25px;
+    }
+    
+    .close-success-btn {
+        padding: 10px 25px;
+        font-size: 14px;
+        max-width: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .proposal-modal-content.expanded {
+        width: 98%;
+        margin: 10px auto;
+        border-radius: 20px;
+    }
+    
+    .modal-header {
+        padding: 12px 15px 6px;
+    }
+    
+    .modal-header .modal-title {
+        font-size: 16px;
+    }
+    
+    .close-modal {
+        right: 15px;
+        top: 12px;
+    }
+    
+    .close-modal svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .person-type-section {
+        padding: 0 15px;
+    }
+    
+    .person-type-options {
+        gap: 20px;
+    }
+    
+    .person-type-text {
+        font-size: 13px;
+    }
+    
+    .modal-body {
+        padding: 0 15px 8px;
+    }
+    
+    .agreement-section {
+        padding: 0 15px;
+    }
+    
+    .modal-footer {
+        padding: 8px 15px 12px;
+    }
+    
+    .proposal-form .form-control {
+        padding: 3px 6px;
+        font-size: 10px;
+        height: 30px;
+    }
+    
+    .proposal-form textarea.form-control {
+        min-height: 55px;
+        padding: 4px 6px;
+        font-size: 10px;
+    }
+    
+    .agreement-label {
+        font-size: 9px;
+        line-height: 1.2;
+    }
+    
+    .submit-proposal-btn {
+        font-size: 12px;
+        padding: 5px 12px;
+        min-height: 36px;
+        max-width: 180px;
+    }
+    
+    .success-modal-content {
+        width: 98%;
+        margin: 10px auto;
+    }
+    
+    .success-modal-header {
+        padding: 15px 20px 8px;
+    }
+    
+    .success-modal-title {
+        font-size: 18px;
+    }
+    
+    .success-icon svg {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .close-success-modal {
+        right: 15px;
+        top: 15px;
+    }
+    
+    .close-success-modal svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .success-modal-body {
+        padding: 15px 20px;
+    }
+    
+    .proposal-id-section {
+        padding: 12px;
+    }
+    
+    .success-modal-footer {
+        padding: 15px 20px 20px;
+    }
+}

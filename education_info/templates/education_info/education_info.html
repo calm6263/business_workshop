@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Сведения об образовательной деятельности{% endblock %}
+
+{% block content %}
+<div class="education-container">
+    <!-- العنوان الرئيسي -->
+    <div class="education-header">
+        <div class="container">
+            <h1 class="education-title">Сведения об образовательной деятельности</h1>
+            <p class="education-subtitle">Полная информация об образовательных программах и деятельности академии</p>
+        </div>
+    </div>
+
+    <!-- شريط التنقل الداخلي -->
+    <div class="container">
+        <nav class="nav-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                <li class="breadcrumb-item"><a href="#">Академия</a></li>
+                <li class="breadcrumb-item active">Сведения об образовательной деятельности</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <div class="row">
+            <!-- الشريط الجانبي -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="sidebar-item active">Основные сведения</div>
+                    <div class="sidebar-item">Структура и органы управления</div>
+                    <div class="sidebar-item">Документы</div>
+                    <div class="sidebar-item">Образование</div>
+                    <div class="sidebar-item">Образовательные стандарты</div>
+                    <div class="sidebar-item">Руководство</div>
+                    <div class="sidebar-item">Педагогический состав</div>
+                    <div class="sidebar-item">Материально-техническое обеспечение</div>
+                    <div class="sidebar-item">Стипендии и меры поддержки</div>
+                    <div class="sidebar-item">Платные образовательные услуги</div>
+                    <div class="sidebar-item">Финансово-хозяйственная деятельность</div>
+                    <div class="sidebar-item">Вакантные места</div>
+                    <div class="sidebar-item">Международное сотрудничество</div>
+                    <div class="sidebar-item">Организация питания</div>
+                    <div class="sidebar-item">Абитуриенту</div>
+                </div>
+            </div>
+
+            <!-- المحتوى -->
+            <div class="col-lg-8">
+                <div class="content-section">
+                    <h2 class="content-title">Основные сведения</h2>
+                    
+                    <div class="info-card">
+                        <h3 class="info-card-title">Об академии</h3>
+                        <p class="content-text">
+                            Бизнес-мастерская предоставляет качественное образование в различных областях, 
+                            сочетая традиционные методы обучения с современными технологиями.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3 class="info-card-title">Образовательные программы</h3>
+                        <p class="content-text">
+                            Мы предлагаем широкий спектр образовательных программ, включая профессиональную 
+                            переподготовку, повышение квалификации, тренинги и коучинг.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3 class="info-card-title">Преподавательский состав</h3>
+                        <p class="content-text">
+                            Наши преподаватели - это опытные специалисты и практики, которые делятся 
+                            своими знаниями и опытом со студентами.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3 class="info-card-title">Материально-техническая база</h3>
+                        <p class="content-text">
+                            Современные аудитории, оборудованные лаборатории и библиотека обеспечивают 
+                            комфортные условия для обучения и развития.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2 class="content-title">Образовательные программы</h2>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <h3 class="info-card-title">Профессиональная переподготовка</h3>
+                                <p class="content-text">
+                                    Программы для получения новой квалификации и освоения современных профессий.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <h3 class="info-card-title">Повышение квалификации</h3>
+                                <p class="content-text">
+                                    Курсы для совершенствования профессиональных навыков и знаний.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <h3 class="info-card-title">Тренинги</h3>
+                                <p class="content-text">
+                                    Практические занятия для развития конкретных навыков и компетенций.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <h3 class="info-card-title">Коучинг</h3>
+                                <p class="content-text">
+                                    Индивидуальные программы развития под руководством опытных наставников.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.education-container {
+    font-family: 'Raleway', sans-serif;
+    background: #FFFFFF;
+    color: #052946;
+}
+
+.education-header {
+    background: #052946;
+    padding: 40px 0;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.education-title {
+    font-family: 'Prata', serif;
+    font-size: 48px;
+    color: #7F1726;
+    margin-bottom: 20px;
+}
+
+.education-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+}
+
+.nav-breadcrumb {
+    background: #f8f9fa;
+    padding: 15px 0;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.breadcrumb-item a {
+    color: #052946;
+    text-decoration: none;
+}
+
+.breadcrumb-item.active {
+    color: #7F1726;
+    font-weight: 500;
+}
+
+.sidebar {
+    background: rgba(255, 255, 255, 0.91);
+    border: 1px solid rgba(5, 41, 70, 0.36);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.sidebar-item {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #052946;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(5, 41, 70, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+    color: #7F1726;
+    padding-left: 10px;
+}
+
+.sidebar-item.active {
+    color: #7F1726;
+    font-weight: 600;
+}
+
+.sidebar-item:last-child {
+    border-bottom: none;
+}
+
+.content-section {
+    padding: 30px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.content-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    color: #052946;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #7F1726;
+}
+
+.content-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #052946;
+    margin-bottom: 20px;
+}
+
+.info-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.info-card-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #7F1726;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .education-title {
+        font-size: 36px;
+    }
+    
+    .education-subtitle {
+        font-size: 18px;
+    }
+    
+    .sidebar {
+        margin-bottom: 20px;
+    }
+    
+    .content-section {
+        padding: 20px;
+    }
+    
+    .content-title {
+        font-size: 24px;
+    }
+    
+    .sidebar-item {
+        font-size: 16px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', function() {
+            sidebarItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+            
+            const sectionName = this.textContent.trim();
+            loadSectionContent(sectionName);
+        });
+    });
+
+    function loadSectionContent(sectionName) {
+        const contentSection = document.querySelector('.content-section');
+        if (contentSection) {
+            contentSection.innerHTML = `
+                <h2 class="content-title">${sectionName}</h2>
+                <div class="info-card">
+                    <h3 class="info-card-title">Информация по разделу</h3>
+                    <p class="content-text">
+                        Содержимое раздела "${sectionName}" находится в стадии разработки 
+                        и будет доступно в ближайшее время.
+                    </p>
+                    <p class="content-text">
+                        Мы работаем над наполнением этого раздела актуальной и полезной информацией.
+                    </p>
+                </div>
+            `;
+        }
+    }
+});
+</script>
+{% endblock %}

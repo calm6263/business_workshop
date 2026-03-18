@@ -1,0 +1,229 @@
+{% load static %}
+
+<!-- detail.css - النسخة النهائية مع إضافة أنماط PDF Viewer وقسم Ранние выпуски -->
+<link rel="stylesheet" href="{% static 'fta_journal/css/detail.css' %}">
+
+<div class="detail-container">
+    <!-- Кнопка назад -->
+    <div class="back-button">
+        <a href="?tab=journal&journal_page=home" class="back-link">
+            <svg width="40" height="40" viewBox="0 0 87 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M83.5 33.5H3.5M3.5 33.5L38.5 63.5M3.5 33.5L38.5 3.5" stroke="#052946" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Назад</span>
+        </a>
+    </div>
+
+    <div class="detail-content">
+        <!-- Левая колонка: обложка -->
+        <div class="cover-column">
+            {% if journal_issue.cover_image %}
+                <img src="{{ journal_issue.cover_image.url }}" alt="{{ journal_issue.title }}" class="detail-cover">
+            {% else %}
+                <div class="detail-cover-placeholder">Нет изображения</div>
+            {% endif %}
+        </div>
+
+        <!-- Правая колонка: текст и кнопки -->
+        <div class="info-column">
+            <h1 class="detail-title">{{ journal_issue.title }}</h1>
+            <div class="detail-date">{{ journal_issue.publication_date|date:"F Y" }}</div>
+            <div class="detail-description">
+                {{ journal_issue.description|linebreaks }}
+            </div>
+            <div class="action-buttons">
+                <!-- Кнопка Читать (открывает PDF просмотрщик) -->
+                <a href="{% if journal_issue.pdf_file %}{{ journal_issue.pdf_file.url }}{% else %}#{% endif %}" class="btn-action btn-read" {% if not journal_issue.pdf_file %}disabled{% endif %}>
+                    <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M58 10.0625H43.7C40.6313 10.0625 37.6312 10.9438 35.05 12.6063L32 14.5625L28.95 12.6063C26.3713 10.9441 23.368 10.0609 20.3 10.0625H6C4.89375 10.0625 4 10.9563 4 12.0625V47.5625C4 48.6688 4.89375 49.5625 6 49.5625H20.3C23.3687 49.5625 26.3688 50.4438 28.95 52.1063L31.725 53.8938C31.8062 53.9438 31.9 53.975 31.9937 53.975C32.0875 53.975 32.1813 53.95 32.2625 53.8938L35.0375 52.1063C37.625 50.4438 40.6313 49.5625 43.7 49.5625H58C59.1063 49.5625 60 48.6688 60 47.5625V12.0625C60 10.9563 59.1063 10.0625 58 10.0625ZM20.3 45.0625H8.5V14.5625H20.3C22.5125 14.5625 24.6625 15.1938 26.5187 16.3875L29.5688 18.3438L30 18.625V47.5C27.025 45.9 23.7 45.0625 20.3 45.0625ZM55.5 45.0625H43.7C40.3 45.0625 36.975 45.9 34 47.5V18.625L34.4313 18.3438L37.4813 16.3875C39.3375 15.1938 41.4875 14.5625 43.7 14.5625H55.5V45.0625ZM24.8062 22.5625H13.1938C12.95 22.5625 12.75 22.775 12.75 23.0313V25.8438C12.75 26.1 12.95 26.3125 13.1938 26.3125H24.8C25.0437 26.3125 25.2437 26.1 25.2437 25.8438V23.0313C25.25 22.775 25.05 22.5625 24.8062 22.5625ZM38.75 23.0313V25.8438C38.75 26.1 38.95 26.3125 39.1937 26.3125H50.8C51.0438 26.3125 51.2438 26.1 51.2438 25.8438V23.0313C51.2438 22.775 51.0438 22.5625 50.8 22.5625H39.1937C38.95 22.5625 38.75 22.775 38.75 23.0313ZM24.8062 31.3125H13.1938C12.95 31.3125 12.75 31.525 12.75 31.7813V34.5938C12.75 34.85 12.95 35.0625 13.1938 35.0625H24.8C25.0437 35.0625 25.2437 34.85 25.2437 34.5938V31.7813C25.25 31.525 25.05 31.3125 24.8062 31.3125ZM50.8063 31.3125H39.1937C38.95 31.3125 38.75 31.525 38.75 31.7813V34.5938C38.75 34.85 38.95 35.0625 39.1937 35.0625H50.8C51.0438 35.0625 51.2438 34.85 51.2438 34.5938V31.7813C51.25 31.525 51.05 31.3125 50.8063 31.3125Z" fill="white"/>
+                    </svg>
+                    <span>Читать</span>
+                </a>
+                <!-- Кнопка Скачать для печати -->
+                <a href="{% if journal_issue.pdf_file %}{{ journal_issue.pdf_file.url }}{% else %}#{% endif %}" class="btn-action btn-download" {% if not journal_issue.pdf_file %}disabled{% endif %} download>
+                    <svg width="32" height="32" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M41 48L26 33L30.2 28.65L38 36.45V12H44V36.45L51.8 28.65L56 33L41 48ZM23 60C21.35 60 19.938 59.413 18.764 58.239C17.59 57.065 17.002 55.652 17 54V45H23V54H59V45H65V54C65 55.65 64.413 57.063 63.239 58.239C62.065 59.415 60.652 60.002 59 60H23Z" fill="white"/>
+                    </svg>
+                    <span>Скачать для печати</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Галерея страниц выпуска (Bootstrap Carousel) -->
+    <div class="page-preview-section">
+        <div class="container position-relative">
+            <h2 class="preview-title">Предпросмотр</h2>
+            
+            <!-- Bootstrap Carousel -->
+            <div id="previewCarousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                <!-- Индикаторы (кружки) -->
+                <div class="carousel-indicators preview-indicators">
+                    {% for page in journal_pages %}
+                    <button type="button" data-bs-target="#previewCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                            {% if forloop.first %}class="active"{% endif %} 
+                            aria-label="Страница {{ forloop.counter }}"></button>
+                    {% endfor %}
+                </div>
+                
+                <!-- Изображения карусели -->
+                <div class="carousel-inner">
+                    {% for page in journal_pages %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ page.image.url }}" class="d-block preview-image" alt="Страница {{ page.page_number }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <p class="page-number">Страница {{ page.page_number }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="carousel-item active">
+                        <div class="preview-image-placeholder">Нет доступных страниц</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Навигационные кнопки (стрелки) -->
+                <button class="carousel-nav-btn prev-preview" type="button" data-bs-target="#previewCarousel" data-bs-slide="prev">
+                    <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 -0.804854 -0.324263 0.945967 35.6791 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 0.804854 -0.324263 -0.945967 35.6791 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    </svg>
+                    <span class="visually-hidden">Предыдущий</span>
+                </button>
+                <button class="carousel-nav-btn next-preview" type="button" data-bs-target="#previewCarousel" data-bs-slide="next">
+                    <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 -0.804854 0.324263 0.945967 2.3209 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 0.804854 0.324263 -0.945967 2.3209 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    </svg>
+                    <span class="visually-hidden">Следующий</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== قسم Ранние выпуски ====== -->
+    <div class="early-issues-section mb-5">
+        <div class="container position-relative">
+            <a href="?tab=journal&journal_page=early" class="early-section-title" style="text-decoration: none; color: inherit;">Ранние выпуски</a>
+            <div class="early-carousel-container">
+                <button class="carousel-nav-btn prev-early" onclick="scrollEarly(-1)">
+                    <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 -0.804854 -0.324263 0.945967 35.6791 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(-0.593474 0.804854 -0.324263 -0.945967 35.6791 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <button class="carousel-nav-btn next-early" onclick="scrollEarly(1)">
+                    <svg width="30" height="30" viewBox="0 0 38 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 -0.804854 0.324263 0.945967 2.3209 100)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                        <line x1="3.5" y1="-3.5" x2="56.6191" y2="-3.5" transform="matrix(0.593474 0.804854 0.324263 -0.945967 2.3209 0)" stroke="#052946" stroke-width="7" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <div class="early-carousel" id="earlyCarousel">
+                    {% for issue in journal_early_issues %}
+                    <a href="?tab=journal&journal_page=detail&pk={{ issue.id }}" class="early-card-link" style="text-decoration: none; color: inherit;">
+                        <div class="early-card">
+                            <div class="early-card-inner">
+                                {% if issue.cover_image %}
+                                <img src="{{ issue.cover_image.url }}" class="early-cover" alt="{{ issue.title }}">
+                                {% else %}
+                                <div class="early-cover-placeholder">Нет изображения</div>
+                                {% endif %}
+                                <div class="card-date">{{ issue.publication_date|date:"F Y" }}</div>
+                            </div>
+                        </div>
+                    </a>
+                    {% empty %}
+                    <div class="col-12 text-center py-4">
+                        <p class="text-muted">Нет выпусков</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- روابط إضافية لاستعمال أنماط ودوال الصفحة الرئيسية -->
+    <link rel="stylesheet" href="{% static 'fta_journal/css/home.css' %}">
+    <script src="{% static 'fta_journal/js/home.js' %}"></script>
+
+    <!-- PDF.js библиотека -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    </script>
+
+    <!-- PDF просмотрщик (модальное окно) -->
+    <div id="pdfViewerModal" class="pdf-modal" style="display: none;">
+        <div class="pdf-modal-overlay"></div>
+        <div class="pdf-modal-container">
+            <!-- Панель инструментов -->
+            <div class="pdf-toolbar">
+                <div class="toolbar-left">
+                    <button class="toolbar-btn close-btn" id="closePdfViewer" title="Закрыть (Esc)">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="toolbar-center">
+                    <button class="toolbar-btn" id="prevPage" title="Предыдущая страница">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <span id="pageInfo">1 / 1</span>
+                    <button class="toolbar-btn" id="nextPage" title="Следующая страница">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="separator"></div>
+                    <button class="toolbar-btn" id="zoomOut" title="Уменьшить">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                    </button>
+                    <span id="zoomLevel">100%</span>
+                    <button class="toolbar-btn" id="zoomIn" title="Увеличить">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <line x1="11" y1="8" x2="11" y2="14"></line>
+                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="toolbar-right">
+                    <button class="toolbar-btn" id="fullscreenBtn" title="Полный экран">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" id="downloadPdf" title="Скачать PDF">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </button>
+                    <button class="toolbar-btn" id="printPdf" title="Печать">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                            <path d="M6 9V3h12v6"></path>
+                            <rect x="6" y="15" width="12" height="6" rx="2"></rect>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Контейнер страниц (вертикальная прокрутка) -->
+            <div class="pdf-pages-container" id="pdfPagesContainer"></div>
+            <!-- Индикатор загрузки -->
+            <div class="pdf-loader" id="pdfLoader">Загрузка документа...</div>
+        </div>
+    </div>
+
+    <script src="{% static 'fta_journal/js/detail.js' %}"></script>
+</div>

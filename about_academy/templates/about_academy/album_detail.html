@@ -1,0 +1,67 @@
+<!-- about_academy/album_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ album.title }} {% endblock %}
+
+{% block content %}
+<div class="album-detail-page">
+    <!-- رأس الألبوم -->
+    <div class="album-header-section">
+        <div class="container">
+            <div class="album-header-content">
+                <h1 class="album-title">{{ album.title }}</h1>
+                {% if album.description %}
+                <p class="album-description">{{ album.description }}</p>
+                {% endif %}
+                <div class="album-meta">
+                    <span class="album-photo-count">
+                        <i class="fas fa-images"></i> {{ images|length }} фото
+                    </span>
+                    <span class="album-date">
+                        <i class="fas fa-calendar-alt"></i> {{ album.created_at|date:"d E Y" }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شبكة الصور -->
+    <div class="album-images-section">
+        <div class="container">
+            {% if images %}
+            <div class="album-grid">
+                {% for image in images %}
+                <div class="album-image-item">
+                    <div class="album-image-container">
+                        <img src="{{ image.image.url }}" alt="{{ album.title }}" class="album-image">
+                        <div class="image-zoom-icon" data-index="{{ forloop.counter0 }}">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                    <!-- في حالة وجود تعليق أو وصف يمكن إضافته هنا -->
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-images-message">
+                <p>В этом альбоме пока нет фотографий.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- زر العودة -->
+    <div class="back-button-section">
+        <div class="container">
+            <a href="{% url 'about_academy' %}" class="back-to-gallery-btn">
+                <i class="fas fa-arrow-left"></i> Вернуться в галерею
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- تضمين CSS و JS الخاصين بالألبوم -->
+<link rel="stylesheet" href="{% static 'about_academy/css/album_detail.css' %}">
+<script src="{% static 'about_academy/js/album_lightbox.js' %}"></script>
+{% endblock %}

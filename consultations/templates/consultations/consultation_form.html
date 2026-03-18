@@ -1,0 +1,312 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Консультации - {% endblock %}
+
+{% block main_class %}full-width{% endblock %}
+
+{% block content %}
+<!-- ربط ملف CSS الخارجي -->
+<link rel="stylesheet" href="{% static 'consultations/css/consultation_form.css' %}">
+
+<div class="consultation-page">
+    <!-- Hero Section with Slider -->
+    <div class="consultation-hero-section full-width-slider">
+        <div class="hero-slider">
+            {% for slide in hero_slides %}
+            <div class="hero-slide" style="background-image: url('{{ slide.image.url }}');">
+                <div class="hero-slide-content">
+                    <!-- Breadcrumb داخل الهيرو (شفاف، نص أبيض) -->
+                    <div class="hero-breadcrumb">
+                        <div class="breadcrumb-content">
+                            <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                            <div class="breadcrumb-arrow">
+                                <div class="arrow-line arrow-top"></div>
+                                <div class="arrow-line arrow-bottom"></div>
+                            </div>
+                            <span class="breadcrumb-current">Консультации</span>
+                        </div>
+                    </div>
+                    <div class="hero-content text-center">
+                        {% if slide.title %}
+                        <h1 class="consultation-hero-title">{{ slide.title }}</h1>
+                        {% endif %}
+                        {% if slide.subtitle %}
+                        <p class="consultation-hero-subtitle">{{ slide.subtitle }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="hero-slide" style="background-image: url('/static/images/consultation-hero.jpg');">
+                <div class="hero-slide-content">
+                    <!-- Breadcrumb عادي (خلفية بيضاء) للشريحة الافتراضية -->
+                    <div class="regular-breadcrumb">
+                        <div class="breadcrumb-content">
+                            <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                            <div class="breadcrumb-arrow">
+                                <div class="arrow-line arrow-top"></div>
+                                <div class="arrow-line arrow-bottom"></div>
+                            </div>
+                            <span class="breadcrumb-current">Консультации</span>
+                        </div>
+                    </div>
+                    <div class="hero-content text-center">
+                        <h1 class="consultation-hero-title">Консультации</h1>
+                        <p class="consultation-hero-subtitle">Заполните заявку на консультацию</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Slider Controls -->
+        <button class="slider-control prev-control" aria-label="Предыдущий слайд">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        <button class="slider-control next-control" aria-label="Следующий слайд">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+        
+        <!-- Slider Dots -->
+        <div class="slider-dots">
+            {% for slide in hero_slides %}
+            <button class="slider-dot {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}" aria-label="Перейти к слайду {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Consultation Form -->
+    <div class="consultation-form-section">
+        <div class="form-wrapper">
+            {% if messages %}
+            <div class="alert-messages">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                    <div class="alert alert-error alert-dismissible fade show" role="alert">
+                        <strong>Ошибка:</strong> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% elif message.tags == 'info' or message.tags == 'warning' %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Added Form Header -->
+            <div class="consultation-form-header">
+                <h2 class="consultation-form-title">Заполните заявку на консультацию</h2>
+            </div>
+
+            <form method="post" class="consultation-form" id="consultationForm" novalidate>
+                {% csrf_token %}
+                
+                <!-- Direction -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">1)</div>
+                        <h2 class="section-title">Направление</h2>
+                    </div>
+                    <div class="form-field">
+                        {{ form.direction }}
+                        {% if form.direction.errors %}
+                        <div class="error-message">{{ form.direction.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Date -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">2)</div>
+                        <h2 class="section-title">Дата</h2>
+                    </div>
+                    <div class="form-field">
+                        {{ form.date }}
+                        {% if form.date.errors %}
+                        <div class="error-message">{{ form.date.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Time -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">3)</div>
+                        <h2 class="section-title">Время</h2>
+                    </div>
+                    <div class="form-field">
+                        {{ form.time }}
+                        {% if form.time.errors %}
+                        <div class="error-message">{{ form.time.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Contact Method -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">4)</div>
+                        <h2 class="section-title">Способ связи</h2>
+                    </div>
+                    <div class="contact-fields">
+                        <!-- Phone Field -->
+                        <div class="contact-field-wrapper">
+                            <div class="contact-field phone-field">
+                                <div class="contact-icon phone-icon">
+                                    <div class="icon-outer-circle">
+                                        <div class="icon-inner-circle"></div>
+                                    </div>
+                                </div>
+                                <div class="input-wrapper">
+                                    <div class="phone-prefix">+7</div>
+                                    {{ form.contact_phone }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div class="contact-field-wrapper">
+                            <div class="contact-field email-field">
+                                <div class="contact-icon email-icon">
+                                    <div class="icon-outer-circle">
+                                        <div class="icon-inner-circle"></div>
+                                    </div>
+                                </div>
+                                <div class="input-wrapper">
+                                    {{ form.contact_email }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if form.contact_phone.errors %}
+                    <div class="error-message">{{ form.contact_phone.errors }}</div>
+                    {% endif %}
+                    {% if form.contact_email.errors %}
+                    <div class="error-message">{{ form.contact_email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Additional Wishes -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-number">5)</div>
+                        <h2 class="section-title">Дополнительные пожелания</h2>
+                    </div>
+                    <div class="form-field">
+                        {{ form.additional_wishes }}
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/200
+                        </div>
+                        {% if form.additional_wishes.errors %}
+                        <div class="error-message">{{ form.additional_wishes.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Agreement -->
+                <div class="agreement-section">
+                    <div class="agreement-checkbox">
+                        {{ form.agreed_to_terms }}
+                        <label for="{{ form.agreed_to_terms.id_for_label }}">
+                            Я согласен с условиями <a href="/terms/" target="_blank">пользовательского соглашения</a> и <a href="/privacy/" target="_blank">политикой конфиденциальности</a>
+                        </label>
+                    </div>
+                    {% if form.agreed_to_terms.errors %}
+                    <div class="error-message">{{ form.agreed_to_terms.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FAQ Section (без заголовка и серого фона) -->
+    <div class="faq-section">
+        <div class="faq-wrapper">
+            <!-- عناصر FAQ -->
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-dot"></span>
+                    <h3>{{ faq.question }}</h3>
+                    <div class="faq-arrow">
+                        <svg viewBox="0 0 176 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(0.719873 0.694106 -0.912523 0.409026 0 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(-0.719873 0.694106 0.912523 0.409026 176 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>{{ faq.answer|linebreaks }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Default FAQs if none in database -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-dot"></span>
+                    <h3>Что такое консультация и зачем она нужна?</h3>
+                    <div class="faq-arrow">
+                        <svg viewBox="0 0 176 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(0.719873 0.694106 -0.912523 0.409026 0 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(-0.719873 0.694106 0.912523 0.409026 176 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Консультация — это профессиональная помощь эксперта в решении конкретных бизнес-задач. Она помогает получить свежий взгляд на проблему, найти оптимальные решения и избежать типичных ошибок.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-dot"></span>
+                    <h3>Как проходит консультация?</h3>
+                    <div class="faq-arrow">
+                        <svg viewBox="0 0 176 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(0.719873 0.694106 -0.912523 0.409026 0 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(-0.719873 0.694106 0.912523 0.409026 176 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Консультация проходит онлайн в согласованное время. Эксперт изучает вашу ситуацию, задает уточняющие вопросы и предлагает конкретные решения и рекомендации.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-dot"></span>
+                    <h3>Что будет после консультации?</h3>
+                    <div class="faq-arrow">
+                        <svg viewBox="0 0 176 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(0.719873 0.694106 -0.912523 0.409026 0 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                            <line x1="4.5" y1="-4.5" x2="113.801" y2="-4.5" transform="matrix(-0.719873 0.694106 0.912523 0.409026 176 2.34375)" stroke="#7F1726" stroke-width="9" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>После консультации вы получите конкретный план действий, рекомендации по реализации и при необходимости дополнительные материалы для самостоятельного изучения.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- ربط ملف JavaScript الخارجي -->
+<script src="{% static 'consultations/js/consultation_form.js' %}"></script>
+{% endblock %}

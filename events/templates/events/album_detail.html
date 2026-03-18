@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ album.title }} - Фотогалерея{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
+    <link rel="stylesheet" href="{% static 'events/css/album_lightbox.css' %}">   {# new CSS for lightbox #}
+    <link href="https://fonts.googleapis.com/css2?family=Prata&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block main_class %}events-page{% endblock %}
+
+{% block content %}
+<div class="album-detail-container">
+    
+    <!-- ===== HEADER: back button, title, date ===== -->
+    <div class="album-header-row">
+        <button class="back-button-simple" onclick="window.location.href='{% url 'gallery' %}'">
+            <svg width="24" height="18" viewBox="0 0 87 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M83.5 33.5H3.5M3.5 33.5L38.5 63.5M3.5 33.5L38.5 3.5" stroke="#052946" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Назад</span>
+        </button>
+    </div>
+
+    <div class="album-title-block">
+        <h1 class="album-main-title">{{ album.title }}</h1>
+        {% if album.event_date %}
+            <div class="album-main-date">{{ album.event_date|date:"d.m.Y" }}</div>
+        {% endif %}
+        {% if album.description %}
+            <p class="album-main-description">{{ album.description|linebreaksbr }}</p>
+        {% endif %}
+    </div>
+
+    <!-- ===== PHOTO GRID ===== -->
+    <div class="photo-grid-classic">
+        {% for photo in photos %}
+            <div class="photo-card" data-index="{{ forloop.counter0 }}" data-photo-id="{{ photo.id }}">
+                <img src="{{ photo.image.url }}" 
+                     alt="{{ photo.title }}" 
+                     loading="lazy"
+                     class="photo-card-img">
+                {% if photo.title %}
+                    <div class="photo-card-caption">{{ photo.title|truncatechars:50 }}</div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="no-photos-message">
+                <h4>В этом альбоме пока нет фотографий</h4>
+                <p>Фотографии будут добавлены в ближайшее время.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- ===== LIGHTBOX MODAL (hidden by default) ===== -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <div class="lightbox-overlay"></div>
+        <div class="lightbox-container">
+            <button class="lightbox-close">&times;</button>
+            
+            <div class="lightbox-carousel-wrapper">
+                <!-- Carousel track will be cloned here dynamically -->
+                <div class="lightbox-carousel-track-container">
+                    <div class="lightbox-carousel-track" id="lightboxCarouselTrack">
+                        {% for photo in photos %}
+                            <div class="lightbox-carousel-slide" data-index="{{ forloop.counter0 }}">
+                                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="lightbox-carousel-image">
+                                {% if photo.title or photo.description %}
+                                    <div class="lightbox-carousel-caption">
+                                        {% if photo.title %}<h4>{{ photo.title }}</h4>{% endif %}
+                                        {% if photo.description %}<p>{{ photo.description|truncatechars:150 }}</p>{% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Navigation arrows -->
+                <button class="lightbox-nav lightbox-prev" aria-label="Предыдущее фото">
+                    <div class="arrow-icon"></div>
+                </button>
+                <button class="lightbox-nav lightbox-next" aria-label="Следующее фото">
+                    <div class="arrow-icon"></div>
+                </button>
+
+                <!-- Counter -->
+                <div class="lightbox-counter" id="lightboxCounter">1 / {{ photos|length }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script src="{% static 'events/js/album_lightbox.js' %}"></script>
+{% endblock %}

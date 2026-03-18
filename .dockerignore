@@ -1,0 +1,28 @@
+# بيئات افتراضية
+venv/
+env/
+.venv/
+.env
+
+# ملفات Python المترجمة
+__pycache__/
+*.pyc
+
+# قواعد البيانات المحلية
+*.sqlite3
+db.sqlite3
+
+# مجلدات الميديا والستاتيك (سيتم إنشاؤها عبر volumes)
+/media/
+/staticfiles/
+
+# ملفات التطوير
+.git
+.vscode
+.idea
+*.log
+.DS_Store
+
+# ملفات التخزين المؤقت
+.cache
+.pytest_cache

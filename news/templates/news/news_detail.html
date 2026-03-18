@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ news_item.title }} - СМИ{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/news_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/news_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- تضمين الهيرو والتبويبات -->
+    {% include 'news/news_hero_tabs.html' %}
+
+    <!-- محتوى التبويبات -->
+    <div class="research-main-content" style="padding-left: 25px !important; padding-right: 25px !important; width: 100%; max-width: 1400px; margin-left: auto !important; margin-right: auto !important; box-sizing: border-box;">
+
+        <!-- تبويب "Новости" (تفاصيل الخبر) -->
+        <div id="news-content" class="tab-content {% if current_tab == 'news' %}active{% endif %}" {% if current_tab != 'news' %}style="display: none;"{% endif %}>
+            <div class="back-navigation mb-4">
+                <a href="{% url 'news:news_list' %}?tab={{ current_tab }}" class="back-button-advanced"
+                   hx-get="{% url 'news:news_list' %}?tab={{ current_tab }}"
+                   hx-target="#news-content"
+                   hx-push-url="true"
+                   hx-select="#news-content"
+                   hx-swap="outerHTML">
+                    <svg width="50" height="40" viewBox="0 0 115 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M111.5 45.5H3.5M3.5 45.5L50.75 87.5M3.5 45.5L50.75 3.5" stroke="#052946" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Назад</span>
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="news-image mb-4">
+                        <div class="news-image-wrapper">
+                            {% if news_item.image %}
+                            <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" class="news-image">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="news-header mb-4">
+                        <h1 class="news-title">{{ news_item.title }}</h1>
+
+                        <div class="info-row">
+                            <svg class="info-icon" viewBox="0 0 89 89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M28.7409 9.271C28.7409 8.53336 28.4479 7.82594 27.9263 7.30436C27.4047 6.78277 26.6973 6.48975 25.9596 6.48975C25.222 6.48975 24.5146 6.78277 23.993 7.30436C23.4714 7.82594 23.1784 8.53336 23.1784 9.271V15.1302C17.8384 15.5566 14.3377 16.6024 11.7641 19.1797C9.18685 21.7532 8.1411 25.2576 7.71094 30.5939H81.2917C80.8615 25.2539 79.8158 21.7532 77.2385 19.1797C74.6649 16.6024 71.1605 15.5566 65.8242 15.1265V9.271C65.8242 8.53336 65.5312 7.82594 65.0096 7.30436C64.488 6.78277 63.7806 6.48975 63.043 6.48975C62.3053 6.48975 61.5979 6.78277 61.0763 7.30436C60.5548 7.82594 60.2617 8.53336 60.2617 9.271V14.8817C57.7957 14.8335 55.0293 14.8335 51.918 14.8335H37.0846C33.9734 14.8335 31.2069 14.8335 28.7409 14.8817V9.271Z" fill="#052946"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.41797 44.5C7.41797 41.3887 7.41797 38.6223 7.46618 36.1562H81.5364C81.5846 38.6223 81.5846 41.3887 81.5846 44.5V51.9167C81.5846 65.9008 81.5846 72.8947 77.2385 77.2372C72.8923 81.5796 65.9021 81.5833 51.918 81.5833H37.0846C23.1005 81.5833 16.1066 81.5833 11.7641 77.2372C7.42168 72.891 7.41797 65.9008 7.41797 51.9167V44.5ZM63.043 51.9167C64.0265 51.9167 64.9697 51.526 65.6652 50.8305C66.3606 50.1351 66.7513 49.1918 66.7513 48.2083C66.7513 47.2248 66.3606 46.2816 65.6652 45.5861C64.9697 44.8907 64.0265 44.5 63.043 44.5C62.0595 44.5 61.1162 44.8907 60.4208 45.5861C59.7253 46.2816 59.3346 47.2248 59.3346 48.2083C59.3346 49.1918 59.7253 50.1351 60.4208 50.8305C61.1162 51.526 62.0595 51.9167 63.043 51.9167ZM63.043 66.75C64.0265 66.75 64.9697 66.3593 65.6652 65.6639C66.3606 64.9684 66.7513 64.0252 66.7513 63.0417C66.7513 62.0582 66.3606 61.1149 65.6652 60.4195C64.9697 59.724 64.0265 59.3333 63.043 59.3333C62.0595 59.3333 61.1162 59.724 60.4208 60.4195C59.7253 61.1149 59.3346 62.0582 59.3346 63.0417C59.3346 64.0252 59.7253 64.9684 60.4208 65.6639C61.1162 66.3593 62.0595 66.75 63.043 66.75ZM48.2096 48.2083C48.2096 49.1918 47.8189 50.1351 47.1235 50.8305C46.428 51.526 45.4848 51.9167 44.5013 51.9167C43.5178 51.9167 42.5746 51.526 41.8791 50.8305C41.1837 50.1351 40.793 49.1918 40.793 48.2083C40.793 47.2248 41.1837 46.2816 41.8791 45.5861C42.5746 44.8907 43.5178 44.5 44.5013 44.5C45.4848 44.5 46.428 44.8907 47.1235 45.5861C47.8189 46.2816 48.2096 47.2248 48.2096 48.2083ZM48.2096 63.0417C48.2096 64.0252 47.8189 64.9684 47.1235 65.6639C46.428 66.3593 45.4848 66.75 44.5013 66.75C43.5178 66.75 42.5746 66.3593 41.8791 65.6639C41.1837 64.9684 40.793 64.0252 40.793 63.0417C40.793 62.0582 41.1837 61.1149 41.8791 60.4195C42.5746 59.724 43.5178 59.3333 44.5013 59.3333C45.4848 59.3333 46.428 59.724 47.1235 60.4195C47.8189 61.1149 48.2096 62.0582 48.2096 63.0417ZM25.9596 51.9167C26.9431 51.9167 27.8864 51.526 28.5818 50.8305C29.2773 50.1351 29.668 49.1918 29.668 48.2083C29.668 47.2248 29.2773 46.2816 28.5818 45.5861C27.8864 44.8907 26.9431 44.5 25.9596 44.5C24.9761 44.5 24.0329 44.8907 23.3374 45.5861C22.642 46.2816 22.2513 47.2248 22.2513 48.2083C22.2513 49.1918 22.642 50.1351 23.3374 50.8305C24.0329 51.526 24.9761 51.9167 25.9596 51.9167ZM25.9596 66.75C26.9431 66.75 27.8864 66.3593 28.5818 65.6639C29.2773 64.9684 29.668 64.0252 29.668 63.0417C29.668 62.0582 29.2773 61.1149 28.5818 60.4195C27.8864 59.724 26.9431 59.3333 25.9596 59.3333C24.9761 59.3333 24.0329 59.724 23.3374 60.4195C22.642 61.1149 22.2513 62.0582 22.2513 63.0417C22.2513 64.0252 22.642 64.9684 23.3374 65.6639C24.0329 66.3593 24.9761 66.75 25.9596 66.75Z" fill="#052946"/>
+                            </svg>
+                            <span class="info-value">Дата публикации:&nbsp;{{ news_item.publish_date|date:"d.m.Y" }}</span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="info-icon type-dot"></span>
+                            <span class="info-value">{{ news_item.category.name }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-description mb-5">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Описание</h2>
+                        <div class="description-content">{{ news_item.content|linebreaks }}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% if gallery_images %}
+            <div class="gallery-carousel-section mt-5 pt-4">
+                <div class="row">
+                    <div class="col-12">
+                        <a href="{% url 'about_academy' %}#photo-gallery" class="gallery-section-link">
+                            <div class="section-header" style="justify-content: flex-start; margin-bottom: 0.5rem; padding-left: 0;">
+                                <div class="header-left">
+                                    <div class="red-dot-small"></div>
+                                    <h2 class="gallery-carousel-title">Фотогалерея</h2>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="gallery-carousel-container">
+                    <button class="carousel-arrow carousel-arrow-prev" aria-label="Предыдущие фото">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="gallery-carousel-track-wrapper">
+                        <div class="gallery-carousel-track">
+                            {% for image in gallery_images %}
+                            <div class="gallery-carousel-slide">
+                                <div class="gallery-carousel-image-wrapper">
+                                    <img src="{{ image.image.url }}" alt="{{ image.album.title }}" class="gallery-carousel-image" loading="lazy">
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-next" aria-label="Следующие фото">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="carousel-dots">
+                    {% for image in gallery_images %}
+                    <span class="carousel-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- تبويب "Журнал FTA" (مؤقت) -->
+        <div id="journal-content" class="tab-content {% if current_tab == 'journal' %}active{% endif %}" {% if current_tab != 'journal' %}style="display: none;"{% endif %}>
+            <div class="container py-5 text-center">
+                <h2 class="text-muted">Раздел "Журнал FTA" находится в разработке</h2>
+                <p class="lead">Скоро здесь появится контент.</p>
+            </div>
+        </div>
+
+        <!-- تبويب "Пресс-центр" (مؤقت) -->
+        <div id="press-content" class="tab-content {% if current_tab == 'press' %}active{% endif %}" {% if current_tab != 'press' %}style="display: none;"{% endif %}>
+            <div class="container py-5 text-center">
+                <h2 class="text-muted">Раздел "Пресс-центр" находится в разработке</h2>
+                <p class="lead">Скоро здесь появится контент.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم الاشتراك في النشرة البريدية -->
+    <div class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-wrapper">
+                <h2 class="newsletter-title">Подпишитесь на новости</h2>
+                <p class="newsletter-subtitle">Будьте в курсе новых событий Академии</p>
+                
+                <form id="subscribeForm" class="newsletter-form">
+                    {% csrf_token %}
+                    <div class="newsletter-input-group">
+                        <input type="email" name="email" class="newsletter-input" placeholder="Электронная почта" required>
+                    </div>
+                    
+                    <div class="newsletter-checkbox">
+                        <input type="checkbox" name="consent" id="consent" required>
+                        <label for="consent">
+                            Я согласен с условиями 
+                            <a href="/terms/" target="_blank" class="policy-link">пользовательского соглашения</a> 
+                            и 
+                            <a href="/privacy/" target="_blank" class="policy-link">политикой конфиденциальности</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="newsletter-btn">Подписаться</button>
+                    
+                    <div class="newsletter-message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/news_detail.js' %}"></script>
+{% endblock %}

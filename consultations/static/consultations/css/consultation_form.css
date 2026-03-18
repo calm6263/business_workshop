@@ -1,0 +1,1043 @@
+/* Consultation Page Styles */
+.consultation-page {
+    background: #FFFFFF;
+    min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Consultation Form Header */
+.consultation-form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.consultation-form-title {
+    font-family: 'Prata', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    color: #7F1726;
+    margin: 0;
+}
+
+/* Error message styling */
+.alert-error {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border: 2px solid #721c24;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    color: #721c24;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+}
+
+.alert-error .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.alert-error .btn-close:hover {
+    opacity: 1;
+}
+
+/* Required field indicator */
+.required-field::after {
+    content: ' *';
+    color: #dc3545;
+}
+
+/* Form validation styling */
+.form-field.error select,
+.form-field.error input,
+.form-field.error textarea {
+    border-color: #dc3545 !important;
+    background-color: #fff8f8;
+}
+
+/* Phone formatting */
+.phone-input {
+    font-family: monospace;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Hero Slider Full Width */
+.full-width-slider {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    max-width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.hero-slider {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.hero-slide-content {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+.consultation-hero-title {
+    font-family: 'Prata', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.consultation-hero-subtitle {
+    font-family: 'Prata', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Slider Controls */
+.slider-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.slider-control:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.prev-control {
+    left: 20px;
+}
+
+.next-control {
+    right: 20px;
+}
+
+/* Slider Dots */
+.slider-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.slider-dot.active {
+    background: white;
+}
+
+/* Form Styles */
+.consultation-form-section {
+    padding: 2rem 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 3rem;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.form-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+.section-number {
+    font-family: 'Prata', serif;
+    font-size: 2rem;
+    color: #052946;
+    min-width: 50px;
+}
+
+.section-title {
+    font-family: 'Prata', serif;
+    font-size: 2rem;
+    color: #052946;
+    margin: 0;
+}
+
+.text-center {
+    text-align: center;
+    width: 100%;
+}
+
+.form-field select,
+.form-field input:not(.contact-field input),
+.form-field textarea {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    color: #052946;
+    border: 2px solid #052946;
+    border-radius: 12px;
+    background: #FFFFFF;
+    transition: all 0.3s ease;
+}
+
+.form-field select:focus,
+.form-field input:focus:not(.contact-field input),
+.form-field textarea:focus {
+    border-color: #7F1726;
+    box-shadow: 0 0 0 3px rgba(127, 23, 38, 0.1);
+    outline: none;
+}
+
+.form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Contact Fields Redesign - Stacked and Smaller */
+.contact-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.contact-field-wrapper {
+    position: relative;
+}
+
+.contact-field {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1.5px solid #052946;
+    border-radius: 20px;
+    height: 70px;
+    padding: 0 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.contact-field:focus-within {
+    border-color: #7F1726;
+    box-shadow: 0 0 0 2px rgba(127, 23, 38, 0.1);
+}
+
+.contact-icon {
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.icon-outer-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #052946;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease;
+}
+
+.contact-field:focus-within .icon-outer-circle {
+    border-color: #7F1726;
+}
+
+.icon-inner-circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.contact-field:focus-within .icon-inner-circle {
+    background: #7F1726;
+}
+
+.input-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+.phone-field .input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.phone-prefix {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    color: #052946;
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+.contact-field input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    color: #052946;
+    background: transparent;
+    padding: 0;
+}
+
+.contact-field input:focus {
+    box-shadow: none;
+}
+
+.contact-field input::placeholder {
+    color: rgba(5, 41, 70, 0.5);
+    font-size: 1rem;
+}
+
+/* Character Counter */
+.char-counter {
+    text-align: right;
+    margin-top: 0.5rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Agreement */
+.agreement-section {
+    margin: 1.5rem 0;
+}
+
+.agreement-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.agreement-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 0.2rem;
+    cursor: pointer;
+}
+
+.agreement-checkbox label {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.95rem;
+    color: #052946;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+/* Submit Button */
+.submit-section {
+    text-align: center;
+    margin: 2.5rem 0;
+}
+
+.submit-btn {
+    background: #052946;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 6rem;
+    font-family: 'Prata', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #7F1726;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(127, 23, 38, 0.3);
+}
+
+/* ========== FAQ Section - المعدل بالكامل ========== */
+.faq-section {
+    background: transparent;
+    padding: 3rem 20px;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.faq-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* كل عنصر سؤال - بدون أي خلفية أو ظل أو حدود */
+.faq-item {
+    margin-bottom: 1.5rem;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+}
+
+/* رأس السؤال */
+.faq-question {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    transition: none;
+}
+
+.faq-question:hover {
+    background-color: transparent;
+}
+
+/* الدائرة الحمراء الصغيرة جداً */
+.faq-dot {
+    width: 12px;
+    height: 12px;
+    background: #7F1726;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: none;
+    border: none;
+}
+
+/* نص السؤال - بحجم أكبر */
+.faq-question h3 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.3rem;
+    color: #052946;
+    margin: 0;
+    flex-grow: 1;
+    font-weight: 400;
+}
+
+/* سهم الفتح/الإغلاق */
+.faq-arrow {
+    width: 30px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.faq-arrow svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.faq-item.active .faq-arrow {
+    transform: rotate(180deg);
+}
+
+/* منطقة الإجابة */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    background: transparent;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+}
+
+.faq-answer p {
+    padding: 1rem 0 0 0;
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    color: #052946;
+    line-height: 1.6;
+}
+
+/* Error Messages */
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.alert-messages {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .contact-field {
+        height: 65px;
+        padding: 0 18px;
+    }
+    
+    .icon-outer-circle {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .icon-inner-circle {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .contact-field input,
+    .phone-prefix {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .consultation-form-title {
+        font-size: 2.2rem;
+    }
+    
+    .consultation-hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .consultation-hero-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .section-number,
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .contact-fields {
+        gap: 18px;
+    }
+    
+    .contact-field {
+        height: 60px;
+        padding: 0 16px;
+        border-radius: 18px;
+    }
+    
+    .contact-icon {
+        margin-right: 12px;
+    }
+    
+    .icon-outer-circle {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .icon-inner-circle {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .contact-field input,
+    .phone-prefix {
+        font-size: 0.95rem;
+    }
+    
+    .full-width-slider {
+        height: 400px;
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+    
+    .hero-slide {
+        width: 100vw;
+    }
+    
+    .hero-slide-content {
+        width: 100vw;
+    }
+    
+    /* FAQ للشاشات المتوسطة */
+    .faq-dot {
+        width: 10px;
+        height: 10px;
+    }
+    .faq-arrow {
+        width: 26px;
+    }
+    .faq-question h3 {
+        font-size: 1.2rem;
+    }
+    .faq-answer p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .consultation-form-title {
+        font-size: 1.8rem;
+    }
+    
+    .full-width-slider {
+        height: 350px;
+        width: 100vw;
+        max-width: 100vw;
+    }
+    
+    .consultation-hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .consultation-hero-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .slider-control {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .section-number,
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .form-field select,
+    .form-field input:not(.contact-field input),
+    .form-field textarea {
+        font-size: 1rem;
+        padding: 0.9rem 1rem;
+    }
+    
+    .contact-fields {
+        gap: 15px;
+    }
+    
+    .contact-field {
+        height: 55px;
+        padding: 0 14px;
+        border-radius: 16px;
+    }
+    
+    .contact-icon {
+        margin-right: 10px;
+    }
+    
+    .icon-outer-circle {
+        width: 32px;
+        height: 32px;
+        border-width: 1.5px;
+    }
+    
+    .icon-inner-circle {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .contact-field input,
+    .phone-prefix {
+        font-size: 0.9rem;
+    }
+    
+    .phone-prefix {
+        font-size: 0.9rem;
+        margin-right: 6px;
+    }
+    
+    .submit-btn {
+        font-size: 1.3rem;
+        padding: 0.9rem 2.5rem;
+    }
+    
+    .faq-question h3 {
+        font-size: 1.1rem;
+    }
+    
+    .faq-answer p {
+        font-size: 0.95rem;
+    }
+    
+    .hero-slide {
+        width: 100vw;
+    }
+    
+    .hero-slide-content {
+        width: 100vw;
+    }
+    
+    /* FAQ للشاشات الصغيرة */
+    .faq-dot {
+        width: 9px;
+        height: 9px;
+    }
+    .faq-arrow {
+        width: 24px;
+    }
+    .faq-question {
+        gap: 0.8rem;
+    }
+    .faq-question h3 {
+        font-size: 1.1rem;
+    }
+    .faq-answer p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .consultation-form-title {
+        font-size: 1.6rem;
+    }
+    
+    .full-width-slider {
+        height: 300px;
+        width: 100vw;
+        max-width: 100vw;
+    }
+    
+    .consultation-hero-title {
+        font-size: 1.6rem;
+    }
+    
+    .consultation-hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .slider-control {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .slider-dots {
+        bottom: 20px;
+    }
+    
+    .section-number,
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    .form-field select,
+    .form-field input:not(.contact-field input),
+    .form-field textarea {
+        font-size: 0.95rem;
+        padding: 0.8rem 0.9rem;
+    }
+    
+    .contact-field {
+        height: 50px;
+        padding: 0 12px;
+        border-radius: 14px;
+        border-width: 1px;
+    }
+    
+    .icon-outer-circle {
+        width: 28px;
+        height: 28px;
+        border-width: 1px;
+    }
+    
+    .icon-inner-circle {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .contact-field input,
+    .phone-prefix {
+        font-size: 0.85rem;
+    }
+    
+    .phone-prefix {
+        font-size: 0.85rem;
+        margin-right: 5px;
+    }
+    
+    .submit-btn {
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
+    }
+    
+    .faq-question h3 {
+        font-size: 1rem;
+    }
+    
+    .agreement-checkbox label {
+        font-size: 0.85rem;
+    }
+    
+    .hero-slide {
+        width: 100vw;
+    }
+    
+    .hero-slide-content {
+        width: 100vw;
+    }
+    
+    /* FAQ للشاشات الأصغر */
+    .faq-dot {
+        width: 8px;
+        height: 8px;
+    }
+    .faq-arrow {
+        width: 20px;
+    }
+    .faq-question {
+        gap: 0.6rem;
+        padding: 0.3rem 0;
+    }
+    .faq-question h3 {
+        font-size: 1rem;
+    }
+    .faq-answer p {
+        font-size: 0.9rem;
+    }
+}
+ /* ===== أنماط Breadcrumb المستوردة من contacts.css ===== */
+:root {
+    --dark-blue: #052946;
+    --accent-red: #7F1726;
+}
+
+/* Breadcrumb داخل الهيرو (شفاف، نص أبيض) */
+.hero-breadcrumb {
+    position: absolute;
+    top: 0.5rem;
+    left: 0;
+    z-index: 20;
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+
+.hero-breadcrumb .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Raleway', sans-serif;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0.5rem 1rem;
+    border: none;
+    margin: 0;
+    border-radius: 0;
+    width: auto;
+}
+
+.hero-breadcrumb .breadcrumb-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: none;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.hero-breadcrumb .breadcrumb-current {
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.hero-breadcrumb .breadcrumb-link:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.hero-breadcrumb .breadcrumb-arrow {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-breadcrumb .breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hero-breadcrumb .breadcrumb-arrow .arrow-top {
+    width: 10px;
+    height: 2px;
+    top: 7px;
+    right: 3px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.hero-breadcrumb .breadcrumb-arrow .arrow-bottom {
+    width: 10px;
+    height: 2px;
+    bottom: 7px;
+    right: 3px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+/* Breadcrumb عادي (للاستخدام خارج الهيرو) */
+.regular-breadcrumb {
+    padding: 1rem 0 0.3rem 0;
+    background: #FFFFFF;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+}
+
+.regular-breadcrumb .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Raleway', sans-serif;
+    padding: 0.5rem 2rem;
+}
+
+.regular-breadcrumb .breadcrumb-link {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--dark-blue);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.regular-breadcrumb .breadcrumb-link:hover {
+    color: var(--accent-red);
+    transform: translateY(-1px);
+}
+
+.regular-breadcrumb .breadcrumb-current {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--dark-blue);
+}
+
+.regular-breadcrumb .breadcrumb-arrow {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.regular-breadcrumb .breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: var(--dark-blue);
+    border-radius: 2px;
+}
+
+.regular-breadcrumb .breadcrumb-arrow .arrow-top {
+    width: 10px;
+    height: 2px;
+    top: 7px;
+    right: 3px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.regular-breadcrumb .breadcrumb-arrow .arrow-bottom {
+    width: 10px;
+    height: 2px;
+    bottom: 7px;
+    right: 3px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+/* تعديلات responsive */
+@media (max-width: 768px) {
+    .hero-breadcrumb .breadcrumb-content {
+        padding: 0.5rem;
+    }
+    .regular-breadcrumb .breadcrumb-content {
+        padding: 0.5rem 1rem;
+    }
+}

@@ -1,0 +1,435 @@
+{# ==================== press_center/templates/press_center/press_center.html ==================== #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Пресс-центр{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/press_center.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section with Background Image - Full Width بدون هوامش -->
+<section class="press-hero-section position-relative">
+    <div class="press-background-container">
+        {% if press_page.background_image %}
+        <div class="press-background-image">
+            <img src="{{ press_page.background_image.url }}" alt="Пресс-центр" class="img-fluid w-100">
+        </div>
+        {% endif %}
+        
+        <!-- Отображение дополнительных изображений -->
+        {% if additional_images %}
+        <div class="press-additional-images">
+            {% for image in additional_images %}
+            <div class="additional-image-item">
+                <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid">
+                {% if image.caption %}
+                <div class="image-caption">{{ image.caption }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Breadcrumb داخل изображения -->
+    <nav aria-label="breadcrumb" class="breadcrumb-overlay position-absolute top-0 start-0 z-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Пресс-центр</li>
+        </ol>
+    </nav>
+
+    <div class="container-fluid position-relative z-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="press-main-title mb-3">
+                    {{ press_page.title|default:"Пресс-центр" }}
+                </h1>
+                {% if press_page.description %}
+                <div class="press-description-blue mb-4">
+                    {{ press_page.description|linebreaks }}
+                </div>
+                {% endif %}
+                <!-- تم إزالة الزر الأحمر من هنا -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Content Sections -->
+<!-- Новый раздел вкладок (дизайн как в program_detail) -->
+<section class="full-width-tabs-section mb-5">
+    <div class="full-width-tabs-container">
+        <!-- Контейнер вкладок -->
+        <div class="program-tabs-container">
+            <!-- Заголовки вкладок -->
+            <div class="program-tabs-header">
+                <button class="program-tab-btn active" data-tab="what-can-publish" id="tab-what">
+                    <span class="tab-btn-text">Что можно опубликовать?</span>
+                </button>
+                <button class="program-tab-btn" data-tab="publishing-rules" id="tab-rules">
+                    <span class="tab-btn-text">Правила публикации</span>
+                </button>
+            </div>
+            
+            <!-- Содержимое вкладок -->
+            <div class="program-tabs-content">
+                <!-- Вкладка Что можно опубликать? -->
+                <div class="program-tab-pane active" id="what-can-publish">
+                    <div class="publication-grid">
+                        <!-- Собственную статью -->
+                        <div class="publication-card">
+                            <div class="publication-icon">
+                                <svg width="80" height="85" viewBox="0 0 129 137" fill="none">
+                                    <rect width="88.1351" height="128.197" rx="27.8828" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 128.359 8.01221)" fill="#D1EBF4"/>
+                                    <path d="M38.6211 64.0977L74.5161 64.0977" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M38.6211 96.147L74.5161 96.147" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M38.6211 80.1226L74.5161 80.1226" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.9062 96.147H74.5177" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M85.7303 136.209V93.1027V71.5496V64.5789M2.08203 136.209V64.4187C2.08203 56.4536 8.53903 49.9966 16.5041 49.9966H43.9062L59.9307 49.9966" stroke="#052946" stroke-width="4.16639"/>
+                                    <path d="M118.426 45.5112L118.426 70.1891" stroke="#052946" stroke-width="4.16639" stroke-linecap="round"/>
+                                    <path d="M83.5703 40.5234L118.454 45.5911" stroke="#052946" stroke-width="4.16639" stroke-linecap="round"/>
+                                    <path d="M118.57 44.8198L85.9436 26.6832L49.1118 34.7293L81.775 55.5506L118.57 44.8198Z" stroke="#052946" stroke-width="4.16639" stroke-linejoin="round"/>
+                                    <path d="M104.796 49.4384L103.734 56.8943C103.734 56.8943 99.1064 67.9804 79.5037 65.1327C59.901 62.2849 58.3541 50.3018 58.3541 50.3018L59.4163 42.846" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="22.5954" cy="71.1496" r="7.85204" stroke="#052946" stroke-width="4.16639"/>
+                                </svg>
+                            </div>
+                            <h4 class="publication-title">Собственную статью</h4>
+                        </div>
+                        <!-- Анонс мероприятий -->
+                        <div class="publication-card">
+                            <div class="publication-icon">
+                                <svg width="80" height="80" viewBox="0 0 201 202" fill="none">
+                                    <circle cx="131.243" cy="82.3095" r="35.7348" fill="#D1EBF4"/>
+                                    <mask id="path-2-inside-1_4627_352" fill="white"><rect x="49.668" y="72.5894" width="17.3065" height="99.0319" rx="1.60246" transform="rotate(-15 49.668 72.5894)"/></mask>
+                                    <rect x="49.668" y="72.5894" width="17.3065" height="99.0319" rx="1.60246" transform="rotate(-15 49.668 72.5894)" stroke="#052946" stroke-width="6.40983" stroke-linejoin="round" mask="url(#path-2-inside-1_4627_352)"/>
+                                    <mask id="path-3-inside-2_4627_352" fill="white"><rect x="106.637" y="80.8824" width="15.3836" height="71.4696" rx="1.60246" transform="rotate(75 106.637 80.8824)"/></mask>
+                                    <rect x="106.637" y="80.8824" width="15.3836" height="71.4696" rx="1.60246" transform="rotate(75 106.637 80.8824)" stroke="#052946" stroke-width="6.40983" stroke-linejoin="round" mask="url(#path-3-inside-2_4627_352)"/>
+                                    <circle cx="124.432" cy="84.7424" r="9.93524" transform="rotate(-15 124.432 84.7424)" stroke="#052946" stroke-width="3.20491"/>
+                                    <path d="M108.989 47.3939C109.211 46.6864 109.942 46.1723 110.937 46.1653C111.926 46.1585 112.561 46.644 112.737 47.2995L133.156 123.505C133.332 124.161 133.021 124.905 132.145 125.394C131.263 125.887 130.367 125.796 129.827 125.286C123.871 119.652 115.895 113.115 108.261 110.163C104.249 108.611 99.3922 107.683 94.8595 107.323C90.3514 106.966 85.9751 107.156 82.9484 107.967L53.6235 115.825C52.8542 116.031 52.0631 115.574 51.857 114.805L46.3824 94.3733C46.1763 93.604 46.633 92.8129 47.4023 92.6068L76.7272 84.7492C79.1843 84.0907 82.9463 82.2937 86.7609 79.8647C90.5976 77.4217 94.6572 74.2319 97.6492 70.6871C102.85 64.5258 106.581 55.0685 108.989 47.3939Z" fill="white" stroke="black" stroke-width="3.52541"/>
+                                    <path d="M139.133 80.8018L155.076 76.5299" stroke="#052946" stroke-width="3.52541" stroke-linecap="round"/>
+                                    <path d="M143.297 92.6265L157.591 100.879" stroke="#052946" stroke-width="3.52541" stroke-linecap="round"/>
+                                    <path d="M136.863 68.6089L145.116 54.3149" stroke="#052946" stroke-width="3.52541" stroke-linecap="round"/>
+                                    <path d="M108.064 114.426L95.5391 67.6812" stroke="#052946" stroke-width="3.20491" stroke-linecap="round"/>
+                                    <path d="M86.2069 116.442L74.9922 77.3423" stroke="#052946" stroke-width="3.20491" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h4 class="publication-title">Анонс мероприятий</h4>
+                        </div>
+                        <!-- Пресс-конференции -->
+                        <div class="publication-card">
+                            <div class="publication-icon">
+                                <svg width="80" height="80" viewBox="0 0 129 129" fill="none">
+                                    <rect width="88.1351" height="128.197" rx="27.8828" transform="matrix(-1 0 0 1 128.52 0)" fill="#D1EBF4"/>
+                                    <path d="M107.709 49.273C113.382 46.6537 115.765 41.0377 117.32 34.2446C118.956 27.0933 116.824 18.6526 114.739 15.6365L108.028 17.1873L109.577 9.43331C100.285 7.36618 85.5545 7.92885 76.0225 13.5679C66.3991 19.261 60.536 27.1766 60.536 36.3123C60.536 40.776 62.0846 46.1356 63.6333 47.6863M107.709 49.273C110.321 50.3634 112.158 52.9448 112.158 55.9557C112.158 59.9526 108.922 63.1927 104.931 63.1927C103.12 63.1927 101.467 62.525 100.199 61.4238M107.709 49.273C94.5621 43.7849 79.4595 46.1933 74.3111 51.5516C71.2348 46.2753 66.4812 46.7352 63.6333 47.6863M63.6333 47.6863C61.0522 48.2033 56.4062 52.8441 56.4062 58.0234V63.1927" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M48.2723 103.68C51.6252 102.132 53.0338 98.8128 53.9527 94.7977C54.92 90.5708 53.6595 85.5819 52.4271 83.7992L48.4606 84.7158L49.376 80.1328C43.8839 78.911 35.1776 79.2435 29.5436 82.5766C23.8556 85.9415 20.3901 90.6201 20.3901 96.0198C20.3901 98.6581 21.3055 101.826 22.2208 102.743M48.2723 103.68C49.8163 104.325 50.9015 105.851 50.9015 107.63C50.9015 109.993 48.9891 111.908 46.6299 111.908C45.56 111.908 44.5827 111.513 43.8333 110.862M48.2723 103.68C40.5016 100.437 31.5751 101.86 28.532 105.027C26.7138 101.909 23.9041 102.18 22.2208 102.743M22.2208 102.743C20.6952 103.048 17.9492 105.791 17.9492 108.852V111.908" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <rect x="2.08319" y="65.2199" width="89.0966" height="60.8934" rx="12.3389" stroke="#052946" stroke-width="4.16639"/>
+                                    <rect x="10.4152" y="73.8737" width="51.5991" height="44.2278" rx="12.3389" stroke="#052946" stroke-width="4.16639"/>
+                                    <path d="M9.93359 66.3419V60.2525C9.93359 55.8275 13.5208 52.2402 17.9459 52.2402H29.8041C34.2291 52.2402 37.8163 55.8275 37.8163 60.2525V66.3419" stroke="#052946" stroke-width="4.16639"/>
+                                    <circle cx="30.6105" cy="59.4514" r="2.08319" fill="#052946"/>
+                                    <path d="M7.85156 45.9906V27.8828" stroke="#052946" stroke-width="4.16639" stroke-linecap="round"/>
+                                    <path d="M25.3212 44.7329L30.0078 27.2422" stroke="#052946" stroke-width="4.16639" stroke-linecap="round"/>
+                                    <path d="M40.399 46.1357L53.2031 33.3315" stroke="#052946" stroke-width="4.16639" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h4 class="publication-title">Пресс-конференции</h4>
+                        </div>
+                        <!-- Публикация итогов мероприятий -->
+                        <div class="publication-card">
+                            <div class="publication-icon">
+                                <svg width="80" height="80" viewBox="0 0 129 129" fill="none">
+                                    <path d="M100.313 0C115.713 9.70874e-06 128.196 12.4837 128.196 27.8828V100.314C128.196 115.713 115.713 128.196 100.313 128.196H27.8828C12.4837 128.196 0.000242744 115.713 0 100.314V27.8828C6.84037e-05 12.4837 12.4836 0 27.8828 0H100.313ZM27.8828 34.293C19.9177 34.293 13.46 40.7497 13.46 48.7148V83.6484C13.46 91.6135 19.9177 98.0703 27.8828 98.0703H99.9932C107.958 98.0702 114.415 91.6134 114.415 83.6484V48.7148C114.415 40.7498 107.958 34.2931 99.9932 34.293H27.8828Z" fill="#D1EBF4"/>
+                                    <path d="M37.0156 23.7163L112.331 23.7163" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16.0195 106.403H64.0932" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M64.0977 66.3418L112.492 66.3418" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M64.0977 95.8267L64.0977 35.5743" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16.0195 112.813H64.0932" stroke="#052946" stroke-width="4.16639" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="96.9463" cy="109.768" r="3.20491" transform="rotate(90 96.9463 109.768)" stroke="#052946" stroke-width="4.16639"/>
+                                    <path d="M27.0811 23.7158C27.0811 26.7729 24.539 29.3249 21.3125 29.3252C18.0858 29.3252 15.543 26.7731 15.543 23.7158C15.5432 20.6587 18.0859 18.1074 21.3125 18.1074C24.5389 18.1077 27.0808 20.6589 27.0811 23.7158Z" stroke="#052946" stroke-width="4.16639"/>
+                                    <path d="M112.331 109.768C112.331 111.599 110.908 112.973 109.286 112.973C107.665 112.973 106.241 111.599 106.241 109.768C106.241 107.937 107.665 106.563 109.286 106.563C110.908 106.563 112.331 107.937 112.331 109.768Z" stroke="#052946" stroke-width="4.16639"/>
+                                </svg>
+                            </div>
+                            <h4 class="publication-title">Публикация итогов мероприятий</h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Вкладка Правила публикации (без заголовка) -->
+                <div class="program-tab-pane" id="publishing-rules">
+                    <div class="rules-container">
+                        <div class="rules-content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="rules-list">
+                                        <li>
+                                            <span class="rule-icon check">
+                                                <svg width="25" height="22" viewBox="0 0 82 70" fill="none">
+                                                    <path d="M78.8477 0.96886C77.3087 0.100578 75.4361 -0.200396 73.642 0.13213C71.8478 0.464656 70.2789 1.40345 69.2804 2.74205L30.5174 54.7163L11.6133 39.5118C10.9463 38.9753 10.1644 38.5584 9.31221 38.2848C8.46002 38.0112 7.55422 37.8863 6.64653 37.9173C4.81338 37.9797 3.08383 38.673 1.83836 39.8447C0.592887 41.0165 -0.0664831 42.5706 0.0053034 44.1652C0.0770899 45.7598 0.874152 47.2643 2.22115 48.3477L27.0424 68.3101C27.0424 68.3101 27.7549 68.8437 28.0846 69.0302C28.8468 69.4605 29.6989 69.7559 30.5924 69.8997C31.4858 70.0434 32.4031 70.0326 33.2917 69.868C34.1804 69.7033 35.023 69.388 35.7716 68.94C36.5201 68.492 37.1599 67.9201 37.6543 67.257L80.8862 9.29124C81.8844 7.95243 82.2304 6.32356 81.8481 4.76287C81.4658 3.20218 80.3866 1.83747 78.8477 0.96886Z" fill="#052946"/>
+                                                </svg>
+                                            </span>
+                                            <span class="rule-text">Оригинальный текст</span>
+                                        </li>
+                                        <li>
+                                            <span class="rule-icon check">
+                                                <svg width="25" height="22" viewBox="0 0 82 70" fill="none">
+                                                    <path d="M78.8477 0.96886C77.3087 0.100578 75.4361 -0.200396 73.642 0.13213C71.8478 0.464656 70.2789 1.40345 69.2804 2.74205L30.5174 54.7163L11.6133 39.5118C10.9463 38.9753 10.1644 38.5584 9.31221 38.2848C8.46002 38.0112 7.55422 37.8863 6.64653 37.9173C4.81338 37.9797 3.08383 38.673 1.83836 39.8447C0.592887 41.0165 -0.0664831 42.5706 0.0053034 44.1652C0.0770899 45.7598 0.874152 47.2643 2.22115 48.3477L27.0424 68.3101C27.0424 68.3101 27.7549 68.8437 28.0846 69.0302C28.8468 69.4605 29.6989 69.7559 30.5924 69.8997C31.4858 70.0434 32.4031 70.0326 33.2917 69.868C34.1804 69.7033 35.023 69.388 35.7716 68.94C36.5201 68.492 37.1599 67.9201 37.6543 67.257L80.8862 9.29124C81.8844 7.95243 82.2304 6.32356 81.8481 4.76287C81.4658 3.20218 80.3866 1.83747 78.8477 0.96886Z" fill="#052946"/>
+                                                </svg>
+                                            </span>
+                                            <span class="rule-text">Нецензурная лексика</span>
+                                        </li>
+                                        <li>
+                                            <span class="rule-icon check">
+                                                <svg width="25" height="22" viewBox="0 0 82 70" fill="none">
+                                                    <path d="M78.8477 0.96886C77.3087 0.100578 75.4361 -0.200396 73.642 0.13213C71.8478 0.464656 70.2789 1.40345 69.2804 2.74205L30.5174 54.7163L11.6133 39.5118C10.9463 38.9753 10.1644 38.5584 9.31221 38.2848C8.46002 38.0112 7.55422 37.8863 6.64653 37.9173C4.81338 37.9797 3.08383 38.673 1.83836 39.8447C0.592887 41.0165 -0.0664831 42.5706 0.0053034 44.1652C0.0770899 45.7598 0.874152 47.2643 2.22115 48.3477L27.0424 68.3101C27.0424 68.3101 27.7549 68.8437 28.0846 69.0302C28.8468 69.4605 29.6989 69.7559 30.5924 69.8997C31.4858 70.0434 32.4031 70.0326 33.2917 69.868C34.1804 69.7033 35.023 69.388 35.7716 68.94C36.5201 68.492 37.1599 67.9201 37.6543 67.257L80.8862 9.29124C81.8844 7.95243 82.2304 6.32356 81.8481 4.76287C81.4658 3.20218 80.3866 1.83747 78.8477 0.96886Z" fill="#052946"/>
+                                                </svg>
+                                            </span>
+                                            <span class="rule-text">Исследования</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="rules-list">
+                                        <li>
+                                            <span class="rule-icon wrong">
+                                                <svg width="25" height="26" viewBox="0 0 83 87" fill="none">
+                                                    <path d="M75.4531 0C77.4542 0 79.3741 0.833271 80.7891 2.31641C82.2039 3.79945 82.9989 5.81092 82.999 7.9082C83.0166 8.8778 82.8445 9.84169 82.4941 10.7393C82.1439 11.6365 81.6226 12.4494 80.9619 13.1279L51.6104 43.4971L80.9619 74.2607C82.2054 75.5359 82.9345 77.2629 82.999 79.085C82.999 81.1824 82.2041 83.1946 80.7891 84.6777C79.3741 86.1608 77.4542 86.9941 75.4531 86.9941C74.4918 87.0359 73.5327 86.8674 72.6367 86.5C71.7405 86.1324 70.9262 85.5732 70.2471 84.8584L41.5 54.332L12.4512 84.7793C11.8137 85.4695 11.0517 86.0203 10.21 86.4004C9.36832 86.7804 8.46321 86.9826 7.54688 86.9941C5.54578 86.9941 3.62594 86.1608 2.21094 84.6777C0.795932 83.1946 0.000976562 81.1824 0.000976562 79.085C-0.0165781 78.1154 0.155571 77.1524 0.505859 76.2549C0.856181 75.3574 1.37721 74.5439 2.03809 73.8652L31.3896 43.4971L2.03809 12.7324C0.794715 11.4573 0.0654044 9.73026 0.000976562 7.9082C0.00105728 5.81092 0.796091 3.79945 2.21094 2.31641C3.62594 0.833271 5.54575 0 7.54688 0C9.35758 0.0238377 11.0924 0.791396 12.375 2.13574L41.5 32.6621L70.4736 2.29395C71.1136 1.57998 71.8846 1.00836 72.7402 0.614258C73.5958 0.220215 74.5186 0.0112418 75.4531 0Z" fill="#7F1726"/>
+                                                </svg>
+                                            </span>
+                                            <span class="rule-text">Что-нибудь еще</span>
+                                        </li>
+                                        <li>
+                                            <span class="rule-icon wrong">
+                                                <svg width="25" height="26" viewBox="0 0 83 87" fill="none">
+                                                    <path d="M75.4531 0C77.4542 0 79.3741 0.833271 80.7891 2.31641C82.2039 3.79945 82.9989 5.81092 82.999 7.9082C83.0166 8.8778 82.8445 9.84169 82.4941 10.7393C82.1439 11.6365 81.6226 12.4494 80.9619 13.1279L51.6104 43.4971L80.9619 74.2607C82.2054 75.5359 82.9345 77.2629 82.999 79.085C82.999 81.1824 82.2041 83.1946 80.7891 84.6777C79.3741 86.1608 77.4542 86.9941 75.4531 86.9941C74.4918 87.0359 73.5327 86.8674 72.6367 86.5C71.7405 86.1324 70.9262 85.5732 70.2471 84.8584L41.5 54.332L12.4512 84.7793C11.8137 85.4695 11.0517 86.0203 10.21 86.4004C9.36832 86.7804 8.46321 86.9826 7.54688 86.9941C5.54578 86.9941 3.62594 86.1608 2.21094 84.6777C0.795932 83.1946 0.000976562 81.1824 0.000976562 79.085C-0.0165781 78.1154 0.155571 77.1524 0.505859 76.2549C0.856181 75.3574 1.37721 74.5439 2.03809 73.8652L31.3896 43.4971L2.03809 12.7324C0.794715 11.4573 0.0654044 9.73026 0.000976562 7.9082C0.00105728 5.81092 0.796091 3.79945 2.21094 2.31641C3.62594 0.833271 5.54575 0 7.54688 0C9.35758 0.0238377 11.0924 0.791396 12.375 2.13574L41.5 32.6621L70.4736 2.29395C71.1136 1.57998 71.8846 1.00836 72.7402 0.614258C73.5958 0.220215 74.5186 0.0112418 75.4531 0Z" fill="#7F1726"/>
+                                                </svg>
+                                            </span>
+                                            <span class="rule-text">Пресс-конференции</span>
+                                        </li>
+                                        <li>
+                                            <span class="rule-icon wrong">
+                                                <svg width="25" height="26" viewBox="0 0 83 87" fill="none">
+                                                    <path d="M75.4531 0C77.4542 0 79.3741 0.833271 80.7891 2.31641C82.2039 3.79945 82.9989 5.81092 82.999 7.9082C83.0166 8.8778 82.8445 9.84169 82.4941 10.7393C82.1439 11.6365 81.6226 12.4494 80.9619 13.1279L51.6104 43.4971L80.9619 74.2607C82.2054 75.5359 82.9345 77.2629 82.999 79.085C82.999 81.1824 82.2041 83.1946 80.7891 84.6777C79.3741 86.1608 77.4542 86.9941 75.4531 86.9941C74.4918 87.0359 73.5327 86.8674 72.6367 86.5C71.7405 86.1324 70.9262 85.5732 70.2471 84.8584L41.5 54.332L12.4512 84.7793C11.8137 85.4695 11.0517 86.0203 10.21 86.4004C9.36832 86.7804 8.46321 86.9826 7.54688 86.9941C5.54578 86.9941 3.62594 86.1608 2.21094 84.6777C0.795932 83.1946 0.000976562 81.1824 0.000976562 79.085C-0.0165781 78.1154 0.155571 77.1524 0.505859 76.2549C0.856181 75.3574 1.37721 74.5439 2.03809 73.8652L31.3896 43.4971L2.03809 12.7324C0.794715 11.4573 0.0654044 9.73026 0.000976562 7.9082C0.00105728 5.81092 0.796091 3.79945 2.21094 2.31641C3.62594 0.833271 5.54575 0 7.54688 0C9.35758 0.0238377 11.0924 0.791396 12.375 2.13574L41.5 32.6621L70.4736 2.29395C71.1136 1.57998 71.8846 1.00836 72.7402 0.614258C73.5958 0.220215 74.5186 0.0112418 75.4531 0Z" fill="#7F1726"/>
+                                                </svg>
+                                            </span>
+                                            <span class="rule-text">Что-нибудь еще</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <!-- رابط تحميل قواعد النشر (الآن تحت التبويبات) -->
+          {% if press_page.publication_rules_file %}
+          <div class="rules-download-wrapper">
+              <a href="{{ press_page.publication_rules_file.url }}" class="rules-download-link" target="_blank">
+                  <svg class="rules-download-icon" width="35" height="44" viewBox="0 0 35 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.3333 0V14.0833C17.3334 14.8912 17.6343 15.6702 18.1775 16.2682C18.7207 16.8663 19.4672 17.2406 20.2713 17.3182L20.5833 17.3333H34.6667V39C34.667 40.0932 34.2541 41.1462 33.5108 41.9478C32.7674 42.7495 31.7485 43.2405 30.6583 43.3225L30.3333 43.3333H4.33333C3.24008 43.3337 2.18711 42.9208 1.38548 42.1774C0.583853 41.4341 0.0928274 40.4152 0.0108338 39.325L2.17247e-07 39V4.33333C-0.000345755 3.24008 0.412547 2.18711 1.15591 1.38548C1.89927 0.583853 2.91816 0.0928272 4.00833 0.0108336L4.33333 0H17.3333ZM21.6667 0.0931666C22.3673 0.241908 23.0202 0.562009 23.5668 1.02483L23.8333 1.26967L33.397 10.8333C33.9047 11.3406 34.2784 11.966 34.4847 12.6533L34.5713 13H21.6667V0.0931666Z" fill="#052946"/>
+                  </svg>
+                  <span class="rules-download-text">Правила публикации</span>
+              </a>
+          </div>
+          {% endif %}
+        <!-- Связь с редакцией (بسيط بدون أيقونة) -->
+        <div class="contact-editor-section text-center mb-4" style="margin-top: 8rem;">
+            <h3 class="contact-editor-title">Связь с редакцией</h3>
+            <p class="contact-editor-text">
+                Для связи с редакцией можете написать на почту 
+                <a href="mailto:info.fta@mail.ru">info.fta@mail.ru</a> 
+                или позвонить по телефону +7 (968) 418-44-88.
+            </p>
+        </div>
+        
+        <!-- Синяя кнопка после окончания содержимого -->
+        <div class="text-center mt-3">
+            <button class="btn btn-secondary btn-lg px-5 py-3" id="blueApplicationBtn">
+                Заявка на публикацию
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- باقي الكود أعلاه كما هو -->
+
+<!-- Остальной контент остается внутри container -->
+<div class="container">
+    <!-- Другие публикации - Carousel (يعرض أبحاث ببطاقات مطابقة لتصميم research-card-new) -->
+    <section class="press-section">
+        <h2 class="section-title-medium mb-3" style="margin-bottom: 6rem !important;">Другие публикации</h2>
+        
+        <div class="press-carousel-container" style="margin-top: 2rem;">
+            <div class="press-carousel-wrapper">
+                <div class="press-carousel-track" id="pressCarouselTrack">
+                    {% for research in research_list %}
+                    <div class="press-carousel-slide">
+                        <a href="{% url 'research:research_detail' research.id %}" class="research-card-link">
+                            <div class="research-card-new">
+                                <div class="research-image-new">
+                                    <img src="{{ research.image.url }}" alt="{{ research.title }}">
+                                    <div class="research-date-new">{{ research.publication_date|date:"m.Y" }}</div>
+                                </div>
+                                <div class="research-content-new">
+                                    <h3 class="research-title-new">{{ research.title|truncatewords:10 }}</h3>
+                                    <div class="research-separator"></div>
+                                    <p class="research-description-new">
+                                        {% if research.short_description %}
+                                            {{ research.short_description|truncatewords:30 }}
+                                        {% else %}
+                                            {{ research.description|truncatewords:30 }}
+                                        {% endif %}
+                                    </p>
+                                    <div class="research-type-section">
+                                        <span class="type-dot"></span>
+                                        <span class="type-value-new">{{ research.get_research_type_display }}</span>
+                                    </div>
+                                    <div class="research-action">
+                                        <span class="research-read-btn-new">Читать</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center">
+                        <p class="text-muted">Исследования скоро будут добавлены</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Carousel Navigation -->
+            <div class="press-carousel-nav">
+                <button class="press-carousel-btn press-carousel-prev" id="pressCarouselPrev">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="press-carousel-btn press-carousel-next" id="pressCarouselNext">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+</div>
+
+ 
+<!-- Форма заявки на публикацию (скрыта по умолчанию) -->
+<div class="modal-overlay" id="applicationModal">
+    <div class="application-form-container">
+        <button class="close-modal-btn" id="closeModalBtn">×</button>
+        <div class="application-form">
+            <h1 class="form-title">Заявка на публикацию</h1>
+            
+            <div class="form-row">
+                <div class="form-group half-width">
+                    <input type="text" class="form-field" id="organization" placeholder=" " required>
+                    <label for="organization" class="field-label">Название организации</label>
+                </div>
+                
+                <div class="form-group half-width">
+                    <input type="text" class="form-field" id="theme" placeholder=" " required>
+                    <label for="theme" class="field-label">Тема публикации</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" class="form-field" id="dates" placeholder=" " required>
+                <label for="dates" class="field-label">Желаемые даты публикации</label>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group half-width">
+                    <input type="text" class="form-field" id="contact" placeholder=" " required>
+                    <label for="contact" class="field-label">Контактное лицо</label>
+                </div>
+                
+                <div class="form-group half-width">
+                    <input type="tel" class="form-field" id="phone" placeholder=" " required>
+                    <label for="phone" class="field-label">Телефон</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="email" class="form-field" id="email" placeholder=" " required>
+                <label for="email" class="field-label">E-mail</label>
+            </div>
+            
+            <div class="form-group">
+                <textarea class="form-field form-field-large" id="wishes" placeholder=" "></textarea>
+                <label for="wishes" class="field-label">Дополнительные пожелания</label>
+            </div>
+            
+            <!-- Изменённый блок согласия с ссылками -->
+            <div class="agreement-group">
+                <label class="checkbox">
+                    <input type="checkbox" id="agreementCheckbox" required>
+                    <span class="checkmark"></span>
+                </label>
+                <span class="agreement-text">
+                    Я согласен с условиями 
+                    <a href="/terms/" target="_blank">пользовательского соглашения</a> 
+                    и 
+                    <a href="/privacy/" target="_blank">политикой конфиденциальности</a>
+                </span>
+            </div>
+            
+            <button class="submit-btn" id="submitApplicationBtn">
+                <span class="submit-text">Отправить</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Новый дизайн подтверждения отправки -->
+<div class="success-modal-overlay" id="successModal" style="display: none;">
+    <div class="success-modal-container">
+        <div class="success-modal-content">
+            <div class="success-icon">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                    <circle cx="40" cy="40" r="40" fill="#7F1726"/>
+                    <path d="M25 40L35 50L55 30" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="success-title">Заявка отправлена!</h2>
+            <p class="success-message">Ваша заявка на публикацию успешно отправлена. Мы свяжемся с вами в ближайшее время.</p>
+            <!-- Добавление отображения номера заявки -->
+            <div class="request-number-section" id="requestNumberSection" style="display: none;">
+                <div class="request-number-label">Номер вашей заявки:</div>
+                <div class="request-number-value" id="requestNumberValue"></div>
+            </div>
+            <button class="success-close-btn" id="successCloseBtn">Закрыть</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== نافذة غير المسجلين - التصميم الجديد ===== -->
+<div class="modal-overlay unauth-modal-overlay" id="unauthModal" style="display: none;">
+    <div class="unauth-modal-container">
+        <button class="close-modal-btn" id="closeUnauthModalBtn">×</button>
+        
+        <!-- النص التوضيحي (يمكن إضافة أيقونة هنا إن أردت) -->
+        <div class="unauth-message">
+            Подать заявку на публикацию можно только после авторизации в личном кабинете.
+        </div>
+        
+        <!-- زر авторизации بالتصميم الأزرق -->
+        <a href="{% url 'accounts:login' %}" class="unauth-login-btn">Авторизироваться</a>
+    </div>
+</div>
+
+<script>
+    // Передаём флаг аутентификации в JavaScript
+    var isAuthenticated = {{ isAuthenticated|yesno:"true,false" }};
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/press_center.js' %}"></script>
+{% endblock %}

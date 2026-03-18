@@ -1,0 +1,335 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ service.name }} - Бизнес-Мастерская{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/service_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="service-detail-page">
+    <!-- Slider Section -->
+    {% if slider_images %}
+    <div class="slider-section">
+        <div class="slider-container" id="mainSlider">
+            {% for slide in slider_images %}
+            <div class="slider-slide">
+                <div class="slide-image">
+                    <img src="{{ slide.image.url }}" alt="{{ slide.title }}" class="slider-img">
+                </div>
+                <div class="slide-content">
+                    <div class="container">
+                        <!-- Breadcrumb внутри слайдера -->
+                        <div class="slider-breadcrumb">
+                            <div class="breadcrumb-content">
+                                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                                <div class="breadcrumb-arrow">
+                                    <div class="arrow-line arrow-top"></div>
+                                    <div class="arrow-line arrow-bottom"></div>
+                                </div>
+                                <a href="{% url 'single_window:single_window_services' %}" class="breadcrumb-link">Услуги одного окна</a>
+                                <div class="breadcrumb-arrow">
+                                    <div class="arrow-line arrow-top"></div>
+                                    <div class="arrow-line arrow-bottom"></div>
+                                </div>
+                                <span class="breadcrumb-current">{{ service.name }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Показать содержимое слайдера -->
+                        {% if slide.subtitle %}
+                        <div class="slide-subtitle">{{ slide.subtitle }}</div>
+                        {% endif %}
+                        <h1 class="slide-title">{{ slide.title }}</h1>
+                        {% if slide.description %}
+                        <p class="slide-description">{{ slide.description }}</p>
+                        {% endif %}
+                        {% if slide.link and slide.link_text %}
+                        <a href="{{ slide.link }}" class="slide-btn">
+                            {{ slide.link_text }}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Slider Navigation -->
+        <div class="slider-controls">
+            <button class="slider-prev" aria-label="Предыдущий">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+           
+            <button class="slider-next" aria-label="Следующий">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Breadcrumb Section - только если нет слайдера -->
+    {% if not slider_images %}
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <a href="{% url 'single_window:single_window_services' %}" class="breadcrumb-link">Услуги одного окна</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">{{ service.name }}</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Главный заголовок (hidden by new design) -->
+    <div class="main-title-section text-center py-4">
+        <h1 class="main-title">{{ service.name }}</h1>
+    </div>
+
+    <!-- Разделительная линия -->
+    <div class="section-divider">
+        <div class="container">
+            <div class="divider-line"></div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- محتوى الصفحة التفصيلي -->
+    <div class="service-content-section py-4">
+        <div class="container">
+            <!-- قسم العنوان وزر العودة - تم تحديثه -->
+            <div class="service-header-section">
+                <a href="{% url 'single_window:single_window_services' %}" class="back-button">
+                    <svg class="back-arrow" width="42" height="32" viewBox="0 0 84 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M82 32H2M2 32L37 62M2 32L37 2" stroke="#052946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="back-text">Назад</span>
+                </a>
+                <h1 class="service-main-title">{{ service.name }}</h1>
+            </div>
+    
+            <!-- مسافة بيضاء بين العنوان والأسئلة -->
+            <div class="title-faq-spacer"></div>
+
+            <div class="service-detail-content">
+                <!-- قسم الأسئلة الشائعة - التصميم الجديد -->
+                <div class="faq-section-new">
+                    {% if faqs %}
+                        {% for faq in faqs %}
+                        <div class="faq-item-new">
+                            <h3 class="faq-question-new">{{ faq.question }}</h3>
+                            <div class="faq-answer-new">
+                                <div class="faq-answer-content-new">
+                                    <p class="faq-answer-text">{{ faq.answer }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <!-- محتوى افتراضي للخدمات الأخرى -->
+                        <div class="faq-item-new">
+                            <h3 class="faq-question-new">Общая информация об услуге</h3>
+                            <div class="faq-answer-new">
+                                <div class="faq-answer-content-new">
+                                    <p class="faq-answer-text">{{ service.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item-new">
+                            <h3 class="faq-question-new">Условия предоставления услуги</h3>
+                            <div class="faq-answer-new">
+                                <div class="faq-answer-content-new">
+                                    <p class="faq-answer-text">Услуга предоставляется в соответствии с установленными правилами и регламентами академии.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item-new">
+                            <h3 class="faq-question-new">Необходимые документы</h3>
+                            <div class="faq-answer-new">
+                                <div class="faq-answer-content-new">
+                                    <p class="faq-answer-text">Для получения услуги необходимо предоставить установленный пакет документов.</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- زر التقديم على الخدمة -->
+                <div class="apply-section text-center py-5">
+                    <!-- يظهر الزر للجميع -->
+                    <a href="#" class="apply-btn" id="openServiceOrLoginModal"
+                       data-user-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}"
+                       data-user-email="{% if user.is_authenticated %}{{ user.email }}{% endif %}"
+                       data-user-name="{% if user.is_authenticated %}{{ user.get_full_name }}{% endif %}">
+                        Подать заявку на услугу
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم طلباتي السابقة (يظهر فقط للمستخدمين المسجلين) -->
+    {% if user.is_authenticated and user_requests %}
+    <div class="my-requests-section py-4">
+        <div class="container">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Мои последние заявки</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>№ заявки</th>
+                                    <th>Услуга</th>
+                                    <th>Дата подачи</th>
+                                    <th>Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in user_requests %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ request.request_number }}</strong>
+                                    </td>
+                                    <td>{{ request.service_type }}</td>
+                                    <td>{{ request.created_at|date:"d.m.Y" }}</td>
+                                    <td>
+                                        <span class="{{ request.get_status_display_class }}">
+                                            {{ request.get_status_display }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'single_window:my_requests' %}" class="btn btn-outline-primary">
+                            Все мои заявки
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- نافذة طلب الخدمة المنبثقة -->
+<div id="serviceModal" class="service-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            
+            <div class="modal-header">
+                <h2 class="modal-title">Заявка на услугу</h2>
+            </div>
+
+            <form id="serviceRequestForm" class="modal-form" data-submit-url="{% url 'single_window:submit_service_request' %}">
+                {% csrf_token %}
+                
+                <!-- тип الخدمة -->
+                <div class="form-group">
+                    <label class="form-label">Тип услуги</label>
+                    <input type="text" class="form-input" id="serviceType" value="{{ service.name }}" readonly>
+                </div>
+
+                <!-- التنسيق -->
+                <div class="form-group">
+                    <label class="form-label">Формат</label>
+                    <input type="text" class="form-input" id="format" placeholder="Укажите формат услуги" required>
+                </div>
+
+                <!-- جهة الاتصال -->
+                <div class="form-group">
+                    <label class="form-label">Контактное лицо</label>
+                    <input type="text" class="form-input" id="contactPerson" placeholder="Ваше полное имя" required>
+                </div>
+
+                <!-- الهاتف -->
+                <div class="form-group">
+                    <label class="form-label">Телефон</label>
+                    <input type="tel" class="form-input" id="phone" placeholder="+7 (XXX) XXX-XX-XX" required>
+                </div>
+
+                <!-- البريد الإلكتروني -->
+                <div class="form-group">
+                    <label class="form-label">Электронная почта</label>
+                    <input type="email" class="form-input" id="email" placeholder="your@email.com" required>
+                </div>
+
+                <!-- معلومات إضافية -->
+                <div class="form-group">
+                    <label class="form-label">Дополнительные пожелания</label>
+                    <textarea class="form-textarea" id="additionalInfo" placeholder="Опишите дополнительные пожелания или комментарии"></textarea>
+                </div>
+
+                <!-- الموافقة على الشروط -->
+                <div class="form-group agreement-group">
+                    <input type="checkbox" id="agreement" class="form-checkbox" required>
+                    <label for="agreement" class="agreement-label">
+                        Я согласен с условиями пользовательского соглашения и политикой конфиденциальности
+                    </label>
+                </div>
+
+                <!-- زر الإرسال -->
+                <div class="form-submit">
+                    <button type="submit" class="submit-button">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة التأكيد -->
+<div id="confirmationModal" class="confirmation-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+        <div class="confirmation-content">
+            <div class="success-icon">✓</div>
+            <h2 class="confirmation-title">Заявка успешно отправлена!</h2>
+            <p class="confirmation-text">Ваш номер заявки: <span id="requestNumber">REQ-001234</span></p>
+            <p class="confirmation-subtext">Мы свяжемся с вами в ближайшее время</p>
+            <button class="confirmation-button" id="closeConfirmation">Закрыть</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== НОВАЯ НАВИГАЦИЯ: Требуется вход в систему (дизайн как у модалки регистрации) ===== -->
+<div id="loginRequiredModal" class="registration-modal guest-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-container">
+        <div class="modal-content guest-modal-content">
+            <button class="modal-close-btn">&times;</button>
+            
+            <h2 class="guest-modal-title">Требуется вход в систему</h2>
+            
+            <div class="guest-message-container">
+                <p class="guest-message">
+                    Заявку на услугу можно подать только после авторизации в личном кабинете
+                </p>
+                <a href="/admin/login/?next={{ request.path }}" class="guest-login-btn">
+                    Авторизироваться в личном кабинете
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/service_detail.js' %}"></script>
+{% endblock %}

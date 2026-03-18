@@ -1,0 +1,1216 @@
+/* ===== Overlay Menu - NEW DESIGN ===== */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    z-index: 2000;
+    overflow-y: auto;
+}
+
+/* الشريط العلوي */
+.overlay-top-bar {
+    padding: 15px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.overlay-logo {
+    height: 40px;
+    width: auto;
+}
+
+.overlay-language {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.overlay-language:hover {
+    background-color: #f5f5f5;
+}
+
+.overlay-flag-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #052946;
+}
+
+.overlay-dropdown-arrow svg {
+    transition: transform 0.3s ease;
+}
+
+.overlay-language:hover .overlay-dropdown-arrow svg {
+    transform: rotate(180deg);
+}
+
+.overlay-top-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.overlay-top-link {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #052946;
+    text-decoration: none;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.overlay-top-link:hover {
+    color: #7F1726;
+}
+
+.overlay-top-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #7F1726;
+    transition: width 0.3s ease;
+}
+
+.overlay-top-link:hover::after {
+    width: 100%;
+}
+
+.overlay-account-icon {
+    background: transparent !important;
+    width: auto !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+.overlay-profile-icon {
+    width: 30px !important;
+    height: 30px !important;
+}
+.overlay-profile-icon {
+    transition: all 0.3s ease;
+}
+
+.overlay-account-icon:hover .overlay-profile-icon {
+    transform: translateY(-3px) scale(1.15);
+}
+.overlay-account-icon {
+    cursor: pointer;
+}
+
+.overlay-account-icon:hover {
+    background: #e8e8e8;
+}
+
+.overlay-profile-icon {
+    width: 22px;
+    height: 22px;
+    fill: #052946;
+}
+
+.overlay-close-btn {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.overlay-close-btn:hover {
+    background-color: #f5f5f5;
+}
+
+/* القائمة الرئيسية */
+.overlay-main-nav {
+    padding: 20px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.overlay-nav-items {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.overlay-nav-item {
+    background: none;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #052946;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.overlay-nav-item:hover,
+.overlay-nav-item.active {
+    color: #7F1726;
+}
+
+.overlay-nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: #7F1726;
+    transition: width 0.3s ease;
+}
+
+.overlay-nav-item:hover::after,
+.overlay-nav-item.active::after {
+    width: 100%;
+}
+
+/* شريط البحث */
+.overlay-search-section {
+    padding: 25px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.overlay-search-box {
+    position: relative;
+    max-width: 800px !important;
+    width: 90% !important;
+    margin: 0 auto;
+}
+
+.overlay-search-input {
+    width: 100% !important;
+    padding: 15px 20px 15px 50px;
+    border: 2px solid #eaeaea;
+    border-radius: 30px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #052946;
+    background: #FFFFFF;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.overlay-search-input:focus {
+    border-color: #7F1726;
+}
+
+.search-icon-overlay {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #052946;
+}
+
+/* محتوى القائمة */
+.overlay-content-section {
+    padding: 40px 0;
+}
+
+.overlay-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.overlay-menu-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay-column-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #052946;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #052946;
+}
+
+.overlay-column-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.overlay-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.overlay-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    padding: 8px 0;
+    transition: all 0.3s ease;
+}
+
+.link-dot {
+    width: 6px;
+    height: 6px;
+    background: #052946;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.link-text {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #052946;
+    transition: color 0.3s ease;
+}
+
+.overlay-menu-link:hover .link-dot {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.overlay-menu-link:hover .link-text {
+    color: #7F1726;
+    padding-left: 5px;
+}
+
+/* ===== زيادة حجم وتباعد عناصر القائمة في Overlay ===== */
+.overlay-nav-items {
+    display: flex;
+    justify-content: center;
+    gap: 60px !important;
+}
+
+.overlay-nav-item {
+    background: none;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: #052946;
+    padding: 12px 24px !important;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.overlay-nav-item:hover,
+.overlay-nav-item.active {
+    color: #7F1726;
+    transform: translateY(-2px);
+}
+
+.overlay-nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 4px;
+    background: #7F1726;
+    transition: width 0.3s ease;
+}
+
+.overlay-nav-item:hover::after,
+.overlay-nav-item.active::after {
+    width: 100%;
+}
+
+/* ===== تعديلات الـ Overlay Menu - زيادة التباعد وتكبير الخط ===== */
+@media (min-width: 992px) {
+    .index-page #menuOverlay .overlay-nav-items {
+        gap: 130px !important; /* زيادة التباعد */
+        margin-top: 45px !important; 
+        margin-left: -50px !important;/* زيادة المسافة العلوية */
+        margin-bottom: 25px !important; /* زيادة المسافة السفلية */
+    }
+    
+    .index-page #menuOverlay .overlay-nav-item {
+        font-size: 29.9px !important; /* 26px + 15% */
+        padding: 15px 30px !important; /* زيادة padding */
+        margin: 0 5px;
+        letter-spacing: 1px !important;
+    }
+    
+    /* زيادة التباعد بين القائمة ومربع البحث */
+    .index-page #menuOverlay .overlay-search-section {
+        margin-top: 15px !important;
+        padding: 25px 0 !important;
+    }
+    
+    /* زيادة التباعد بين مربع البحث والمحتوى */
+    .index-page #menuOverlay .overlay-content-section {
+        margin-top: 40px !important;
+        padding-top: 20px !important;
+    }
+    
+    /* زيادة حجم الخط في المحتوى بنسبة 15% */
+    .index-page #menuOverlay .overlay-column-title {
+        font-size: 18.4px !important; /* 16px + 15% */
+    }
+    
+    .index-page #menuOverlay .link-text {
+        font-size: 16.1px !important; /* 14px + 15% */
+    }
+    
+    .index-page #menuOverlay .overlay-column-subtitle {
+        font-size: 13.8px !important; /* 12px + 15% */
+    }
+    
+    /* تكبير شريط البحث */
+    .index-page #menuOverlay .overlay-search-input {
+        padding: 18px 20px 18px 50px !important; /* زيادة padding */
+        font-size: 18.4px !important; /* زيادة حجم الخط */
+    }
+    
+    /* تكبير أيقونة البحث */
+    .index-page #menuOverlay .search-icon-overlay {
+        left: 25px;
+    }
+    
+    .index-page #menuOverlay .search-icon-overlay svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* تحسينات للاستجابة */
+@media (max-width: 1200px) {
+    .overlay-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .menu-overlay {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .overlay-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .overlay-top-links {
+        gap: 20px;
+    }
+    
+    .overlay-nav-items {
+        gap: 20px;
+    }
+    
+    .overlay-nav-item {
+        font-size: 20px !important;
+        padding: 10px 18px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .overlay-top-bar .row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .overlay-top-bar .col-md-2,
+    .overlay-top-bar .col-md-1,
+    .overlay-top-bar .col-md-6 {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .overlay-logo {
+        margin: 0 auto;
+    }
+    
+    .overlay-language {
+        justify-content: center;
+    }
+    
+    .overlay-close-btn {
+        margin: 0 auto;
+    }
+    
+    .overlay-nav-items {
+        flex-wrap: wrap;
+    }
+    
+    .overlay-search-input {
+        padding: 12px 20px 12px 45px;
+    }
+}
+
+/* ===== Overlay Menu - NEW DESIGN - معدل الارتفاع ===== */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75vh !important;
+    background: #FFFFFF;
+    z-index: 2000;
+    overflow: hidden !important;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* الشريط العلوي - تقليل الارتفاع وإزالة الحدود */
+.overlay-top-bar {
+    padding: 12px 0 !important;
+    border-bottom: none !important;
+    height: 60px !important;
+}
+
+.overlay-logo {
+    height: 35px !important;
+    width: auto;
+}
+
+/* القائمة الرئيسية - تقليل الارتفاع وإزالة الحدود */
+.overlay-main-nav {
+    padding: 1px 0 !important;
+    border-bottom: none !important;
+    height: 60px !important;
+}
+
+.overlay-nav-item {
+    background: none;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px !important;
+    font-weight: 600;
+    color: #052946;
+    padding: 8px 18px !important;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.overlay-nav-item:hover,
+.overlay-nav-item.active {
+    color: #7F1726;
+}
+
+.overlay-nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: #7F1726;
+    transition: width 0.3s ease;
+}
+
+.overlay-nav-item:hover::after,
+.overlay-nav-item.active::after {
+    width: 100%;
+}
+
+/* شريط البحث - تقليل الارتفاع وإزالة الحدود */
+.overlay-search-section {
+    padding: 20px 0 !important;
+    border-bottom: none !important;
+    height: 70px !important;
+}
+
+.overlay-search-box {
+    position: relative;
+    max-width: 800px !important;
+    width: 90% !important;
+    margin: 0 auto;
+}
+
+.overlay-search-input {
+    width: 100% !important;
+    padding: 12px 20px 12px 50px !important;
+    border: 2px solid #eaeaea !important;
+    border-radius: 30px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #052946;
+    background: #FFFFFF;
+    outline: none;
+    transition: border-color 0.3s ease;
+    height: 48px !important;
+}
+
+.overlay-search-input:focus {
+    border-color: #7F1726 !important;
+}
+
+.search-icon-overlay {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #052946;
+}
+
+/* محتوى القائمة - تصميم جديد ليتناسب مع الارتفاع المحدد */
+.overlay-content-section {
+    padding: 0 !important;
+    height: calc(75vh - 200px) !important;
+    overflow: hidden !important;
+    border-top: none !important;
+}
+
+.overlay-content-wrapper {
+    height: 100% !important;
+    overflow-y: auto !important;
+    padding: 0 15px;
+}
+
+/* تعديل شبكة المحتوى لتصبح عمودين */
+.overlay-content {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 40px !important;
+    max-width: 1000px; /* يمكنك تعديل العرض حسب الرغبة */
+    margin: 0 auto;
+    padding: 20px 0 !important;
+}
+
+/* تكبير حجم الخط للروابط */
+.overlay-menu-link .link-text {
+    font-size: 5.2rem !important;   /* عدل الرقم حسب الحاجة */
+    font-weight: 500;
+}
+
+/* تكبير حجم النقاط (اختياري) */
+.overlay-menu-link .link-dot {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+/* تحسين التباعد العمودي بين الروابط */
+.overlay-menu-links {
+    gap: 15px !important;
+}
+
+/* ضبط عرض الأعمدة ليكون متساوياً */
+.overlay-menu-column {
+    width: 100%;
+}
+
+/* تحسينات للشاشات الصغيرة (اختياري) */
+@media (max-width: 768px) {
+    .overlay-content {
+        grid-template-columns: 1fr !important; /* في الشاشات الصغيرة نرجع لعمود واحد */
+    }
+}
+/* تحسين الأعمدة والمحتوى للارتفاع الجديد */
+.overlay-menu-column {
+    display: flex;
+    flex-direction: column;
+    min-height: auto !important;
+}
+
+.overlay-column-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 16px !important;
+    color: #052946;
+    margin-bottom: 12px !important;
+    padding-bottom: 8px !important;
+    border-bottom: 2px solid #052946;
+}
+
+.overlay-column-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 12px !important;
+    color: #666666;
+    margin-bottom: 15px !important;
+    line-height: 1.4 !important;
+}
+
+.overlay-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px !important;
+}
+
+.overlay-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 10px !important;
+    text-decoration: none;
+    padding: 6px 0 !important;
+    transition: all 0.3s ease;
+}
+
+.link-dot {
+    width: 6px;
+    height: 6px;
+    background: #052946;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.link-text {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 14px !important;
+    color: #052946;
+    transition: color 0.3s ease;
+}
+
+.overlay-menu-link:hover .link-dot {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.overlay-menu-link:hover .link-text {
+    color: #7F1726;
+    padding-left: 5px;
+}
+
+/* ===== إزالة الحدود الفاصلة من التصميم السابق ===== */
+/* إزالة الحدود من رابط КОНТАКТЫ и КОВОРКИНГ */
+.overlay-top-link::after {
+    display: none !important;
+}
+
+.overlay-top-link {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #052946;
+    text-decoration: none;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.overlay-top-link:hover {
+    color: #7F1726;
+}
+
+/* إزالة أي حدود من أي عناصر أخرى قد تحتوي على خطوط */
+.overlay-top-bar .container-fluid,
+.overlay-main-nav .container-fluid,
+.overlay-search-section .container-fluid {
+    border: none !important;
+}
+
+/* إزالة أي حدود من الصفوف والأعمدة */
+.overlay-top-bar .row,
+.overlay-main-nav .row,
+.overlay-search-section .row,
+.overlay-content-section .row {
+    border: none !important;
+}
+
+/* تحسينات للاستجابة */
+@media (max-width: 1200px) {
+    .overlay-content {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+    
+    .overlay-column-title {
+        font-size: 15px !important;
+    }
+    
+    .overlay-menu-link {
+        padding: 5px 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .overlay-content {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+    
+    .overlay-column-title {
+        font-size: 14px !important;
+    }
+    
+    .link-text {
+        font-size: 13px !important;
+    }
+    
+    /* إزالة الحدود في الشاشات الصغيرة أيضاً */
+    .overlay-top-bar,
+    .overlay-main-nav,
+    .overlay-search-section {
+        border: none !important;
+    }
+}
+
+/* تحسين التمرير داخل المحتوى */
+.overlay-content-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overlay-content-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.overlay-content-wrapper::-webkit-scrollbar-thumb {
+    background: #7F1726;
+    border-radius: 10px;
+}
+
+.overlay-content-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #9a1f32;
+}
+
+/* تعديلات إضافية لتحسين عرض المحتوى بالكامل */
+.overlay-menu-links {
+    max-height: none !important;
+}
+
+/* التأكد من أن جميع الروابط تظهر */
+.overlay-menu-column {
+    overflow: visible !important;
+}
+
+/* تحسينات عامة للارتفاع */
+.overlay-content-section {
+    max-height: none !important;
+}
+
+/* تحسينات إضافية للعرض الكامل دون تمرير */
+@media (min-height: 800px) {
+    .menu-overlay {
+        height: 70vh !important;
+    }
+    
+    .overlay-content-section {
+        height: calc(70vh - 200px) !important;
+    }
+}
+
+@media (min-height: 900px) {
+    .menu-overlay {
+        height: 65vh !important;
+    }
+    
+    .overlay-content-section {
+        height: calc(65vh - 200px) !important;
+    }
+}
+
+/* التأكد من أن الـ Overlay لا يظهر على الشاشات الصغيرة */
+@media (max-width: 992px) {
+    .menu-overlay {
+        display: none !important;
+    }
+}
+
+/* ===== تحسينات إضافية لإزالة جميع الحدود المرئية ===== */
+/* إزالة أي ظلال أو حدود من الأقسام */
+.menu-overlay > div {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* إزالة أي حدود من عناصر اللغة والحساب */
+.overlay-language,
+.overlay-account-icon,
+.overlay-close-btn {
+    border: none !important;
+    outline: none !important;
+}
+
+/* إزالة أي حدود من عناصر القائمة عند التحويم */
+.overlay-nav-item:focus,
+.overlay-nav-item:active {
+    outline: none !important;
+    border: none !important;
+}
+
+/* إزالة أي حدود من حقل البحث */
+.overlay-search-box {
+    border: none !important;
+}
+
+/* ===== إصلاحات للقوائم المنسدلة في Overlay Menu ===== */
+
+/* تأكد من أن القوائم المنسدلة تظهر فوق الـ Overlay */
+.language-dropdown,
+.account-dropdown {
+    z-index: 2100 !important;
+}
+
+/* حاوية اللغة في الـ Overlay */
+.overlay-language-container {
+    position: relative;
+}
+
+/* سهم اللغة في الـ Overlay */
+.overlay-language .overlay-dropdown-arrow {
+    transition: transform 0.3s ease;
+}
+
+.overlay-language.active .overlay-dropdown-arrow svg {
+    transform: rotate(180deg);
+}
+
+/* أيقونة الحساب في الـ Overlay */
+.overlay-account-container {
+    position: relative;
+}
+
+/* إصلاح لعرض القوائم المنسدلة في الـ Overlay */
+.menu-overlay .language-dropdown,
+.menu-overlay .account-dropdown {
+    position: absolute !important;
+    top: 100% !important;
+    margin-top: 5px !important;
+    display: none !important;
+    z-index: 2100 !important;
+}
+
+.menu-overlay .language-dropdown.active,
+.menu-overlay .account-dropdown.active {
+    display: block !important;
+    animation: fadeIn 0.3s ease !important;
+}
+
+/* تعديل موقع قائمة اللغات في الـ Overlay */
+.menu-overlay .language-dropdown {
+    left: 0 !important;
+    right: auto !important;
+    width: 180px !important;
+}
+
+/* تعديل موقع قائمة الحساب في الـ Overlay */
+.menu-overlay .account-dropdown {
+    left: auto !important;
+    right: 0 !important;
+    width: 280px !important;
+}
+
+/* ضمان أن الروابط في الـ Overlay تعمل بشكل صحيح */
+.overlay-top-link {
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+
+/* تحسين ظهور القوائم المنسدلة عند التحويم */
+.menu-overlay .language-option:hover,
+.menu-overlay .account-option:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* ===== زيادة حجم وتباعد عناصر القائمة في Overlay ===== */
+@media (min-width: 992px) {
+    .overlay-top-links {
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        gap: 20px !important;
+        padding-right: 20px !important;
+    }
+    
+    .overlay-link-spacer {
+        display: inline-block;
+        width: 10px;
+        opacity: 0;
+    }
+    
+    /* ضبط توزيع Grid للشريط العلوي */
+    .overlay-top-bar .row .col-md-4 {
+        padding-right: 0 !important;
+        margin-right: -30px !important;
+    }
+    
+    .overlay-top-bar .row .col-md-2:last-child {
+        padding-left: 0 !important;
+        margin-left: -20px !important;
+    }
+    
+    /* تحسين رؤية الروابط */
+    .overlay-top-link {
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        color: #052946 !important;
+        text-decoration: none !important;
+        transition: color 0.3s ease !important;
+        white-space: nowrap !important;
+        position: relative !important;
+        padding: 8px 12px !important;
+    }
+    
+    .overlay-top-link:hover {
+        color: #7F1726 !important;
+    }
+}
+
+/* ===== تكبير مستطيل البحث عرضياً ===== */
+
+.overlay-search-box {
+    max-width: 1150px !important; /* زود الرقم حسب الحجم المطلوب */
+    width: 95% !important;
+}
+.overlay-menu-link {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+/* ===== إزالة الهوامش البيضاء يمين ويسار القوائم ===== */
+
+.overlay-content {
+    max-width: 100% !important;
+    padding: 0 40px !important; /* يعطي مسافة جميلة بدل الفراغ الكبير */
+}
+.overlay-nav-items {
+    margin-top: 0 !important; /* إزالة أي مسافة فوق الروابط */
+}
+/* ===== تكبير حجم روابط КОНТАКТЫ و КОВОРКИНГ ===== */
+
+.overlay-top-link {
+    font-size: 20px !important;   /* غيّر الرقم للحجم الذي تريده */
+    font-weight: 700 !important;
+}
+/* ===== زيادة التباعد بين الروابط العلوية ===== */
+
+.overlay-top-links {
+    gap: 45px !important;
+}
+
+#menuOverlay .overlay-nav-items {
+    transform: translateY(-20px) !important;
+}
+/* حاوية واسعة للـ Overlay */
+.overlay-wide-container {
+    max-width: 1200px;        /* يمكنك تعديل الرقم حسب الحاجة */
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+}
+/* تكبير عرض حاوية البحث */
+.overlay-search-box {
+    max-width: 1200px !important;  /* يمكنك زيادتها أكثر حسب رغبتك */
+    width: 95% !important;
+}
+
+/* إذا أردت تكبير الحاوية الخارجية أيضاً */
+.overlay-wide-container {
+    max-width: 1400px;  /* قيمة أكبر من السابقة */
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0 auto;
+}
+
+/* تكبير حجم خط الإدخال نفسه (اختياري) */
+.overlay-search-input {
+    font-size: 1.2rem !important;
+    padding: 18px 20px 18px 55px !important;  /* زيادة المسافة الداخلية */
+}
+/* ===== تكبير حجم وتباعد عناصر القوائم في Overlay Menu (Академия، Поступление، Обучение، Наука) ===== */
+.overlay-menu-link .link-text {
+    font-size: 20px !important;        /* تكبير حجم الخط */
+    line-height: 2 !important;          /* زيادة التباعد بين الأسطر */
+    font-weight: 500 !important;        /* يمكن زيادة الوزن اختيارياً */
+}
+
+.overlay-menu-links {
+    gap: 25px !important;                /* زيادة المسافة العمودية بين الروابط */
+}
+
+.overlay-menu-link {
+    padding: 8px 0 !important;           /* إضافة مسافة داخلية علوية وسفلية لكل رابط */
+}
+
+/* تحسين إضافي: تكبير حجم النقاط قليلاً لتناسب النص الأكبر */
+.overlay-menu-link .link-dot {
+    width: 8px !important;
+    height: 8px !important;
+    margin-top: 4px !important;          /* محاذاة رأسية مع النص */
+}
+
+/* تحسينات للشاشات المتوسطة والصغيرة (اختياري) */
+@media (max-width: 1200px) {
+    .overlay-menu-link .link-text {
+        font-size: 18px !important;
+        line-height: 1.8 !important;
+    }
+    .overlay-menu-links {
+        gap: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .overlay-menu-link .link-text {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+    }
+    .overlay-menu-links {
+        gap: 15px !important;
+    }
+}
+/* ===== تكبير حجم وتباعد روابط القوائم في Overlay Menu ===== */
+#overlayMenuContent .overlay-menu-link .link-text {
+    font-size: 21px !important;          /* حجم الخط كبير */
+    line-height: 1.5 !important;         /* تباعد عمودي مناسب */
+    font-weight: 500 !important;         /* زيادة الوزن */
+    display: block;                      /* يأخذ عرض كامل */
+    width: 100%;                         /* عرض 100% داخل العمود */
+    white-space: normal;                  /* السماح بالتفاف النص إذا طال */
+    word-break: break-word;               /* لف الكلمات الطويلة */
+}
+
+#overlayMenuContent .overlay-menu-links {
+    gap: 28px !important;                 /* مسافة عمودية بين الروابط */
+}
+
+#overlayMenuContent .overlay-menu-link .link-dot {
+    width: 14px !important;
+    height: 14px !important;
+    margin-top: 12px !important;          /* محاذاة مع النص الكبير */
+}
+
+/* توسيع الأعمدة لاستيعاب النص الأكبر */
+.overlay-content {
+    grid-template-columns: repeat(2, minmax(450px, 1fr)) !important;
+    max-width: 1600px !important;
+    gap: 60px !important;
+    padding: 0 70px !important;
+}
+
+/* تحسينات للشاشات المتوسطة */
+@media (max-width: 1600px) {
+    #overlayMenuContent .overlay-menu-link .link-text {
+        font-size: 28px !important;
+    }
+    .overlay-content {
+        gap: 50px !important;
+        padding: 0 50px !important;
+    }
+}
+
+@media (max-width: 1400px) {
+    #overlayMenuContent .overlay-menu-link .link-text {
+        font-size: 26px !important;
+    }
+    .overlay-content {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 40px !important;
+        padding: 0 40px !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    #overlayMenuContent .overlay-menu-link .link-text {
+        font-size: 24px !important;
+        line-height: 1.6 !important;
+    }
+    #overlayMenuContent .overlay-menu-links {
+        gap: 22px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    /* القائمة المنبثقة تختفي على الشاشات الصغيرة */
+}
+/* ===== تحريك قوائم Overlay إلى اليسار ===== */
+.overlay-content {
+    justify-content: flex-start !important;   /* بدء الأعمدة من اليسار */
+    margin-left: 0 !important;                 /* إزالة الهوامش اليمنى واليسرى */
+    margin-right: auto !important;              /* دفع الهامش الأيمن تلقائياً */
+    padding-left: 17px !important;               /* مسافة من اليسار حسب الرغبة */
+    padding-right: 0 !important;                 /* إزالة المسافة من اليمين */
+    max-width: none !important;                  /* السماح بالتمدد الكامل */
+    width: 100% !important;                       /* عرض كامل للحاوية */
+}
+
+/* إذا أردت تقليل المسافة من اليسار على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .overlay-content {
+        padding-left: 20px !important;
+    }
+}
+/* ===== أيقونة البحث الخارجية ===== */
+.overlay-search-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.overlay-external-search-icon {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-external-search-icon:hover {
+    transform: scale(1.1);
+}
+
+.overlay-external-search-icon svg {
+    width: 50px;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .overlay-search-section {
+        gap: 10px;
+    }
+    .overlay-external-search-icon svg {
+        width: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .overlay-external-search-icon svg {
+        width: 35px;
+    }
+}
+/* ===== إصلاح محاذاة النقاط الزرقاء في Overlay Menu ===== */
+#overlayMenuContent .overlay-menu-link {
+    align-items: center !important; /* توسيط العناصر عمودياً */
+}
+
+#overlayMenuContent .overlay-menu-link .link-dot {
+    margin-top: 0 !important;      /* إزالة أي إزاحة رأسية سابقة */
+    align-self: center !important; /* ضمان التوسيط داخل الرابط */
+}
+/* تكبير اللوغو في القائمة المنبثقة */
+.overlay-logo {
+    height: 50px !important;   /* يمكنك تعديل الرقم حسب الرغبة */
+    width: auto !important;    /* يحافظ على النسبة الأصلية */
+}

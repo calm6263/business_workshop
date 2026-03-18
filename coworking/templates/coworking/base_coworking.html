@@ -1,0 +1,1851 @@
+<!-- base_coworking.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коворкинг Башни</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding-top: 140px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex: 1;
+        }
+        
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 5px 5%;
+            position: relative;
+            background: white;
+            height: 70px;
+        }
+        
+        .logo-container {
+            position: absolute;
+            left: 0px;
+            top: 8px;
+            display: flex;
+            align-items: flex-start;
+            height: auto;
+            width: 200px;
+            min-width: 200px;
+            z-index: 1001;
+        }
+        
+        .logo-image {
+            position: relative;
+            height: 62.5px;
+            width: 100%;
+            margin-top: 0;
+            z-index: 1002;
+        }
+        
+        .logo-image img {
+            height: 100%;
+            width: auto;
+            display: block;
+            max-width: 250px;
+            min-width: 170px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        /* Стрелка */
+        .curved-arrow {
+            position: absolute;
+            left: 200px;
+            top: 10px;
+            width: 120px;
+            height: 40px;
+            z-index: 1003;
+            overflow: hidden;
+        }
+        
+        .curved-arrow::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 120px;
+            height: 40px;
+            border: 2px dashed #313232;
+            border-color: #313232 transparent transparent transparent;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(-5deg);
+            animation: dash-animation 2s linear infinite;
+        }
+        
+        .curved-arrow::after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            right: 5px;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #313232;
+            border-right: 2px solid #313232;
+            transform: rotate(45deg);
+        }
+        
+        @keyframes dash-animation {
+            0% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: 10;
+            }
+        }
+        
+        .slogan {
+            font-family: 'Prata', serif;
+            font-size: 22px;
+            color: #000;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 0 15px;
+            flex: 1;
+            margin: 0 20px;
+            margin-top: 20px;
+            margin-left: -530px; 
+        }
+        
+        .academy-link-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            position: absolute;
+            right: 5%;
+            top: 20px;
+            z-index: 1002;
+            background: white;
+            width: auto;
+            min-width: auto;
+            justify-content: flex-end;
+        }
+        
+        .academy-link {
+            font-family: 'Prata', serif;
+            font-size: 22px;
+            color: #052946;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            padding-right: 25px;
+            white-space: nowrap;
+        }
+        
+        /* Стрелка */
+        .custom-arrow {
+            position: relative;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .custom-arrow::before,
+        .custom-arrow::after {
+            content: '';
+            position: absolute;
+            background: #052946;
+            border: 2px solid #052946;
+        }
+        
+        .custom-arrow::before {
+            width: 14px;
+            height: 0;
+            top: 6px;
+            right: 0;
+            transform: matrix(0.69, 0.73, -0.69, 0.73, 0, 0);
+        }
+        
+        .custom-arrow::after {
+            width: 14px;
+            height: 0;
+            top: 16px;
+            right: 0;
+            transform: matrix(0.69, -0.73, 0.69, 0.73, 0, 0);
+        }
+        
+        .main-navbar {
+            background: #113E2C;
+            padding: 25px 5%;
+            position: relative;
+            z-index: 1;
+            margin-top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-coworking {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            flex: 1;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0;
+            padding: 0 80px 0 20px;
+        }
+        
+        .nav-coworking a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Prata', serif;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            padding: 12px 18px;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+            white-space: nowrap;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
+            min-width: 140px;
+            margin: 0 5px;
+        }
+        
+        .nav-coworking a:hover {
+            color: #ccc;
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Иконка пользователя */
+        .navbar-user-icon {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #E7ECEC;
+            border-radius: 50%;
+            color: #313232;
+            font-size: 22px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .navbar-user-icon:hover {
+            background: #d4d9d9;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Стили слайдера */
+        .slider-section {
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 0;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-content {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .rules-text {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-family: 'Prata', serif;
+            font-size: 24px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .become-member {
+            margin-top: 100px;
+        }
+
+        .btn-become-member {
+            display: inline-block;
+            background: #313232;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: 'Prata', serif;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .btn-become-member:hover {
+            background: #252525;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Новые стили для описания внизу слайдера */
+        .slide-description-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #313232;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .slide-description-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .slide-description-bar p {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.5;
+            color: white;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+
+        .slider-prev,
+        .slider-next {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .slider-prev:hover,
+        .slider-next:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 80px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: white;
+        }
+
+        /* أنماط القسم الجديد في الصفحة الرئيسية - معدلة ومصغرة */
+        .features-section {
+            padding: 60px 20px;
+            background: #f8f9fa;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 50px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .feature-icon {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #113E2C;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: white;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #113E2C;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .actions-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #113E2C;
+            border-radius: 12px;
+            padding: 25px 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            min-height: 80px;
+        }
+
+        .action-button:hover {
+            background: #0d2e21;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .action-button span {
+            font-family: 'Raleway', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            color: white;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* أنماط قسم التعريفات المحسنة */
+        .tariffs-section {
+            padding: 60px 20px;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tariffs-title {
+            font-family: 'Prata', serif;
+            font-size: 48px;
+            font-weight: 400;
+            color: #113E2C;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .tariffs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .tariff-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(5, 41, 70, 0.1);
+        }
+
+        .tariff-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .tariff-header {
+            position: relative;
+        }
+
+        .tariff-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .tariff-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .tariff-card:hover .tariff-image img {
+            transform: scale(1.05);
+        }
+
+        .tariff-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #113E2C, #1a5a42);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+        }
+
+        .tariff-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(5, 41, 70, 0.95);
+            color: white;
+            padding: 20px;
+            margin: 0;
+            font-family: 'Prata', serif;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .tariff-divider {
+            height: 3px;
+            background: rgba(5, 41, 70, 0.3);
+            margin: 0 25px;
+        }
+
+        .tariff-features {
+            padding: 25px;
+        }
+
+        .tariff-features .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .tariff-features .feature-item:hover {
+            background: rgba(17, 62, 44, 0.05);
+        }
+
+        .tariff-features .feature-icon {
+            width: 45px;
+            height: 45px;
+            background: #113E2C;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+
+        .tariff-features .feature-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: white;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .tariff-features .feature-text {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            color: #052946;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .tariff-price {
+            text-align: center;
+            font-family: 'Raleway', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #113E2C;
+            padding: 20px 25px;
+            border-top: 2px solid rgba(5, 41, 70, 0.1);
+            border-bottom: 2px solid rgba(5, 41, 70, 0.1);
+            background: rgba(17, 62, 44, 0.03);
+        }
+
+        .tariff-description {
+            padding: 25px;
+            text-align: center;
+            background: rgba(17, 62, 44, 0.02);
+        }
+
+        .tariff-description p {
+            font-family: 'Raleway', sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #052946;
+            margin: 0;
+        }
+
+        .tariff-button {
+            display: block;
+            background: #113E2C;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 18px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 17px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .tariff-button:hover {
+            background: #0d2e21;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* إيموجي للأنواع المختلفة */
+        .tariff-emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        /* Стили футера */
+        footer {
+            background: #313232;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Основной раздел Контакты */
+        .footer-main-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-main-title {
+            font-family: 'Prata', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .footer-contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            font-size: 24px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .contact-text p {
+            margin: 0;
+            line-height: 2.5;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+        }
+
+        .direction-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .direction-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .direction-arrow {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .direction-link:hover .direction-arrow {
+            transform: translateX(3px);
+        }
+
+        .map-section {
+            display: flex;
+            justify-content: center;
+        }
+
+        .map-image {
+            max-width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Стили логотипа и колонок */
+        .footer-logo-columns {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            flex: 0 0 200px;
+        }
+
+        .footer-logo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer-columns {
+            display: flex;
+            flex: 1;
+            justify-content: space-around;
+        }
+
+        .footer-column {
+            flex: 1;
+            max-width: 250px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            font-family: 'Prata', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            line-height: 1.5;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column li:hover {
+            color: white;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .logo-container {
+                width: 180px;
+                min-width: 180px;
+                left: 15px;
+            }
+            
+            .logo-image img {
+                max-width: 170px;
+            }
+            
+            .curved-arrow {
+                left: 180px;
+                width: 100px;
+            }
+            
+            .curved-arrow::before {
+                width: 100px;
+            }
+            
+            .main-navbar {
+                padding-left: 200px;
+            }
+            
+            .academy-link-container {
+                right: 3%;
+            }
+            
+            .nav-coworking {
+                padding: 0 70px 0 15px;
+            }
+            
+            .nav-coworking a {
+                font-size: 22px;
+                padding: 10px 15px;
+                min-width: 130px;
+                margin: 0 3px;
+            }
+            
+            .navbar-user-icon {
+                right: 3%;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+
+            .features-grid {
+                gap: 35px;
+            }
+            
+            .feature-text h3 {
+                font-size: 17px;
+            }
+            
+            .action-button span {
+                font-size: 18px;
+            }
+
+            .tariffs-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .slogan {
+                display: none;
+            }
+            
+            .curved-arrow {
+                display: none;
+            }
+            
+            .top-header {
+                height: 65px;
+            }
+            
+            .logo-container {
+                width: 160px;
+                min-width: 160px;
+                left: 10px;
+                top: 5px;
+            }
+            
+            .logo-image {
+                height: 55px;
+            }
+            
+            .logo-image img {
+                max-width: 150px;
+            }
+            
+            .main-navbar {
+                padding-left: 170px;
+                padding-right: 3%;
+            }
+            
+            .academy-link-container {
+                right: 3%;
+                top: 15px;
+            }
+            
+            .nav-coworking {
+                padding: 0 60px 0 10px;
+            }
+            
+            .nav-coworking a {
+                font-size: 20px;
+                padding: 8px 12px;
+                min-width: 120px;
+                margin: 0 2px;
+            }
+            
+            .academy-link {
+                font-size: 20px;
+            }
+            
+            .custom-arrow {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .custom-arrow::before {
+                width: 13px;
+                top: 5px;
+            }
+            
+            .custom-arrow::after {
+                width: 13px;
+                top: 11px;
+            }
+            
+            .navbar-user-icon {
+                right: 3%;
+                width: 42px;
+                height: 42px;
+                font-size: 19px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .actions-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .feature-text h3 {
+                font-size: 16px;
+            }
+            
+            .action-button {
+                padding: 20px 15px;
+                min-height: 70px;
+            }
+            
+            .action-button span {
+                font-size: 18px;
+            }
+
+            .tariffs-section {
+                padding: 60px 20px;
+            }
+            
+            .tariffs-title {
+                font-size: 48px;
+                margin-bottom: 40px;
+            }
+            
+            .tariffs-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .tariff-name {
+                font-size: 24px;
+                padding: 15px;
+            }
+            
+            .tariff-features {
+                padding: 20px;
+            }
+            
+            .tariff-price {
+                font-size: 20px;
+                padding: 15px 20px;
+            }
+            
+            .tariff-description {
+                padding: 20px;
+            }
+            
+            .footer-logo-columns {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .footer-logo {
+                margin-bottom: 30px;
+                flex: 0 0 auto;
+            }
+            
+            .footer-columns {
+                width: 100%;
+            }
+
+            .slider-section {
+                height: 500px;
+            }
+            
+            .rules-text {
+                font-size: 20px;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .btn-become-member {
+                padding: 12px 30px;
+                font-size: 18px;
+            }
+            
+            .slide-description-bar p {
+                font-size: 16px;
+            }
+            
+            .slider-prev,
+            .slider-next {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 130px;
+            }
+            
+            .top-header {
+                flex-direction: column;
+                height: auto;
+                padding: 5px 5%;
+                align-items: center;
+            }
+            
+            .logo-container {
+                position: relative;
+                width: 100%;
+                min-width: auto;
+                justify-content: center;
+                height: 55px;
+                left: 0;
+                top: 0;
+                margin-bottom: 5px;
+            }
+            
+            .logo-image {
+                height: 55px;
+                width: auto;
+            }
+            
+            .logo-image img {
+                max-width: 160px;
+            }
+            
+            .academy-link-container {
+                position: relative;
+                right: auto;
+                top: auto;
+                width: 100%;
+                min-width: auto;
+                justify-content: center;
+                margin-top: 8px;
+                align-items: center;
+            }
+            
+            .main-navbar {
+                flex-direction: column;
+                padding: 15px 10px;
+                gap: 15px;
+            }
+            
+            .nav-coworking {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            .nav-coworking a {
+                font-size: 18px;
+                padding: 8px 12px;
+                min-width: 110px;
+                flex: none;
+                margin: 0;
+            }
+            
+            .navbar-user-icon {
+                position: static;
+                transform: none;
+                margin-top: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            .academy-link {
+                font-size: 18px;
+            }
+            
+            .custom-arrow {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .custom-arrow::before {
+                width: 11px;
+                top: 4px;
+            }
+            
+            .custom-arrow::after {
+                width: 11px;
+                top: 10px;
+            }
+
+            .features-section {
+                padding: 50px 20px;
+            }
+            
+            .feature-item {
+                flex-direction: row;
+                text-align: left;
+                gap: 15px;
+            }
+            
+            .feature-icon {
+                width: 45px;
+                height: 45px;
+                padding: 10px;
+            }
+            
+            .feature-text h3 {
+                font-size: 15px;
+            }
+            
+            .action-button {
+                padding: 18px 12px;
+                min-height: 65px;
+            }
+            
+            .action-button span {
+                font-size: 16px;
+            }
+
+            .tariffs-section {
+                padding: 50px 20px;
+            }
+            
+            .tariff-item {
+                flex-direction: row;
+                text-align: left;
+                gap: 15px;
+            }
+            
+            .tariff-icon {
+                width: 45px;
+                height: 45px;
+                padding: 10px;
+            }
+            
+            .tariff-image {
+                height: 200px;
+            }
+
+            .footer-contact-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-main-title {
+                font-size: 1.7rem;
+            }
+            
+            .contact-info {
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .map-image {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+            
+            .contact-text p {
+                font-size: 16px;
+            }
+            
+            .direction-link {
+                font-size: 16px;
+            }
+            
+            .contact-icon {
+                font-size: 22px;
+            }
+            
+            .footer-columns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-column {
+                max-width: 100%;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            
+            .footer-column:last-child {
+                margin-bottom: 0;
+            }
+
+            .slider-section {
+                height: 450px;
+            }
+            
+            .rules-text {
+                font-size: 18px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            .btn-become-member {
+                padding: 10px 25px;
+                font-size: 16px;
+            }
+            
+            .slide-description-bar {
+                padding: 15px 0;
+            }
+            
+            .slide-description-bar p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                width: 100%;
+                height: 50px;
+            }
+            
+            .logo-image {
+                height: 50px;
+            }
+            
+            .logo-image img {
+                max-width: 140px;
+            }
+            
+            .main-navbar {
+                padding: 10px 5px;
+            }
+            
+            .nav-coworking {
+                gap: 8px;
+            }
+            
+            .nav-coworking a {
+                font-size: 16px;
+                padding: 6px 10px;
+                min-width: 100px;
+            }
+            
+            .academy-link {
+                font-size: 16px;
+            }
+            
+            .custom-arrow {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .custom-arrow::before {
+                width: 10px;
+                top: 3px;
+            }
+            
+            .custom-arrow::after {
+                width: 10px;
+                top: 9px;
+            }
+
+            .features-section {
+                padding: 40px 15px;
+            }
+            
+            .features-grid {
+                gap: 25px;
+                margin-bottom: 40px;
+            }
+            
+            .feature-item {
+                gap: 12px;
+            }
+            
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+                padding: 8px;
+                border-radius: 10px;
+            }
+            
+            .feature-text h3 {
+                font-size: 14px;
+                line-height: 1.3;
+            }
+            
+            .action-button {
+                padding: 15px 10px;
+                min-height: 60px;
+                border-radius: 10px;
+            }
+            
+            .action-button span {
+                font-size: 14px;
+            }
+
+            .tariffs-section {
+                padding: 40px 15px;
+            }
+            
+            .tariffs-title {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+            
+            .tariff-image {
+                height: 180px;
+            }
+            
+            .tariff-name {
+                font-size: 20px;
+            }
+            
+            .tariff-features .feature-item {
+                gap: 12px;
+                margin-bottom: 15px;
+            }
+            
+            .tariff-features .feature-icon {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .tariff-features .feature-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .tariff-features .feature-text {
+                font-size: 14px;
+            }
+            
+            .tariff-price {
+                font-size: 18px;
+            }
+            
+            .tariff-button {
+                padding: 15px;
+                font-size: 16px;
+            }
+
+            .footer-main-title {
+                font-size: 1.5rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .direction-link {
+                justify-content: center;
+            }
+            
+            .contact-text p {
+                font-size: 15px;
+            }
+            
+            .direction-link {
+                font-size: 15px;
+            }
+            
+            .contact-icon {
+                font-size: 20px;
+            }
+
+            .slider-section {
+                height: 400px;
+            }
+            
+            .rules-text {
+                font-size: 16px;
+                top: 10px;
+                left: 10px;
+            }
+            
+            .btn-become-member {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+            
+            .slide-description-bar p {
+                font-size: 13px;
+            }
+        }
+
+        /* تصميم متجاوب للتعريفات */
+        @media (max-width: 768px) {
+            .tariffs-section {
+                padding: 40px 15px;
+            }
+            
+            .tariffs-title {
+                font-size: 36px;
+                margin-bottom: 30px;
+            }
+            
+            .tariffs-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .tariff-image {
+                height: 200px;
+            }
+            
+            .tariff-name {
+                font-size: 22px;
+                padding: 15px;
+            }
+            
+            .tariff-features {
+                padding: 20px;
+            }
+            
+            .tariff-features .feature-item {
+                margin-bottom: 15px;
+            }
+            
+            .tariff-features .feature-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .tariff-price {
+                font-size: 20px;
+                padding: 15px 20px;
+            }
+            
+            .tariff-description {
+                padding: 20px;
+            }
+            
+            .tariff-button {
+                padding: 16px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tariffs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tariff-image {
+                height: 180px;
+            }
+            
+            .tariff-name {
+                font-size: 20px;
+            }
+            
+            .tariff-features .feature-text {
+                font-size: 15px;
+            }
+            
+            .tariff-price {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Верхняя панель -->
+    <div class="top-navbar">
+        <!-- Верхняя часть с логотипом и заголовком -->
+        <div class="top-header">
+            <div class="logo-container">
+                <!-- Использование вторичного логотипа -->
+                <div class="logo-image">
+                    <img src="{% static 'images/logo_secondary.png' %}" alt="Коворкинг Башни">
+                </div>
+            </div>
+            <!-- Изогнутая стрелка -->
+            <div class="curved-arrow"></div>
+            <div class="slogan">Пространство, где рождаются идеи</div>
+            <div class="academy-link-container">
+                <a href="#" class="academy-link">
+                    Перейти в академию
+                    <span class="custom-arrow"></span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Главная навигационная панель -->
+        <nav class="main-navbar">
+            <div class="nav-coworking">
+                <li><a href="#">О пространстве</a></li>
+                <li><a href="#">Тарифы</a></li>
+                <li><a href="#">Фотогалерея</a></li>
+                <li><a href="#">Меню</a></li>
+                <li><a href="#">Мероприятия</a></li>
+                <li><a href="#">Библиотека</a></li>
+                <li><a href="#">Контакты</a></li>
+            </div>
+            <!-- Иконка входа в систему на панели навигации -->
+            <a href="#" class="navbar-user-icon">
+                <i class="fas fa-user"></i>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Секция слайдера -->
+    <section class="slider-section">
+        <div class="slider-container">
+            <div class="slider-wrapper">
+                {% if slider %}
+                    {% for image in slider.images.all %}
+                    <div class="slide">
+                        <img src="{{ image.image.url }}" alt="{{ image.caption }}">
+                        <div class="slide-overlay">
+                            <div class="rules-text">
+                                {{ slider.title }}
+                            </div>
+                            <div class="slide-content">
+                                <div class="become-member">
+                                    <a href="#" class="btn-become-member">{{ slider.button_text }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Новый блок описания внизу слайдера -->
+                        <div class="slide-description-bar">
+                            <div class="slide-description-content">
+                                <p>{{ slider.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Слайдер по умолчанию, если нет данных -->
+                    <div class="slide">
+                        <img src="{% static 'images/default-slide.jpg' %}" alt="Коворкинг Башни">
+                        <div class="slide-overlay">
+                            <div class="rules-text">
+                                Правила посещения пространства
+                            </div>
+                            <div class="slide-content">
+                                <div class="become-member">
+                                    <a href="#" class="btn-become-member">Стать башнером</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Новый блок описания внизу слайдера -->
+                        <div class="slide-description-bar">
+                            <div class="slide-description-content">
+                                <p>Мы создали пространство для тех, кто ценит тишину для концентрации, вдохновляющую атмосферу для творчества и гибкость для свободы выбора.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="slider-controls">
+                <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="slider-dots"></div>
+        </div>
+    </section>
+
+    <!-- Основная область контента -->
+    <div class="main-content">
+        {% block content %}
+        <!-- Контент будет здесь в других шаблонах -->
+        {% endblock %}
+    </div>
+
+    <!-- Измененный футер -->
+    <footer>
+        <div class="container">
+            <!-- Основной раздел Контакты -->
+            <div class="footer-main-section">
+                <h2 class="footer-main-title">Контакты</h2>
+                
+                <div class="footer-contact-content">
+                    <!-- Информация слева -->
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div class="contact-text">
+                                <p>г. Москва, Садовая-Спасская 19к1</p>
+                                <p>(м. Красные ворота)</p>
+                                <p>Вход со стороны Красноворотского проезда</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div class="contact-text">
+                                <p>+7 (968) 418-44-88</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">✉️</span>
+                            <div class="contact-text">
+                                <p>info.fta@mail.ru</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <span class="contact-icon">🕒</span>
+                            <div class="contact-text">
+                                <p>Ждем в гости: с 10:00 до 19:00</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <a href="#" class="direction-link">
+                                <span class="direction-text">Как к нам добраться?</span>
+                                <span class="direction-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Карта сайта справа -->
+                    <div class="map-section">
+                        <div class="map-image">
+                            <img src="{% static 'images/image1.jpg' %}" alt="Карта расположения коворкинга">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Раздел логотипа и новых колонок -->
+            <div class="footer-logo-columns">
+                <div class="footer-logo">
+                    <img src="{% static 'images/logo1.png' %}" alt="Коворкинг Башни">
+                </div>
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Образование</h3>
+                        <ul>
+                            <li>Профессиональная переподготовка</li>
+                            <li>Повышение квалификации</li>
+                            <li>Тренинги</li>
+                            <li>Коучинг</li>
+                            <li>Семинар</li>
+                            <li>Онлайн</li>
+                            <li>Лекторий</li>
+                            <li>Мастер класс</li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Печать</h3>
+                        <ul>
+                            <li>Печатная продукция</li>
+                            <li>Полиграфические материалы</li>
+                            <li>Готовые решения</li>
+                            <li>Логистика</li>
+                            <li>Издательство</li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Медиа</h3>
+                        <ul>
+                            <li>Журнал FTA</li>
+                            <li>Исследования</li>
+                            <li>Партнерские программмы</li>
+                            <li>Цифровая башня</li>
+                            <li>Реквизиты</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; Коворкинг "Башни". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliderWrapper = document.querySelector('.slider-wrapper');
+            const slides = document.querySelectorAll('.slide');
+            const prevButton = document.querySelector('.slider-prev');
+            const nextButton = document.querySelector('.slider-next');
+            const dotsContainer = document.querySelector('.slider-dots');
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            
+            // Создание точек
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('slider-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            function goToSlide(index) {
+                if (index < 0) {
+                    index = totalSlides - 1;
+                } else if (index >= totalSlides) {
+                    index = 0;
+                }
+                currentIndex = index;
+                sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Обновление активных точек
+                document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+            
+            prevButton.addEventListener('click', function() {
+                goToSlide(currentIndex - 1);
+            });
+            
+            nextButton.addEventListener('click', function() {
+                goToSlide(currentIndex + 1);
+            });
+            
+            // Автоматическое перелистывание каждые 5 секунд
+            setInterval(function() {
+                goToSlide(currentIndex + 1);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

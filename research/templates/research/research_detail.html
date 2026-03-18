@@ -1,0 +1,452 @@
+<!-- research_detail.html (كامل مع التعديلات) -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ research.title }} - Бизнес-Мастерская{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'research/css/research.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="research-detail-page">
+    {% include 'research/research_hero_tabs.html' %}
+
+    <div class="research-main-content">
+        <!-- تبويب "Исследования" -->
+        <div id="research-content" class="tab-content {% if current_tab == 'research' %}active{% endif %}" {% if current_tab != 'research' %}style="display: none;"{% endif %}>
+            <div class="back-navigation mb-4">
+                <a href="{% url 'research:research_list' %}" class="back-button-advanced">
+                    <svg width="50" height="40" viewBox="0 0 115 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M111.5 45.5H3.5M3.5 45.5L50.75 87.5M3.5 45.5L50.75 3.5" stroke="#052946" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Назад</span>
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="research-image mb-4">
+                        <div class="research-image-wrapper">
+                            <img src="{{ research.image.url }}" alt="{{ research.title }}" class="research-image">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="research-header mb-4">
+                        <h1 class="research-title">{{ research.title }}</h1>
+
+                        <!-- Автор (بدون تسمية) -->
+                        <div class="info-row">
+                            <svg class="info-icon" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M42 20.5278C42 21.7507 41.5259 22.9236 40.682 23.7883C39.8381 24.6531 38.6935 25.1389 37.5 25.1389C36.3065 25.1389 35.1619 24.6531 34.318 23.7883C33.4741 22.9236 33 21.7507 33 20.5278C33 19.3048 33.4741 18.132 34.318 17.2672C35.1619 16.4025 36.3065 15.9167 37.5 15.9167C38.6935 15.9167 39.8381 16.4025 40.682 17.2672C41.5259 18.132 42 19.3048 42 20.5278ZM48.75 20.5278C48.75 23.5851 47.5647 26.5173 45.455 28.6791C43.3452 30.841 40.4837 32.0556 37.5 32.0556C34.5163 32.0556 31.6548 30.841 29.545 28.6791C27.4353 26.5173 26.25 23.5851 26.25 20.5278C26.25 17.4704 27.4353 14.5383 29.545 12.3764C31.6548 10.2145 34.5163 9 37.5 9C40.4837 9 43.3452 10.2145 45.455 12.3764C47.5647 14.5383 48.75 17.4704 48.75 20.5278ZM58.875 55.1111V50.5C58.875 47.1369 57.5712 43.9116 55.2504 41.5335C52.9297 39.1554 49.7821 37.8194 46.5 37.8194H28.5C25.2179 37.8194 22.0703 39.1554 19.7496 41.5335C17.4288 43.9116 16.125 47.1369 16.125 50.5V55.1111H22.875V50.5C22.875 47.3183 25.395 44.7361 28.5 44.7361H46.5C49.605 44.7361 52.125 47.3183 52.125 50.5V55.1111H58.875ZM15 92H55.5V85.0833H15V92ZM87 73.5556H15V66.6389H87V73.5556Z" fill="#052946"/>
+                            </svg>
+                            <span class="info-value">{{ research.author }}</span>
+                        </div>
+
+                        <!-- Дата -->
+                        <div class="info-row">
+                            <svg class="info-icon" viewBox="0 0 89 89" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M28.7409 9.271C28.7409 8.53336 28.4479 7.82594 27.9263 7.30436C27.4047 6.78277 26.6973 6.48975 25.9596 6.48975C25.222 6.48975 24.5146 6.78277 23.993 7.30436C23.4714 7.82594 23.1784 8.53336 23.1784 9.271V15.1302C17.8384 15.5566 14.3377 16.6024 11.7641 19.1797C9.18685 21.7532 8.1411 25.2576 7.71094 30.5939H81.2917C80.8615 25.2539 79.8158 21.7532 77.2385 19.1797C74.6649 16.6024 71.1605 15.5566 65.8242 15.1265V9.271C65.8242 8.53336 65.5312 7.82594 65.0096 7.30436C64.488 6.78277 63.7806 6.48975 63.043 6.48975C62.3053 6.48975 61.5979 6.78277 61.0763 7.30436C60.5548 7.82594 60.2617 8.53336 60.2617 9.271V14.8817C57.7957 14.8335 55.0293 14.8335 51.918 14.8335H37.0846C33.9734 14.8335 31.2069 14.8335 28.7409 14.8817V9.271Z" fill="#052946"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.41797 44.5C7.41797 41.3887 7.41797 38.6223 7.46618 36.1562H81.5364C81.5846 38.6223 81.5846 41.3887 81.5846 44.5V51.9167C81.5846 65.9008 81.5846 72.8947 77.2385 77.2372C72.8923 81.5796 65.9021 81.5833 51.918 81.5833H37.0846C23.1005 81.5833 16.1066 81.5833 11.7641 77.2372C7.42168 72.891 7.41797 65.9008 7.41797 51.9167V44.5ZM63.043 51.9167C64.0265 51.9167 64.9697 51.526 65.6652 50.8305C66.3606 50.1351 66.7513 49.1918 66.7513 48.2083C66.7513 47.2248 66.3606 46.2816 65.6652 45.5861C64.9697 44.8907 64.0265 44.5 63.043 44.5C62.0595 44.5 61.1162 44.8907 60.4208 45.5861C59.7253 46.2816 59.3346 47.2248 59.3346 48.2083C59.3346 49.1918 59.7253 50.1351 60.4208 50.8305C61.1162 51.526 62.0595 51.9167 63.043 51.9167ZM63.043 66.75C64.0265 66.75 64.9697 66.3593 65.6652 65.6639C66.3606 64.9684 66.7513 64.0252 66.7513 63.0417C66.7513 62.0582 66.3606 61.1149 65.6652 60.4195C64.9697 59.724 64.0265 59.3333 63.043 59.3333C62.0595 59.3333 61.1162 59.724 60.4208 60.4195C59.7253 61.1149 59.3346 62.0582 59.3346 63.0417C59.3346 64.0252 59.7253 64.9684 60.4208 65.6639C61.1162 66.3593 62.0595 66.75 63.043 66.75ZM48.2096 48.2083C48.2096 49.1918 47.8189 50.1351 47.1235 50.8305C46.428 51.526 45.4848 51.9167 44.5013 51.9167C43.5178 51.9167 42.5746 51.526 41.8791 50.8305C41.1837 50.1351 40.793 49.1918 40.793 48.2083C40.793 47.2248 41.1837 46.2816 41.8791 45.5861C42.5746 44.8907 43.5178 44.5 44.5013 44.5C45.4848 44.5 46.428 44.8907 47.1235 45.5861C47.8189 46.2816 48.2096 47.2248 48.2096 48.2083ZM48.2096 63.0417C48.2096 64.0252 47.8189 64.9684 47.1235 65.6639C46.428 66.3593 45.4848 66.75 44.5013 66.75C43.5178 66.75 42.5746 66.3593 41.8791 65.6639C41.1837 64.9684 40.793 64.0252 40.793 63.0417C40.793 62.0582 41.1837 61.1149 41.8791 60.4195C42.5746 59.724 43.5178 59.3333 44.5013 59.3333C45.4848 59.3333 46.428 59.724 47.1235 60.4195C47.8189 61.1149 48.2096 62.0582 48.2096 63.0417ZM25.9596 51.9167C26.9431 51.9167 27.8864 51.526 28.5818 50.8305C29.2773 50.1351 29.668 49.1918 29.668 48.2083C29.668 47.2248 29.2773 46.2816 28.5818 45.5861C27.8864 44.8907 26.9431 44.5 25.9596 44.5C24.9761 44.5 24.0329 44.8907 23.3374 45.5861C22.642 46.2816 22.2513 47.2248 22.2513 48.2083C22.2513 49.1918 22.642 50.1351 23.3374 50.8305C24.0329 51.526 24.9761 51.9167 25.9596 51.9167ZM25.9596 66.75C26.9431 66.75 27.8864 66.3593 28.5818 65.6639C29.2773 64.9684 29.668 64.0252 29.668 63.0417C29.668 62.0582 29.2773 61.1149 28.5818 60.4195C27.8864 59.724 26.9431 59.3333 25.9596 59.3333C24.9761 59.3333 24.0329 59.724 23.3374 60.4195C22.642 61.1149 22.2513 62.0582 22.2513 63.0417C22.2513 64.0252 22.642 64.9684 23.3374 65.6639C24.0329 66.3593 24.9761 66.75 25.9596 66.75Z" fill="#052946"/>
+                            </svg>
+                            <span class="info-value">Дата публикации:&nbsp;{{ research.publication_date|date:"d.m.Y" }}</span>
+                        </div>
+
+                        <!-- Файл (Презентация или файл) -->
+                        {% if research.file %}
+                        <div class="info-row">
+                            <svg class="info-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50.0013 8.3335V35.4168C50.0014 36.9705 50.5801 38.4685 51.6247 39.6186C52.6693 40.7687 54.1048 41.4885 55.6513 41.6377L56.2513 41.6668H83.3346V83.3335C83.3353 85.4359 82.5413 87.4609 81.1117 89.0024C79.6822 90.544 77.7228 91.4883 75.6263 91.646L75.0013 91.6668H25.0013C22.8989 91.6675 20.8739 90.8735 19.3324 89.4439C17.7908 88.0144 16.8465 86.055 16.6888 83.9585L16.668 83.3335V16.6668C16.6673 14.5644 17.4613 12.5395 18.8909 10.9979C20.3204 9.45629 22.2798 8.51201 24.3763 8.35433L25.0013 8.3335H50.0013ZM58.3346 8.51266C59.682 8.7987 60.9375 9.41428 61.9888 10.3043L62.5013 10.7752L80.893 29.1668C81.8693 30.1423 82.588 31.345 82.9846 32.6668L83.1513 33.3335H58.3346V8.51266Z" fill="#052946"/>
+                            </svg>
+                             <span class="info-value">
+                                <a href="{{ research.file.url }}" download>Презентация или файл</a>
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        <!-- الوسوم -->
+                        {% if research.tags.all %}
+                        <div class="research-tags mb-3">
+                            {% for tag in research.tags.all %}
+                            <span class="tag">{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الوصف -->
+            <div class="research-description mb-5">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Описание</h2>
+                        <div class="description-content">{{ research.description|linebreaks }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم Мы в СМИ -->
+            <div class="related-publications mb-5">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Мы в СМИ</h2>
+                        <div class="publications-list-vertical">
+                            <a href="{% url 'fta_journal:journal_home' %}" class="publication-link">1. Журнал FTA</a>
+                            <a href="{% url 'news:news_list' %}" class="publication-link">2. Новости</a>
+                            <a href="#" class="publication-link">3. ТАСС</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب "Конференции" -->
+        <div id="conferences-content" class="tab-content {% if current_tab == 'conferences' %}active{% endif %}" {% if current_tab != 'conferences' %}style="display: none;"{% endif %}>
+            <!-- شريط فلاتر المؤتمرات -->
+            <div class="filters-section">
+                <div class="filters-container">
+                    <!-- فلتر نوع المؤتمر -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.conference_type %}
+                                    {% for key, label in conference_types %}
+                                        {% if key == request.GET.conference_type %}{{ label }}{% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    Все конференции
+                                {% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if not request.GET.conference_type %}active{% endif %}" data-filter-conference-type="">
+                                    <span class="option-text">Все конференции</span>
+                                </div>
+                                {% for key, label in conference_types %}
+                                    <div class="filter-option {% if request.GET.conference_type == key %}active{% endif %}" data-filter-conference-type="{{ key }}">
+                                        <span class="option-text">{{ label }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فلتر الترتيب -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.conference_sort == 'oldest' %}По возрастанию{% elif request.GET.conference_sort == 'popular' %}Популярное{% else %}Новые{% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if request.GET.conference_sort == 'newest' or not request.GET.conference_sort %}active{% endif %}" data-filter-conference-sort="newest">
+                                    <span class="option-text">Новые</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_sort == 'oldest' %}active{% endif %}" data-filter-conference-sort="oldest">
+                                    <span class="option-text">По возрастанию</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_sort == 'popular' %}active{% endif %}" data-filter-conference-sort="popular">
+                                    <span class="option-text">Популярное</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فلتر الفترة -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.conference_period == 'upcoming' %}Предстоящие{% elif request.GET.conference_period == 'past' %}Прошедшие{% elif request.GET.conference_period == 'this_month' %}В этом месяце{% else %}Все периоды{% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if not request.GET.conference_period %}active{% endif %}" data-filter-conference-period="">
+                                    <span class="option-text">Все периоды</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_period == 'upcoming' %}active{% endif %}" data-filter-conference-period="upcoming">
+                                    <span class="option-text">Предстоящие</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_period == 'past' %}active{% endif %}" data-filter-conference-period="past">
+                                    <span class="option-text">Прошедшие</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_period == 'this_month' %}active{% endif %}" data-filter-conference-period="this_month">
+                                    <span class="option-text">В этом месяце</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شبكة المؤتمرات -->
+            <div class="research-grid">
+                <div class="row">
+                    {% for conference in conference_list %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="research-card-new conference-card" data-conference-id="{{ conference.id }}">
+                            <div class="research-image-new">
+                                <img src="{{ conference.image.url }}" alt="{{ conference.title }}">
+                                <div class="research-date-new">{{ conference.start_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="research-content-new">
+                                <h3 class="research-title-new">{{ conference.title|truncatewords:10 }}</h3>
+                                <div class="research-separator"></div>
+                                <p class="research-description-new">
+                                    {% if conference.short_description %}
+                                        {{ conference.short_description|truncatewords:30 }}
+                                    {% else %}
+                                        {{ conference.description|truncatewords:30 }}
+                                    {% endif %}
+                                </p>
+                                <div class="research-type-section">
+                                    <span class="type-dot"></span>
+                                    <span class="type-value-new">{{ conference.get_conference_type_display }}</span>
+                                </div>
+                                <div class="research-action">
+                                    <button type="button" class="research-read-btn-new register-conference-btn" data-conference-id="{{ conference.id }}">Зарегистрироваться</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-4">
+                        <p class="text-muted">Конференции не найдены</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% if hero and hero.brochure %}
+            <div class="brochure-download-wrapper">
+                <a href="{{ hero.brochure.url }}" class="brochure-download-btn" download>Скачать брошюру</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- تبويب "Молодежный ученый совет" -->
+        <div id="youth-council-content" class="tab-content {% if current_tab == 'youth-council' %}active{% endif %}" {% if current_tab != 'youth-council' %}style="display: none;"{% endif %}>
+            <!-- فلتر الأقسام -->
+            <div class="filters-section">
+                <div class="filters-container">
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">Все отделения</span>
+                            <div class="filter-arrow open">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option active" data-filter="all">
+                                    <span class="option-text">Все отделения</span>
+                                </div>
+                                {% for department in departments %}
+                                <div class="filter-option" data-filter="department-{{ department.id }}">
+                                    <span class="option-text">{{ department.name }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- محتوى المجلس -->
+            <div class="section-wrapper">
+                {% if youth_council_by_department %}
+                    {% for department, members in youth_council_by_department.items %}
+                        <div id="department-{{ department.id }}" class="department-section mb-5">
+                            <div class="department-title-wrapper mb-4">
+                                <div class="department-title-inner">
+                                    <div class="department-circle"></div>
+                                    <h3 class="department-title">{{ department.name }}</h3>
+                                </div>
+                            </div>
+                            <div class="row g-4">
+                                {% for member in members %}
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="council-card" data-department="{% for dept in member.departments.all %}{{ dept.id }}{% if not forloop.last %},{% endif %}{% endfor %}" data-member-id="{{ member.pk }}">
+                                        <a href="#" class="council-card-link view-youth-council-detail" data-member-id="{{ member.pk }}">
+                                            <div class="council-card-image">
+                                                <img src="{{ member.image.url }}" alt="{{ member.name }}" class="council-img">
+                                                <div class="teacher-card-overlay"></div>
+                                            </div>
+                                            <div class="council-card-content">
+                                                <h4 class="council-card-name">{{ member.name }}</h4>
+                                                <p class="council-card-position">{{ member.position }}</p>
+                                                <div class="view-profile-btn">Посмотреть профиль</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if not forloop.last %}
+                        <div class="department-divider mb-5"></div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <p class="text-muted">Нет членов совета для отображения</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- عناصر مساعدة -->
+<input type="hidden" id="userAuthenticated" value="{% if user.is_authenticated %}true{% else %}false{% endif %}">
+
+<!-- مودال التسجيل للمؤتمرات -->
+<div id="conferenceRegistrationModalList" class="registration-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <button class="modal-close-btn">&times;</button>
+        <h2 class="modal-title">Регистрация на конференцию</h2>
+        <form class="registration-form" id="conferenceRegistrationFormList">
+            <input type="hidden" id="modalConferenceIdList" value="">
+            <div class="form-group">
+                <label for="modalFullNameList" class="form-label">ФИО</label>
+                <input type="text" id="modalFullNameList" class="form-input" placeholder="Введите ваше полное имя" required>
+            </div>
+            <div class="form-group">
+                <label for="modalPhoneList" class="form-label">Телефон</label>
+                <input type="tel" id="modalPhoneList" class="form-input" placeholder="Введите ваш телефон" required>
+            </div>
+            <div class="form-group">
+                <label for="modalEmailList" class="form-label">E-mail</label>
+                <input type="email" id="modalEmailList" class="form-input" placeholder="Введите ваш email" required>
+            </div>
+            <div class="agreement-section">
+                <input type="checkbox" id="modalRegistrationAgreeList" class="agreement-checkbox" required>
+                <label for="modalRegistrationAgreeList" class="agreement-label">
+                    Я согласен с условиями пользовательского соглашения и политикой конфиденциальности
+                </label>
+            </div>
+            <button type="submit" class="submit-registration-btn">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+
+<div id="conferenceRegistrationModalGuestList" class="registration-modal guest-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content guest-modal-content">
+        <button class="modal-close-btn">&times;</button>
+        <h2 class="guest-modal-title">Регистрация на конференцию</h2>
+        <div class="guest-message-container">
+            <p class="guest-message">Зарегистрироваться на конференцию можно только после авторизации в личном кабинете</p>
+            <a href="/accounts/login/" class="guest-login-btn">Авторизироваться в личном кабинете</a>
+        </div>
+    </div>
+</div>
+
+<template id="success-message-template-list">
+    <div class="success-modal-overlay">
+        <div class="success-modal-content">
+            <div class="success-icon">✓</div>
+            <h3 class="success-title">Регистрация завершена</h3>
+            <p class="success-message"></p>
+            <button class="success-close-btn">OK</button>
+        </div>
+    </div>
+</template>
+
+<!-- مودال المشاركة للمؤتمرات -->
+<div id="conferenceShareModal" class="share-modal-overlay" style="display: none;">
+    <div class="share-modal">
+        <button class="share-modal-close">&times;</button>
+        <h3 class="share-modal-title">Поделиться</h3>
+        <div class="share-modal-grid">
+            <button class="share-modal-item" data-share="telegram">
+                <span class="share-icon share-icon-tg">📱</span>
+                <span>Telegram</span>
+            </button>
+            <button class="share-modal-item" data-share="vkontakte">
+                <span class="share-icon share-icon-vk">VK</span>
+                <span>VK</span>
+            </button>
+            <button class="share-modal-item" data-share="twitter">
+                <span class="share-icon share-icon-tw">𝕏</span>
+                <span>Twitter</span>
+            </button>
+            <button class="share-modal-item" data-share="copy">
+                <span class="share-icon share-icon-copy">🔗</span>
+                <span>Копировать</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'research/js/research_tabs.js' %}"></script>
+<script src="{% static 'research/js/research_conference_list.js' %}" type="module"></script>
+<script type="module" src="{% static 'research/js/youthCouncilMain.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // دالة معادلة الارتفاع
+        function matchHeights() {
+            const leftCol = document.querySelector('.research-detail-page .col-lg-6:first-child');
+            const rightCol = document.querySelector('.research-detail-page .col-lg-6:last-child');
+            const imageWrapper = leftCol?.querySelector('.research-image-wrapper');
+            const image = imageWrapper?.querySelector('img');
+    
+            if (!leftCol || !rightCol || !imageWrapper || !image) return;
+    
+            // إعادة تعيين أي ارتفاع محدد مسبقاً
+            imageWrapper.style.height = 'auto';
+            image.style.height = 'auto';
+    
+            // حساب ارتفاع المحتوى الأيمن (حتى نهاية .research-header)
+            const rightContent = rightCol.querySelector('.research-header');
+            let targetHeight = rightContent ? rightContent.offsetHeight : rightCol.offsetHeight;
+    
+            // تطبيق الارتفاع مع هامش بسيط (اختياري)
+            imageWrapper.style.height = targetHeight + 'px';
+            image.style.height = targetHeight + 'px';
+        }
+    
+        // تنفيذ الدالة بعد تحميل الصفحة
+        matchHeights();
+    
+        // إعادة التنفيذ عند تغيير حجم النافذة (مع debounce بسيط)
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(matchHeights, 100);
+        });
+    
+        // التأكد من تنفيذها بعد تحميل الخطوط (اختياري)
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(matchHeights);
+        }
+    });
+    </script>
+{% endblock %}

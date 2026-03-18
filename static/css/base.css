@@ -1,0 +1,1587 @@
+/* أنماط جديدة للعرض الكامل */
+.full-width-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-top, .navbar-main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.top-bar-content, .main-nav-content {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.nav-main-item {
+    text-align: center;
+    position: relative;
+    flex-grow: 1;
+}
+
+.navbar-custom {
+    background: #052946 !important;
+    min-height: 90px;
+    padding: 0;
+}
+
+.navbar-top {
+    background: transparent;
+    padding: 0.5rem 0;
+    min-height: 60px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.navbar-main {
+    background: #052946;
+    padding: 0.8rem 0;
+    position: relative;
+    z-index: 1030;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+}
+
+/* تحديث أنماط flag-container بعد إزالة العلم */
+.flag-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+    margin-left: 70px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.flag-container:hover {
+    background-color: #f5f5f5;
+}
+
+.flag-container.active {
+    background-color: #f0f0f0;
+}
+
+.flag-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    color: #052946;
+    font-weight: 500;
+}
+
+/* تنسيق سهم القائمة المنسدلة */
+.dropdown-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    width: 14px;
+    height: 14px;
+}
+
+.flag-container.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.flag-container.active .dropdown-arrow svg path {
+    stroke: #7F1726;
+}
+
+/* تعديل قائمة اللغات لتكون تحت السهم */
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 180px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 10px 0;
+    display: none;
+    z-index: 1100;
+    margin-top: 8px;
+}
+
+.language-dropdown.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* إزالة أنماط العلم القديمة */
+.russian-flag {
+    display: none;
+}
+
+/* تحسين مظهر خيارات اللغة */
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+.language-option:hover {
+    background-color: #f8f9fa;
+}
+
+.language-flag {
+    width: 24px;
+    height: 16px;
+    margin-right: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.russian-flag-small {
+    background: linear-gradient(to bottom, 
+        #FFFFFF 0%, #FFFFFF 33.33%, 
+        #0039A6 33.33%, #0039A6 66.66%, 
+        #D52B1E 66.66%, #D52B1E 100%);
+}
+
+.english-flag {
+    background: linear-gradient(to right, 
+        #012169 0%, #012169 33.33%, 
+        #FFFFFF 33.33%, #FFFFFF 66.66%, 
+        #C8102E 66.66%, #C8102E 100%);
+}
+
+.chinese-flag {
+    background: #DE2910;
+    position: relative;
+}
+
+.chinese-flag::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: 
+        radial-gradient(circle at 5px 5px, #FFDE00 0%, #FFDE00 3px, transparent 3px),
+        radial-gradient(circle at 10px 3px, #FFDE00 0%, #FFDE00 2px, transparent 2px),
+        radial-gradient(circle at 12px 8px, #FFDE00 0%, #FFDE00 2px, transparent 2px),
+        radial-gradient(circle at 8px 12px, #FFDE00 0%, #FFDE00 2px, transparent 2px),
+        radial-gradient(circle at 3px 10px, #FFDE00 0%, #FFDE00 2px, transparent 2px);
+}
+
+.language-name {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #052946;
+    font-weight: 500;
+}
+
+.nav-main-link {
+    font-family: 'Raleway', sans-serif;
+    font-size: 28px !important;
+    font-weight: 600 !important;
+    color: #FDFDFD !important;
+    line-height: 1.2;
+    padding: 1rem 2.2rem !important;
+    transition: all 0.3s ease !important;
+    position: relative;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    background-color: transparent !important;
+    border: none !important;
+    text-decoration: none !important;
+}
+
+/* إزالة كاملة للخلفية البيضاء الشفافة عند التحويم */
+.nav-main-link:hover,
+.nav-main-link:focus,
+.nav-main-link:active {
+    background-color: transparent !important;
+    background-image: none !important;
+    transform: translateY(-2px) !important;
+    box-shadow: none !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    border: none !important;
+    outline: none !important;
+}
+
+/* إصلاح خاص للروابط المنسدلة */
+.nav-main-link.dropdown-toggle:hover,
+.nav-main-link.dropdown-toggle:focus {
+    background-color: transparent !important;
+}
+
+/* إزالة الخلفية من عنصر القائمة نفسه */
+.nav-main-item .nav-main-link {
+    background: transparent !important;
+}
+
+.nav-main-item:hover .nav-main-link {
+    background: transparent !important;
+}
+
+/* إصلاح حركة الروابط عند النقر */
+.nav-main-link:active {
+    transform: translateY(0) !important;
+    transition-duration: 0.1s !important;
+}
+
+.nav-main-link:hover:active {
+    transform: translateY(-1px) !important;
+    transition-duration: 0.1s !important;
+}
+
+.contact-btn {
+    background: #7F1726;
+    border-radius: 25px;
+    padding: 0.8rem 2rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: #FDFDFD !important;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease !important;
+    white-space: nowrap;
+    position: relative;
+    font-weight: 500;
+}
+
+.contact-btn:hover {
+    background: #9a1f32;
+    color: #FDFDFD;
+    transform: translateY(-2px);
+}
+
+/* نفس الإصلاح لأزرار التصميم الأخرى */
+.contact-btn:active {
+    transform: translateY(0) !important;
+    transition-duration: 0.1s !important;
+}
+
+.contact-btn:hover:active {
+    transform: translateY(-1px) !important;
+    transition-duration: 0.1s !important;
+}
+
+/* إصلاح للقوائم المنسدلة */
+.dropdown-toggle:active {
+    transform: translateY(0) !important;
+    transition-duration: 0.1s !important;
+}
+
+.dropdown-toggle:hover:active {
+    transform: translateY(-1px) !important;
+    transition-duration: 0.1s !important;
+}
+
+.nav-top-link {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px !important;
+    color: #052946 !important;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem !important;
+    white-space: nowrap;
+    position: relative;
+    transition: all 0.3s ease !important;
+}
+
+/* 3. تأثيرات تحويم لروابط KОНТАКТЫ و KОВОРКИНГ */
+.nav-top-link:hover {
+    color: #7F1726 !important;
+    transform: translateY(-2px);
+}
+
+.nav-top-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #7F1726;
+    transition: width 0.3s ease;
+}
+
+.nav-top-link:hover::after {
+    width: 100%;
+}
+
+.nav-top-links {
+    display: flex;
+    align-items: center;
+    gap: 3.5rem;
+}
+
+/* تصميم القوائم المنسدلة المحسّن */
+.dropdown-menu-custom {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    background: #FFFFFF !important;
+    border: 1px solid #e0e0e0;
+    border-radius: 0;
+    margin-top: 0;
+    padding: 25px 5%;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: visible;
+    z-index: 1050;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown-menu-custom::before {
+    display: none;
+}
+
+.dropdown-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    height: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dropdown-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.dropdown-section {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.dropdown-main-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #052946;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #7F1726;
+}
+
+.dropdown-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #052946;
+    margin-bottom: 8px;
+}
+
+.dropdown-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 3px solid #7F1726;
+}
+
+.dropdown-item-custom {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #052946 !important;
+    padding: 8px 0;
+    border: none;
+    background: none;
+    text-align: left;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid transparent;
+    position: relative;
+    padding-left: 15px;
+}
+
+.dropdown-item-custom:hover {
+    color: #7F1726 !important;
+    background: none;
+    border-bottom: 1px solid #7F1726;
+    padding-left: 20px;
+}
+
+.dropdown-item-custom::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #7F1726;
+    font-size: 16px;
+}
+
+/* شريط البحث */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    cursor: pointer;
+    color: #FDFDFD;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    padding: 12px 18px;
+}
+
+.search-icon:hover {
+    color: #7F1726;
+    transform: scale(1.1);
+}
+
+.search-box {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 280px;
+    background: #FFFFFF;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 12px 18px;
+    display: none;
+    z-index: 1100;
+}
+
+.search-box.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.search-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: #052946;
+    background: transparent;
+}
+
+.search-input::placeholder {
+    color: #999;
+    font-size: 16px;
+}
+
+/* القائمة المنسدلة لـ "Личный кабинет" */
+.account-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 354px;
+    background: #FDFDFD;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    padding: 20px;
+    display: none;
+    z-index: 1100;
+}
+
+.account-dropdown.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.account-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.account-option:hover {
+    background-color: #f8f9fa;
+}
+
+.account-option:last-child {
+    margin-bottom: 0;
+}
+
+.account-icon {
+    width: 30px;
+    height: 30px;
+    background: #7F1726;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: #FFFFFF;
+}
+
+.account-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    color: #052946;
+    font-weight: 500;
+}
+
+/* تأثيرات الظهور */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* أنماط إضافية لحالة المستخدم */
+.user-status {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #052946;
+    background: #e9f7ef;
+    padding: 4px 12px;
+    border-radius: 15px;
+    border: 1px solid #28a745;
+}
+
+.logout-btn {
+    background: #dc3545 !important;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #c82333 !important;
+    color: #FFFFFF;
+}
+
+/* توزيع متساوي للعناصر */
+.nav-main-links-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px !important;
+    width: 100%;
+    align-items: center;
+    padding: 0 10px !important;
+}
+
+.search-nav-item {
+    grid-column: 5;
+    text-align: right;
+    justify-self: end;
+}
+
+/* إزالة الخلفية الشفافة عند فتح القائمة من جميع العناصر */
+.nav-item.dropdown.show .nav-main-link {
+    background-color: transparent !important;
+    color: #FDFDFD !important;
+}
+
+/* إزالة خاصية الخلفية لعنصر "Поступление" */
+#admissionDropdown {
+    background-color: transparent !important;
+}
+
+.nav-item.dropdown.show #admissionDropdown {
+    background-color: transparent !important;
+}
+
+/* ضبط سهم dropdown ليكون متناسقا */
+.nav-main-link.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 8px;
+    vertical-align: middle;
+    content: "";
+    border-top: 0.35em solid;
+    border-right: 0.35em solid transparent;
+    border-bottom: 0;
+    border-left: 0.35em solid transparent;
+    transition: transform 0.3s ease;
+}
+
+/* تدوير السهم عند فتح القائمة */
+.nav-item.dropdown.show .nav-main-link.dropdown-toggle::after {
+    transform: rotate(180deg);
+}
+
+/* تحسينات التخطيط */
+.top-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 25px;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* إصلاحات إضافية للالقوائم المنسدلة */
+.dropdown-menu-custom.show {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* تحسينات إضافية للعرض */
+.nav-item.dropdown {
+    position: static !important;
+}
+
+.main-nav-content {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 15px !important;
+}
+
+/* 4. زر Личный кабинет مع أيقونة SVG */
+.contact-btn.profile-btn {
+    background: transparent;
+    padding: 0.5rem !important;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #6c757d;
+    transition: all 0.3s ease !important;
+}
+
+/* في صفحة index تكون الأيقونة بيضاء */
+.index-page .contact-btn.profile-btn {
+    border-color: #052946;
+}
+
+.index-page .contact-btn.profile-btn .profile-icon {
+    fill: #FDFDFD;
+}
+
+/* في بقية الصفحات تكون رمادية */
+.contact-btn.profile-btn .profile-icon {
+    fill: #6c757d;
+}
+
+.contact-btn.profile-btn:hover {
+    background: #7F1726;
+    border-color: #7F1726;
+}
+
+.contact-btn.profile-btn:hover .profile-icon {
+    fill: #FDFDFD;
+}
+
+.profile-icon {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+}
+
+/* توزيع متناسق للعناصر على الشاشات الكبيرة */
+@media (min-width: 1201px) {
+    .nav-main-links-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .search-nav-item {
+        grid-column: 5;
+    }
+    
+    .dropdown-menu-custom {
+        width: calc(100vw - 30px) !important;
+        left: -15px !important;
+        position: absolute;
+    }
+}
+
+/* إضافة: تحسين للتنقل على الأجهزة اللوحية */
+@media (max-width: 1200px) and (min-width: 993px) {
+    .nav-main-links-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px !important;
+        padding: 0 5px !important;
+    }
+    
+    .search-nav-item {
+        grid-column: 4;
+    }
+    
+    .nav-main-link {
+        font-size: 26px !important;
+        padding: 0.8rem 1.8rem !important;
+    }
+    
+    .dropdown-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== تحسينات الهواتف المحمولة (الشاشات أقل من 992px) ===== */
+@media (max-width: 992px) {
+    /* إصلاح تخطيط الشريط العلوي */
+    .navbar-top .top-bar-content {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        padding: 10px 15px !important;
+    }
+
+    .navbar-top .left-section {
+        width: auto !important;
+        margin-bottom: 0 !important;
+        order: 1 !important;
+    }
+
+    .navbar-top .right-section {
+        width: auto !important;
+        flex-direction: row !important;
+        gap: 10px !important;
+        order: 2 !important;
+        margin-left: auto !important;
+    }
+
+    .nav-top-links {
+        width: auto !important;
+        order: 1 !important;
+        margin-bottom: 0 !important;
+        gap: 15px !important;
+    }
+
+    .navbar-top .right-section > .position-relative {
+        order: 2 !important;
+        width: auto !important;
+    }
+
+    .nav-top-link {
+        font-size: 14px !important;
+        padding: 5px 8px !important;
+    }
+
+    .contact-btn {
+        width: 100%;
+        text-align: center;
+        padding: 8px 15px !important;
+        font-size: 14px !important;
+    }
+
+    /* تحسين تخطيط اللوجو والعلم */
+    .logo-section {
+        justify-content: flex-start;
+    }
+
+    .flag-container {
+        margin-left: auto;
+        padding: 4px 10px;
+    }
+
+    .flag-text {
+        font-size: 18px;
+    }
+    
+    .dropdown-arrow {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .dropdown-arrow svg {
+        width: 12px;
+        height: 7px;
+    }
+
+    .user-status {
+        font-size: 12px;
+        padding: 3px 8px;
+        order: 1;
+    }
+
+    .navbar-custom {
+        min-height: auto;
+    }
+    
+    /* إصلاح القائمة الرئيسية والهامبرغر */
+    .collapse.navbar-collapse {
+        background: #052946 !important;
+        padding: 10px !important;
+        border-radius: 0 0 10px 10px !important;
+        margin-top: 0 !important;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+        max-height: 80vh;
+        overflow-y: auto;
+        width: 100% !important;
+    }
+    
+    .nav-main-links-container {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 10px !important;
+        gap: 0 !important;
+        width: 100% !important;
+    }
+    
+    .nav-main-item {
+        width: 100% !important;
+        margin: 0 !important;
+        text-align: left !important;
+        position: relative;
+    }
+    
+    .nav-main-item .nav-main-link {
+        border-radius: 5px !important;
+        margin: 2px 0 !important;
+        padding: 12px 15px !important;
+        font-size: 18px !important;
+        width: 100%;
+        text-align: left !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    .nav-main-link:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* إصلاح خلفية Поступление */
+    #admissionDropdown {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+    
+    .nav-item.dropdown.show #admissionDropdown {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* تحسين مظهر الروابط عند التفعيل */
+    .nav-item.dropdown.show .nav-main-link {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #FFFFFF !important;
+    }
+    
+    /* إصلاح السهم ليكون مرئيًا */
+    .nav-main-link.dropdown-toggle::after {
+        border-top-color: #FDFDFD !important;
+    }
+    
+    .nav-item.dropdown.show .nav-main-link.dropdown-toggle::after {
+        border-top-color: #FDFDFD !important;
+        transform: rotate(180deg);
+    }
+    
+    .contact-btn.profile-btn {
+        width: 40px !important;
+        height: 40px !important;
+        margin-left: 0 !important;
+    }
+    
+    .nav-top-link:hover {
+        transform: none;
+    }
+    
+    .nav-top-link::after {
+        display: none;
+    }
+
+    /* إصلاح سهم dropdown */
+    .nav-main-link.dropdown-toggle::after {
+        margin-left: auto !important;
+        margin-right: 10px;
+        border-top: 0.4em solid !important;
+        border-right: 0.4em solid transparent !important;
+        border-left: 0.4em solid transparent !important;
+    }
+
+    /* ===== الإصلاح الرئيسي للقوائم المنسدلة للشاشات الصغيرة ===== */
+    .dropdown-menu-custom {
+        position: static !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+        background: #052946 !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 8px !important;
+        padding: 15px !important;
+        margin-top: 5px !important;
+        margin-left: 0 !important;
+        box-shadow: none !important;
+        display: none !important;
+        max-height: none !important;
+        overflow: visible !important;
+        animation: slideDown 0.3s ease forwards;
+    }
+
+    .dropdown-menu-custom.show {
+        display: block !important;
+        animation: fadeIn 0.3s ease !important;
+    }
+
+    /* إصلاح محتوى القوائم المنسدلة */
+    .dropdown-content {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    /* إصلاح عرض الأعمدة */
+    .dropdown-column {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    .dropdown-column:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    /* تحسين الأقسام */
+    .dropdown-section {
+        width: 100% !important;
+        margin-bottom: 15px !important;
+        padding-bottom: 10px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 10px !important;
+        background: rgba(0, 0, 0, 0.1) !important;
+        border-radius: 5px !important;
+    }
+
+    .dropdown-section:last-child {
+        border-bottom: none !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* تحسين العناوين */
+    .dropdown-main-title, 
+    .dropdown-title {
+        font-size: 14px !important;
+        color: #FFFFFF !important;
+        margin-bottom: 8px !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: left !important;
+        padding-left: 0 !important;
+        font-weight: 600 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .dropdown-subtitle {
+        font-size: 12px !important;
+        color: rgba(255, 255, 255, 0.7) !important;
+        line-height: 1.3 !important;
+        margin-bottom: 12px !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        padding: 6px 8px !important;
+        border-radius: 4px !important;
+        border-left: 3px solid #7F1726 !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: left !important;
+    }
+
+    /* تحسين الروابط */
+    .dropdown-item-custom {
+        font-size: 13px !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        padding: 8px 0 8px 15px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        display: block !important;
+        width: 100% !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: left !important;
+        position: relative;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-item-custom:hover {
+        color: #7F1726 !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 3px;
+        padding-left: 20px !important;
+    }
+
+    .dropdown-item-custom::before {
+        content: "›";
+        position: absolute;
+        left: 5px;
+        color: #7F1726 !important;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    /* إصلاح موقع قائمة اللغات للشاشات الصغيرة */
+    .language-dropdown {
+        position: absolute !important;
+        top: 100% !important;
+        left: auto !important;
+        right: 0 !important;
+        transform: none !important;
+        width: 180px !important;
+        max-width: 180px !important;
+        margin-top: 5px !important;
+        background: #FFFFFF !important;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15) !important;
+        border-radius: 8px !important;
+        z-index: 1100 !important;
+    }   
+
+    .language-dropdown.active {
+        display: block !important;
+        animation: fadeIn 0.3s ease !important;
+    }
+
+    .language-option {
+        padding: 10px 15px !important;
+        margin: 0 !important;
+    }
+
+    .language-name {
+        font-size: 14px !important;
+    }
+
+    /* إصلاح موقع قائمة البروفايل للشاشات الصغيرة */
+    .account-dropdown {
+        position: absolute !important;
+        top: 100% !important;
+        right: 0 !important;
+        transform: none !important;
+        width: 280px !important;
+        max-width: 280px !important;
+        margin-top: 5px !important;
+        background: #FDFDFD !important;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15) !important;
+        border-radius: 15px !important;
+        z-index: 1100 !important;
+    }
+
+    .account-dropdown.active {
+        display: block !important;
+        animation: fadeIn 0.3s ease !important;
+    }
+
+    .account-option {
+        padding: 12px 15px !important;
+    }
+
+    .account-text {
+        font-size: 16px !important;
+    }
+
+    /* منع التداخل مع المسميات الأخرى */
+    .nav-item.dropdown {
+        margin-bottom: 5px;
+    }
+
+    .nav-item.dropdown.show {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+    }
+
+    /* تحسين مساحة العناصر */
+    .main-nav-content {
+        padding: 0 10px !important;
+    }
+
+    /* إصلاح زر البحث */
+    .search-container {
+        margin-top: 15px;
+        justify-content: center;
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .search-box {
+        position: static;
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 15px;
+    }
+    
+    /* إصلاح أيقونة الهامبرغر */
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.5) !important;
+    }
+    
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-section {
+        justify-content: center;
+    }
+    
+    .nav-main-link {
+        font-size: 18px !important;
+        padding: 0.7rem 1rem !important;
+    }
+
+    .dropdown-main-title {
+        font-size: 18px;
+    }
+
+    .dropdown-title {
+        font-size: 16px;
+    }
+
+    .dropdown-item-custom {
+        font-size: 14px;
+    }
+    
+    .flag-container {
+        margin-left: 0;
+        padding: 3px 8px;
+    }
+    
+    .flag-text {
+        font-size: 16px;
+    }
+    
+    .dropdown-arrow {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .dropdown-arrow svg {
+        width: 10px;
+        height: 6px;
+    }
+    
+    .language-dropdown {
+        width: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .dropdown-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .account-text {
+        font-size: 16px;
+    }
+    
+    .language-name {
+        font-size: 14px;
+    }
+    
+    .nav-main-links-container {
+        padding: 0 10px;
+    }
+
+    /* تحسينات إضافية للشاشات الصغيرة */
+    .dropdown-menu-custom {
+        padding: 10px !important;
+    }
+    
+    .dropdown-section {
+        padding: 8px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .dropdown-main-title, 
+    .dropdown-title {
+        font-size: 13px !important;
+    }
+    
+    .dropdown-item-custom {
+        font-size: 12px !important;
+        padding: 7px 0 7px 15px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .flag-container {
+        padding: 2px 6px;
+    }
+    
+    .flag-text {
+        font-size: 14px;
+    }
+    
+    .dropdown-arrow svg {
+        width: 9px;
+        height: 5px;
+    }
+    
+    .navbar-top .top-bar-content {
+        flex-direction: column !important;
+    }
+    
+    .navbar-top .left-section,
+    .navbar-top .right-section {
+        width: 100% !important;
+        justify-content: center !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .nav-top-links {
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    .nav-main-item .nav-main-link {
+        font-size: 16px !important;
+        padding: 10px 12px !important;
+    }
+    
+    .dropdown-menu-custom {
+        padding: 8px !important;
+    }
+}
+
+/* قواعد جديدة لتحسين توزيع العناصر */
+.nav-main-item.dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-main-link.dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+}
+
+/* 2. التأكد من أن القوائم المنسدلة تغطي عرض الشاشة بالكامل دائمًا */
+@media (min-width: 993px) {
+    .dropdown-menu-custom {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 100vw !important;
+        position: absolute !important;
+        top: 100% !important;
+        margin-top: 0 !important;
+    }
+    
+    /* إصلاح العناصر الأب للقوائم المنسدلة */
+    .nav-item.dropdown {
+        position: static !important;
+    }
+}
+/* تحسينات إضافية للقوائم المنسدلة */
+@media (max-width: 992px) {
+    .contact-btn.profile-btn {
+        margin-left: auto;
+    }
+}
+
+/* إضافة animation لظهور القوائم المنسدلة */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 1000px;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 1000px;
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .dropdown-menu-custom {
+        animation: slideDown 0.3s ease forwards;
+    }
+    
+    .dropdown-menu-custom.hiding {
+        animation: slideUp 0.3s ease forwards;
+    }
+}
+
+/* تحسينات إضافية للقوائم المنسدلة في الشاشات الصغيرة */
+@media (max-width: 992px) {
+    /* منع تداخل القوائم المنسدلة مع بعضها */
+    .nav-item.dropdown .dropdown-menu-custom {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        margin-top: 5px !important;
+        margin-bottom: 10px !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* تحسين عرض محتوى القوائم */
+    .dropdown-content {
+        display: block !important;
+    }
+    
+    /* جعل كل عمود يأخذ عرض كامل */
+    .dropdown-column {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* تحسين توزيع الأقسام */
+    .dropdown-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    /* منع ظهور القوائم خارج الشاشة */
+    .collapse.navbar-collapse {
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* تحسين ظهور القوائم المنسدلة */
+    .nav-item.dropdown.show .dropdown-menu-custom {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+        transition: all 0.3s ease;
+    }
+}
+
+/* تحسينات للوضع الأفقي على الأجهزة المحمولة */
+@media (max-width: 992px) and (orientation: landscape) {
+    .collapse.navbar-collapse {
+        max-height: 60vh;
+    }
+    
+    .dropdown-menu-custom {
+        max-height: 40vh;
+        overflow-y: auto;
+    }
+}
+
+/* ===== تأكد من أن Overlay menu مخفي في الشاشات الصغيرة ===== */
+@media (max-width: 992px) {
+    #menuOverlay {
+        display: none !important;
+    }
+    
+    /* إصلاح إضافي للقوائم المنسدلة في الشاشات الصغيرة */
+    .nav-item.dropdown .dropdown-menu-custom {
+        animation: slideDown 0.3s ease forwards !important;
+    }
+    
+    .dropdown-menu-custom.show {
+        display: block !important;
+        animation: fadeIn 0.3s ease !important;
+    }
+}
+/* ===== التعديلات للشاشات الكبيرة فقط ===== */
+@media (min-width: 993px) {
+    /* 1. إزالة تأثير full-width-container من الشريط الرئيسي */
+    .navbar-main.full-width-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    /* 2. إزالة padding من الحاوية الداخلية للشريط الرئيسي */
+    .main-nav-content {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* 3. زيادة المسافة بين عناصر القائمة الرئيسية إلى اليمين */
+    .nav-main-links-container {
+        gap: 30px !important; /* زيادة المسافة بين العناصر */
+        padding: 0 40px !important; /* زيادة المسافة الداخلية */
+    }
+    
+    /* 4. ضمان توزيع متساوي للعناصر */
+    .nav-main-item {
+        margin: 0 10px !important; /* إضافة هوامش جانبية */
+        text-align: center !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    
+    /* 5. تأمين أن عنصر البحث يبقى في أقصى اليمين */
+    .search-nav-item {
+        grid-column: 5 !important;
+        justify-self: end !important;
+        margin-left: auto !important;
+    }
+    
+    /* 6. تحسين تنسيق الروابط */
+    .nav-main-link {
+        padding: 1rem 1.5rem !important;
+        white-space: nowrap !important;
+        display: inline-block !important;
+    }
+}
+
+/* ===== تحسينات إضافية للشاشات الكبيرة جداً ===== */
+@media (min-width: 1200px) {
+    .nav-main-links-container {
+        gap: 35px !important; /* زيادة أكثر للمسافة */
+        padding: 0 50px !important; /* زيادة المسافة الداخلية أكثر */
+    }
+    
+    .nav-main-link {
+        padding: 1rem 2rem !important; /* زيادة padding للروابط */
+        font-size: 26px !important; /* تكبير الخط قليلاً */
+    }
+}
+
+/* ===== تحسينات للشاشات المتوسطة الكبيرة ===== */
+@media (min-width: 993px) and (max-width: 1199px) {
+    .nav-main-links-container {
+        gap: 25px !important;
+        padding: 0 35px !important;
+    }
+    
+    .nav-main-link {
+        padding: 0.9rem 1.2rem !important;
+        font-size: 24px !important;
+    }
+}
+/* ===== تعديلات عامة لجميع الصفحات للشاشات الكبيرة ===== */
+@media (min-width: 993px) {
+    .navbar-top .right-section {
+        margin-left: -50px !important; /* تحريك كامل القسم الأيمن إلى اليسار */
+    }
+    
+    .navbar-top .nav-top-links {
+        gap: 4rem !important; /* زيادة التباعد بين KОНТАКТЫ و KОВОРКИНГ */
+        transform: translateX(-30px); /* طريقة بديلة لتحريك العناصر */
+    }
+    
+    .navbar-top .left-section .flag-container {
+        margin-left: 100px !important; /* تحريك Ru إلى اليمين أكثر */
+    }
+    
+    .navbar-main .nav-main-link {
+        font-size: 30px !important; /* زيادة حجم الخط */
+        letter-spacing: 0.8px;
+    }
+    
+    .navbar-main .nav-main-links-container {
+        gap: 25px !important; /* زيادة التباعد بين العناصر */
+        padding-right: 30px !important; /* تقليل المساحة من اليمين للاقتراب من أيقونة البحث */
+    }
+    
+    .navbar-main .nav-main-item {
+        margin: 0 5px !important;
+    }
+    
+    /* توزيع العناصر لجعلها أقرب للبحث */
+    .navbar-main .nav-main-item:nth-child(1) { /* Академия */
+        margin-right: auto !important;
+    }
+    
+    .navbar-main .nav-main-item:nth-child(4) { /* Наука */
+        margin-left: auto !important;
+        margin-right: 20px !important;
+    }
+    
+    .navbar-main .search-nav-item {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+}
+
+/* ===== تعديلات إضافية للشاشات الكبيرة جداً ===== */
+@media (min-width: 1200px) {
+    .navbar-top .right-section {
+        margin-left: -70px !important; /* تحريك أكثر للشاشات الكبيرة */
+    }
+    
+    .navbar-top .nav-top-links {
+        gap: 5rem !important;
+        transform: translateX(-40px); /* تحريك أكثر */
+    }
+    
+    .navbar-top .left-section .flag-container {
+        margin-left: 120px !important; /* تحريك أكثر للشاشات الكبيرة */
+    }
+    
+    .navbar-main .nav-main-link {
+        font-size: 32px !important;
+    }
+    
+    .navbar-main .nav-main-links-container {
+        gap: 30px !important;
+        padding-right: 40px !important;
+    }
+}
+
+/* ===== تعديلات للشاشات المتوسطة الكبيرة ===== */
+@media (min-width: 993px) and (max-width: 1199px) {
+    .navbar-top .right-section {
+        margin-left: -40px !important; /* تحريك أقل للشاشات المتوسطة */
+    }
+    
+    .navbar-top .nav-top-links {
+        transform: translateX(-25px);
+    }
+    
+    .navbar-top .left-section .flag-container {
+        margin-left: 90px !important; /* تحريك أقل للشاشات المتوسطة */
+    }
+}

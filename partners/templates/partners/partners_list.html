@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Партнеры - Бизнес-Мастерская{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/partners_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Success Messages (убраны |safe) -->
+{% if messages %}
+<div class="container">
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div class="success-message-content">
+                <i class="fas fa-check-circle success-icon"></i>
+                <div class="message-text">
+                    <strong>Успешно!</strong> {{ message }}
+                </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% elif message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="error-message-content">
+                <i class="fas fa-exclamation-circle error-icon"></i>
+                <div class="message-text">
+                    <strong>Ошибка!</strong> {{ message }}
+                </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Шапка страницы со слайдером -->
+<header class="page-header">
+    {% if sliders %}
+    <div id="partnersSlider" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for slider in sliders %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="slider-item" style="background-image: url('{{ slider.image.url }}');">
+                    <div class="slider-content-wrapper">
+                        <div class="slider-breadcrumb">
+                            <div class="breadcrumb-content">
+                                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                                <div class="breadcrumb-arrow">
+                                    <div class="arrow-line arrow-top"></div>
+                                    <div class="arrow-line arrow-bottom"></div>
+                                </div>
+                                <span class="breadcrumb-current">Партнеры</span>
+                            </div>
+                        </div>
+                        
+                        <div class="slider-content">
+                            {% if slider.title %}<h1 class="slider-title">{{ slider.title }}</h1>{% endif %}
+                            {% if slider.subtitle %}<p class="slider-subtitle">{{ slider.subtitle }}</p>{% endif %}
+                        </div>
+                        <div class="slider-button-container">
+                            <button class="application-btn" onclick="openApplicationModal()">
+                                {{ slider.button_text }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% if sliders.count > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#partnersSlider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Предыдущий</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#partnersSlider" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Следующий</span>
+        </button>
+        {% endif %}
+    </div>
+    {% else %}
+    <!-- Breadcrumb Section - без слайдера -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Партнеры</span>
+            </div>
+        </div>
+    </div>
+    <!-- Заголовок по умолчанию если нет слайдера -->
+    <div class="page-header-default">
+        <div class="container">
+            <h1 class="page-title">Партнеры</h1>
+            <button class="application-btn" onclick="openApplicationModal()">Оставить заявку на партнерство</button>
+        </div>
+    </div>
+    {% endif %}
+</header>
+
+<!-- Секция сетки партнеров -->
+<section class="partners-grid-section">
+    <div class="container">
+        <h2 class="section-title"></h2>
+
+        <div class="partners-grid">
+            {% for partner in grid_partners %}
+            <div class="partner-card">
+                {% if partner.website %}
+                <a href="{{ partner.website }}" class="partner-link" target="_blank" title="Посетить сайт {{ partner.name }}">
+                    {% if partner.logo %}
+                    <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="partner-logo">
+                    {% else %}
+                    <div class="partner-logo placeholder">
+                        <span>{{ partner.name }}</span>
+                    </div>
+                    {% endif %}
+                    <!-- Overlay для перехода на сайт партнера -->
+                    <div class="website-overlay">
+                        <span>перейти на сайт партнера</span>
+                    </div>
+                </a>
+                {% else %}
+                <div class="partner-card-inactive">
+                    {% if partner.logo %}
+                    <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="partner-logo">
+                    {% else %}
+                    <div class="partner-logo placeholder">
+                        <span>{{ partner.name }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="no-website-overlay">
+                        <span>Сайт недоступен</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <!-- Отображение по умолчанию если нет партнеров -->
+            {% for i in "12345678" %}
+            <div class="partner-card">
+                <div class="partner-card-inactive">
+                    <div class="partner-logo placeholder">
+                        <span>Партнер {{ forloop.counter }}</span>
+                    </div>
+                    <div class="no-website-overlay">
+                        <span>Сайт недоступен</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Partnership Application Modal - новый компактный дизайн -->
+<div id="partnershipModal" class="partnership-modal">
+    <div class="modal-content-compact">
+        <button class="close-modal-compact" onclick="closeApplicationModal()">&times;</button>
+        
+        <h2 class="application-title-compact">Заявка на партнерство</h2>
+        
+        <form class="application-form-compact" method="post">
+            {% csrf_token %}
+            <!-- حقل مخفي يحدد نوع الطلب (افتراضي: كيان قانوني) -->
+            <input type="hidden" name="application_type" value="legal">
+            
+            <input type="text" name="company_name" class="form-input-compact" placeholder="Название компании" required>
+            <input type="text" name="contact_person" class="form-input-compact" placeholder="Ответственное лицо" required>
+            <input type="tel" name="phone" class="form-input-compact" placeholder="Телефон" required>
+            <input type="email" name="email" class="form-input-compact" placeholder="E-mail" required>
+            <input type="text" name="inn" class="form-input-compact" placeholder="ИНН">
+            <input type="text" name="kpp" class="form-input-compact" placeholder="КПП">
+            <input type="text" name="legal_address" class="form-input-compact" placeholder="Юридический адрес">
+            <textarea name="comments" class="form-input-compact" placeholder="Комментарии" style="min-height: 70px;"></textarea>
+            
+            <div class="agreement-row-compact">
+                <input type="checkbox" id="agreementCheckCompact" class="agreement-checkbox-compact" required>
+                <label for="agreementCheckCompact" class="agreement-label-compact">
+                    Я согласен с условиями <a href="/terms/" target="_blank">пользовательского соглашения</a> и <a href="/privacy/" target="_blank">политикой конфиденциальности</a>
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-application-compact">Отправить</button>
+        </form>
+    </div>
+</div>
+
+<!-- Success Modal (يظهر عند نجاح الإرسال بدلاً من التنبيه العلوي) -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+            <div class="modal-header" style="border-bottom: none; padding: 25px 25px 0 25px;">
+                <h5 class="modal-title" id="successModalLabel" style="font-family: 'Prata', serif; color: #052946; font-size: 24px;">Успешно</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding: 20px 25px 30px 25px; text-align: center;">
+                <i class="fas fa-check-circle" style="font-size: 60px; color: #28a745; margin-bottom: 15px;"></i>
+                <p style="font-family: 'Raleway', sans-serif; font-size: 16px; color: #333;">Ваша заявка успешно отправлена!</p>
+                <p style="font-family: 'Raleway', sans-serif; font-size: 16px; color: #333;">Номер вашей заявки:</p>
+                <span class="request-number" id="requestNumberDisplay" style="font-size: 20px; padding: 8px 20px; display: inline-block; background: #052946; color: white; border-radius: 30px; font-family: monospace; letter-spacing: 1px;"></span>
+                <p style="font-family: 'Raleway', sans-serif; font-size: 14px; color: #666; margin-top: 20px;">Мы свяжемся с вами в ближайшее время.</p>
+            </div>
+            <div class="modal-footer" style="border-top: none; justify-content: center; padding-bottom: 25px;">
+                <button type="button" class="btn" style="background: #052946; color: white; border-radius: 40px; padding: 10px 35px; font-family: 'Raleway', sans-serif;" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/partners_list.js' %}"></script>
+<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+{% endblock %}

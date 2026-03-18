@@ -1,0 +1,27 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Настройки разделов журнала</h2>
+    {% if items %}
+        {% with item=items.0 %}
+        <a href="{% url 'dashboards:sectionsettings_edit' item.pk %}" class="btn-add">Редактировать настройки</a>
+        {% endwith %}
+    {% else %}
+        <a href="{% url 'dashboards:sectionsettings_add' %}" class="btn-add">Создать настройки</a>
+    {% endif %}
+</div>
+
+{% if items %}
+    {% with item=items.0 %}
+    <table class="dashboard-table crud-table">
+        <tr><th>Название раздела "Лучшее"</th><td>{{ item.best_section_title }}</td></tr>
+        <tr><th>Название раздела "Новые поступления"</th><td>{{ item.new_section_title }}</td></tr>
+        <tr><th>Название раздела "Ранние выпуски"</th><td>{{ item.early_section_title }}</td></tr>
+    </table>
+    {% endwith %}
+{% else %}
+    <p>Настройки ещё не созданы.</p>
+{% endif %}
+{% endblock %}

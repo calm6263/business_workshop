@@ -1,0 +1,710 @@
+<!-- ========== events/templates/events/events.html ========== -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мероприятия{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Prata&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block main_class %}events-page{% endblock %}
+
+{% block content %}
+    <!-- элемент скрытого состояния пользователя и его типа -->
+    <input type="hidden" id="userAuthenticated" value="{% if user.is_authenticated %}true{% else %}false{% endif %}">
+    <input type="hidden" id="userType" value="{% if user.is_authenticated %}{{ user.profile.user_type }}{% endif %}">
+
+    <!-- Hero Slider Section -->
+    <div class="hero-slider-section">
+        <div class="hero-slider-container">
+            <div class="hero-slide">
+                <!-- Breadcrumb -->
+                <div class="slider-breadcrumb">
+                    <div class="breadcrumb-content">
+                        <a href="/" class="breadcrumb-link">Главная</a>
+                        <div class="breadcrumb-arrow">
+                            <div class="arrow-line arrow-top"></div>
+                            <div class="arrow-line arrow-bottom"></div>
+                        </div>
+                        <span class="breadcrumb-current">Мероприятия</span>
+                    </div>
+                </div>
+                
+                <!-- الصورة -->
+                <div class="slide-image">
+                    {% if page_settings.hero_image %}
+                        <img src="{{ page_settings.get_hero_image_url }}" 
+                             alt="{{ page_settings.hero_title }}" 
+                             class="hero-slider-img">
+                    {% else %}
+                        <img src="{% static 'events/images/default_hero.jpg' %}" 
+                             alt="Мероприятия" 
+                             class="hero-slider-img">
+                    {% endif %}
+                    <div class="slide-overlay"></div>
+                </div>
+                
+                <!-- المحتوى -->
+                <div class="slide-content">
+                    <div class="hero-content-center">
+                        <h1 class="slide-title">{{ page_settings.hero_title|default:"Мероприятия" }}</h1>
+                        {% if page_settings.hero_subtitle %}
+                            <p class="slide-description">{{ page_settings.hero_subtitle }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Hero Bottom Navigation -->
+                <div class="hero-bottom-nav">
+                    <div class="hero-nav-links">
+                        <a href="#events" class="hero-nav-link hero-nav-events active" data-content="events">
+                            <div class="hero-nav-bg"></div>
+                            <span class="hero-nav-text">Мероприятия</span>
+                        </a>
+                        <a href="{% url 'gallery' %}" class="hero-nav-link hero-nav-gallery" data-content="gallery">
+                            <div class="hero-nav-bg"></div>
+                            <span class="hero-nav-text">Фотогалерея</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Container Section -->
+    <section class="search-container-section" id="search-section">
+        <div class="container-custom">
+            <div class="search-wrapper">
+                <form id="eventSearchForm" method="get" action="{% url 'events' %}">
+                    <div class="search-field-wrapper">
+                        <div class="search-field">
+                            <div class="search-icon-wrapper">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 21L16.65 16.65" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <input type="text" 
+                                   class="search-input-field" 
+                                   id="searchInput" 
+                                   name="q" 
+                                   placeholder="Поиск мероприятий..." 
+                                   value="{{ search_query|default:'' }}"
+                                   autocomplete="off">
+                            {% if search_query %}
+                                <button type="button" class="search-clear-btn" id="clearSearchBtn">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15 5L5 15" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M5 5L15 15" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+                
+                {% if search_query %}
+                    <div class="text-center mt-3 search-results-summary">
+                        <p class="mb-0">
+                            Найдено <span class="text-primary">{{ total_events_count }}</span> мероприятий по запросу: "{{ search_query }}"
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Header -->
+    <div class="container-custom">
+        <div class="filter-header-content">
+            <div class="filter-dropdown-container">
+                <button class="filter-dropdown-btn">
+                    <span>Все мероприятия</span>
+                    <div class="dropdown-icon">
+                        <div class="arrow-line arrow-top"></div>
+                        <div class="arrow-line arrow-bottom"></div>
+                    </div>
+                </button>
+                
+                <div class="filter-dropdown-content">
+                    <div class="filter-title">Фильтр мероприятий</div>
+                    <div class="filter-options">
+                        <button class="filter-option" data-type="all">
+                            <div class="filter-checkbox checked"></div>
+                            <span class="filter-text">Все мероприятия</span>
+                        </button>
+                        <button class="filter-option" data-type="current">
+                            <div class="filter-checkbox"></div>
+                            <span class="filter-text">Идут сейчас</span>
+                        </button>
+                        <button class="filter-option" data-type="upcoming">
+                            <div class="filter-checkbox"></div>
+                            <span class="filter-text">Предстоящие</span>
+                        </button>
+                        <button class="filter-option" data-type="past">
+                            <div class="filter-checkbox"></div>
+                            <span class="filter-text">Прошедшие</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الأقسام الرئيسية -->
+    <main>
+        <!-- Events Sections (القائمة الرئيسية) -->
+        <div id="events-list-container" class="container-custom">
+            
+            <!-- All Events Section (Default) -->
+            <div class="event-section active" id="all-events">
+                <div class="row">
+                    <!-- Current Events -->
+                    {% if current_events %}
+                        <div class="col-12 mb-5">
+                            <h2 class="section-title">Идут сейчас</h2>
+                            <div class="row">
+                                {% for event in current_events %}
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <div class="event-card" data-event-id="{{ event.pk }}">
+                                            <div class="event-card-image">
+                                                <img src="{% if event.image %}{{ event.image.url }}{% else %}{% static 'events/images/default-event.jpg' %}{% endif %}" 
+                                                     alt="{{ event.title }}" 
+                                                     loading="lazy">
+                                                <span class="event-card-date-badge">{{ event.date|date:"m.Y" }}</span>
+                                            </div>
+                                            <div class="event-card-content">
+                                                <h3 class="event-card-title">{{ event.title|truncatechars:50 }}</h3>
+                                                <p class="event-card-description">{{ event.short_description|truncatechars:120 }}</p>
+                                                <hr class="event-card-divider">
+                                                <div class="event-card-footer">
+                                                    <span class="event-card-price">{{ event.price_display }}</span>
+                                                    {% if event.can_register %}
+                                                        <button class="event-card-register-btn" data-event-id="{{ event.pk }}">
+                                                            Зарегистрироваться
+                                                        </button>
+                                                    {% else %}
+                                                        <button class="event-card-register-btn registration-ended" disabled data-event-id="{{ event.pk }}">
+                                                            Регистрация окончена
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Upcoming Events -->
+                    {% if upcoming_events %}
+                        <div class="col-12 mb-5">
+                            <h2 class="section-title">Предстоящие мероприятия</h2>
+                            <div class="row">
+                                {% for event in upcoming_events %}
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <div class="event-card" data-event-id="{{ event.pk }}">
+                                            <div class="event-card-image">
+                                                <img src="{% if event.image %}{{ event.image.url }}{% else %}{% static 'events/images/default-event.jpg' %}{% endif %}" 
+                                                     alt="{{ event.title }}" 
+                                                     loading="lazy">
+                                                <span class="event-card-date-badge">{{ event.date|date:"m.Y" }}</span>
+                                            </div>
+                                            <div class="event-card-content">
+                                                <h3 class="event-card-title">{{ event.title|truncatechars:50 }}</h3>
+                                                <p class="event-card-description">{{ event.short_description|truncatechars:120 }}</p>
+                                                <hr class="event-card-divider">
+                                                <div class="event-card-footer">
+                                                    <span class="event-card-price">{{ event.price_display }}</span>
+                                                    {% if event.can_register %}
+                                                        <button class="event-card-register-btn" data-event-id="{{ event.pk }}">
+                                                            Зарегистрироваться
+                                                        </button>
+                                                    {% else %}
+                                                        <button class="event-card-register-btn registration-ended" disabled data-event-id="{{ event.pk }}">
+                                                            Регистрация окончена
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Past Events -->
+                    {% if past_events %}
+                        <div class="col-12 mb-5">
+                            <h2 class="section-title">Прошедшие мероприятия</h2>
+                            <div class="row">
+                                {% for event in past_events %}
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <div class="event-card" data-event-id="{{ event.pk }}">
+                                            <div class="event-card-image">
+                                                <img src="{% if event.image %}{{ event.image.url }}{% else %}{% static 'events/images/default-event.jpg' %}{% endif %}" 
+                                                     alt="{{ event.title }}" 
+                                                     loading="lazy">
+                                                <span class="event-card-date-badge">{{ event.date|date:"m.Y" }}</span>
+                                            </div>
+                                            <div class="event-card-content">
+                                                <h3 class="event-card-title">{{ event.title|truncatechars:50 }}</h3>
+                                                <p class="event-card-description">{{ event.short_description|truncatechars:120 }}</p>
+                                                <hr class="event-card-divider">
+                                                <div class="event-card-footer">
+                                                    <span class="event-card-price">{{ event.price_display }}</span>
+                                                    {% if event.can_register %}
+                                                        <button class="event-card-register-btn" data-event-id="{{ event.pk }}">
+                                                            Зарегистрироваться
+                                                        </button>
+                                                    {% else %}
+                                                        <button class="event-card-register-btn registration-ended" disabled data-event-id="{{ event.pk }}">
+                                                            Регистрация окончена
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if not current_events and not upcoming_events and not past_events %}
+                        <div class="col-12">
+                            <div class="no-events-message text-center py-5">
+                                <h4 class="mb-3">Мероприятий не найдено</h4>
+                                <p>В данный момент нет доступных мероприятий.</p>
+                                <p>Пожалуйста, проверьте позже или попробуйте изменить параметры поиска.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Current Events Section -->
+            <div class="event-section" id="current-events">
+                {% if current_events %}
+                    <h2 class="section-title">Идут сейчас</h2>
+                    <div class="row">
+                        {% for event in current_events %}
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="event-card" data-event-id="{{ event.pk }}">
+                                    <div class="event-card-image">
+                                        <img src="{% if event.image %}{{ event.image.url }}{% else %}{% static 'events/images/default-event.jpg' %}{% endif %}" 
+                                             alt="{{ event.title }}" 
+                                             loading="lazy">
+                                        <span class="event-card-date-badge">{{ event.date|date:"m.Y" }}</span>
+                                    </div>
+                                    <div class="event-card-content">
+                                        <h3 class="event-card-title">{{ event.title|truncatechars:50 }}</h3>
+                                        <p class="event-card-description">{{ event.short_description|truncatechars:120 }}</p>
+                                        <hr class="event-card-divider">
+                                        <div class="event-card-footer">
+                                            <span class="event-card-price">{{ event.price_display }}</span>
+                                            {% if event.can_register %}
+                                                <button class="event-card-register-btn" data-event-id="{{ event.pk }}">
+                                                    Зарегистрироваться
+                                                </button>
+                                            {% else %}
+                                                <button class="event-card-register-btn registration-ended" disabled data-event-id="{{ event.pk }}">
+                                                    Регистрация окончена
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-events-message text-center py-5">
+                        <h4 class="mb-3">Нет текущих мероприятий</h4>
+                        <p>В данный момент нет мероприятий, которые идут сейчас.</p>
+                        <p>Ознакомьтесь с предстоящими мероприятиями.</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Upcoming Events Section -->
+            <div class="event-section" id="upcoming-events">
+                {% if upcoming_events %}
+                    <h2 class="section-title">Предстоящие мероприятия</h2>
+                    <div class="row">
+                        {% for event in upcoming_events %}
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="event-card" data-event-id="{{ event.pk }}">
+                                    <div class="event-card-image">
+                                        <img src="{% if event.image %}{{ event.image.url }}{% else %}{% static 'events/images/default-event.jpg' %}{% endif %}" 
+                                             alt="{{ event.title }}" 
+                                             loading="lazy">
+                                        <span class="event-card-date-badge">{{ event.date|date:"m.Y" }}</span>
+                                    </div>
+                                    <div class="event-card-content">
+                                        <h3 class="event-card-title">{{ event.title|truncatechars:50 }}</h3>
+                                        <p class="event-card-description">{{ event.short_description|truncatechars:120 }}</p>
+                                        <hr class="event-card-divider">
+                                        <div class="event-card-footer">
+                                            <span class="event-card-price">{{ event.price_display }}</span>
+                                            {% if event.can_register %}
+                                                <button class="event-card-register-btn" data-event-id="{{ event.pk }}">
+                                                    Зарегистрироваться
+                                                </button>
+                                            {% else %}
+                                                <button class="event-card-register-btn registration-ended" disabled data-event-id="{{ event.pk }}">
+                                                    Регистрация окончена
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-events-message text-center py-5">
+                        <h4 class="mb-3">Нет предстоящих мероприятий</h4>
+                        <p>В данный момент нет запланированных мероприятий.</p>
+                        <p>Ознакомьтесь с прошедшими мероприятиями или проверьте позже.</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Past Events Section -->
+            <div class="event-section" id="past-events">
+                {% if past_events %}
+                    <h2 class="section-title">Прошедшие мероприятия</h2>
+                    <div class="row">
+                        {% for event in past_events %}
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="event-card" data-event-id="{{ event.pk }}">
+                                    <div class="event-card-image">
+                                        <img src="{% if event.image %}{{ event.image.url }}{% else %}{% static 'events/images/default-event.jpg' %}{% endif %}" 
+                                             alt="{{ event.title }}" 
+                                             loading="lazy">
+                                        <span class="event-card-date-badge">{{ event.date|date:"m.Y" }}</span>
+                                    </div>
+                                    <div class="event-card-content">
+                                        <h3 class="event-card-title">{{ event.title|truncatechars:50 }}</h3>
+                                        <p class="event-card-description">{{ event.short_description|truncatechars:120 }}</p>
+                                        <hr class="event-card-divider">
+                                        <div class="event-card-footer">
+                                            <span class="event-card-price">{{ event.price_display }}</span>
+                                            {% if event.can_register %}
+                                                <button class="event-card-register-btn" data-event-id="{{ event.pk }}">
+                                                    Зарегистрироваться
+                                                </button>
+                                            {% else %}
+                                                <button class="event-card-register-btn registration-ended" disabled data-event-id="{{ event.pk }}">
+                                                    Регистрация окончена
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-events-message text-center py-5">
+                        <h4 class="mb-3">Нет прошедших мероприятий</h4>
+                        <p>В архиве пока нет прошедших мероприятий.</p>
+                        <p>Ознакомьтесь с текущими или предстоящими мероприятиями.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Event Detail Section (سيتم عرضه هنا عند النقر على تفاصيل) -->
+        <div id="event-detail-container" class="container-custom" style="display: none;">
+            <!-- سيتم تحميل تفاصيل الحدث هنا -->
+        </div>
+    </main>
+
+    <!-- Newsletter Section – redesigned vertical layout -->
+    <section class="newsletter-section">
+        <div class="container-custom">
+            <div class="newsletter-card">
+                <h3 class="newsletter-title">Подпишитесь на рассылку</h3>
+                <p class="newsletter-subtitle">Будьте в курсе новых событий Академии.</p>
+                <div class="newsletter-form-wrapper">
+                    <form id="newsletterForm">
+                        <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Ваш email" required>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="newsletterAgreeCheck" required>
+                            <label class="form-check-label" for="newsletterAgreeCheck">
+                                Я согласен с условиями <a href="/terms">пользовательского соглашения</a> и <a href="/privacy">политикой конфиденциальности</a>
+                            </label>
+                        </div>
+                        <button type="submit" class="newsletter-btn">Подписаться</button>
+                    </form>
+                </div>
+                <!-- Скрытое поле с путём к изображению успешной подписки -->
+                <input type="hidden" id="newsletterSuccessImage" value="{% if page_settings.newsletter_success_image %}{{ page_settings.newsletter_success_image.url }}{% endif %}">
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Modal for Logged-in Users -->
+    <div id="registrationModal" class="registration-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            
+            <h2 class="modal-title">Регистрация на мероприятие</h2>
+            
+            <form class="registration-form" id="registrationFormEvents">
+                <input type="hidden" id="modalEventId" value="">
+                <div class="form-group">
+                    <label for="modalFullName" class="form-label">ФИО</label>
+                    <input type="text" id="modalFullName" class="form-input" placeholder="Введите ваше полное имя" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalPhone" class="form-label">Телефон</label>
+                    <input type="tel" id="modalPhone" class="form-input" placeholder="Введите ваш телефон" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="modalEmail" class="form-label">E-mail</label>
+                    <input type="email" id="modalEmail" class="form-input" placeholder="Введите ваш email" required>
+                </div>
+                
+                <div class="agreement-section">
+                    <input type="checkbox" id="modalRegistrationAgree" class="agreement-checkbox" required>
+                    <label for="modalRegistrationAgree" class="agreement-label">
+                        Я согласен с условиями пользовательского соглашения и политикой конфиденциальности
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-registration-btn">
+                    <span>Зарегистрироваться</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Modal for Non-Logged-in Users -->
+    <div id="registrationModalGuest" class="registration-modal guest-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content guest-modal-content">
+            <button class="modal-close-btn">&times;</button>
+            
+            <h2 class="guest-modal-title">Регистрация на мероприятие</h2>
+            
+            <div class="guest-message-container">
+                <p class="guest-message">Зарегистрироваться на мероприятие можно только после авторизации в личном кабинете</p>
+                <a href="/accounts/login/" class="guest-login-btn">
+                    Авторизироваться в личном кабинете
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SHARE MODAL ===== -->
+    <div id="shareModal" class="share-modal-overlay" style="display: none;">
+        <div class="share-modal">
+            <button class="share-modal-close" id="shareModalClose">&times;</button>
+            <h3 class="share-modal-title">Поделиться</h3>
+            <div class="share-modal-grid">
+                <!-- Telegram -->
+                <a href="#" target="_blank" class="share-modal-item" id="share-telegram">
+                    <span class="share-icon share-icon-tg">📱</span>
+                    <span>Telegram</span>
+                </a>
+                <!-- WhatsApp -->
+                <a href="#" target="_blank" class="share-modal-item" id="share-whatsapp">
+                    <span class="share-icon" style="background-color:#25D366;">📞</span>
+                    <span>WhatsApp</span>
+                </a>
+                <!-- VK -->
+                <a href="#" target="_blank" class="share-modal-item" id="share-vk">
+                    <span class="share-icon share-icon-vk">ВК</span>
+                    <span>VK</span>
+                </a>
+                <!-- Twitter / X -->
+                <a href="#" target="_blank" class="share-modal-item" id="share-twitter">
+                    <span class="share-icon share-icon-tw">𝕏</span>
+                    <span>Twitter</span>
+                </a>
+                <!-- Копировать ссылку -->
+                <button class="share-modal-item" id="share-copy-link">
+                    <span class="share-icon share-icon-copy">🔗</span>
+                    <span>Копировать</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    {# ===== قالب تفاصيل الحدث مع إضافة قسم الفيديو ===== #}
+    
+    <!-- ✅ قالب تفاصيل الحدث – التصميم الجديد: صورة منخفضة 35%، عناوين بنقطة حمراء، بدون شارات سفلية -->
+    <template id="event-detail-template">
+      <div class="event-detail-section">
+        <!-- زر العودة -->
+        <div class="mb-4 back-button-container">
+            <button id="back-to-events" class="back-button-simple">
+                <svg width="24" height="18" viewBox="0 0 87 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M83.5 33.5H3.5M3.5 33.5L38.5 63.5M3.5 33.5L38.5 3.5" stroke="#052946" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Назад</span>
+            </button>
+        </div>
+
+        <!-- الصف الرئيسي: صورة (يسار) + معلومات (يمين) – 50/50 -->
+        <div class="row event-detail-main-row g-5 align-items-start">
+          <div class="col-md-6">
+            <div class="event-detail-image-square">
+              <img src="" alt="" id="detail-event-image" loading="lazy">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="event-detail-info">
+              <!-- Краткое описание вместо заголовка -->
+              <div class="event-short-description" id="detail-short-description-top"></div>
+              
+              <!-- Организаторы -->
+              <div class="info-item">
+                <div class="info-icon">
+                  <svg width="28" height="28" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_944_7538)">
+                      <path d="M19.2188 23.0625C21.5964 23.0659 23.8754 24.0121 25.5566 25.6934C27.2379 27.3746 28.1841 29.6536 28.1875 32.0312V38.4375H25.625V32.0312C25.623 30.3328 24.9471 28.7049 23.7461 27.5039C22.5451 26.3029 20.9172 25.627 19.2188 25.625H11.5312C9.83283 25.627 8.20487 26.3029 7.00391 27.5039C5.80294 28.7049 5.12703 30.3328 5.125 32.0312V38.4375H2.5625V32.0312C2.56589 29.6536 3.51213 27.3746 5.19336 25.6934C6.87459 24.0121 9.15363 23.0659 11.5312 23.0625H19.2188ZM35.875 12.8125V17L39.501 14.9062L40.7822 17.125L37.1562 19.2188L40.7822 21.3125L39.501 23.5312L35.875 21.4375V25.625H33.3125V21.4375L29.6865 23.5312L28.4053 21.3125L32.0312 19.2188L28.4053 17.125L29.6865 14.9062L33.3125 17V12.8125H35.875ZM15.375 2.5625C17.7537 2.5625 20.0348 3.50749 21.7168 5.18945C23.3988 6.87142 24.3438 9.15259 24.3438 11.5312C24.3438 13.9099 23.3988 16.1911 21.7168 17.873C20.0348 19.555 17.7537 20.5 15.375 20.5C12.9963 20.5 10.7152 19.555 9.0332 17.873C7.35124 16.1911 6.40625 13.9099 6.40625 11.5312C6.40625 9.15259 7.35124 6.87142 9.0332 5.18945C10.7152 3.50749 12.9963 2.5625 15.375 2.5625ZM15.375 5.125C13.676 5.125 12.0461 5.79957 10.8447 7.00098C9.64332 8.20238 8.96875 9.83221 8.96875 11.5312C8.96875 13.2303 9.64332 14.8601 10.8447 16.0615C12.0461 17.2629 13.676 17.9375 15.375 17.9375C17.074 17.9375 18.7039 17.2629 19.9053 16.0615C21.1067 14.8601 21.7812 13.2303 21.7812 11.5312C21.7812 9.83221 21.1067 8.20238 19.9053 7.00098C18.7039 5.79957 17.074 5.125 15.375 5.125Z" fill="#052946"/>
+                      <path d="M19.2188 23.0625C21.5964 23.0659 23.8754 24.0121 25.5566 25.6934C27.2379 27.3746 28.1841 29.6536 28.1875 32.0312V38.4375H25.625V32.0312C25.623 30.3328 24.9471 28.7049 23.7461 27.5039C22.5451 26.3029 20.9172 25.627 19.2188 25.625H11.5312C9.83283 25.627 8.20487 26.3029 7.00391 27.5039C5.80294 28.7049 5.12703 30.3328 5.125 32.0312V38.4375H2.5625V32.0312C2.56589 29.6536 3.51213 27.3746 5.19336 25.6934C6.87459 24.0121 9.15363 23.0659 11.5312 23.0625H19.2188ZM35.875 12.8125V17L39.501 14.9062L40.7822 17.125L37.1562 19.2188L40.7822 21.3125L39.501 23.5312L35.875 21.4375V25.625H33.3125V21.4375L29.6865 23.5312L28.4053 21.3125L32.0312 19.2188L28.4053 17.125L29.6865 14.9062L33.3125 17V12.8125H35.875ZM15.375 2.5625C17.7537 2.5625 20.0348 3.50749 21.7168 5.18945C23.3988 6.87142 24.3438 9.15259 24.3438 11.5312C24.3438 13.9099 23.3988 16.1911 21.7168 17.873C20.0348 19.555 17.7537 20.5 15.375 20.5C12.9963 20.5 10.7152 19.555 9.0332 17.873C7.35124 16.1911 6.40625 13.9099 6.40625 11.5312C6.40625 9.15259 7.35124 6.87142 9.0332 5.18945C10.7152 3.50749 12.9963 2.5625 15.375 2.5625ZM15.375 5.125C13.676 5.125 12.0461 5.79957 10.8447 7.00098C9.64332 8.20238 8.96875 9.83221 8.96875 11.5312C8.96875 13.2303 9.64332 14.8601 10.8447 16.0615C12.0461 17.2629 13.676 17.9375 15.375 17.9375C17.074 17.9375 18.7039 17.2629 19.9053 16.0615C21.1067 14.8601 21.7812 13.2303 21.7812 11.5312C21.7812 9.83221 21.1067 8.20238 19.9053 7.00098C18.7039 5.79957 17.074 5.125 15.375 5.125Z" stroke="black"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_944_7538">
+                        <rect width="41" height="41" fill="white"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="info-content">
+                  <span class="info-label">Организаторы:</span>
+                  <span class="info-value" id="detail-organizers"></span>
+                </div>
+              </div>
+              
+              <!-- Вход / цена -->
+              <div class="info-item">
+                <div class="info-icon">
+                  <svg width="28" height="28" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_944_7540)">
+                      <path d="M15.3734 5C14.938 5.00048 14.5191 5.16721 14.2025 5.46612C13.8859 5.76502 13.6954 6.17354 13.6699 6.60822C13.6444 7.04289 13.7858 7.4709 14.0652 7.8048C14.3447 8.1387 14.7411 8.35328 15.1735 8.40471L15.3734 8.41667H23.915C24.3335 8.41672 24.7373 8.57034 25.05 8.84839C25.3627 9.12644 25.5625 9.50957 25.6114 9.92513L25.6234 10.125V30.625C25.6233 31.0434 25.4697 31.4473 25.1917 31.76C24.9136 32.0727 24.5305 32.2724 24.1149 32.3214L23.915 32.3333H16.2275C15.7921 32.3338 15.3733 32.5005 15.0567 32.7994C14.7401 33.0984 14.5496 33.5069 14.524 33.9415C14.4985 34.3762 14.6399 34.8042 14.9194 35.1381C15.1989 35.472 15.5953 35.6866 16.0277 35.738L16.2275 35.75H23.915C25.2223 35.7501 26.4801 35.2506 27.4312 34.3538C28.3823 33.457 28.9548 32.2307 29.0315 30.9257L29.04 30.625V10.125C29.0401 8.81776 28.5407 7.55991 27.6438 6.6088C26.747 5.6577 25.5207 5.08523 24.2157 5.00854L23.915 5H15.3734ZM11.4562 14.3343C11.1487 14.0279 10.7362 13.8501 10.3024 13.8368C9.86855 13.8236 9.44595 13.976 9.1204 14.263C8.79485 14.5501 8.59077 14.9503 8.54961 15.3824C8.50845 15.8144 8.63329 16.246 8.89879 16.5893L9.04058 16.7516L10.9556 18.6667H1.70671C1.27129 18.6671 0.852484 18.8339 0.53587 19.1328C0.219254 19.4317 0.0287209 19.8402 0.00320435 20.2749C-0.0223141 20.7096 0.119106 21.1376 0.398573 21.4715C0.67804 21.8054 1.07446 22.0199 1.50683 22.0714L1.70671 22.0833H10.9556L9.04058 23.9984C8.73094 24.3051 8.55023 24.7186 8.53545 25.1541C8.52068 25.5897 8.67294 26.0145 8.96108 26.3415C9.24923 26.6685 9.65145 26.873 10.0854 26.9131C10.5194 26.9533 10.9523 26.826 11.2956 26.5575L11.4562 26.4157L16.289 21.5828C16.5832 21.2886 16.7599 20.8973 16.786 20.4821C16.8121 20.0669 16.6858 19.6565 16.4308 19.3278L16.289 19.1672L11.4562 14.3343Z" fill="#052946"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_944_7540">
+                        <rect width="41" height="41" fill="white" transform="matrix(-1 0 0 1 41 0)"/>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="info-content">
+                  <span class="info-label">Вход:</span>
+                  <span class="info-value" id="detail-price"></span>
+                </div>
+              </div>
+              
+              <!-- Дата и время -->
+              <div class="info-item">
+                <div class="info-icon">
+                  <svg width="28" height="28" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.2711 3.95898C12.2711 3.64404 12.146 3.34199 11.9233 3.1193C11.7006 2.8966 11.3985 2.77148 11.0836 2.77148C10.7686 2.77148 10.4666 2.8966 10.2439 3.1193C10.0212 3.34199 9.89608 3.64404 9.89608 3.95898V6.46065C7.61608 6.64273 6.12141 7.08923 5.02258 8.18965C3.92216 9.28848 3.47566 10.7847 3.29199 13.0632H34.7085C34.5248 10.7832 34.0783 9.28848 32.9779 8.18965C31.8791 7.08923 30.3828 6.64273 28.1044 6.45907V3.95898C28.1044 3.64404 27.9793 3.34199 27.7566 3.1193C27.5339 2.8966 27.2319 2.77148 26.9169 2.77148C26.602 2.77148 26.2999 2.8966 26.0772 3.1193C25.8545 3.34199 25.7294 3.64404 25.7294 3.95898V6.35457C24.6765 6.33398 23.4953 6.33398 22.1669 6.33398H15.8336C14.5052 6.33398 13.324 6.33398 12.2711 6.35457V3.95898Z" fill="#052946"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.16699 19C3.16699 17.6716 3.16699 16.4904 3.18758 15.4375H34.8131C34.8337 16.4904 34.8337 17.6716 34.8337 19V22.1667C34.8337 28.1374 34.8337 31.1236 32.978 32.9777C31.1223 34.8317 28.1377 34.8333 22.167 34.8333H15.8337C9.86291 34.8333 6.87674 34.8333 5.02266 32.9777C3.16858 31.122 3.16699 28.1374 3.16699 22.1667V19ZM26.917 22.1667C27.3369 22.1667 27.7396 21.9999 28.0366 21.7029C28.3335 21.406 28.5003 21.0033 28.5003 20.5833C28.5003 20.1634 28.3335 19.7607 28.0366 19.4637C27.7396 19.1668 27.3369 19 26.917 19C26.4971 19 26.0943 19.1668 25.7974 19.4637C25.5005 19.7607 25.3337 20.1634 25.3337 20.5833C25.3337 21.0033 25.5005 21.406 25.7974 21.7029C26.0943 21.9999 26.4971 22.1667 26.917 22.1667ZM26.917 28.5C27.3369 28.5 27.7396 28.3332 28.0366 28.0363C28.3335 27.7393 28.5003 27.3366 28.5003 26.9167C28.5003 26.4967 28.3335 26.094 28.0366 25.7971C27.7396 25.5001 27.3369 25.3333 26.917 25.3333C26.4971 25.3333 26.0943 25.5001 25.7974 25.7971C25.5005 26.094 25.3337 26.4967 25.3337 26.9167C25.3337 27.3366 25.5005 27.7393 25.7974 28.0363C26.0943 28.3332 26.4971 28.5 26.917 28.5ZM20.5837 20.5833C20.5837 21.0033 20.4168 21.406 20.1199 21.7029C19.823 21.9999 19.4202 22.1667 19.0003 22.1667C18.5804 22.1667 18.1777 21.9999 17.8807 21.7029C17.5838 21.406 17.417 21.0033 17.417 20.5833C17.417 20.1634 17.5838 19.7607 17.8807 19.4637C18.1777 19.1668 18.5804 19 19.0003 19C19.4202 19 19.823 19.1668 20.1199 19.4637C20.4168 19.7607 20.5837 20.1634 20.5837 20.5833ZM20.5837 26.9167C20.5837 27.3366 20.4168 27.7393 20.1199 28.0363C19.823 28.3332 19.4202 28.5 19.0003 28.5C18.5804 28.5 18.1777 28.3332 17.8807 28.0363C17.5838 27.7393 17.417 27.3366 17.417 26.9167C17.417 26.4967 17.5838 26.094 17.8807 25.7971C18.1777 25.5001 18.5804 25.3333 19.0003 25.3333C19.4202 25.3333 19.823 25.5001 20.1199 25.7971C20.4168 26.094 20.5837 26.4967 20.5837 26.9167ZM11.0837 22.1667C11.5036 22.1667 11.9063 21.9999 12.2032 21.7029C12.5002 21.406 12.667 21.0033 12.667 20.5833C12.667 20.1634 12.5002 19.7607 12.2032 19.4637C11.9063 19.1668 11.5036 19 11.0837 19C10.6637 19 10.261 19.1668 9.96407 19.4637C9.66714 19.7607 9.50033 20.1634 9.50033 20.5833C9.50033 21.0033 9.66714 21.406 9.96407 21.7029C10.261 21.9999 10.6637 22.1667 11.0837 22.1667ZM11.0837 28.5C11.5036 28.5 11.9063 28.3332 12.2032 28.0363C12.5002 27.7393 12.667 27.3366 12.667 26.9167C12.667 26.4967 12.5002 26.094 12.2032 25.7971C11.9063 25.5001 11.5036 25.3333 11.0837 25.3333C10.6637 25.3333 10.261 25.5001 9.96407 25.7971C9.66714 26.094 9.50033 26.4967 9.50033 26.9167C9.50033 27.3366 9.66714 27.7393 9.96407 28.0363C10.261 28.3332 10.6637 28.5 11.0837 28.5Z" fill="#052946"/>
+                  </svg>
+                </div>
+                <div class="info-content">
+                  <span class="info-label">Дата проведения:</span>
+                  <span class="info-value" id="detail-date"></span>
+                  <span class="info-value" id="detail-time" style="display: none;"></span>
+                </div>
+              </div>
+              
+              <!-- حاوية زر التسجيل -->
+              <div class="register-button-wrapper" id="detail-register-button-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- وصف الحدث – عنوان بنقطة حمراء وتأثير -->
+        <div class="mt-5">
+          <div class="section-heading">Описание</div>
+          <div class="detailed-description-content">
+            <div id="detail-detailed-description" style="display: none;"></div>
+            <p id="detail-description-placeholder" style="display: none;">Нет подробного описания</p>
+          </div>
+        </div>
+
+        <!-- جهات الاتصال ومكان проведения – صف ثنائي الأعمدة (تمت إزالة mt-4) -->
+        <div class="row contacts-location-row">
+          <!-- ========== КОЛОНКА КОНТАКТОВ + НОВАЯ КНОПКА ПОДЕЛИТЬСЯ ========== -->
+          <div class="col-md-6">
+            <div class="section-heading-wrapper">
+              <div class="section-heading">Контакты</div>
+              <button class="share-contact-btn" aria-label="Поделиться контактами">
+                <span>Поделиться</span>
+                <svg width="50" height="42" viewBox="0 0 50 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M49.5699 14.1972L37.8049 25.9283C37.5261 26.1874 37.1574 26.3284 36.7764 26.3217C36.3954 26.315 36.0319 26.1611 35.7625 25.8924C35.493 25.6237 35.3387 25.2613 35.3319 24.8814C35.3252 24.5015 35.4666 24.1338 35.7264 23.8558L44.9791 14.6273H34.0695C29.1772 14.6233 24.4226 16.2421 20.5544 19.2288C16.6863 22.2155 13.9244 26.4003 12.7038 31.1243C12.6063 31.5009 12.3627 31.8234 12.0267 32.0209C11.6907 32.2185 11.2897 32.2748 10.912 32.1776C10.5344 32.0804 10.2109 31.8375 10.0128 31.5025C9.81466 31.1675 9.75814 30.7677 9.85565 30.3911C11.2393 25.0375 14.3694 20.295 18.7531 16.9101C23.1368 13.5253 28.5251 11.6905 34.0695 11.6946H44.984L35.7264 2.46606C35.4666 2.18809 35.3252 1.82042 35.3319 1.44052C35.3387 1.06063 35.493 0.698165 35.7625 0.429496C36.0319 0.160828 36.3954 0.00693127 36.7764 0.000228459C37.1574 -0.00647435 37.5261 0.13454 37.8049 0.393563L49.5699 12.1247C49.8453 12.3997 50 12.7724 50 13.161C50 13.5495 49.8453 13.9223 49.5699 14.1972ZM40.6873 39.0672H2.94125V9.25057C2.94125 8.86166 2.78631 8.48868 2.51052 8.21368C2.23472 7.93868 1.86066 7.78418 1.47063 7.78418C1.08059 7.78418 0.706532 7.93868 0.430736 8.21368C0.15494 8.48868 0 8.86166 0 9.25057V40.5336C0 40.9225 0.15494 41.2955 0.430736 41.5705C0.706532 41.8455 1.08059 42 1.47063 42H40.6873C41.0774 42 41.4514 41.8455 41.7272 41.5705C42.003 41.2955 42.158 40.9225 42.158 40.5336C42.158 40.1447 42.003 39.7717 41.7272 39.4967C41.4514 39.2217 41.0774 39.0672 40.6873 39.0672Z" fill="white"/>
+                </svg>
+              </button>
+            </div>
+            <div class="contact-details">
+              <p><strong>Контактное лицо:</strong> <span id="detail-contact-person"></span></p>
+              <p><strong>Телефон:</strong> <span class="contact-detail" id="detail-contact-phone"></span></p>
+              <p><strong>Email:</strong> <span class="contact-detail" id="detail-contact-email"></span></p>
+            </div>
+          </div>
+          <!-- ========== КОНЕЦ КОЛОНКИ КОНТАКТОВ ========== -->
+          
+          <div class="col-md-6">
+            <div class="section-heading no-dot">Место проведения</div>
+            <div class="location-details">
+              <p id="detail-location"></p>
+              <a href="#" id="show-on-map-link" class="map-link" target="_blank">
+                Показать на карте
+                <svg width="20" height="14" viewBox="0 0 53 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.5 18H51.5M51.5 18L29.625 34.5M51.5 18L29.625 1.5" stroke="#052946" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== НОВЫЙ БЛОК: Видео-инструкция "Как дойти?" (отображается только если есть видео) ===== -->
+        <div class="event-video-section" id="detail-video-section" style="display: none;">
+            <div class="section-heading-wrapper">
+                <div class="section-heading" id="detail-video-title">Как дойти?</div>
+            </div>
+            <div class="video-wrapper">
+                <video id="detail-video-player" controls preload="metadata">
+                    <source src="" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+            <p class="video-hint">Короткое видео, как добраться до места</p>
+        </div>
+
+      </div>
+    </template>
+
+    <!-- قالب رسالة نجاح التسجيل -->
+    <template id="success-message-template">
+        <div class="success-modal-overlay">
+            <div class="success-modal-content">
+                <div class="success-icon">✓</div>
+                <h3 class="success-title">Регистрация завершена</h3>
+                <p class="success-message"></p>
+                <button class="success-close-btn">OK</button>
+            </div>
+        </div>
+    </template>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <script src="{% static 'events/js/events.js' %}"></script>
+{% endblock %}

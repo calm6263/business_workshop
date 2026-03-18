@@ -1,0 +1,27 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Редактировать заявку №{{ object.request_number }}</h2>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <p><strong>Номер заявки:</strong> {{ object.request_number }}</p>
+    <p><strong>Компания:</strong> {{ object.company_name }}</p>
+    <p><strong>Тип:</strong> {{ object.get_application_type_display }}</p>
+    <p><strong>Контактное лицо:</strong> {{ object.contact_person }}</p>
+    <p><strong>Телефон:</strong> {{ object.phone }}</p>
+    <p><strong>Email:</strong> {{ object.email }}</p>
+    <p><strong>ИНН:</strong> {{ object.inn|default:"—" }}</p>
+    <p><strong>КПП:</strong> {{ object.kpp|default:"—" }}</p>
+    <p><strong>Юр. адрес:</strong> {{ object.legal_address|default:"—" }}</p>
+    <p><strong>Комментарии:</strong> {{ object.comments|default:"—" }}</p>
+    
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn-add">Сохранить статус</button>
+    <a href="{% url 'dashboards:application_list' %}" class="btn-action btn-view">Отмена</a>
+</form>
+{% endblock %}

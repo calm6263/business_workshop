@@ -1,0 +1,306 @@
+/* ===== Поступающим Section Styles ===== */
+.applicants-section {
+    background: #ffffff;
+    margin: 0.5rem 0 !important;
+    padding: 0.5rem 0 !important;
+}
+
+.applicants-image img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+/* زيادة التباعد بين الصف الأول والثاني في قسم Поступающим */
+.applicants-section .row .col-md-6:nth-child(-n+2) {
+    margin-bottom: 8rem !important;
+}
+
+/* تكبير حجم النصوص والأسهم */
+.applicants-item {
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0;
+    margin: 0;
+}
+
+/* إزالة الخطوط الزرقاء من روابط قسم Поступающим */
+.applicants-link {
+    text-decoration: none !important;
+    color: inherit;
+    display: block;
+}
+.applicants-link:hover {
+    text-decoration: none !important;
+}
+.applicants-link,
+.applicants-link * {
+    border-bottom: none !important;
+}
+
+.text-with-arrow {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    position: relative;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0;
+    margin-top: 50px;
+    margin-left: -20px;
+}
+
+/* تكبير السهم الأحمر */
+.red-arrow {
+    width: 28px;
+    height: 40px;
+    background: #7F1726;
+    position: relative;
+    margin-right: 10px;
+    flex-shrink: 0;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    margin-top: 5px;
+}
+
+/* تكبير حجم النصوص */
+.applicants-section .main-text-small {
+    font-family: 'Prata', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #7F1726;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    text-align: left !important;
+    text-decoration: none !important; /* تأكيد إزالة التسطير */
+    border-bottom: none !important;
+}
+
+.text-with-arrow .main-text-small {
+    margin-bottom: 0;
+    flex: 1;
+    padding-top: 5px;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    font-size: 1.8rem;
+    text-decoration: none !important;
+}
+
+.main-text {
+    font-family: 'Prata', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #7F1726;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.secondary-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1rem;
+    color: #052946;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+}
+
+.secondary-text-small {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    color: #052946;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+}
+
+/* خط تحت عنوان Поступающим - تم التعديل */
+.applicants-section .main-title {
+    position: relative;
+    display: inline-block;
+    padding-top: 15px !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 1rem !important;
+    font-family: 'Prata', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: #7F1726;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    display: block;
+    text-align: center;
+}
+
+.applicants-section .main-title::after {
+    display: none !important;
+}
+
+.applicants-section .main-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    border-top: 5px solid rgba(5, 41, 70, 0.54);
+}
+
+/* ===== تحسينات خاصة لقسم Поступающим على الشاشات الصغيرة ===== */
+@media (max-width: 768px) {
+    .applicants-section {
+        padding: 0.3rem 0 !important;
+        margin: 0.3rem 0 !important;
+    }
+    
+    .applicants-section .main-title {
+        font-size: 2rem !important;
+        padding-top: 12px !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0.8rem !important;
+    }
+    
+    .applicants-section .main-title::before {
+        border-top-width: 4px !important;
+    }
+    
+    /* تحسين الصورة لتكون كاملة ومتناسبة */
+    .applicants-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .applicants-image img {
+        width: 90% !important;
+        height: auto !important;
+        max-height: 250px !important;
+        object-fit: contain !important;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    /* إعادة ترتيب وتنسيق النقاط */
+    .applicants-section .col-lg-8 .row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .applicants-section .col-lg-8 .row > .col-md-6 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+        margin-bottom: 1rem !important;
+        padding: 0 15px !important;
+    }
+    
+    /* إزالة الهوامش الخاصة */
+    .applicants-section .row .col-md-6:nth-child(-n+2) {
+        margin-bottom: 1rem !important;
+    }
+    
+    /* توسيط وتعديل تنسيق النصوص */
+    .text-with-arrow {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        padding: 0 10px !important;
+    }
+    
+    /* تحسين تنسيق النصوص */
+    .applicants-section .main-text-small,
+    .text-with-arrow .main-text-small {
+        font-size: 1.2rem !important;
+        text-align: center !important;
+        margin-bottom: 0.5rem !important;
+        line-height: 1.3 !important;
+        padding: 0 10px;
+        width: 100%;
+    }
+    
+    /* تحسين تخطيط الأعمدة */
+    .applicants-section .row.align-items-start {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .applicants-section .col-lg-4 {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .applicants-section .col-lg-8 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .applicants-section .main-title {
+        font-size: 1.8rem !important;
+        padding-top: 10px !important;
+        margin-bottom: 0.6rem !important;
+    }
+    
+    .applicants-section .main-title::before {
+        border-top-width: 3px !important;
+    }
+    
+    .applicants-image img {
+        max-height: 200px !important;
+    }
+    
+    .applicants-section .main-text-small,
+    .text-with-arrow .main-text-small {
+        font-size: 1.1rem !important;
+    }
+    
+    .applicants-section .col-lg-8 .row > .col-md-6 {
+        margin-bottom: 0.8rem !important;
+        padding: 0 10px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .applicants-section .main-title {
+        font-size: 1.6rem !important;
+        padding-top: 8px !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .applicants-section .main-title::before {
+        border-top-width: 2px !important;
+    }
+    
+    .applicants-image img {
+        max-height: 180px !important;
+    }
+    
+    .applicants-section .main-text-small,
+    .text-with-arrow .main-text-small {
+        font-size: 1rem !important;
+        padding: 0 5px;
+    }
+    
+    /* ترتيب النقاط في صف واحد فقط */
+    .applicants-section .col-lg-8 .row > .col-md-6 {
+        margin-bottom: 0.6rem !important;
+        padding: 0 5px !important;
+    }
+}

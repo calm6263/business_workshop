@@ -1,0 +1,814 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+ 
+ 
+{% endblock %}
+{% block head_extra %}
+<!-- تحسين إعدادات viewport لتحسين الاستجابة -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+{% endblock %}
+
+{% block body_class %}index-page{% endblock %}
+
+{% block content %}
+<!-- بيانات الروابط لـ JavaScript -->
+<script id="overlay-data" type="application/json">
+    {
+        "about_academy_url": "{% url 'about_academy' %}",
+        "contacts_page_url": "{% url 'contacts:contacts_page' %}",
+        "teachers_staff_url": "{% url 'staff:teachers_and_staff' %}",
+        "projects_list_url": "{% url 'projects:projects_list' %}",
+        "events_url": "{% url 'events' %}",
+        "education_info_url": "{% url 'education_info:education_info' %}",
+        "partners_list_url": "{% url 'partners:partners_list' %}",
+        "news_list_url": "{% url 'news:news_list' %}",
+        "coworking_home_url": "{% url 'coworking:coworking_home' %}",
+        "under_construction_url": "{% url 'under_construction' 'Общежития' %}",
+        "research_list_url": "{% url 'research:research_list' %}",
+        "journal_url": "{% url 'news:news_list' %}?tab=journal",
+        "schedule_url": "{% url 'schedule:schedule_page' %}",
+        "single_window_url": "{% url 'single_window:single_window_services' %}",
+        "applicants_search_url": "{% url 'applicants' %}#search-section",
+        "consultations_url": "{% url 'consultations:consultation_form' %}",
+        "patents_list_url": "{% url 'patents:patents_list' %}"
+    }
+</script>
+
+<!-- Full Width Carousel -->
+<div id="mainCarousel" class="carousel slide full-width-carousel" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for slide in slides %}
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                class="{% if forloop.first %}active{% endif %}"></button>
+        {% empty %}
+        <!-- Default indicators if no slides -->
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+        {% endfor %}
+    </div>
+    
+    <div class="carousel-inner">
+        {% for slide in slides %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            {% if slide.slide_type == 'image' %}
+            <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.title }}" loading="lazy">
+            {% elif slide.slide_type == 'video' %}
+            <video class="d-block w-100" autoplay muted loop playsinline>
+                <source src="{{ slide.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            {% endif %}
+            
+            <!-- زر التقديم داخل الكاروسيل -->
+            <div class="carousel-apply-btn-container">
+                <a href="{% url 'under_construction' 'Подать заявку' %}" class="carousel-apply-btn">
+                    Подать заявку
+                </a>
+            </div>
+            
+            {% if slide.caption %}
+            <div class="carousel-caption d-none d-md-block">
+                <h3>{{ slide.title }}</h3>
+                <p>{{ slide.caption }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <!-- Default slides if no slides in database -->
+        <div class="carousel-item active">
+            <img src="{% static 'images/slide1.jpg' %}" class="d-block w-100" alt="Business Workshop" loading="lazy">
+            <div class="carousel-apply-btn-container">
+                <a href="{% url 'under_construction' 'Подать заявку' %}" class="carousel-apply-btn">
+                    Подать заявку
+                </a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/slide2.jpg' %}" class="d-block w-100" alt="Education" loading="lazy">
+            <div class="carousel-apply-btn-container">
+                <a href="{% url 'under_construction' 'Подать заявку' %}" class="carousel-apply-btn">
+                    Подать заявку
+                </a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/slide3.jpg' %}" class="d-block w-100" alt="Consulting" loading="lazy">
+            <div class="carousel-apply-btn-container">
+                <a href="{% url 'under_construction' 'Подать заявку' %}" class="carousel-apply-btn">
+                    Подать заявку
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- Services Section -->
+<div class="services-section mb-5">
+    <h2 class="text-center mb-4"></h2>
+    
+    <!-- Container مع هوامش جانبية -->
+    <div class="services-container">
+        <!-- Grid للبطاقات -->
+        <div class="services-grid">
+            <!-- الصف الأول -->
+            <!-- البطاقة 1: СМИ -->
+            <div class="service-card folder-card" data-url="{% url 'news:news_list' %}">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon">
+                        <svg width="134" height="135" viewBox="0 0 134 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="66.9677" cy="66.9677" r="66.9677" fill="#D1EBF4"/>
+                            <circle cx="66.8046" cy="66.1483" r="6.23718" fill="white" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M85.6802 94.8584C95.1628 88.6296 101.437 77.8042 101.437 65.4923C101.437 46.1838 86.0052 30.5312 66.9687 30.5312C47.9321 30.5312 32.5 46.1838 32.5 65.4923C32.5 77.8042 38.7745 88.6296 48.2571 94.8584" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M91.5886 111.054C107.061 102.298 117.522 85.5444 117.522 66.316C117.522 38.0332 94.8883 15.1055 66.9681 15.1055C39.0479 15.1055 16.4141 38.0332 16.4141 66.316C16.4141 85.7477 27.098 102.652 42.84 111.329" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M66.8047 132.136L66.8047 72.3906" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">СМИ</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 2: Отделения академии -->
+            <div class="service-card folder-card" data-url="{% url 'departments:departments_list' %}">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon">
+                        <svg width="131" height="132" viewBox="0 0 131 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M102.425 2.13379H69.2695C54.6749 2.13379 42.8429 13.965 42.8428 28.5596V129.832H128.851V28.5596C128.85 13.9651 117.019 2.13388 102.425 2.13379Z" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M106.688 71.2355C106.688 55.4624 93.9009 42.6758 78.1278 42.6758H28.5585C12.7854 42.6758 -0.00118256 55.4624 -0.00118256 71.2355V131.966H106.688V71.2355Z" fill="#D1EBF4"/>
+                            <path d="M101.109 29.8683L112.271 18.707V42.6709" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M89.456 90.6043H74.3555C74.3555 90.6043 79.1628 85.8061 83.5471 81.0845C86.3444 78.072 89.456 75.3397 89.456 73.2059C89.456 69.9232 86.994 66.9688 81.7416 66.9688C76.4892 66.9688 74.3555 73.2059 74.3555 73.2059" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect x="9.84766" y="70.25" width="16.7419" height="16.7419" rx="4.92409" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <rect x="9.84766" y="96.5078" width="16.7419" height="16.7419" rx="4.92409" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <rect x="36.7695" y="70.25" width="16.7419" height="16.7419" rx="4.92409" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <rect x="36.7695" y="96.5078" width="16.7419" height="16.7419" rx="4.92409" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Отделения академии</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 3: Личный портал обучающегося (تمت إزالة class icon-very-tall) -->
+            <div class="folder-card svg-card" data-url="#">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon icon-card-3">
+                        <svg width="135" height="195" viewBox="0 0 135 195" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="90.275" height="131.309" rx="28.5597" transform="matrix(-1 0 0 1 134.102 0)" fill="#D1EBF4"/>
+                            <path d="M2.13199 8.53516H82.723M125.398 131.309V37.0949C125.398 21.3218 112.612 8.53516 96.8387 8.53516H94.5818L78.1272 8.53516" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <circle cx="24.2922" cy="24.2922" r="22.1584" transform="matrix(-1 0 0 1 79.4414 41.6914)" stroke="#052946" stroke-width="4.26755"/>
+                            <mask id="mask0_4611_1633" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="90" width="105" height="105">
+                                <circle cx="52.1954" cy="52.1954" r="50.0616" transform="matrix(-1 0 0 1 106.527 90.2773)" stroke="#052946" stroke-width="4.26755"/>
+                            </mask>
+                            <g mask="url(#mask0_4611_1633)">
+                                <rect width="119.82" height="43.332" transform="matrix(-1 0 0 1 117.359 87.9727)" fill="#052946"/>
+                            </g>
+                            <path d="M18.875 40.7043L38.9002 49.5678C40.4322 51.004 45.793 53.8766 54.9808 53.8766C64.1685 53.8766 69.5293 51.004 71.0613 49.5678L91.0853 40.7043L54.9802 27.082L18.875 40.7043Z" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <path d="M18.875 41.6914V65.6553" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Личный портал обучающегося</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 4: Поступление иностранных граждан -->
+<div class="service-card folder-card" data-url="{% url 'foreign_applicants' %}">   <!-- تم التعديل هنا -->
+    <div class="folder-tab"></div>
+    <div class="folder-body">
+        <div class="service-icon">
+            <svg width="156" height="163" viewBox="0 0 156 163" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="76.7999" cy="83.964" r="76.5773" fill="#D1EBF4"/>
+                <path d="M2.13281 84.6836L153.856 84.6836" stroke="white" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M77.043 160.547L77.043 9.77788" stroke="white" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M71.707 12.875C59.9678 20.644 36.4895 45.5048 36.4895 82.796C36.4895 120.087 59.9678 148.479 71.707 158.014" stroke="white" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M82.2891 12.875C84.3709 14.2528 85.3906 14.7482 88.0145 17.1751M82.2891 158.014C94.0282 148.479 117.507 120.087 117.507 82.796C117.507 76.3696 116.809 70.3124 115.595 64.6483C115.3 63.2732 114.37 60.4899 114.017 59.1614" stroke="white" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M102.993 2.13281C113.133 2.13281 121.353 10.353 121.354 20.4932C121.354 28.0988 111.025 50.5035 105.861 61.2285C104.692 63.6576 101.295 63.6576 100.125 61.2285C94.9614 50.5035 84.6328 28.0988 84.6328 20.4932C84.6329 10.353 92.853 2.13283 102.993 2.13281ZM102.993 10.3525C97.242 10.3525 92.5801 15.0145 92.5801 20.7656C92.5801 26.5168 97.242 31.1787 102.993 31.1787C108.744 31.1787 113.406 26.5168 113.406 20.7656C113.406 15.0145 108.744 10.3526 102.993 10.3525Z" fill="white"/>
+                <path d="M102.993 2.13281V-0.000960827H102.993L102.993 2.13281ZM121.354 20.4932H123.487V20.4932L121.354 20.4932ZM105.861 61.2285L107.784 62.1542L107.784 62.1541L105.861 61.2285ZM100.125 61.2285L98.2024 62.1541L98.2024 62.1541L100.125 61.2285ZM84.6328 20.4932L82.499 20.4932V20.4932H84.6328ZM102.993 10.3525L102.993 8.21877H102.993V10.3525ZM92.5801 20.7656L90.4463 20.7656V20.7656H92.5801ZM102.993 31.1787V33.3125H102.993L102.993 31.1787ZM113.406 20.7656H115.54V20.7656L113.406 20.7656ZM102.993 2.13281V4.26659C111.955 4.26659 119.22 11.5315 119.22 20.4932L121.354 20.4932L123.487 20.4932C123.487 9.17457 114.312 -0.000960827 102.993 -0.000960827V2.13281ZM121.354 20.4932H119.22C119.22 22.0398 118.668 24.5937 117.623 27.9187C116.599 31.1767 115.171 34.9645 113.569 38.8834C110.365 46.7174 106.513 54.9553 103.939 60.3029L105.861 61.2285L107.784 62.1541C110.373 56.7768 114.267 48.4498 117.519 40.4988C119.144 36.5252 120.621 32.6154 121.695 29.1983C122.748 25.8481 123.487 22.7493 123.487 20.4932H121.354ZM105.861 61.2285L103.939 60.3029C103.545 61.1212 102.441 61.1211 102.048 60.3029L100.125 61.2285L98.2024 62.1541C100.148 66.1942 105.839 66.1941 107.784 62.1542L105.861 61.2285ZM100.125 61.2285L102.048 60.3029C99.4729 54.9553 95.6213 46.7174 92.4176 38.8834C90.815 34.9645 89.3869 31.1767 88.3629 27.9187C87.3179 24.5937 86.7666 22.0398 86.7666 20.4932H84.6328H82.499C82.499 22.7493 83.2388 25.8481 84.2917 29.1983C85.3657 32.6154 86.8426 36.5252 88.4676 40.4988C91.7191 48.4498 95.6135 56.7768 98.2024 62.1541L100.125 61.2285ZM84.6328 20.4932L86.7666 20.4932C86.7666 11.5315 94.0315 4.2666 102.993 4.26659L102.993 2.13281L102.993 -0.000960827C91.6746 -0.000938177 82.4991 9.17458 82.499 20.4932L84.6328 20.4932ZM102.993 10.3525V8.21877C96.0636 8.21877 90.4463 13.836 90.4463 20.7656L92.5801 20.7656L94.7139 20.7656C94.7139 16.1929 98.4205 12.4863 102.993 12.4863V10.3525ZM92.5801 20.7656H90.4463C90.4463 27.6952 96.0636 33.3125 102.993 33.3125V31.1787V29.0449C98.4205 29.0449 94.7139 25.3383 94.7139 20.7656H92.5801ZM102.993 31.1787L102.993 33.3125C109.923 33.3125 115.54 27.6952 115.54 20.7656H113.406H111.272C111.272 25.3383 107.566 29.0449 102.993 29.0449L102.993 31.1787ZM113.406 20.7656L115.54 20.7656C115.54 13.836 109.923 8.21879 102.993 8.21877L102.993 10.3525L102.993 12.4863C107.566 12.4863 111.272 16.1929 111.272 20.7656L113.406 20.7656Z" fill="#052946"/>
+            </svg>
+        </div>
+        <h6 class="service-title-inside">Поступление иностранных граждан</h6>
+    </div>
+</div>
+
+            <!-- البطاقة 5: Иные сервисы -->
+            <div class="folder-card svg-card" data-url="#">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon">
+                        <svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="90.275" height="131.309" rx="28.5597" transform="matrix(-1 0 0 1 131.641 0)" fill="#D1EBF4"/>
+                            <path d="M12.8027 54.6611C18.6694 54.6612 23.4717 59.4856 23.4717 65.4941C23.4717 71.5027 18.6694 76.3271 12.8027 76.3271C6.93603 76.3271 2.1338 71.5027 2.13379 65.4941C2.13379 59.4855 6.93603 54.6611 12.8027 54.6611Z" fill="#D1EBF4" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M58.7637 54.6611C64.6303 54.6612 69.4326 59.4856 69.4326 65.4941C69.4326 71.5027 64.6303 76.3271 58.7637 76.3271C52.897 76.3271 48.0947 71.5027 48.0947 65.4941C48.0947 59.4855 52.897 54.6611 58.7637 54.6611Z" fill="white" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M104.721 54.6611C110.587 54.6612 115.39 59.4856 115.39 65.4941C115.39 71.5027 110.587 76.3271 104.721 76.3271C98.854 76.3271 94.0518 71.5027 94.0518 65.4941C94.0518 59.4855 98.854 54.6611 104.721 54.6611Z" fill="white" stroke="#052946" stroke-width="4.26755"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Иные сервисы</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 6: Типография -->
+            <div class="folder-card svg-card" data-url="#">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon">
+                        <svg width="132" height="134" viewBox="0 0 132 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="90.275" height="131.309" rx="28.5597" transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 131.312 90.2734)" fill="#D1EBF4"/>
+                            <rect x="10.3447" y="47.1064" width="110.628" height="12.4744" rx="6.23718" fill="#052946" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M26.1002 55.8086C22.1609 55.8086 14.2824 58.27 11.8203 70.7447L87.9796 87.8152C87.9249 85.8456 88.2751 80.0348 89.4568 71.8936C90.6386 63.7525 95.2563 57.7235 97.4995 55.8086H26.1002Z" fill="#D1EBF4"/>
+                            <path d="M109.816 53.6719H27.9123C8.20766 53.6719 8.16124 77.8546 8.21595 89.946V131.144H90.12V89.946C90.12 79.113 90.12 53.6719 109.816 53.6719Z" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.1914 78.1289H78.4598" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10.5078 31.1875H68.7762" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.1914 97.4961H78.4598" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M20.1914 116.863H78.4598" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="114.734" cy="31.0233" r="6.23718" stroke="#052946" stroke-width="4.26755"/>
+                            <circle cx="90.1131" cy="31.0233" r="6.23718" stroke="#052946" stroke-width="4.26755"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Типография</h6>
+                </div>
+            </div>
+
+            <!-- الصف الثاني -->
+            <!-- البطاقة 7: Кадровые сервисы -->
+            <div class="folder-card svg-card" data-url="#">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon">
+                        <svg width="132" height="131" viewBox="0 0 132 131" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="path-1-inside-1_4611_1563" fill="white">
+                                <path d="M14.7752 0C6.61671 0 0.00292969 6.61377 0.00292969 14.7723V116.21C0.00292969 124.369 6.61671 130.982 14.7752 130.982H116.54C124.699 130.982 131.312 124.369 131.312 116.21V40.6209C131.312 32.4624 124.699 25.8486 116.54 25.8486H78.5825C71.4446 25.8486 65.6582 20.0622 65.6582 12.9243C65.6582 5.78641 59.8718 0 52.7339 0H14.7752Z"/>
+                            </mask>
+                            <path d="M0.00292969 14.7723H4.27048V116.21H0.00292969H-4.26462V14.7723H0.00292969ZM14.7752 130.982V126.715H116.54V130.982V135.25H14.7752V130.982ZM131.312 116.21H127.045V40.6209H131.312H135.58V116.21H131.312ZM116.54 25.8486V30.1162H78.5825V25.8486V21.5811H116.54V25.8486ZM52.7339 0V4.26755H14.7752V0V-4.26755H52.7339V0ZM65.6582 12.9243H61.3907C61.3907 8.14331 57.5149 4.26755 52.7339 4.26755V0V-4.26755C62.2287 -4.26755 69.9258 3.42951 69.9258 12.9243H65.6582ZM78.5825 25.8486V30.1162C69.0877 30.1162 61.3907 22.4191 61.3907 12.9243H65.6582H69.9258C69.9258 17.7053 73.8015 21.5811 78.5825 21.5811V25.8486ZM131.312 40.6209H127.045C127.045 34.8193 122.342 30.1162 116.54 30.1162V25.8486V21.5811C127.056 21.5811 135.58 30.1055 135.58 40.6209H131.312ZM116.54 130.982V126.715C122.342 126.715 127.045 122.012 127.045 116.21H131.312H135.58C135.58 126.726 127.056 135.25 116.54 135.25V130.982ZM0.00292969 116.21H4.27048C4.27048 122.012 8.9736 126.715 14.7752 126.715V130.982V135.25C4.2598 135.25 -4.26462 126.726 -4.26462 116.21H0.00292969ZM0.00292969 14.7723H-4.26462C-4.26462 4.25687 4.2598 -4.26755 14.7752 -4.26755V0V4.26755C8.9736 4.26755 4.27048 8.97068 4.27048 14.7723H0.00292969Z" fill="#052946" mask="url(#path-1-inside-1_4611_1563)"/>
+                            <path d="M116.537 41.0391C124.696 41.0391 131.31 47.6528 131.31 55.8113V116.21C131.31 124.369 124.696 130.982 116.537 130.982H14.7723C6.61378 130.982 0 124.369 0 116.21V80.0994C0 71.9409 6.61377 65.3271 14.7723 65.3271H53.5112C60.2182 65.3271 65.6553 59.8901 65.6553 53.1831C65.6553 46.4761 71.0923 41.0391 77.7993 41.0391H116.537Z" fill="#D1EBF4"/>
+                            <path d="M81.4141 55.8125H110.959" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M21.3398 19.043H50.8844" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Кадровые сервисы</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 8: Научно-педагогический состав (تمت إزالة class icon-tall) -->
+            <div class="folder-card svg-card" data-url="#">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon icon-card-8">
+                        <svg width="132" height="170" viewBox="0 0 132 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_4611_1597" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="12" y="65" width="106" height="105">
+                                <circle cx="52.1954" cy="52.1954" r="50.0616" transform="matrix(-1 0 0 1 117.191 65.3242)" stroke="#052946" stroke-width="4.26755"/>
+                            </mask>
+                            <g mask="url(#mask0_4611_1597)">
+                                <path d="M128.023 62.8633H8.20383L12.3073 84.6934H26.0947H59.0861L98.0685 124.907H128.023V62.8633Z" fill="#052946"/>
+                            </g>
+                            <circle cx="24.2922" cy="24.2922" r="22.1584" transform="matrix(-1 0 0 1 90.1094 16.7383)" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M29.543 15.7551L49.5682 24.6186C51.1001 26.0548 56.461 28.9273 65.6487 28.9273C74.8365 28.9273 80.1973 26.0548 81.7293 24.6186L101.753 15.7551L65.6481 2.13281L29.543 15.7551Z" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <path d="M101.766 16.7383V40.7022" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <rect width="90.275" height="42.3472" rx="14.7723" transform="matrix(-1 0 0 1 90.2734 82.5586)" fill="#D1EBF4"/>
+                            <path d="M12.4727 97.3281H78.1272" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12.4727 109.805H78.1272" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M123.102 25.7656V49.7295" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M61.5508 41.1953H69.2652" stroke="#052946" stroke-width="4.26755"/>
+                            <circle cx="52.5198" cy="41.1955" r="9.19164" stroke="#052946" stroke-width="4.26755"/>
+                            <circle cx="78.4573" cy="41.1955" r="9.19164" stroke="#052946" stroke-width="4.26755"/>
+                            <circle cx="122.933" cy="57.1171" r="6.23718" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M114.753 123.1C125.93 117.126 129.227 107.445 129.335 101.598V65.4883H116.205L103.238 84.0357" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Научно-педагогический состав</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 9: Личный портал сотрудника (تمت إزالة class icon-very-tall) -->
+            <div class="folder-card svg-card" data-url="#">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon icon-card-9">
+                        <svg width="132" height="172" viewBox="0 0 132 172" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="90.275" height="131.309" rx="28.5597" transform="matrix(-1 0 0 1 131.965 0)" fill="#D1EBF4"/>
+                            <path d="M68.7723 8.53516L94.7059 8.53516C110.479 8.53516 123.266 21.3218 123.266 37.0949V131.309" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <circle cx="24.2922" cy="24.2922" r="22.1584" transform="matrix(-1 0 0 1 77.3047 18.3828)" stroke="#052946" stroke-width="4.26755"/>
+                            <mask id="mask0_4611_1671" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="66" width="105" height="106">
+                                <circle cx="52.1954" cy="52.1954" r="50.0616" transform="matrix(-1 0 0 1 104.391 66.9648)" stroke="#052946" stroke-width="4.26755"/>
+                            </mask>
+                            <g mask="url(#mask0_4611_1671)">
+                                <path d="M115.223 63.3555H-4.59695V131.308L76.8147 118.998L115.223 63.3555Z" fill="#052946"/>
+                            </g>
+                            <path d="M56.1089 81.4102L63.7172 132.949H52.687H41.6562L49.2657 81.4102" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <path d="M60.0726 77.7961L53.1789 70.9023L46.2852 77.7961L53.1789 84.6898L60.0726 77.7961Z" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <path d="M95.9346 98.1338C88.6127 98.1338 82.6194 104.173 82.6191 111.693C82.6191 119.214 88.6126 125.254 95.9346 125.254C103.256 125.254 109.249 119.214 109.249 111.693C109.249 104.173 103.256 98.134 95.9346 98.1338Z" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M96.1797 96.4607L96.1797 90.6016" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M96.1797 131.308L96.1797 125.449" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M110.672 111.879L116.531 111.879" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M75.8205 111.879L81.6797 111.879" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M106.33 122.025L110.473 126.168" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M81.689 97.3882L85.832 101.531" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M106.322 100.604L110.465 96.4609" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M81.689 125.245L85.832 121.102" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Личный портал сотрудника</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 10: Услуги одного окна -->
+            <div class="service-card folder-card" data-url="{% url 'single_window:single_window_services' %}">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon icon-card-10">
+                        <svg width="158" height="137" viewBox="0 0 158 137" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M155.602 30.6926C155.602 14.9195 142.815 2.13281 127.042 2.13281H53.5087C37.7356 2.13281 24.949 14.9194 24.949 30.6926V93.3927H155.602V30.6926Z" fill="#D1EBF4" stroke="#052946" stroke-width="4.26755"/>
+                            <path d="M115.387 63.5196V2.625" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M24.9491 41.8555L155.273 41.8555" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <circle cx="24.2922" cy="24.2922" r="22.1584" transform="matrix(-1 0 0 1 99.6328 9.68359)" fill="white" stroke="#052946" stroke-width="4.26755"/>
+                            <mask id="mask0_4611_1643" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="12" y="53" width="121" height="41">
+                                <path d="M102.745 70.6651C103.836 69.7402 105.054 68.9783 106.363 68.4035L131.068 57.5546C133.391 56.5347 132.591 53.0575 130.057 53.1544L27.0316 57.0928C15.3538 57.5392 8.79381 70.7268 15.4827 80.3095L24.6189 93.3984L93.5562 92.4136L93.5562 85.3012C93.5562 80.9629 95.4632 76.8439 98.7712 74.0372L102.745 70.6651Z" fill="#D1EBF4"/>
+                            </mask>
+                            <g mask="url(#mask0_4611_1643)">
+                                <circle cx="159" cy="159" r="152.5" transform="matrix(-1 0 0 1 126.715 58.2773)" fill="white" stroke="#052946" stroke-width="13"/>
+                            </g>
+                            <path d="M23.6367 93.7188H94.8719" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M23.6367 102.254H94.8719" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <rect x="95.0469" y="62.5391" width="60.4692" height="71.9954" rx="14.7723" transform="rotate(0.139336 95.0469 62.5391)" fill="white" stroke="#052946" stroke-width="4.26755" stroke-linejoin="round"/>
+                            <path d="M104.941 76.1367L146.684 76.0009" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M104.984 89.125L146.727 88.9892" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M105.027 102.254L146.77 102.118" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="142.106" cy="120.697" r="3.86313" transform="rotate(40.8494 142.106 120.697)" stroke="#052946" stroke-width="4.26755"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Услуги одного окна</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 11: Расписание -->
+            <div class="service-card folder-card" data-url="{% url 'schedule:schedule_page' %}">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon">
+                        <svg width="132" height="132" viewBox="0 0 132 132" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M131.312 22.9805C131.313 10.2895 121.024 0.00136935 108.333 0.0013692L22.9825 0.00136818C10.2915 0.00136803 0.00334183 10.2895 0.00334167 22.9805L131.312 22.9805Z" fill="#D1EBF4"/>
+                            <path d="M44.3203 22.9805V129.013" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M86.6641 22.9805V129.013" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M127.043 57.4492L3.2841 57.4492" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M127.043 93.2305L3.2841 93.2305" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M94.875 74.0273L107.021 86.1734" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                            <path d="M107.02 86.3398L127.044 66.3152" stroke="#052946" stroke-width="4.26755" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Расписание</h6>
+                </div>
+            </div>
+
+            <!-- البطاقة 12: Магазин -->
+            <div class="folder-card svg-card" data-url="#">
+                <div class="folder-tab"></div>
+                <div class="folder-body">
+                    <div class="service-icon">
+                        <svg width="141" height="131" viewBox="0 0 141 131" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.13281 2.13281H18.054L42.0176 26.0967" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M46.284 20.6758C38.1255 20.6758 31.5117 27.2896 31.5117 35.4481L31.5117 92.2393C31.5117 100.398 38.1255 107.012 46.284 107.012L92.685 107.012C98.551 107.012 103.861 103.541 106.215 98.1679L131.1 41.3767C135.376 31.6159 128.226 20.6758 117.569 20.6758L46.284 20.6758Z" fill="#D1EBF4"/>
+                            <path d="M31.5117 40.707H129.665" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M31.5117 64.0117L121.458 64.0117" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M31.5117 87.3164H111.282" stroke="#052946" stroke-width="4.26755" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="14.4439" cy="116.862" r="11.982" stroke="#052946" stroke-width="4.26755"/>
+                            <circle cx="118.178" cy="116.862" r="11.982" stroke="#052946" stroke-width="4.26755"/>
+                        </svg>
+                    </div>
+                    <h6 class="service-title-inside">Магазин</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Поступающим Section - Updated -->
+<div class="applicants-section py-4" style="background: #ffffff;">
+    <!-- العنوان الرئيسي في المنتصف مع الخط تحته -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="main-title">
+                <a href="{% url 'applicants' %}" style="text-decoration: none; color: inherit;">
+                    Поступающим
+                </a>
+            </h2>
+        </div>
+    </div>
+    
+    <!-- المحتوى الرئيسي بدون container -->
+    <div class="row align-items-start position-relative">
+        <!-- الصورة على اليسار بحجم أكبر - تظهر فقط على الشاشات الكبيرة -->
+        <div class="col-lg-4 mb-4 d-none d-lg-block">
+            <div class="applicants-image">
+                <img src="{% static 'images/applicants.png' %}" alt="Поступающим" class="img-fluid" loading="lazy">
+            </div>
+        </div>
+        
+        <!-- النصوص على اليمين في صفين و عامودين -->
+        <div class="col-lg-8">
+            <div class="row h-100">
+                <!-- الصف الأول -->
+                <div class="col-md-6 mb-4">
+                    <div class="applicants-item h-100">
+                        <a href="{% url 'applicants' %}#search-section" class="applicants-link">
+                            <div class="text-with-arrow">
+                                <div class="red-arrow-svg">
+                                    <svg width="71" height="92" viewBox="0 0 71 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M35.5 43.7C32.1374 43.7 28.9126 42.4884 26.5349 40.3317C24.1572 38.1751 22.8214 35.25 22.8214 32.2C22.8214 29.15 24.1572 26.2249 26.5349 24.0683C28.9126 21.9116 32.1374 20.7 35.5 20.7C38.8626 20.7 42.0874 21.9116 44.4651 24.0683C46.8428 26.2249 48.1786 29.15 48.1786 32.2C48.1786 33.7102 47.8506 35.2056 47.2135 36.6009C46.5763 37.9961 45.6424 39.2639 44.4651 40.3317C43.2878 41.3996 41.8901 42.2467 40.3519 42.8246C38.8136 43.4025 37.165 43.7 35.5 43.7ZM35.5 0C26.0848 0 17.0553 3.39249 10.3977 9.43116C3.74017 15.4698 0 23.66 0 32.2C0 56.35 35.5 92 35.5 92C35.5 92 71 56.35 71 32.2C71 23.66 67.2598 15.4698 60.6023 9.43116C53.9447 3.39249 44.9152 0 35.5 0Z" fill="#7F1726"/>
+                                    </svg>
+                                </div>
+                                <h4 class="main-text-small mb-2">Поиск заявления по СНИЛС</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="applicants-item h-100">
+                        <a href="{% url 'applicants' %}#benefits-link" class="applicants-link">
+                            <div class="text-with-arrow">
+                                <div class="red-arrow-svg">
+                                    <svg width="71" height="92" viewBox="0 0 71 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M35.5 43.7C32.1374 43.7 28.9126 42.4884 26.5349 40.3317C24.1572 38.1751 22.8214 35.25 22.8214 32.2C22.8214 29.15 24.1572 26.2249 26.5349 24.0683C28.9126 21.9116 32.1374 20.7 35.5 20.7C38.8626 20.7 42.0874 21.9116 44.4651 24.0683C46.8428 26.2249 48.1786 29.15 48.1786 32.2C48.1786 33.7102 47.8506 35.2056 47.2135 36.6009C46.5763 37.9961 45.6424 39.2639 44.4651 40.3317C43.2878 41.3996 41.8901 42.2467 40.3519 42.8246C38.8136 43.4025 37.165 43.7 35.5 43.7ZM35.5 0C26.0848 0 17.0553 3.39249 10.3977 9.43116C3.74017 15.4698 0 23.66 0 32.2C0 56.35 35.5 92 35.5 92C35.5 92 71 56.35 71 32.2C71 23.66 67.2598 15.4698 60.6023 9.43116C53.9447 3.39249 44.9152 0 35.5 0Z" fill="#7F1726"/>
+                                    </svg>
+                                </div>
+                                <h4 class="main-text-small mb-2">Условия поступления <br> по льготам</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- الصف الثاني -->
+                <div class="col-md-6 mb-4">
+                    <div class="applicants-item h-100">
+                        <a href="{% url 'applicants' %}#useful-links" class="applicants-link">
+                            <div class="text-with-arrow">
+                                <div class="red-arrow-svg">
+                                    <svg width="71" height="92" viewBox="0 0 71 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M35.5 43.7C32.1374 43.7 28.9126 42.4884 26.5349 40.3317C24.1572 38.1751 22.8214 35.25 22.8214 32.2C22.8214 29.15 24.1572 26.2249 26.5349 24.0683C28.9126 21.9116 32.1374 20.7 35.5 20.7C38.8626 20.7 42.0874 21.9116 44.4651 24.0683C46.8428 26.2249 48.1786 29.15 48.1786 32.2C48.1786 33.7102 47.8506 35.2056 47.2135 36.6009C46.5763 37.9961 45.6424 39.2639 44.4651 40.3317C43.2878 41.3996 41.8901 42.2467 40.3519 42.8246C38.8136 43.4025 37.165 43.7 35.5 43.7ZM35.5 0C26.0848 0 17.0553 3.39249 10.3977 9.43116C3.74017 15.4698 0 23.66 0 32.2C0 56.35 35.5 92 35.5 92C35.5 92 71 56.35 71 32.2C71 23.66 67.2598 15.4698 60.6023 9.43116C53.9447 3.39249 44.9152 0 35.5 0Z" fill="#7F1726"/>
+                                    </svg>
+                                </div>
+                                <h4 class="main-text-small mb-2">Полезные ссылки и документы</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="applicants-item h-100">
+                        <a href="{% url 'applicants' %}#admission-conditions" class="applicants-link">
+                            <div class="text-with-arrow">
+                                <div class="red-arrow-svg">
+                                    <svg width="71" height="92" viewBox="0 0 71 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M35.5 43.7C32.1374 43.7 28.9126 42.4884 26.5349 40.3317C24.1572 38.1751 22.8214 35.25 22.8214 32.2C22.8214 29.15 24.1572 26.2249 26.5349 24.0683C28.9126 21.9116 32.1374 20.7 35.5 20.7C38.8626 20.7 42.0874 21.9116 44.4651 24.0683C46.8428 26.2249 48.1786 29.15 48.1786 32.2C48.1786 33.7102 47.8506 35.2056 47.2135 36.6009C46.5763 37.9961 45.6424 39.2639 44.4651 40.3317C43.2878 41.3996 41.8901 42.2467 40.3519 42.8246C38.8136 43.4025 37.165 43.7 35.5 43.7ZM35.5 0C26.0848 0 17.0553 3.39249 10.3977 9.43116C3.74017 15.4698 0 23.66 0 32.2C0 56.35 35.5 92 35.5 92C35.5 92 71 56.35 71 32.2C71 23.66 67.2598 15.4698 60.6023 9.43116C53.9447 3.39249 44.9152 0 35.5 0Z" fill="#7F1726"/>
+                                    </svg>
+                                </div>
+                                <h4 class="main-text-small mb-2">Условия поступления</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- الخطوط المتقطعة بين النقاط الحمراء - مخفية الآن -->
+        <div class="dashed-lines-container">
+            <!-- الخط الأفقي الأول (يربط النقطتين 1 و 2) -->
+            <div class="dashed-line line-1"></div>
+            
+            <!-- الخط العمودي (يربط النقطتين 2 и 3) -->
+            <div class="dashed-line line-2"></div>
+            
+            <!-- الخط الأفقي الثاني (يربط النقطتين 3 и 4) -->
+            <div class="dashed-line line-3"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Лицензия на образовательную деятельность Section -->
+<div class="license-section py-2">
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-12">
+                <!-- جعل العنوان كله رابطاً قابل للنقر -->
+                {% if licenses and licenses.0.file.url %}
+                <a href="{{ licenses.0.file.url }}" class="license-title-link" target="_blank" style="text-decoration: none;">
+                {% else %}
+                <a href="#" class="license-title-link" style="text-decoration: none;">
+                {% endif %}
+                    <div class="license-title-container text-end">
+                        <h2 class="license-title">
+                            Лицензия на образовательную деятельность
+                        </h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Journal Banner Section -->
+<div class="journal-banner-section-new py-4">
+    <div class="container">
+        <div class="row align-items-center justify-content-between">
+            <!-- زر Перейти на اليسار - الآن قابل للنقر -->
+            <div class="col-lg-9 col-md-8 mb-3 mb-md-0">
+                <a href="{% url 'news:news_list' %}?tab=journal" style="text-decoration: none; color: inherit;">
+                    <div class="journal-text-btn">
+                        <div class="journal-text-content">
+                            Перейти на страницу журнала АКАДЕМИЯ «ПЯТЬ БАШЕН»
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- زر Пресс - центр على اليمين -->
+            <div class="col-lg-3 col-md-4">
+                <div class="press-center-btn-new text-center text-md-end">
+                    <a href="{% url 'news:news_list' %}?tab=press" class="btn press-btn-new">Пресс - центр</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- News Cards Section -->
+<!-- News Cards Section -->
+<div class="news-cards-section py-5 position-relative">
+    <!-- زر السابق في الهامش الأيسر (خارج الحاوية) -->
+    <button class="news-nav-btn prev-btn">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.5 12L16 20L23.5 28" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <!-- زر التالي في الهامش الأيمن (خارج الحاوية) -->
+    <button class="news-nav-btn next-btn">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.5 12L24 20L16.5 28" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title"></h2>
+        </div>
+        
+        <div class="news-cards-container">
+            <div class="news-cards-wrapper">
+                {% for news_item in news %}
+                <!-- بطاقة الخبر الجديدة (بدون رابط خارجي) -->
+                <div class="news-card-new" data-url="{% url 'news:news_detail' news_item.id %}">
+                    <div class="news-image-new">
+                        {% if news_item.image %}
+                        <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" loading="lazy">
+                        {% else %}
+                        <img src="{% static 'images/news1.jpg' %}" alt="News" loading="lazy">
+                        {% endif %}
+                        <div class="news-date-new">
+                            {% if news_item.published_date %}
+                                {{ news_item.published_date|date:"m.Y" }}
+                            {% else %}
+                                07.2025
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="news-content-new">
+                        <h3 class="news-title-new">{{ news_item.title|truncatechars:50 }}</h3>
+                        <div class="news-separator"></div>
+                        <p class="news-description-new">
+                            {{ news_item.content|truncatechars:100|safe }}
+                        </p>
+                        <div class="news-type-section">
+                            <span class="type-dot"></span>
+                            <span class="type-value-new">{{ news_item.category.name }}</span>
+                        </div>
+                        <div class="news-action">
+                            <a href="{% url 'news:news_detail' news_item.id %}" class="news-read-btn-new">Читать</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Default news cards (بنفس الهيكل الجديد) -->
+                <div class="news-card-new">
+                    <div class="news-image-new">
+                        <img src="{% static 'images/news1.jpg' %}" alt="News" loading="lazy">
+                        <div class="news-date-new">07.2025</div>
+                    </div>
+                    <div class="news-content-new">
+                        <h3 class="news-title-new">В ТАСС прошло представление карточной игры «Башенки»</h3>
+                        <div class="news-separator"></div>
+                        <p class="news-description-new">
+                            Краткое описание мероприятия, например описание вечера с гостями на очень много слов...
+                        </p>
+                        <div class="news-type-section">
+                            <span class="type-dot"></span>
+                            <span class="type-value-new">Исследования</span>
+                        </div>
+                        <div class="news-action">
+                            <a href="#" class="news-read-btn-new">Читать</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card-new">
+                    <div class="news-image-new">
+                        <img src="{% static 'images/news2.jpg' %}" alt="News" loading="lazy">
+                        <div class="news-date-new">07.2025</div>
+                    </div>
+                    <div class="news-content-new">
+                        <h3 class="news-title-new">Новая образовательная программа</h3>
+                        <div class="news-separator"></div>
+                        <p class="news-description-new">
+                            Академия запускает новую программу по искусственному интеллекту...
+                        </p>
+                        <div class="news-type-section">
+                            <span class="type-dot"></span>
+                            <span class="type-value-new">Образование</span>
+                        </div>
+                        <div class="news-action">
+                            <a href="#" class="news-read-btn-new">Читать</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-card-new">
+                    <div class="news-image-new">
+                        <img src="{% static 'images/news3.jpg' %}" alt="News" loading="lazy">
+                        <div class="news-date-new">07.2025</div>
+                    </div>
+                    <div class="news-content-new">
+                        <h3 class="news-title-new">Конференция молодых учёных</h3>
+                        <div class="news-separator"></div>
+                        <p class="news-description-new">
+                            Приглашаем принять участие в ежегодной конференции...
+                        </p>
+                        <div class="news-type-section">
+                            <span class="type-dot"></span>
+                            <span class="type-value-new">Наука</span>
+                        </div>
+                        <div class="news-action">
+                            <a href="#" class="news-read-btn-new">Читать</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay Menu -->
+<div id="menuOverlay" class="menu-overlay" style="display: none;">
+    <!-- الشريط العلوي: اللوجو، اللغة، الروابط، وأيقونة الحساب -->
+    <div class="overlay-top-bar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <!-- اللوجو -->
+                <div class="col-md-2">
+                    <a href="{% url 'index' %}" style="text-decoration: none;">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="overlay-logo">
+                    </a>
+                </div>
+                
+                <!-- اللغة -->
+                <div class="col-md-1 overlay-language-container">
+                    <div class="overlay-language" id="overlayLanguage">
+                        <span class="overlay-flag-text">Ru</span>
+                        <div class="overlay-dropdown-arrow">
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L5 5L9 1" stroke="#052946" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- قائمة اللغات - سيتم تعبئتها ديناميكياً -->
+                    <div class="language-dropdown" id="overlayLanguageDropdown"></div>
+                </div>
+                
+                <!-- مساحة مرنة فارغة لدفع العناصر إلى اليمين -->
+                <div class="col-md-3 d-md-block d-none"></div>
+                
+                <!-- الروابط: КОНТАКТЫ، КОВОРКИНГ -->
+                <div class="col-md-4">
+                    <div class="overlay-top-links">
+                        <a href="{% url 'contacts:contacts_page' %}" class="overlay-top-link" id="overlayContacts">КОНТАКТЫ</a>
+                        <span class="overlay-link-spacer"></span>
+                        <a href="{% url 'coworking:coworking_home' %}" class="overlay-top-link" id="overlayCoworking">КОВОРКИНГ</a>
+                    </div>
+                </div>
+                
+                <!-- أيقونة الحساب الشخصي وزر الإغلاق -->
+                <div class="col-md-2 d-flex align-items-center justify-content-end gap-4">
+                    <!-- أيقونة الحساب الشخصي -->
+                    <div class="overlay-account-container">
+                        <div class="overlay-account-icon" id="overlayAccount">
+                            <svg class="overlay-profile-icon" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <!-- قائمة الحساب - سيتم تعبئتها ديناميكياً -->
+                        <div class="account-dropdown" id="overlayAccountDropdown"></div>
+                    </div>
+                    
+                    <!-- زر الإغلاق -->
+                    <button class="overlay-close-btn" id="overlayClose">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- شريط البحث -->
+    <div class="overlay-wide-container container-fluid">
+        <!-- شريط البحث -->
+        <div class="overlay-search-section">
+            <div class="overlay-search-box">
+                <div class="search-icon-overlay">
+                    <svg ...></svg>
+                </div>
+                <input type="text" class="overlay-search-input" placeholder="Поиск...">
+            </div>
+            <!-- أيقونة البحث الخارجية (الجديدة) -->
+            <div id="overlaySearchIcon" class="overlay-external-search-icon">
+                <svg width="73" height="84" viewBox="0 0 73 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M40.4673 81.8604L40.4253 81.8682L40.1541 82.0029L40.0776 82.0183L40.0242 82.0029L39.7529 81.8682C39.7122 81.8553 39.6816 81.8617 39.6612 81.8874L39.6459 81.9259L39.581 83.574L39.6001 83.651L39.6383 83.7011L40.0356 83.986L40.0929 84.0014L40.1388 83.986L40.5361 83.7011L40.5819 83.6395L40.5972 83.574L40.5323 81.9298C40.5221 81.8887 40.5004 81.8656 40.4673 81.8604ZM41.4797 81.4253L41.4301 81.433L40.7233 81.7911L40.6851 81.8296L40.6736 81.872L40.7424 83.5278L40.7615 83.574L40.7921 83.6009L41.56 83.9591C41.6084 83.9719 41.6453 83.9616 41.6708 83.9283L41.686 83.8744L41.5561 81.51C41.5434 81.4638 41.5179 81.4356 41.4797 81.4253ZM38.7482 81.433C38.7313 81.4227 38.7112 81.4194 38.692 81.4237C38.6728 81.428 38.6559 81.4396 38.645 81.4561L38.6221 81.51L38.4922 83.8744C38.4947 83.9206 38.5164 83.9514 38.5571 83.9668L38.6144 83.9591L39.3823 83.6009L39.4205 83.5701L39.4358 83.5278L39.5008 81.872L39.4893 81.8258L39.4511 81.7873L38.7482 81.433Z" fill="#7F1726"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M32.4706 7.38123e-08C27.2924 0.00044472 22.1894 1.24902 17.5873 3.64156C12.9852 6.03409 9.01754 9.50121 6.01526 13.7536C3.01298 18.0061 1.06316 22.9205 0.328497 28.087C-0.40617 33.2534 0.0956102 38.522 1.79197 43.4532C3.48834 48.3844 6.3301 52.8353 10.0802 56.4344C13.8302 60.0335 18.3798 62.6765 23.3494 64.1429C28.319 65.6094 33.5645 65.8567 38.6482 64.8642C43.7319 63.8718 48.5065 61.6683 52.5735 58.4378L66.5255 72.5004C67.2461 73.2019 68.2111 73.59 69.2128 73.5812C70.2145 73.5724 71.1727 73.1675 71.881 72.4535C72.5894 71.7396 72.9911 70.7738 72.9999 69.7641C73.0086 68.7545 72.6235 67.7818 71.9276 67.0556L57.9755 52.9929C61.75 48.1666 64.1002 42.3666 64.7571 36.2569C65.4139 30.1471 64.351 23.9744 61.6898 18.4451C59.0286 12.9158 54.8767 8.25336 49.7093 4.99136C44.5419 1.72936 38.5678 -0.000412574 32.4706 7.38123e-08ZM7.63802 32.7307C7.63802 26.0925 10.2543 19.7262 14.9113 15.0323C19.5683 10.3384 25.8846 7.70134 32.4706 7.70134C39.0566 7.70134 45.3728 10.3384 50.0298 15.0323C54.6868 19.7262 57.3031 26.0925 57.3031 32.7307C57.3031 39.3689 54.6868 45.7352 50.0298 50.4291C45.3728 55.123 39.0566 57.7601 32.4706 57.7601C25.8846 57.7601 19.5683 55.123 14.9113 50.4291C10.2543 45.7352 7.63802 39.3689 7.63802 32.7307Z" fill="#7F1726"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- القائمة الرئيسية (Академия، Поступление، Обучение، Наука) -->
+        <div class="overlay-main-nav">
+            <div class="overlay-nav-items">
+                <button class="overlay-nav-item" data-menu="Академия">Академия</button>
+                <button class="overlay-nav-item" data-menu="Поступление">Поступление</button>
+                <button class="overlay-nav-item" data-menu="Обучение">Обучение</button>
+                <button class="overlay-nav-item" data-menu="Наука">Наука</button>
+            </div>
+        </div>
+
+        <!-- محتوى القوائم (الروابط داخل الأعمدة) -->
+        <div class="overlay-content-section">
+            <div class="overlay-content-wrapper">
+                <div class="overlay-content" id="overlayMenuContent">
+                    <!-- يتم تعبئتها ديناميكياً -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- مودال تطوير الخدمات -->
+<div id="developmentModal" class="modal-overlay" style="display: none;">
+    <div class="modal-container">
+        <div class="modal-content">
+            <h2 class="modal-title">Этот раздел пока в разработке</h2>
+            
+            <!-- النص الوصفي بعرض كامل -->
+            <div class="modal-description-wrapper">
+                <p class="modal-description">Мы готовим для вас полезные инструменты и контент — уже скоро всё будет доступно.</p>
+            </div>
+            
+            <!-- الصورة في الأسفل على اليسار -->
+            <div class="modal-image-wrapper">
+                <img src="/static/images/image%20308.png" alt="تطوير" class="modal-image">
+            </div>
+            
+            <!-- الزر -->
+            <div class="modal-bottom">
+                <button class="modal-button" id="closeModalBtn">Продолжить</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'contact_form/contact_form_partial.html' %}
+ 
+<!-- إضافة CSS إضافي للكاروسيل -->
+<style>
+.carousel-item {
+    position: relative;
+}
+
+.carousel-item img, .carousel-item video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+}
+</style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

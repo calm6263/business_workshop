@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Панель партнёра{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1>{{ user.profile.company.name }} (Партнёр)</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Статистика заявок</div>
+                <div class="card-body">
+                    <p>Всего заявок: {{ total_applications }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Последние активности</div>
+                <div class="card-body">...</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

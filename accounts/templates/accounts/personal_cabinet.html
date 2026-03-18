@@ -1,0 +1,11 @@
+
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h1>Личный кабинет</h1>
+    <p>Добро пожаловать, {{ user.get_full_name|default:user.username }}!</p>
+    <div class="alert alert-info">
+        Раздел в разработке.
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,269 @@
+ /* static/admin/css/admin_custom.css - تحسينات واجهة الأدمن لتتناسب مع تصميم الموقع */
+
+/* تحسينات الرأس */
+#header {
+    background: linear-gradient(135deg, #052946 0%, #0a3a6b 100%) !important;
+    color: #FDFDFD !important;
+    border-bottom: 3px solid #7F1726 !important;
+}
+
+#branding h1 {
+    color: #FDFDFD !important;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* تحسينات العناوين والأقسام */
+.module h2, .module caption, .inline-group h2 {
+    background: linear-gradient(135deg, #7F1726 0%, #9a1f32 100%) !important;
+    color: #FDFDFD !important;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+}
+
+div.breadcrumbs {
+    background: #578BB1 !important;
+    color: #FFFFFF !important;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* تحسينات الأزرار */
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: linear-gradient(135deg, #7F1726 0%, #9a1f32 100%) !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease !important;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover {
+    background: linear-gradient(135deg, #9a1f32 0%, #b5243d 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(127, 23, 38, 0.3) !important;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: linear-gradient(135deg, #052946 0%, #0a3a6b 100%) !important;
+}
+
+.button.default:hover {
+    background: linear-gradient(135deg, #0a3a6b 0%, #0f4b8c 100%) !important;
+}
+
+/* تحسينات المحددات */
+.selector-chosen h2 {
+    background: #052946 !important;
+    color: #FFFFFF !important;
+}
+
+.calendar caption, .calendarbox h2 {
+    background: #052946 !important;
+    color: #FFFFFF !important;
+}
+
+/* تحسينات الجداول */
+#changelist .results table {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#changelist .results th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #052946;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+    border-bottom: 2px solid #7F1726 !important;
+}
+
+#changelist .results td, #changelist .results th {
+    padding: 12px 8px;
+    border: 1px solid #dee2e6;
+}
+
+#changelist .results tr:hover {
+    background-color: rgba(127, 23, 38, 0.05) !important;
+}
+
+/* تحسينات الكروت والوحدات */
+.dashboard .module {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.dashboard .module h2 {
+    border-radius: 12px 12px 0 0;
+    margin: -1px -1px 0 -1px;
+}
+
+/* تحسينات الواجهة العامة */
+#content {
+    font-family: 'Raleway', sans-serif;
+    background: #f8f9fa;
+}
+
+#content h1 {
+    color: #052946;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-family: 'Raleway', sans-serif;
+}
+
+/* تحسينات القوائم الجانبية */
+#nav-sidebar {
+    background: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#nav-sidebar .module {
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+#nav-sidebar .module th {
+    background: linear-gradient(135deg, #052946 0%, #0a3a6b 100%);
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+#nav-sidebar .current-model {
+    background: rgba(127, 23, 38, 0.1) !important;
+    border-left: 4px solid #7F1726;
+}
+
+/* تحسينات الروابط */
+a:link, a:visited {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #9a1f32;
+    text-decoration: underline;
+}
+
+/* تحسينات الحقول */
+input[type=text], input[type=password], input[type=email], input[type=url],
+input[type=number], textarea, select, .vTextField {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    font-family: 'Raleway', sans-serif;
+    transition: all 0.3s ease;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus,
+input[type=url]:focus, input[type=number]:focus, textarea:focus, select:focus {
+    border-color: #7F1726;
+    box-shadow: 0 0 0 3px rgba(127, 23, 38, 0.1);
+    outline: none;
+}
+
+/* تحسينات الرسائل */
+.success, .message-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 4px solid #28a745;
+}
+
+.error, .message-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 4px solid #dc3545;
+}
+
+.warning, .message-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 4px solid #ffc107;
+}
+
+.info, .message-info {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 4px solid #17a2b8;
+}
+
+/* تحسينات علامات التبويب */
+.tabular inline-related h2 {
+    background: linear-gradient(135deg, #578BB1 0%, #6a9bc3 100%) !important;
+    color: #FFFFFF !important;
+}
+
+/* تحسينات الأيقونات */
+.object-tools a {
+    background: #7F1726;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.object-tools a:hover {
+    background: #9a1f32;
+    transform: translateY(-2px);
+}
+
+/* تحسينات الاستجابة للشاشات الصغيرة */
+@media (max-width: 767px) {
+    #header {
+        padding: 10px !important;
+    }
+    
+    #content {
+        padding: 15px !important;
+    }
+    
+    .dashboard .module {
+        margin-bottom: 15px;
+    }
+}
+
+/* تحسينات خاصة بالبادجات الملونة */
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-success { background: #28a745; color: white; }
+.badge-warning { background: #ffc107; color: #212529; }
+.badge-danger { background: #dc3545; color: white; }
+.badge-info { background: #17a2b8; color: white; }
+.badge-primary { background: #007bff; color: white; }
+.badge-secondary { background: #6c757d; color: white; }
+
+/* تحسينات شريط التقدم */
+.progress-bar {
+    background: linear-gradient(135deg, #7F1726 0%, #9a1f32 100%);
+    border-radius: 10px;
+}
+
+/* تحسينات القوائم المنسدلة */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #7F1726 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #7F1726 !important;
+    border-color: #7F1726 !important;
+    color: white !important;
+}
+ 

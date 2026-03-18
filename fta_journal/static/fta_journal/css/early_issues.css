@@ -1,0 +1,504 @@
+/* static/fta_journal/css/early_issues.css */
+
+/* إزالة أي إزاحات سابقة */
+.early-header {
+    margin: 2rem 0 1rem 0;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.page-title {
+    font-family: 'Prata', serif;
+    font-size: 3rem;
+    color: #052946;
+    position: relative;
+    display: inline-block;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.page-title::before {
+    display: none;
+}
+
+.early-years-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+.year-group {
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+}
+
+.year-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0 1rem 50px;
+}
+
+.year-number {
+    font-family: 'Prata', serif;
+    font-size: 2.5rem;
+    color: #7F1726;
+    line-height: 1;
+}
+
+.issues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 3rem;
+    padding: 2rem 0;
+}
+
+.issue-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.issue-card {
+    background: transparent;
+    border-radius: 0;
+    overflow: hidden;
+    transition: transform 0.2s;
+    width: 100%;
+}
+
+.issue-card:hover {
+    transform: translateY(-4px);
+}
+
+.issue-cover {
+    width: 100%;
+    height: 476px;
+    object-fit: contain;
+}
+
+.issue-cover-placeholder {
+    width: 100%;
+    height: 476px;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.issue-info {
+    padding: 0;
+}
+
+.issue-date {
+    text-align: right;
+    padding-right: 180px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-top: 0.5rem;
+    line-height: 1.2;
+}
+
+.collapse-arrow-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.collapse-arrow-btn svg {
+    width: 50px;
+    height: 50px;
+    stroke: #052946;
+    transition: transform 0.3s ease;
+}
+
+.collapse-arrow-btn:not(.collapsed) svg {
+    transform: rotate(0deg);
+}
+
+.collapse-arrow-btn.collapsed svg {
+    transform: rotate(180deg);
+}
+
+.no-results {
+    text-align: center;
+    padding: 4rem;
+    color: #6c757d;
+    font-size: 1.2rem;
+}
+
+/* ===== شريط البحث للشاشات الكبيرة (كما كان) ===== */
+.search-section {
+    padding-left: 150px !important;
+    padding-right: 150px !important;
+}
+
+.search-section .search-wrapper {
+    width: 95% !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+.search-section .search-input {
+    width: 100% !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    box-sizing: border-box !important;
+}
+
+/* ====== فلتر "Все периоды" ====== */
+.filter-section {
+    margin: 3rem 0 3rem 0;
+    padding-left: 50px;
+}
+
+.filter-wrapper {
+    position: relative;
+    display: inline-block;
+    z-index: 1500; /* أقل من z-index للقائمة المنسدلة */
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #052946;
+    cursor: pointer;
+    user-select: none;
+}
+
+.filter-label svg {
+    width: 30px;
+    height: auto;
+    stroke: #052946;
+    stroke-width: 4;
+    pointer-events: none;
+}
+
+/* تعديل عرض الخط السفلي ليتناسب مع القائمة الجديدة */
+.filter-underline {
+    width: 280px;                 /* زيادة العرض من 240px */
+    height: 0;
+    border-bottom: 2px solid rgba(5, 41, 70, 0.54);
+    margin-top: 0.5rem;
+}
+
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 280px;                 /* زيادة العرض */
+    max-width: 90vw;               /* لا يتجاوز 90% من عرض الشاشة */
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(5, 41, 70, 0.36);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    padding: 10px 0;
+    z-index: 2000;                 /* ظهور فوق أي عناصر أخرى */
+    backdrop-filter: blur(5px);
+}
+
+.filter-dropdown.show {
+    display: block;
+}
+
+.filter-option {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: #052946;
+    padding: 12px 18px;            /* زيادة المساحة الداخلية */
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid rgba(5, 41, 70, 0.54);
+    white-space: normal;            /* السماح بتفاف النص */
+    word-wrap: break-word;
+}
+
+.filter-option:last-child {
+    border-bottom: none;
+}
+
+.filter-option:hover {
+    background-color: rgba(5, 41, 70, 0.05);
+}
+
+/* ====== RESPONSIVE ADJUSTMENTS للفلتر والعناصر الأخرى ====== */
+@media (max-width: 992px) {
+    .early-years-container {
+        padding: 0 30px;
+    }
+    .early-header {
+        padding-left: 30px;
+    }
+    .page-title {
+        font-size: 2.5rem;
+    }
+    .issues-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+    .issue-cover {
+        height: 392px;
+    }
+    .issue-date {
+        font-size: 1.8rem;
+        padding-right: 100px;
+    }
+    .year-number {
+        font-size: 2rem;
+    }
+    .filter-section {
+        padding-left: 30px;
+    }
+    .filter-label {
+        font-size: 1.4rem;
+        gap: 3rem;
+    }
+    .filter-underline {
+        width: 260px;              /* زيادة من 220px */
+    }
+    .filter-dropdown {
+        width: 260px;              /* زيادة من 220px */
+    }
+    .filter-option {
+        font-size: 1.2rem;
+        padding: 12px 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .early-years-container {
+        padding: 0 20px;
+    }
+    .early-header {
+        padding-left: 20px;
+    }
+    .page-title {
+        font-size: 2rem;
+    }
+    .issues-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+    .issue-cover {
+        height: 308px;
+    }
+    .issue-date {
+        font-size: 1.5rem;
+        padding-right: 60px;
+    }
+    .year-number {
+        font-size: 1.8rem;
+    }
+    .filter-section {
+        padding-left: 20px;
+    }
+    .filter-label {
+        font-size: 1.2rem;
+        gap: 2rem;
+    }
+    .filter-underline {
+        width: 240px;              /* زيادة من 180px */
+    }
+    .filter-dropdown {
+        width: 240px;              /* زيادة من 180px */
+    }
+    .filter-option {
+        font-size: 1.1rem;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .issues-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    .issue-cover {
+        height: 200px;
+    }
+    .issue-date {
+        font-size: 1rem;
+        padding-right: 20px;
+    }
+    .page-title {
+        font-size: 1.5rem;
+    }
+    .year-number {
+        font-size: 1.5rem;
+    }
+    .filter-label {
+        font-size: 1rem;
+        gap: 1rem;
+    }
+    .filter-underline {
+        width: 220px;              /* زيادة من 140px */
+    }
+    .filter-dropdown {
+        width: 220px;              /* زيادة من 140px */
+        max-width: 90vw;
+    }
+    .filter-option {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+}
+
+/* ====== RESPONSIVE SEARCH (شريط البحث) ====== */
+@media (max-width: 992px) {
+    .search-section {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 50px 0;
+    }
+    .search-section .search-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: 2px solid #052946 !important;
+        border-radius: 15px !important;
+        background: #ffffff;
+        padding: 6px 15px;
+        height: auto;
+        max-width: 90%;
+        margin: 0 auto;
+        width: 100% !important;
+    }
+    .search-section .search-input {
+        flex: 1;
+        font-size: 22px;
+        padding: 5px 0;
+        border: none !important;
+        background: transparent;
+        color: #052946;
+        height: auto;
+        width: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .search-section .search-input::placeholder {
+        color: #B1C4CB;
+        font-size: 22px;
+    }
+    .search-section .search-button {
+        position: static;
+        transform: none;
+        width: 45px;
+        height: 45px;
+    }
+    .search-section .search-button svg {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-section .search-wrapper {
+        padding: 5px 12px;
+        border-width: 2px !important;
+        border-radius: 12px !important;
+        gap: 0.5rem;
+    }
+    .search-section .search-input {
+        font-size: 18px;
+    }
+    .search-section .search-input::placeholder {
+        font-size: 18px;
+    }
+    .search-section .search-button {
+        width: 40px;
+        height: 40px;
+    }
+    .search-section .search-button svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-section .search-wrapper {
+        padding: 4px 10px;
+        border-width: 1.5px !important;
+        border-radius: 10px !important;
+        gap: 0.3rem;
+    }
+    .search-section .search-input {
+        font-size: 16px;
+    }
+    .search-section .search-input::placeholder {
+        font-size: 16px;
+    }
+    .search-section .search-button {
+        width: 35px;
+        height: 35px;
+    }
+    .search-section .search-button svg {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 400px) {
+    .search-section .search-input {
+        font-size: 14px;
+    }
+    .search-section .search-input::placeholder {
+        font-size: 14px;
+    }
+    .search-section .search-button {
+        width: 32px;
+        height: 32px;
+    }
+    .search-section .search-button svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* تأكيد ظهور حدود البحث */
+.search-wrapper {
+    border: 4px solid #052946 !important;
+    border-radius: 20px !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+}
+.search-input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.search-button {
+    display: flex !important;
+}
+/* ====== تحريك سهم الفلتر للشاشات المتوسطة والصغيرة ====== */
+@media (max-width: 992px) {
+    .filter-label svg {
+        transform: translateX(80px); /* حرك السهم 10px إلى اليمين */
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-label svg {
+        transform: translateX(80px);
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-label svg {
+        transform: translateX(80px);
+    }
+}

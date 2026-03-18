@@ -1,0 +1,15 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>{% if object %}Редактировать видео{% else %}Добавить видео{% endif %}</h2>
+    <a href="{% url 'dashboards:leaderspeechvideo_list' %}{% if object %}?leader={{ object.leader_speech_id }}{% elif request.GET.leader %}?leader={{ request.GET.leader }}{% endif %}" class="btn-secondary">← Назад</a>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-add">Сохранить</button>
+</form>
+{% endblock %}

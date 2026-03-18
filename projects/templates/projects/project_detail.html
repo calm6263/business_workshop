@@ -1,0 +1,583 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} - Проекты{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'projects/css/project_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="project-detail-page">
+    <!-- صورة المشروع الرئيسية - Full Bleed -->
+    <div class="project-hero-section mb-2">
+        <!-- شريط التنقل داخل الصورة الرئيسية -->
+        <div class="slider-breadcrumb">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <a href="{% url 'projects:projects_list' %}" class="breadcrumb-link">Проекты</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">{{ project.title|truncatewords:5 }}</span>
+            </div>
+        </div>
+        
+        <!-- زر العودة داخل الصورة -->
+        <div class="back-section">
+            <a href="{% url 'projects:projects_list' %}" class="back-btn">
+                <span class="back-arrow">←</span>
+                Назад
+            </a>
+        </div>
+        
+        {% if project.image %}
+        <div class="project-main-image">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid">
+        </div>
+        {% endif %}
+        <div class="project-hero-overlay">
+            <h1 class="project-hero-title">ПРОЕКТНАЯ ДЕЯТЕЛЬНОСТЬ</h1>
+        </div>
+    </div>
+
+    <!-- قسم الصورة والمعلومات الجانبية -->
+    <div class="container">
+        <div class="row mb-4">
+            <!-- الصورة الرئيسية -->
+            <div class="col-lg-6">
+                <div class="project-image-section">
+                    {% if project.description_image %}
+                    <img src="{{ project.description_image.url }}" alt="{{ project.title }}" class="img-fluid rounded-4 mb-2">
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- المعلومات الجانبية -->
+            <div class="col-lg-6">
+                <div class="project-sidebar-info">
+                    <div class="info-card">
+                        <!-- العنوان الديناميكي -->
+                        {% if project.sidebar_title %}
+                        <h3 class="info-title">{{ project.sidebar_title }}</h3>
+                        {% else %}
+                        <h3 class="info-title">Информация о проекте</h3>
+                        {% endif %}
+                        
+                        <div class="info-content">
+                            <!-- قسم الشركاء -->
+                            {% if partners %}
+                            <div class="info-item partner-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 105 105" fill="#052946" width="22" height="22">
+                                        <g clip-path="url(#clip0_2300_928)">
+                                            <path d="M63.3975 37.1905L69.8459 43.816L84.2058 43.9887C84.6126 43.9925 85.0146 44.0769 85.3887 44.2369C85.7627 44.3969 86.1014 44.6294 86.3852 44.9209C86.6689 45.2125 86.8922 45.5573 87.042 45.9356C87.1918 46.3138 87.2652 46.718 87.258 47.1248L87.0837 58.3898C87.0702 59.2039 86.7352 59.9796 86.1517 60.5474C85.5683 61.1153 84.7838 61.4292 83.9697 61.4206L73.9678 61.3069L56.772 43.6389L52.355 47.9379C51.7693 48.508 50.9811 48.822 50.1638 48.811C49.3465 48.7999 48.5671 48.4646 47.997 47.8789C47.427 47.2931 47.1129 46.5049 47.124 45.6877C47.1351 44.8704 47.4703 44.091 48.0561 43.5209L54.6816 37.0725C55.853 35.9323 57.4294 35.3042 59.064 35.3263C60.6985 35.3485 62.2574 36.019 63.3975 37.1905ZM39.4581 34.6869L30.6241 43.2848L20.6444 43.1497C19.8302 43.1411 19.0458 43.455 18.4623 44.0228C17.8789 44.5907 17.5438 45.3664 17.5304 46.1804L17.356 57.4455C17.3489 57.8523 17.4223 58.2564 17.5721 58.6347C17.7219 59.0129 17.9451 59.3578 18.2289 59.6493C18.5127 59.9409 18.8513 60.1734 19.2254 60.3334C19.5994 60.4934 20.0015 60.5777 20.4083 60.5816L39.104 60.8348L47.7019 69.6688C48.272 70.2545 49.0514 70.5898 49.8687 70.6008C50.686 70.6119 51.4742 70.2979 52.0599 69.7278L54.2684 67.5783L56.4179 69.7868C56.988 70.3725 57.7674 70.7078 58.5847 70.7189C59.4019 70.7299 60.1901 70.4159 60.7759 69.8458L62.9844 67.6963L65.1338 69.9048C65.7039 70.4906 66.4833 70.8259 67.3006 70.8369C68.1179 70.848 68.9061 70.5339 69.4918 69.9639L71.7003 67.8144L56.654 52.3549L54.4455 54.5044C53.274 55.6445 51.6976 56.2726 50.063 56.2505C48.4285 56.2283 46.8697 55.5578 45.7295 54.3863L41.4306 49.9693C40.2904 48.7979 39.6623 47.2215 39.6844 45.5869C39.7066 43.9523 40.3771 42.3935 41.5486 41.2534L48.1741 34.8049L39.4581 34.6869Z"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_2300_928">
+                                                <rect width="73.9641" height="73.9641" fill="white" transform="translate(53.004) rotate(45.7759)"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="info-text partner-text">
+                                    <span class="info-label partner-label">Партнеры:</span>
+                                    <div class="partners-list-inline">
+                                        {% for partner in partners %}
+                                        <span class="partner-name-inline">
+                                            {% if partner.logo %}
+                                            <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="partner-logo-inline">
+                                            {% endif %}
+                                            {{ partner.name }}{% if not forloop.last %}, {% endif %}
+                                        </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <!-- قسم الملفات -->
+                            <div class="info-item file-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" fill="#052946">
+                                        <path d="M36 6V25.5C36.0001 26.6186 36.4168 27.6972 37.1689 28.5253C37.921 29.3533 38.9545 29.8716 40.068 29.979L40.5 30H60V60C60.0005 61.5137 59.4288 62.9717 58.3995 64.0816C57.3702 65.1916 55.9595 65.8715 54.45 65.985L54 66H18C16.4863 66.0005 15.0283 65.4288 13.9184 64.3995C12.8084 63.3702 12.1285 61.9595 12.015 60.45L12 60V12C11.9995 10.4863 12.5712 9.0283 13.6005 7.91836C14.6298 6.80841 16.0405 6.12853 17.55 6.015L18 6H36ZM42 6.129C42.9701 6.33495 43.8741 6.77817 44.631 7.419L45 7.758L58.242 21C58.9449 21.7023 59.4624 22.5683 59.748 23.52L59.868 24H42V6.129Z"/>
+                                    </svg>
+                                </div>
+                                <div class="info-text">
+                                    {% if project.presentation_file %}
+                                    <a href="{{ project.presentation_file.url }}" class="file-link-label" target="_blank" download>
+                                        <span class="info-label">Презентация или файл</span>
+                                    </a>
+                                    {% else %}
+                                    <span class="info-label">Презентация или файл:</span>
+                                    <span class="info-value">Файл не загружен</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- قسم التواريخ -->
+                            <div class="info-item date-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 66" fill="#052946">
+                                        <path d="M21.314 6.875C21.314 6.32799 21.0967 5.80339 20.7099 5.41659C20.3231 5.0298 19.7985 4.8125 19.2515 4.8125C18.7045 4.8125 18.1799 5.0298 17.7931 5.41659C17.4063 5.80339 17.189 6.32799 17.189 6.875V11.22C13.229 11.5362 10.633 12.3117 8.7245 14.223C6.81325 16.1315 6.03775 18.7303 5.71875 22.6875H60.2842C59.9652 18.7275 59.1897 16.1315 57.2785 14.223C55.37 12.3117 52.7712 11.5363 48.814 11.2172V6.875C48.814 6.32799 48.5967 5.80339 48.2099 5.41659C47.8231 5.0298 47.2985 4.8125 46.7515 4.8125C46.2045 4.8125 45.6799 5.0298 45.2931 5.41659C44.9063 5.80339 44.689 6.32799 44.689 6.875V11.0357C42.8602 11 40.8087 11 38.5015 11H27.5015C25.1942 11 23.1427 11 21.314 11.0357V6.875Z"/>
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 33C5.5 30.6927 5.5 28.6413 5.53575 26.8125H60.4642C60.5 28.6413 60.5 30.6927 60.5 33V38.5C60.5 48.8703 60.5 54.0567 57.277 57.277C54.054 60.4972 48.8703 60.5 38.5 60.5H27.5C17.1298 60.5 11.9432 60.5 8.723 57.277C5.50275 54.054 5.5 48.8703 5.5 38.5V33ZM46.75 38.5C47.4793 38.5 48.1788 38.2103 48.6945 37.6945C49.2103 37.1788 49.5 36.4793 49.5 35.75C49.5 35.0207 49.2103 34.3212 48.6945 33.8055C48.1788 33.2897 47.4793 33 46.75 33C46.0207 33 45.3212 33.2897 44.8055 33.8055C44.2897 34.3212 44 35.0207 44 35.75C44 36.4793 44.2897 37.1788 44.8055 37.6945C45.3212 38.2103 46.0207 38.5 46.75 38.5ZM46.75 49.5C47.4793 49.5 48.1788 49.2103 48.6945 48.6945C49.2103 48.1788 49.5 47.4793 49.5 46.75C49.5 46.0207 49.2103 45.3212 48.6945 44.8055C48.1788 44.2897 47.4793 44 46.75 44C46.0207 44 45.3212 44.2897 44.8055 44.8055C44.2897 45.3212 44 46.0207 44 46.75C44 47.4793 44.2897 48.1788 44.8055 48.6945C45.3212 49.2103 46.0207 49.5 46.75 49.5ZM35.75 35.75C35.75 36.4793 35.4603 37.1788 34.9445 37.6945C34.4288 38.2103 33.7293 38.5 33 38.5C32.2707 38.5 31.5712 38.2103 31.0555 37.6945C30.5397 37.1788 30.25 36.4793 30.25 35.75C30.25 35.0207 30.5397 34.3212 31.0555 33.8055C31.5712 33.2897 32.2707 33 33 33C33.7293 33 34.4288 33.2897 34.9445 33.8055C35.4603 34.3212 35.75 35.0207 35.75 35.75ZM35.75 46.75C35.75 47.4793 35.4603 48.1788 34.9445 48.6945C34.4288 49.2103 33.7293 49.5 33 49.5C32.2707 49.5 31.5712 49.2103 31.0555 48.6945C30.5397 48.1788 30.25 47.4793 30.25 46.75C30.25 46.0207 30.5397 45.3212 31.0555 44.8055C31.5712 44.2897 32.2707 44 33 44C33.7293 44 34.4288 44.2897 34.9445 44.8055C35.4603 45.3212 35.75 46.0207 35.75 46.75ZM19.25 38.5C19.9793 38.5 20.6788 38.2103 21.1945 37.6945C21.7103 37.1788 22 36.4793 22 35.75C22 35.0207 21.7103 34.3212 21.1945 33.8055C20.6788 33.2897 19.9793 33 19.25 33C18.5207 33 17.8212 33.2897 17.3055 33.8055C16.7897 34.3212 16.5 35.0207 16.5 35.75C16.5 36.4793 16.7897 37.1788 17.3055 37.6945C17.8212 38.2103 18.5207 38.5 19.25 38.5ZM19.25 49.5C19.9793 49.5 20.6788 49.2103 21.1945 48.6945C21.7103 48.1788 22 47.4793 22 46.75C22 46.0207 21.7103 45.3212 21.1945 44.8055C20.6788 44.2897 19.9793 44 19.25 44C18.5207 44 17.8212 44.2897 17.3055 44.8055C16.7897 45.3212 16.5 46.0207 16.5 46.75C16.5 47.4793 16.7897 48.1788 17.3055 48.6945C17.8212 49.2103 18.5207 49.5 19.25 49.5Z"/>
+                                    </svg>
+                                </div>
+                                <div class="info-text date-text">
+                                    <span class="info-label date-label">Сроки реализации:</span>
+                                    <span class="info-value date-value">
+                                        {{ project.start_date|date:"Y" }}{% if project.end_date %}-{{ project.end_date|date:"Y" }} гг{% else %} г{% endif %}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- قسم الحالة -->
+                            <div class="info-item status-item">
+                                <div class="info-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77 77" fill="#052946">
+                                        <path d="M42.3778 9.95546C40.7897 6.7375 36.1985 6.7375 34.6104 9.95546L27.0452 25.2849L10.1276 27.7425C6.576 28.2558 5.15471 32.6255 7.72779 35.1312L19.9676 47.063L17.0801 63.9068C16.4705 67.4488 20.1858 70.147 23.3652 68.4755L36.0638 61.7989C34.9439 57.8266 35.0279 53.6113 36.3051 49.6868C37.5823 45.7622 39.9952 42.3049 43.2385 39.7525C46.4817 37.2001 50.4094 35.6674 54.5242 35.3485C58.639 35.0296 62.7559 35.9388 66.3537 37.961L69.2604 35.1312C71.8271 32.6255 70.4122 28.259 66.8606 27.7425L49.943 25.2849L42.3778 9.95546ZM73.7906 56.1458C73.7906 60.8258 71.9315 65.3141 68.6222 68.6233C65.313 71.9326 60.8247 73.7917 56.1448 73.7917C51.4648 73.7917 46.9765 71.9326 43.6673 68.6233C40.358 65.3141 38.4989 60.8258 38.4989 56.1458C38.4989 51.4659 40.358 46.9776 43.6673 43.6683C46.9765 40.3591 51.4648 38.5 56.1448 38.5C60.8247 38.5 65.313 40.3591 68.6222 43.6683C71.9315 46.9776 73.7906 51.4659 73.7906 56.1458ZM66.9055 48.5934C66.7565 48.444 66.5795 48.3255 66.3846 48.2446C66.1897 48.1638 65.9808 48.1221 65.7698 48.1221C65.5588 48.1221 65.3498 48.1638 65.1549 48.2446C64.96 48.3255 64.783 48.444 64.634 48.5934L52.9364 60.2942L47.6555 55.0101C47.3543 54.7089 46.9457 54.5396 46.5198 54.5396C46.0938 54.5396 45.6852 54.7089 45.384 55.0101C45.0828 55.3113 44.9136 55.7198 44.9136 56.1458C44.9136 56.5718 45.0828 56.9804 45.384 57.2816L51.8007 63.6982C51.9497 63.8476 52.1267 63.9662 52.3216 64.047C52.5165 64.1279 52.7254 64.1695 52.9364 64.1695C53.1474 64.1695 53.3564 64.1279 53.5512 64.047C53.7461 63.9662 53.9232 63.8476 54.0722 63.6982L66.9055 50.8649C67.0549 50.7159 67.1734 50.5389 67.2543 50.344C67.3352 50.1491 67.3768 49.9402 67.3768 49.7292C67.3768 49.5182 67.3352 49.3092 67.2543 49.1143C67.1734 48.9195 67.0549 48.7424 66.9055 48.5934Z"/>
+                                    </svg>
+                                </div>
+                                <div class="info-text status-text">
+                                    <span class="info-label status-label">Статус:</span>
+                                    <span class="info-value status-value status-red">
+                                        {{ project.get_status_display }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- قسم الميزانية -->
+                        {% if project.budget %}
+                        <div class="budget-section mt-2">
+                            <h4 class="budget-title">Бюджет проекта</h4>
+                            <p class="budget-amount">{{ project.budget }} ₽</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم المحتوى النصي يأخذ عرضاً كاملاً -->
+    <div class="container-fluid full-width-content-section">
+        <div class="row">
+            <div class="col-12">
+                <div class="full-width-content-container">
+                    <!-- وصف المشروع -->
+                    <div class="description-section mb-4">
+                        <h3 class="section-title">
+                            <span class="red-dot-small"></span>
+                            Описание
+                        </h3>
+                        <div class="project-description-content">
+                            {{ project.description|linebreaks }}
+                        </div>
+                    </div>
+
+                    <!-- زر الانضمام إلى المشروع (يظهر فقط للمشاريع غير المكتملة) -->
+                    {% if project.status != 'completed' %}
+                    <div class="join-project-section">
+                        <button type="button" class="join-project-btn" id="openJoinModal" data-project-id="{{ project.id }}">
+                            Вступить в проект
+                        </button>
+                    </div>
+                    {% endif %}
+
+                    <!-- معرض الصور (يظهر فقط في المشاريع المكتملة) -->
+                    {% if project.status == 'completed' and gallery_images %}
+                    <div class="project-gallery-section mb-4">
+                        <div class="full-width-gallery">
+                            <h3 class="section-title">
+                                <span class="red-dot-small"></span>
+                                Фотогалерея
+                            </h3>
+                            
+                            <!-- الحاوية الرئيسية مع الأسهم خارجها -->
+                            <div class="carousel-container-with-external-arrows d-none d-md-block">
+                                <!-- الأسهم خارج الحاوية -->
+                                <button class="multi-image-arrow prev" onclick="moveSlide(-1)" aria-label="الصورة السابقة">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+                                    </svg>
+                                </button>
+                                
+                                <!-- الكاروسيل -->
+                                <div class="multi-image-carousel-wrapper">
+                                    <div class="multi-image-carousel-inner" id="multiImageCarouselInner">
+                                        {% for image in gallery_images %}
+                                        <div class="multi-image-item">
+                                            <img src="{{ image.image.url }}" alt="{{ image.title }}" class="img-fluid">
+                                            {% if image.title %}
+                                            <div class="image-caption">
+                                                {{ image.title }}
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                    <!-- نقاط المؤشر -->
+                                    <ul class="multi-image-indicators" id="multiImageIndicators">
+                                        <!-- سيتم إنشاء المؤشرات ديناميكيًا -->
+                                    </ul>
+                                </div>
+                                
+                                <!-- السهم التالي خارج الحاوية -->
+                                <button class="multi-image-arrow next" onclick="moveSlide(1)" aria-label="الصورة التالية">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- كاروسيل للشاشات الصغيرة -->
+                            <div class="d-block d-md-none">
+                                <div id="projectGalleryCarouselMobile" class="carousel slide" data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        {% for image in gallery_images %}
+                                        <button type="button" data-bs-target="#projectGalleryCarouselMobile" 
+                                                data-bs-slide-to="{{ forloop.counter0 }}"
+                                                {% if forloop.first %}class="active" aria-current="true"{% endif %}
+                                                aria-label="Slide {{ forloop.counter }}">
+                                        </button>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                    <div class="carousel-inner">
+                                        {% for image in gallery_images %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <div class="gallery-image-container">
+                                                <img src="{{ image.image.url }}" alt="{{ image.title }}" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#projectGalleryCarouselMobile" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#projectGalleryCarouselMobile" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- النتائج -->
+                    {% if project.status == 'completed' and project.results %}
+                    <div class="results-section mb-4">
+                        <h3 class="section-title">
+                            <span class="red-dot-small"></span>
+                            Результаты
+                        </h3>
+                        <div class="project-results-content">
+                            {{ project.results|linebreaks }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- المشاركون -->
+                    {% if members %}
+                    <div class="members-section mb-4">
+                        <h3 class="section-title">Участники проекта</h3>
+                        <div class="members-grid">
+                            {% for member in members %}
+                            <div class="member-card">
+                                <div class="member-info">
+                                    <h4 class="member-name">{{ member.name }}</h4>
+                                    <p class="member-role">{{ member.get_role_display }}</p>
+                                    {% if member.organization %}
+                                    <p class="member-organization">{{ member.organization }}</p>
+                                    {% endif %}
+                                    {% if member.position %}
+                                    <p class="member-position">{{ member.position }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة طلب الانضمام إلى المشروع (مُحدّثة) -->
+<div class="join-modal" id="joinModal">
+    <div class="join-modal-content expanded">
+        <div class="modal-header">
+            <h2 class="modal-title">Вступить в проект</h2>
+            <button type="button" class="close-modal" id="closeJoinModal">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path d="M22.5 7.5L7.5 22.5" stroke="#052946" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M7.5 7.5L22.5 22.5" stroke="#052946" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <!-- خيارات نوع الشخص -->
+            <div class="person-type-section">
+                <div class="person-type-options">
+                    <div class="person-type-option active" data-type="individual">
+                        <span class="person-type-text">Физическое лицо</span>
+                    </div>
+                    <div class="person-type-option" data-type="legal">
+                        <span class="person-type-text">Юридическое лицо</span>
+                        <div class="legal-underline"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- رسائل النجاح والخطأ -->
+            <div class="success-message" id="joinSuccessMessage"></div>
+            <div class="error-message" id="joinErrorMessage"></div>
+            
+            <!-- النموذج -->
+            <form class="join-form" id="joinForm">
+                {% csrf_token %}
+                <input type="hidden" name="person_type" id="joinPersonType" value="individual">
+                <input type="hidden" name="project_id" id="projectId" value="{{ project.id }}">
+                
+                <!-- حقول الشخص الطبيعي -->
+                <div id="joinIndividualFields" class="fields-section">
+                    <!-- Фамилия Имя Отчество -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="join_full_name_individual" 
+                                   name="full_name_individual" 
+                                   placeholder="Фамилия Имя Отчество"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- +7 -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="tel" 
+                                   class="form-control" 
+                                   id="join_phone" 
+                                   name="phone" 
+                                   placeholder="+7"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- E-mail -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="email" 
+                                   class="form-control" 
+                                   id="join_email" 
+                                   name="email" 
+                                   placeholder="E-mail"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- Адрес -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="join_address" 
+                                   name="address" 
+                                   placeholder="Адрес"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- Комментарии -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <textarea class="form-control" 
+                                      id="join_comments_individual" 
+                                      name="comments_individual" 
+                                      placeholder="Комментарии"
+                                      rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- حقول الشخص الاعتباري (مخفية بشكل افتراضي) -->
+                <div id="joinLegalFields" class="fields-section" style="display: none;">
+                    <!-- Ответственное лицо -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="join_full_name" 
+                                   name="full_name" 
+                                   placeholder="Ответственное лицо"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- +7 -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="tel" 
+                                   class="form-control" 
+                                   id="join_phone_legal" 
+                                   name="phone_legal" 
+                                   placeholder="+7"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- E-mail -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="email" 
+                                   class="form-control" 
+                                   id="join_email_legal" 
+                                   name="email_legal" 
+                                   placeholder="E-mail"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- Название компании -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="join_company_name" 
+                                   name="company_name" 
+                                   placeholder="Название компании"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- ИНН -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="join_inn" 
+                                   name="inn" 
+                                   placeholder="ИНН"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- КПП -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="join_kpp" 
+                                   name="kpp" 
+                                   placeholder="КПП">
+                        </div>
+                    </div>
+                    
+                    <!-- Юридический адрес -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="join_legal_address" 
+                                   name="legal_address" 
+                                   placeholder="Юридический адрес"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <!-- Комментарии -->
+                    <div class="form-group">
+                        <div class="input-container">
+                            <textarea class="form-control" 
+                                      id="join_comments" 
+                                      name="comments" 
+                                      placeholder="Комментарии"
+                                      rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- خانة الموافقة (مُحدّثة) -->
+                <div class="agreement-section">
+                    <div class="agreement-container">
+                        <input type="checkbox" 
+                               id="join_agreement" 
+                               name="agreement" 
+                               class="agreement-checkbox"
+                               required>
+                        <label for="join_agreement" class="agreement-label">
+                            Я согласен с условиями 
+                            <a href="#" class="agreement-link">пользовательского соглашения</a> 
+                            и 
+                            <a href="#" class="agreement-link">политикой конфиденциальности</a>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="modal-footer">
+            <button type="submit" class="submit-join-btn" id="submitJoinRequest" form="joinForm">
+                <span id="joinSubmitText">Отправить</span>  <!-- تم التغيير -->
+                <div class="loading-spinner" id="joinLoadingSpinner"></div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة نجاح التسجيل -->
+<div class="join-success-modal" id="joinSuccessModal">
+    <div class="success-modal-content">
+        <div class="success-modal-header">
+            <div class="success-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 4L12 14.01L9 11.01" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="success-modal-title">Заявка отправлена!</h2>
+            <button type="button" class="close-success-modal" id="closeJoinSuccessModal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18" stroke="#052946" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 6L18 18" stroke="#052946" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="success-modal-body">
+            <div class="success-message-content" id="joinSuccessMessageContent">
+                <!-- سيتم ملء المحتوى ديناميكيًا -->
+            </div>
+            
+            <div class="proposal-id-section">
+                <div class="proposal-id-label">Номер вашей заявки:</div>
+                <div class="proposal-id-value" id="joinRequestIdValue"></div>
+            </div>
+        </div>
+        
+        <div class="success-modal-footer">
+            <button type="button" class="close-success-btn" id="closeJoinSuccessBtn">
+                Закрыть
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'projects/js/project_detail.js' %}"></script>
+{% endblock %}

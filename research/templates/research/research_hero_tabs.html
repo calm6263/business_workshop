@@ -1,0 +1,58 @@
+{% load static %}
+
+<div class="research-hero-fullwidth">
+    <div class="hero-background-container">
+        {% if hero and hero.background_image %}
+            <img src="{{ hero.background_image.url }}" alt="{{ hero.title }}" class="hero-background-image">
+        {% else %}
+            <div class="hero-placeholder"></div>
+        {% endif %}
+    </div>
+
+    <!-- Hero Breadcrumb -->
+    <div class="hero-breadcrumb schedule-slider-breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+            <div class="breadcrumb-arrow">
+                <div class="arrow-line arrow-top"></div>
+                <div class="arrow-line arrow-bottom"></div>
+            </div>
+            <span class="breadcrumb-current">Исследования</span>
+        </div>
+    </div>
+
+    {% if hero.title %}
+    <div class="hero-content-wrapper">
+        <div class="hero-text-container">
+            <h1 class="hero-title">{{ hero.title }}</h1>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Navigation Tabs -->
+    <div class="hero-navigation-tabs">
+        <div class="nav-tab-container">
+            <a href="#research" class="nav-tab-hero active" data-section="research">
+                <div class="nav-tab-background">
+                    <div class="nav-tab-content">
+                        <span class="nav-tab-text">Исследования</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#conferences" class="nav-tab-hero" data-section="conferences">
+                <div class="nav-tab-background">
+                    <div class="nav-tab-content">
+                        <span class="nav-tab-text">Конференции</span>
+                    </div>
+                </div>
+            </a>
+            <a href="#youth-council" class="nav-tab-hero" data-section="youth-council">
+                <div class="nav-tab-background">
+                    <div class="nav-tab-content">
+                        <span class="nav-tab-text">Молодежный ученый совет</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

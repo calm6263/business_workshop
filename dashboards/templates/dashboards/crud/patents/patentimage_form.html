@@ -1,0 +1,23 @@
+{% extends "dashboards/crud/base_crud.html" %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>{% if object %}Редактирование изображения{% else %}Добавление нового изображения{% endif %}</h2>
+    <a href="{% url 'dashboards:patentimage_list' %}" class="btn-view">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" /><path d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7z" />
+        </svg>
+        Вернуться к списку
+    </a>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+        <button type="submit" class="btn-add">Сохранить</button>
+        <a href="{% url 'dashboards:patentimage_list' %}" class="btn-view">Отмена</a>
+    </div>
+</form>
+{% endblock %}

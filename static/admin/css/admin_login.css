@@ -1,0 +1,361 @@
+/* static/css/admin_login.css - إصدار محسن ومضغوط */
+@import url('https://fonts.googleapis.com/css2?family=Prata&family=Raleway:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #FDFDFD;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-login-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    max-height: 800px;
+    background: #FDFDFD;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* العنوان الرئيسي - مصغر */
+.login-header {
+    font-family: 'Prata', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 3.5rem;
+    line-height: 1.2;
+    text-align: center;
+    color: #052946;
+    margin-bottom: 60px;
+    white-space: nowrap;
+    position: relative;
+    z-index: 10;
+}
+
+/* الحاوية الرئيسية للنموذج - مصغرة */
+.form-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* مجموعة حقل الإدخال - مصغرة */
+.input-group {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* تسميات الحقول - مصغرة */
+.input-label {
+    position: absolute;
+    left: 8%;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    z-index: 20;
+    transition: all 0.3s ease;
+}
+
+.input-label.username,
+.input-label.password {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* حقول الإدخال - مصغرة */
+.login-input {
+    box-sizing: border-box;
+    width: 70%;
+    height: 70px;
+    border: 3px solid #052946;
+    border-radius: 50px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.3rem;
+    padding: 0 15% 0 8%;
+    background: #FDFDFD;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 15;
+}
+
+/* أيقونات الحقول - مصغرة */
+.input-icon {
+    position: absolute;
+    right: 16%;
+    width: 40px;
+    height: 40px;
+    background: #B4B6B7;
+    pointer-events: none;
+    z-index: 25;
+    border-radius: 50%;
+}
+
+.input-icon.username,
+.input-icon.password {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* زر الدخول - مصغر */
+.login-button {
+    width: 35%;
+    height: 70px;
+    background: #052946;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    margin-top: 20px;
+}
+
+.login-button:hover {
+    background: #041e33;
+    transform: scale(1.05);
+}
+
+/* نص زر الدخول - مصغر */
+.login-button-text {
+    font-family: 'Prata', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FDFDFD;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* شعار الأكاديمية - مصغر */
+.login-logo {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    width: 80px;
+    height: 80px;
+    background: #7F1726;
+    border-radius: 10px;
+}
+
+/* تأثيرات التركيز */
+.login-input:focus {
+    border-color: #7F1726;
+    box-shadow: 0 0 15px rgba(127, 23, 38, 0.3);
+}
+
+.login-input:focus + .input-label,
+.login-input:not(:placeholder-shown) + .input-label {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-15px);
+}
+
+/* التكيف مع الشاشات المختلفة */
+@media (max-width: 1200px) {
+    .admin-login-container {
+        padding: 30px;
+    }
+    
+    .login-header {
+        font-size: 3rem;
+        margin-bottom: 50px;
+    }
+    
+    .login-input {
+        height: 65px;
+        font-size: 1.2rem;
+    }
+    
+    .input-label {
+        font-size: 1.3rem;
+    }
+    
+    .login-button {
+        height: 65px;
+    }
+    
+    .login-button-text {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-login-container {
+        padding: 20px;
+        justify-content: flex-start;
+        padding-top: 80px;
+    }
+    
+    .login-header {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        white-space: normal;
+        text-align: center;
+    }
+    
+    .form-wrapper {
+        gap: 25px;
+    }
+    
+    .login-input {
+        width: 85%;
+        height: 60px;
+        font-size: 1.1rem;
+        padding: 0 18% 0 12%;
+    }
+    
+    .input-label {
+        font-size: 1.1rem;
+        left: 12%;
+    }
+    
+    .input-icon {
+        right: 12%;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .login-button {
+        width: 50%;
+        height: 60px;
+        margin-top: 15px;
+    }
+    
+    .login-button-text {
+        font-size: 1.6rem;
+    }
+    
+    .login-logo {
+        width: 60px;
+        height: 60px;
+        left: 20px;
+        top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-header {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    
+    .login-input {
+        height: 55px;
+        font-size: 1rem;
+        width: 90%;
+    }
+    
+    .input-label {
+        font-size: 1rem;
+    }
+    
+    .login-button {
+        width: 60%;
+        height: 55px;
+    }
+    
+    .login-button-text {
+        font-size: 1.4rem;
+    }
+    
+    .login-logo {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* إصلاحات للشاشات العمودية */
+@media (max-height: 700px) {
+    .admin-login-container {
+        justify-content: flex-start;
+        padding-top: 60px;
+    }
+    
+    .login-header {
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+    }
+    
+    .form-wrapper {
+        gap: 20px;
+    }
+    
+    .login-input {
+        height: 55px;
+    }
+    
+    .login-button {
+        height: 55px;
+        margin-top: 15px;
+    }
+}
+
+/* ضمان أن النص يظهر بوضوح */
+.login-input::placeholder {
+    color: transparent;
+}
+
+/* إصلاح مشاكل التمرير على الأجهزة المحمولة */
+@media (hover: none) and (pointer: coarse) {
+    .login-button:hover {
+        transform: none;
+        background: #052946;
+    }
+    
+    .login-input:focus {
+        transform: scale(1.02);
+    }
+}
+
+/* رسائل الخطأ */
+.error-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #f44336;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    z-index: 10000;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.error-message p {
+    margin: 5px 0 0 0;
+}

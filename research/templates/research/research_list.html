@@ -1,0 +1,462 @@
+<!-- research_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Исследования{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'research/css/research.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="research-page">
+    <!-- تضمين الهيرو والتابات -->
+    {% include 'research/research_hero_tabs.html' %}
+
+    <!-- محتوى التبويبات -->
+    <div class="research-main-content">
+        <!-- تبويب "Исследования" -->
+        <div id="research-content" class="tab-content {% if current_tab == 'research' %}active{% endif %}" {% if current_tab != 'research' %}style="display: none;"{% endif %}>
+            <!-- شريط الفلاتر للأبحاث -->
+            <div class="filters-section">
+                <div class="filters-container">
+                    <!-- فلتر نوع البحث -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.type %}
+                                    {% for key, label in research_types %}
+                                        {% if key == request.GET.type %}{{ label }}{% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    Все исследования
+                                {% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if not request.GET.type %}active{% endif %}" data-filter-type="">
+                                    <span class="option-text">Все исследования</span>
+                                </div>
+                                {% for key, label in research_types %}
+                                    <div class="filter-option {% if request.GET.type == key %}active{% endif %}" data-filter-type="{{ key }}">
+                                        <span class="option-text">{{ label }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فلتر الترتيب -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.sort == 'oldest' %}По возрастанию{% elif request.GET.sort == 'popular' %}Популярное{% else %}Новые{% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if request.GET.sort == 'newest' or not request.GET.sort %}active{% endif %}" data-filter-sort="newest">
+                                    <span class="option-text">Новые</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.sort == 'oldest' %}active{% endif %}" data-filter-sort="oldest">
+                                    <span class="option-text">По возрастанию</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.sort == 'popular' %}active{% endif %}" data-filter-sort="popular">
+                                    <span class="option-text">Популярное</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فلتر الفترة -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.period == 'month' %}За последний месяц{% elif request.GET.period == 'quarter' %}За последний квартал{% elif request.GET.period == 'year' %}За последний год{% else %}Все периоды{% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if not request.GET.period or request.GET.period == 'all' %}active{% endif %}" data-filter-period="all">
+                                    <span class="option-text">Все периоды</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.period == 'month' %}active{% endif %}" data-filter-period="month">
+                                    <span class="option-text">За последний месяц</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.period == 'quarter' %}active{% endif %}" data-filter-period="quarter">
+                                    <span class="option-text">За последний квартал</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.period == 'year' %}active{% endif %}" data-filter-period="year">
+                                    <span class="option-text">За последний год</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شبكة الأبحاث -->
+            <div class="research-grid">
+                <div class="row">
+                    {% for research in research_list %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="research-card-new">
+                            <div class="research-image-new">
+                                <img src="{{ research.image.url }}" alt="{{ research.title }}">
+                                <div class="research-date-new">{{ research.publication_date|date:"m.Y" }}</div>
+                            </div>
+                            <div class="research-content-new">
+                                <h3 class="research-title-new">{{ research.title|truncatewords:10 }}</h3>
+                                <div class="research-separator"></div>
+                                <p class="research-description-new">
+                                    {% if research.short_description %}
+                                        {{ research.short_description|truncatewords:30 }}
+                                    {% else %}
+                                        {{ research.description|truncatewords:30 }}
+                                    {% endif %}
+                                </p>
+                                <div class="research-type-section">
+                                    <span class="type-dot"></span>
+                                    <span class="type-value-new">{{ research.get_research_type_display }}</span>
+                                </div>
+                                <div class="research-action">
+                                    <a href="{% url 'research:research_detail' research.id %}" class="research-read-btn-new">Читать</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-4">
+                        <p class="text-muted">Исследования не найдены</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويب "Конференции" -->
+        <div id="conferences-content" class="tab-content {% if current_tab == 'conferences' %}active{% endif %}" {% if current_tab != 'conferences' %}style="display: none;"{% endif %}>
+            <!-- شريط الفلاتر للمؤتمرات -->
+            <div class="filters-section">
+                <div class="filters-container">
+                    <!-- فلتر نوع المؤتمر -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.conference_type %}
+                                    {% for key, label in conference_types %}
+                                        {% if key == request.GET.conference_type %}{{ label }}{% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    Все конференции
+                                {% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if not request.GET.conference_type %}active{% endif %}" data-filter-conference-type="">
+                                    <span class="option-text">Все конференции</span>
+                                </div>
+                                {% for key, label in conference_types %}
+                                    <div class="filter-option {% if request.GET.conference_type == key %}active{% endif %}" data-filter-conference-type="{{ key }}">
+                                        <span class="option-text">{{ label }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فلتر الترتيب للمؤتمرات -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.conference_sort == 'oldest' %}По возрастанию{% elif request.GET.conference_sort == 'popular' %}Популярное{% else %}Новые{% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if request.GET.conference_sort == 'newest' or not request.GET.conference_sort %}active{% endif %}" data-filter-conference-sort="newest">
+                                    <span class="option-text">Новые</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_sort == 'oldest' %}active{% endif %}" data-filter-conference-sort="oldest">
+                                    <span class="option-text">По возрастанию</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_sort == 'popular' %}active{% endif %}" data-filter-conference-sort="popular">
+                                    <span class="option-text">Популярное</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- فلتر الفترة للمؤتمرات -->
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">
+                                {% if request.GET.conference_period == 'upcoming' %}Предстоящие{% elif request.GET.conference_period == 'past' %}Прошедшие{% elif request.GET.conference_period == 'this_month' %}В этом месяце{% else %}Все периоды{% endif %}
+                            </span>
+                            <div class="filter-arrow">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option {% if not request.GET.conference_period %}active{% endif %}" data-filter-conference-period="">
+                                    <span class="option-text">Все периоды</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_period == 'upcoming' %}active{% endif %}" data-filter-conference-period="upcoming">
+                                    <span class="option-text">Предстоящие</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_period == 'past' %}active{% endif %}" data-filter-conference-period="past">
+                                    <span class="option-text">Прошедшие</span>
+                                </div>
+                                <div class="filter-option {% if request.GET.conference_period == 'this_month' %}active{% endif %}" data-filter-conference-period="this_month">
+                                    <span class="option-text">В этом месяце</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شبكة المؤتمرات -->
+            <div class="research-grid">
+                <div class="row">
+                    {% for conference in conference_list %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="research-card-new conference-card" data-conference-id="{{ conference.id }}">
+                            <div class="research-image-new">
+                                <img src="{{ conference.image.url }}" alt="{{ conference.title }}">
+                                <div class="research-date-new">{{ conference.start_date|date:"d.m.Y" }}</div>
+                            </div>
+                            <div class="research-content-new">
+                                <h3 class="research-title-new">{{ conference.title|truncatewords:10 }}</h3>
+                                <div class="research-separator"></div>
+                                <p class="research-description-new">
+                                    {% if conference.short_description %}
+                                        {{ conference.short_description|truncatewords:30 }}
+                                    {% else %}
+                                        {{ conference.description|truncatewords:30 }}
+                                    {% endif %}
+                                </p>
+                                <div class="research-type-section">
+                                    <span class="type-dot"></span>
+                                    <span class="type-value-new">{{ conference.get_conference_type_display }}</span>
+                                </div>
+                                <div class="research-action">
+                                    <button type="button" class="research-read-btn-new register-conference-btn" data-conference-id="{{ conference.id }}">Зарегистрироваться</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-4">
+                        <p class="text-muted">Конференции не найдены</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% if hero and hero.brochure %}
+            <div class="brochure-download-wrapper">
+                <a href="{{ hero.brochure.url }}" class="brochure-download-btn" download>Скачать брошюру</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- تبويب "Молодежный ученый совет" -->
+        <div id="youth-council-content" class="tab-content {% if current_tab == 'youth-council' %}active{% endif %}" {% if current_tab != 'youth-council' %}style="display: none;"{% endif %}>
+            <!-- قسم الفلترة -->
+            <div class="filters-section">
+                <div class="filters-container">
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">Все отделения</span>
+                            <div class="filter-arrow open">
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option active" data-filter="all">
+                                    <span class="option-text">Все отделения</span>
+                                </div>
+                                {% for department in departments %}
+                                <div class="filter-option" data-filter="department-{{ department.id }}">
+                                    <span class="option-text">{{ department.name }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- محتوى المجلس -->
+            <div class="section-wrapper">
+                {% if youth_council_by_department %}
+                    {% for department, members in youth_council_by_department.items %}
+                        <div id="department-{{ department.id }}" class="department-section mb-5">
+                            <div class="department-title-wrapper mb-4">
+                                <div class="department-title-inner">
+                                    <div class="department-circle"></div>
+                                    <h3 class="department-title">{{ department.name }}</h3>
+                                </div>
+                            </div>
+                            <div class="row g-4">
+                                {% for member in members %}
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="council-card" data-department="{% for dept in member.departments.all %}{{ dept.id }}{% if not forloop.last %},{% endif %}{% endfor %}" data-member-id="{{ member.pk }}">
+                                        <a href="#" class="council-card-link view-youth-council-detail" data-member-id="{{ member.pk }}">
+                                            <div class="council-card-image">
+                                                <img src="{{ member.image.url }}" alt="{{ member.name }}" class="council-img">
+                                                <div class="teacher-card-overlay"></div>
+                                            </div>
+                                            <div class="council-card-content">
+                                                <h4 class="council-card-name">{{ member.name }}</h4>
+                                                <p class="council-card-position">{{ member.position }}</p>
+                                                <div class="view-profile-btn">Посмотреть профиль</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if not forloop.last %}
+                        <div class="department-divider mb-5"></div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <p class="text-muted">Нет членов совета для отображения</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== عنصر مخفي لحالة المصادقة ===== -->
+<input type="hidden" id="userAuthenticated" value="{% if user.is_authenticated %}true{% else %}false{% endif %}">
+
+<!-- ===== مودالات التسجيل للمؤتمرات (لصفحة القائمة) ===== -->
+<div id="conferenceRegistrationModalList" class="registration-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <button class="modal-close-btn">&times;</button>
+        <h2 class="modal-title">Регистрация на конференцию</h2>
+        <form class="registration-form" id="conferenceRegistrationFormList">
+            <input type="hidden" id="modalConferenceIdList" value="">
+            <div class="form-group">
+                <label for="modalFullNameList" class="form-label">ФИО</label>
+                <input type="text" id="modalFullNameList" class="form-input" placeholder="Введите ваше полное имя" required>
+            </div>
+            <div class="form-group">
+                <label for="modalPhoneList" class="form-label">Телефон</label>
+                <input type="tel" id="modalPhoneList" class="form-input" placeholder="Введите ваш телефон" required>
+            </div>
+            <div class="form-group">
+                <label for="modalEmailList" class="form-label">E-mail</label>
+                <input type="email" id="modalEmailList" class="form-input" placeholder="Введите ваш email" required>
+            </div>
+            <div class="agreement-section">
+                <input type="checkbox" id="modalRegistrationAgreeList" class="agreement-checkbox" required>
+                <label for="modalRegistrationAgreeList" class="agreement-label">
+                    Я согласен с условиями пользовательского соглашения и политикой конфиденциальности
+                </label>
+            </div>
+            <button type="submit" class="submit-registration-btn">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+
+<div id="conferenceRegistrationModalGuestList" class="registration-modal guest-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content guest-modal-content">
+        <button class="modal-close-btn">&times;</button>
+        <h2 class="guest-modal-title">Регистрация на конференцию</h2>
+        <div class="guest-message-container">
+            <p class="guest-message">Зарегистрироваться на конференцию можно только после авторизации в личном кабинете</p>
+            <a href="/accounts/login/" class="guest-login-btn">Авторизироваться в личном кабинете</a>
+        </div>
+    </div>
+</div>
+
+<template id="success-message-template-list">
+    <div class="success-modal-overlay">
+        <div class="success-modal-content">
+            <div class="success-icon">✓</div>
+            <h3 class="success-title">Регистрация завершена</h3>
+            <p class="success-message"></p>
+            <button class="success-close-btn">OK</button>
+        </div>
+    </div>
+</template>
+
+<!-- ===== مودال المشاركة للمؤتمرات ===== -->
+<div id="conferenceShareModal" class="share-modal-overlay" style="display: none;">
+    <div class="share-modal">
+        <button class="share-modal-close">&times;</button>
+        <h3 class="share-modal-title">Поделиться</h3>
+        <div class="share-modal-grid">
+            <button class="share-modal-item" data-share="telegram">
+                <span class="share-icon share-icon-tg">📱</span>
+                <span>Telegram</span>
+            </button>
+            <button class="share-modal-item" data-share="vkontakte">
+                <span class="share-icon share-icon-vk">VK</span>
+                <span>VK</span>
+            </button>
+            <button class="share-modal-item" data-share="twitter">
+                <span class="share-icon share-icon-tw">𝕏</span>
+                <span>Twitter</span>
+            </button>
+            <button class="share-modal-item" data-share="copy">
+                <span class="share-icon share-icon-copy">🔗</span>
+                <span>Копировать</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'research/js/research_tabs.js' %}"></script>
+<script src="{% static 'research/js/research_conference_list.js' %}" type="module"></script>
+<script type="module" src="{% static 'research/js/youthCouncilMain.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,47 @@
+# Django
+*.log
+*.pyc
+__pycache__/
+*.sqlite3
+*.db
+*.env
+.env
+.env.local
+.env.*.local
+
+# ملفات الوسائط والستاتيك المجمعة
+/media/
+/staticfiles/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# نظام التشغيل
+.DS_Store
+Thumbs.db
+
+# ملفات بايثون المؤقتة
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# بيئات افتراضية
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ملفات الاختبار
+.coverage
+htmlcov/
+.pytest_cache/
+
+# ملفات التوزيع
+dist/
+build/
+*.egg-info/

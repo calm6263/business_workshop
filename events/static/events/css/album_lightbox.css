@@ -1,0 +1,336 @@
+/* ===== ALBUM GRID (CLASSIC CARD STYLE) ===== */
+.photo-grid-classic {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin: 40px 0 60px;
+}
+
+.photo-card {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    aspect-ratio: 1 / 0.95;  /* slightly taller than square */
+}
+
+.photo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(5,41,70,0.2);
+}
+
+.photo-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.photo-card:hover .photo-card-img {
+    transform: scale(1.05);
+}
+
+.photo-card-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(5,41,70,0.9), transparent);
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    padding: 20px 15px 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.photo-card:hover .photo-card-caption {
+    opacity: 1;
+}
+
+/* ===== LIGHTBOX MODAL ===== */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20000;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-modal.active {
+    display: flex;
+}
+
+.lightbox-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-container {
+    position: relative;
+    width: 95%;
+    max-width: 1400px;
+    height: 90vh;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 2.5rem;        /* حجم مناسب للتوسيط */
+    line-height: 1;           /* منع تباعد الأسطر الإضافي */
+    color: #052946;
+    cursor: pointer;
+    z-index: 20010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
+    transform: translateY(-3px);  /* رفع الزر للأعلى لتحقيق التوازن البصري */
+}
+
+.lightbox-close:hover {
+    background: #7F1726;
+    color: white;
+    transform: scale(1.1);
+}
+
+.lightbox-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-carousel-track-container {
+    width: 100%;
+    height: 85%;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.lightbox-carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.lightbox-carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-carousel-image {
+    max-width: 100%;
+    max-height: 85%;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.lightbox-carousel-caption {
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    max-width: 80%;
+}
+
+.lightbox-carousel-caption h4 {
+    font-family: 'Prata', serif;
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+
+.lightbox-carousel-caption p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 3px solid #052946;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 20015;
+}
+
+.lightbox-nav:hover {
+    background: #052946;
+}
+
+.lightbox-nav .arrow-icon {
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.lightbox-prev {
+    left: -80px;
+}
+.lightbox-prev .arrow-icon {
+    border-width: 10px 16px 10px 0;
+    border-color: transparent #052946 transparent transparent;
+}
+.lightbox-prev:hover .arrow-icon {
+    border-color: transparent white transparent transparent;
+}
+
+.lightbox-next {
+    right: -80px;
+}
+.lightbox-next .arrow-icon {
+    border-width: 10px 0 10px 16px;
+    border-color: transparent transparent transparent #052946;
+}
+.lightbox-next:hover .arrow-icon {
+    border-color: transparent transparent transparent white;
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    background: rgba(5,41,70,0.9);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 40px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    backdrop-filter: blur(3px);
+}
+
+/* ===== ALBUM HEADER STYLES ===== */
+.album-header-row {
+    margin-bottom: 20px;
+}
+
+.album-title-block {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.album-main-title {
+    font-family: 'Prata', serif;
+    font-size: 4rem;
+    font-weight: 400;
+    color: #052946;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.album-main-date {
+    font-family: 'Prata', serif;
+    font-size: 2.2rem;
+    color: #7F1726;
+    margin-bottom: 20px;
+}
+
+.album-main-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    color: #37556A;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .photo-grid-classic {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    .album-main-title { font-size: 3.5rem; }
+    .album-main-date { font-size: 1.8rem; }
+    .lightbox-prev { left: -60px; }
+    .lightbox-next { right: -60px; }
+}
+
+@media (max-width: 992px) {
+    .photo-grid-classic {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    .album-main-title { font-size: 2.8rem; }
+    .album-main-date { font-size: 1.6rem; }
+    .lightbox-prev, .lightbox-next { display: none; }  /* hide arrows on tablet, use swipe */
+}
+
+@media (max-width: 768px) {
+    .photo-grid-classic {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+    .album-main-title { font-size: 2.2rem; }
+    .album-main-date { font-size: 1.4rem; }
+    .photo-card { border-radius: 20px; }
+    .lightbox-container { width: 100%; height: 100%; }
+    .lightbox-close { top: 10px; right: 10px; }
+}
+
+@media (max-width: 576px) {
+    .photo-grid-classic {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .album-main-title { font-size: 1.8rem; }
+    .album-main-date { font-size: 1.2rem; }
+}
+/* تعديل موضع أزرار التنقل */
+.lightbox-prev {
+    left: 20px;       /* بدلاً من -80px */
+    right: auto;
+}
+
+.lightbox-next {
+    right: 20px;      /* بدلاً من -80px */
+    left: auto;
+}
+
+/* تعديل موضع زر الإغلاق */
+.lightbox-close {
+    top: 20px;        /* بدلاً من -40px */
+    right: 20px;      /* بدلاً من -40px */
+}

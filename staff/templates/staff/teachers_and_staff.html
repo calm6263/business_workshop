@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Преподаватели и сотрудники - Бизнес-Мастерская{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/teachers_and_staff.css' %}">
+<link rel="stylesheet" href="{% static 'css/team_member_detail.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<!-- يتم الآن تحميل الملفات الجديدة بدلاً من teachers_and_staff.js -->
+<script type="module" src="{% static 'js/teachers_and_staff/main.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<!-- شاشة التحميل -->
+<div id="loading-overlay" class="loading-overlay">
+    <div class="loading-spinner"></div>
+</div>
+
+<!-- الحاوية الرئيسية -->
+<div id="main-content-container">
+    <!-- عرض القائمة -->
+    <div id="list-view" class="list-view active">
+        <!-- Hero Section مع Breadcrumb و Tabs -->
+        {% if page_hero %}
+        <div class="page-hero-section">
+            <div class="hero-container">
+                <img src="{{ page_hero.image.url }}" 
+                     alt="{{ page_hero.title|default:'Преподаватели и сотрудники' }}" 
+                     class="hero-image">
+                
+                <div class="hero-overlay"></div>
+                
+                <div class="hero-content">
+                    <div class="container">
+                        <!-- Breadcrumb داخل البطل -->
+                        <div class="hero-breadcrumb">
+                            <div class="breadcrumb-content">
+                                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                                <div class="breadcrumb-arrow">
+                                    <div class="arrow-line arrow-top"></div>
+                                    <div class="arrow-line arrow-bottom"></div>
+                                </div>
+                                <span class="breadcrumb-current">Преподаватели и сотрудники</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 text-center">
+                                {% if page_hero.title %}
+                                <h1 class="hero-title mb-3">{{ page_hero.title }}</h1>
+                                {% endif %}
+                                {% if page_hero.subtitle %}
+                                <p class="hero-subtitle mb-0">{{ page_hero.subtitle }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- قسم علامات التبويب داخل الهيرو -->
+                        <div class="hero-tabs-section">
+                            <div class="tabs-wrapper">
+                                <div class="tabs-nav">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-0">
+                                            <button class="tab-button active" data-target="teachers-section">
+                                                <div class="tab-content">
+                                                    <h3 class="tab-title">Преподаватели</h3>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4 mb-0">
+                                            <button class="tab-button" data-target="educational-council-section">
+                                                <div class="tab-content">
+                                                    <h3 class="tab-title">Учебный совет</h3>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class="tab-button" data-target="staff-section">
+                                                <div class="tab-content">
+                                                    <h3 class="tab-title">Сотрудники</h3>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Breadcrumb إذا لم يكن هناك هيرو -->
+        <div class="breadcrumb-section">
+            <div class="container">
+                <div class="breadcrumb-content">
+                    <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                    <div class="breadcrumb-arrow">
+                        <div class="arrow-line arrow-top"></div>
+                        <div class="arrow-line arrow-bottom"></div>
+                    </div>
+                    <span class="breadcrumb-current">Преподаватели и сотрудники</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- قسم علامات التبويب منفصل إذا لم يكن هناك هيرو -->
+        <div class="tabs-section mb-5">
+            <div class="container">
+                <div class="tabs-wrapper">
+                    <div class="tabs-nav">
+                        <div class="row">
+                            <div class="col-md-4 mb-0">
+                                <button class="tab-button active" data-target="teachers-section">
+                                    <div class="tab-content">
+                                        <h3 class="tab-title">Преподаватели</h3>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-0">
+                                <button class="tab-button" data-target="educational-council-section">
+                                    <div class="tab-content">
+                                        <h3 class="tab-title">Учебный совет</h3>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="tab-button" data-target="staff-section">
+                                    <div class="tab-content">
+                                        <h3 class="tab-title">Сотрудники</h3>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- قسم الفلاتر -->
+        <div class="filters-section">
+            <div class="container">
+                <div class="filters-container">
+                    <div class="main-filter">
+                        <div class="filter-trigger">
+                            <span class="filter-label">Все отделения</span>
+                            <div class="filter-arrow open"> <!-- أضفنا class open للتأكد من الاتجاه الأولي -->
+                                <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        
+                        <div class="filter-dropdown">
+                            <div class="filter-options">
+                                <div class="filter-option active" data-filter="all">
+                                    <span class="option-text">Все отделения</span>
+                                </div>
+                                {% for department in departments %}
+                                <div class="filter-option" data-filter="department-{{ department.id }}">
+                                    <span class="option-text">{{ department.name }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- محتوى علامات التبويب -->
+        <div class="tabs-content">
+            <!-- قسم المعلمين -->
+            <div id="teachers-section" class="tab-pane active">
+                <div class="section-wrapper">
+                    {% if teachers_by_department %}
+                        {% for department, department_teachers in teachers_by_department.items %}
+                            <div id="department-{{ department.id }}" class="department-section mb-5">
+                                <div class="department-title-wrapper mb-4">
+                                    <div class="department-title-inner">
+                                        <div class="department-circle"></div>
+                                        <h3 class="department-title">{{ department.name }}</h3>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-4">
+                                    {% for teacher in department_teachers %}
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="teacher-card" data-department="{% for dept in teacher.departments.all %}{{ dept.id }}{% if not forloop.last %},{% endif %}{% endfor %}" data-member-id="{{ teacher.pk }}">
+                                            <a href="#" class="teacher-card-link view-member-detail" data-member-id="{{ teacher.pk }}">
+                                                <div class="teacher-card-image">
+                                                    <img src="{{ teacher.image.url }}" alt="{{ teacher.name }}" class="teacher-img">
+                                                    <div class="teacher-card-overlay"></div>
+                                                </div>
+                                                <div class="teacher-card-content">
+                                                    <h4 class="teacher-card-name">{{ teacher.name }}</h4>
+                                                    <p class="teacher-card-position">{{ teacher.position }}</p>
+                                                    <div class="view-profile-btn">Посмотреть профиль</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            {% if not forloop.last %}
+                            <div class="department-divider mb-5"></div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-5">
+                            <p class="text-muted">Нет преподавателей для отображения</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- قسم المجلس التعليمي -->
+            <div id="educational-council-section" class="tab-pane">
+                <div class="section-wrapper">
+                    {% if council_by_department %}
+                        {% for department, council_members in council_by_department.items %}
+                            <div id="department-{{ department.id }}" class="department-section mb-5">
+                                <div class="department-title-wrapper mb-4">
+                                    <div class="department-title-inner">
+                                        <div class="department-circle"></div>
+                                        <h3 class="department-title">{{ department.name }}</h3>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-4">
+                                    {% for member in council_members %}
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="council-card" data-department="{% for dept in member.departments.all %}{{ dept.id }}{% if not forloop.last %},{% endif %}{% endfor %}" data-member-id="{{ member.pk }}">
+                                            <a href="#" class="council-card-link view-member-detail" data-member-id="{{ member.pk }}">
+                                                <div class="council-card-image">
+                                                    <img src="{{ member.image.url }}" alt="{{ member.name }}" class="council-img">
+                                                    <div class="teacher-card-overlay"></div>
+                                                </div>
+                                                <div class="council-card-content">
+                                                    <h4 class="council-card-name">{{ member.name }}</h4>
+                                                    <p class="council-card-position">{{ member.position }}</p>
+                                                    <div class="view-profile-btn">Посмотреть профиль</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            {% if not forloop.last %}
+                            <div class="department-divider mb-5"></div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-5">
+                            <p class="text-muted">Нет членов учебного совета для отображения</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- قسم الموظفين -->
+            <div id="staff-section" class="tab-pane">
+                <div class="section-wrapper">
+                    {% if staff_by_department %}
+                        {% for department, staff_members in staff_by_department.items %}
+                            <div id="department-{{ department.id }}" class="department-section mb-5">
+                                <div class="department-title-wrapper mb-4">
+                                    <div class="department-title-inner">
+                                        <div class="department-circle"></div>
+                                        <h3 class="department-title">{{ department.name }}</h3>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-4">
+                                    {% for member in staff_members %}
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="staff-card" data-department="{% for dept in member.departments.all %}{{ dept.id }}{% if not forloop.last %},{% endif %}{% endfor %}" data-member-id="{{ member.pk }}">
+                                            <a href="#" class="staff-card-link view-member-detail" data-member-id="{{ member.pk }}">
+                                                <div class="staff-card-image">
+                                                    <img src="{{ member.image.url }}" alt="{{ member.name }}" class="staff-img">
+                                                    <div class="teacher-card-overlay"></div>
+                                                </div>
+                                                <div class="staff-card-content">
+                                                    <h4 class="staff-card-name">{{ member.name }}</h4>
+                                                    <p class="staff-card-position">{{ member.position }}</p>
+                                                    <div class="view-profile-btn">Посмотреть профиль</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            {% if not forloop.last %}
+                            <div class="department-divider mb-5"></div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-5">
+                            <p class="text-muted">Нет сотрудников для отображения</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

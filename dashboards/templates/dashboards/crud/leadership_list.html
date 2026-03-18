@@ -1,0 +1,56 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Речь руководителя</h2>
+    <a href="{% url 'dashboards:leaderspeech_add' %}" class="btn-add">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        Добавить запись
+    </a>
+</div>
+
+<table class="dashboard-table crud-table">
+    <thead>
+        <tr>
+            <th>Заголовок</th>
+            <th>Порядок</th>
+            <th>Активно</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.order }}</td>
+            <td>{% if item.is_active %}✅{% else %}❌{% endif %}</td>
+            <td class="crud-actions">
+                <a href="{% url 'dashboards:leaderspeech_edit' item.pk %}" class="btn-action btn-edit" title="Редактировать">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                    </svg>
+                </a>
+                <a href="{% url 'dashboards:leaderspeechvideo_list' %}?leader={{ item.pk }}" class="btn-action" title="Управление видео" style="background: #27ae60; color: white;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="2.5" />
+                        <path d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7z" />
+                    </svg>
+                    <span style="margin-left: 4px;">Видео</span>
+                </a>
+                <a href="{% url 'dashboards:leaderspeech_delete' item.pk %}" class="btn-action btn-delete" title="Удалить" onclick="return confirm('Вы уверены?')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0h10" />
+                    </svg>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="text-center">Нет записей</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

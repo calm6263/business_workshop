@@ -1,0 +1,442 @@
+/* تصميم الكوركينج المخصص */
+.coworking-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-coworking {
+    background: var(--primary-color);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.space-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 50px 0;
+}
+
+.pricing-table {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin: 30px 0;
+}
+
+/* أنماط القسم الجديد في الصفحة الرئيسية - معدلة ومصغرة */
+.features-section {
+    padding: 60px 20px;
+    background: #f8f9fa;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto 50px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.feature-icon {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #113E2C;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.feature-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: white;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.feature-text {
+    flex: 1;
+}
+
+.feature-text h3 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #113E2C;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.actions-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #113E2C;
+    border-radius: 12px;
+    padding: 25px 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-height: 80px;
+}
+
+.action-button:hover {
+    background: #0d2e21;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.action-button span {
+    font-family: 'Raleway', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* أنماط قسم التعريفات */
+.tariffs-section {
+    padding: 80px 20px;
+    background: #f8f9fa;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.tariffs-title {
+    font-family: 'Prata', serif;
+    font-size: 60px;
+    font-weight: 400;
+    color: #113E2C;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.tariffs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.tariff-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tariff-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.tariff-header {
+    position: relative;
+}
+
+.tariff-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.tariff-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tariff-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #113E2C, #1a5a42);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+}
+
+.tariff-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(5, 41, 70, 0.9);
+    color: white;
+    padding: 20px;
+    margin: 0;
+    font-family: 'Prata', serif;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.tariff-divider {
+    height: 2px;
+    background: rgba(5, 41, 70, 0.3);
+    margin: 0 30px;
+}
+
+.tariff-features {
+    padding: 30px;
+}
+
+.tariff-features .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.tariff-features .feature-icon {
+    width: 40px;
+    height: 40px;
+    background: #113E2C;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tariff-features .feature-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: white;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.tariff-features .feature-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    color: #052946;
+    font-weight: 500;
+}
+
+.tariff-price {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #052946;
+    padding: 20px 30px;
+    border-top: 1px solid rgba(5, 41, 70, 0.1);
+    border-bottom: 1px solid rgba(5, 41, 70, 0.1);
+}
+
+.tariff-description {
+    padding: 30px;
+    text-align: center;
+}
+
+.tariff-description p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #052946;
+    margin: 0;
+}
+
+.tariff-button {
+    display: block;
+    background: #113E2C;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.tariff-button:hover {
+    background: #0d2e21;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 768px) {
+    .space-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-coworking {
+        padding: 50px 0;
+    }
+    
+    /* التصميم المتجاوب للقسم الجديد */
+    .features-section {
+        padding: 50px 20px;
+    }
+    
+    .feature-item {
+        flex-direction: row;
+        text-align: left;
+        gap: 15px;
+    }
+    
+    .feature-icon {
+        width: 45px;
+        height: 45px;
+        padding: 10px;
+    }
+    
+    .feature-text h3 {
+        font-size: 15px;
+    }
+    
+    .action-button {
+        padding: 18px 12px;
+        min-height: 65px;
+    }
+    
+    .action-button span {
+        font-size: 16px;
+    }
+    
+    /* التصميم المتجاوب للتعريفات */
+    .tariffs-section {
+        padding: 60px 20px;
+    }
+    
+    .tariffs-title {
+        font-size: 48px;
+        margin-bottom: 40px;
+    }
+    
+    .tariffs-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .tariff-name {
+        font-size: 24px;
+        padding: 15px;
+    }
+    
+    .tariff-features {
+        padding: 20px;
+    }
+    
+    .tariff-price {
+        font-size: 20px;
+        padding: 15px 20px;
+    }
+    
+    .tariff-description {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .features-section {
+        padding: 40px 15px;
+    }
+    
+    .features-grid {
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+    
+    .feature-item {
+        gap: 12px;
+    }
+    
+    .feature-icon {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        border-radius: 10px;
+    }
+    
+    .feature-text h3 {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+    
+    .action-button {
+        padding: 15px 10px;
+        min-height: 60px;
+        border-radius: 10px;
+    }
+    
+    .action-button span {
+        font-size: 14px;
+    }
+    
+    /* التصميم المتجاوب للتعريفات */
+    .tariffs-section {
+        padding: 40px 15px;
+    }
+    
+    .tariffs-title {
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+    
+    .tariff-image {
+        height: 200px;
+    }
+    
+    .tariff-name {
+        font-size: 20px;
+    }
+    
+    .tariff-features .feature-item {
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .tariff-features .feature-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .tariff-features .feature-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .tariff-features .feature-text {
+        font-size: 14px;
+    }
+    
+    .tariff-price {
+        font-size: 18px;
+    }
+    
+    .tariff-button {
+        padding: 15px;
+        font-size: 16px;
+    }
+}

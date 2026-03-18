@@ -1,0 +1,138 @@
+{% load static %}
+
+<div class="news-hero-fullwidth">
+    <div class="hero-background-container">
+        {% if hero_section and hero_section.image %}
+            <img src="{{ hero_section.image.url }}" alt="{{ hero_section.title }}" class="hero-background-image" id="hero-image-element">
+        {% else %}
+            <div class="hero-placeholder" id="hero-placeholder"></div>
+        {% endif %}
+    </div>
+
+    <!-- Hero Breadcrumb -->
+    <div class="hero-breadcrumb schedule-slider-breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+            <div class="breadcrumb-arrow">
+                <div class="arrow-line arrow-top"></div>
+                <div class="arrow-line arrow-bottom"></div>
+            </div>
+            <span class="breadcrumb-current">СМИ</span>
+        </div>
+    </div>
+
+    {% if hero_section.title %}
+    <div class="hero-content-wrapper">
+        <div class="hero-text-container">
+            <h1 class="hero-title">{{ hero_section.title }}</h1>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Navigation Tabs -->
+    <div class="hero-navigation-tabs">
+        <div class="nav-tab-container">
+            <a href="{% url 'news:news_list' %}?tab=news" class="nav-tab-hero {% if current_tab == 'news' %}active{% endif %}" data-section="news" data-tab="news">
+                <div class="nav-tab-background">
+                    <div class="nav-tab-content">
+                        <span class="nav-tab-text">Новости</span>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'news:news_list' %}?tab=journal" class="nav-tab-hero {% if current_tab == 'journal' %}active{% endif %}" data-section="journal" data-tab="journal">
+                <div class="nav-tab-background">
+                    <div class="nav-tab-content">
+                        <span class="nav-tab-text">Журнал FTA</span>
+                    </div>
+                </div>
+            </a>
+            <a href="{% url 'news:news_list' %}?tab=press" class="nav-tab-hero {% if current_tab == 'press' %}active{% endif %}" data-section="press" data-tab="press">
+                <div class="nav-tab-background">
+                    <div class="nav-tab-content">
+                        <span class="nav-tab-text">Пресс-центр</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // تمرير رابط صورة hero الخاصة بالصحافة من Django إلى JavaScript بأمان
+        var pressHeroImageUrl = "{{ press_hero_image_url|escapejs|default:'' }}";
+        var journalHeroImageUrl = "{{ journal_hero_image_url|escapejs|default:'' }}";
+        var defaultHeroImageUrl = "{% if hero_section and hero_section.image %}{{ hero_section.image.url|escapejs }}{% endif %}";
+
+        function changeHeroImage(tab) {
+            var heroImg = document.getElementById('hero-image-element');
+            var placeholder = document.getElementById('hero-placeholder');
+            var container = document.querySelector('.hero-background-container');
+
+            if (!container) return;
+
+            if (tab === 'press' && pressHeroImageUrl) {
+                // استبدال الصورة بصورة الصحافة
+                if (heroImg) {
+                    heroImg.src = pressHeroImageUrl;
+                    heroImg.style.display = 'block';
+                    if (placeholder) placeholder.style.display = 'none';
+                } else {
+                    // إذا لم تكن هناك صورة أساسية، وأنشئ عنصر img جديد
+                    container.innerHTML = ''; // امسح المحتوى
+                    var newImg = document.createElement('img');
+                    newImg.src = pressHeroImageUrl;
+                    newImg.alt = 'Пресс-центр';
+                    newImg.className = 'hero-background-image';
+                    newImg.id = 'hero-image-element';
+                    container.appendChild(newImg);
+                }
+            } else if (tab === 'journal' && journalHeroImageUrl) {
+                // استبدال الصورة بصورة المجلة
+                if (heroImg) {
+                    heroImg.src = journalHeroImageUrl;
+                    heroImg.style.display = 'block';
+                    if (placeholder) placeholder.style.display = 'none';
+                } else {
+                    container.innerHTML = '';
+                    var newImg = document.createElement('img');
+                    newImg.src = journalHeroImageUrl;
+                    newImg.alt = 'Журнал FTA';
+                    newImg.className = 'hero-background-image';
+                    newImg.id = 'hero-image-element';
+                    container.appendChild(newImg);
+                }
+            } else {
+                // العودة إلى الصورة الافتراضية
+                if (defaultHeroImageUrl) {
+                    if (heroImg) {
+                        heroImg.src = defaultHeroImageUrl;
+                        heroImg.style.display = 'block';
+                        if (placeholder) placeholder.style.display = 'none';
+                    } else {
+                        container.innerHTML = ''; // امسح
+                        var newImg = document.createElement('img');
+                        newImg.src = defaultHeroImageUrl;
+                        newImg.alt = 'Hero';
+                        newImg.className = 'hero-background-image';
+                        newImg.id = 'hero-image-element';
+                        container.appendChild(newImg);
+                    }
+                } else {
+                    // إذا لم تكن هناك صورة افتراضية، اعرض placeholder
+                    if (heroImg) heroImg.style.display = 'none';
+                    if (placeholder) placeholder.style.display = 'block';
+                }
+            }
+        }
+
+        // تحديد التبويب الحالي من الرابط
+        var urlParams = new URLSearchParams(window.location.search);
+        var currentTab = urlParams.get('tab') || 'news';
+        changeHeroImage(currentTab);
+
+        // إضافة مستمعات للنقر على التبويبات (اختياري: لتغيير الصورة قبل تحميل الصفحة)
+        // لكن بما أن التبويبات عبارة عن روابط تؤدي إلى إعادة تحميل الصفحة،
+        // فالتغيير سيحدث بعد التحميل. لذلك الكود أعلاه كافٍ.
+    })();
+</script>

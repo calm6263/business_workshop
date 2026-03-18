@@ -1,0 +1,17 @@
+# Бизнес-Мастерская Академия - Портал сотрудника
+
+## 🚀 إعدادات التطوير
+
+### المتطلبات الأساسية
+```bash
+# إنشاء بيئة افتراضية
+python -m venv venv
+
+# تفعيل البيئة (Linux/Mac)
+source venv/bin/activate
+
+# تفعيل البيئة (Windows)
+venv\Scripts\activate
+
+# تثبيت المتطلبات
+pip install -r requirements-dev.txt

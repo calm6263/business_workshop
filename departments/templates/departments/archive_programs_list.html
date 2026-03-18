@@ -1,0 +1,414 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Архив программ - Бизнес-Мастерская{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/archive_programs_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+{% if hero_image %}
+<div class="hero-section" style="margin-top: 0; padding-top: 0;">
+    <div class="hero-image">
+        <img src="{{ hero_image.image.url }}" alt="{{ hero_image.title }}" class="hero-img">
+        <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+        <div class="container">
+            <div class="hero-breadcrumb">
+                <div class="breadcrumb-content">
+                    <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                    <div class="breadcrumb-arrow">
+                        <div class="arrow-line arrow-top"></div>
+                        <div class="arrow-line arrow-bottom"></div>
+                    </div>
+                    <a href="{% url 'departments:departments_list' %}" class="breadcrumb-link">Отделения академии</a>
+                    <div class="breadcrumb-arrow">
+                        <div class="arrow-line arrow-top"></div>
+                        <div class="arrow-line arrow-bottom"></div>
+                    </div>
+                    <span class="breadcrumb-current">Архив программ</span>
+                </div>
+            </div>
+            
+            {% if hero_image.subtitle %}
+            <div class="hero-subtitle">{{ hero_image.subtitle }}</div>
+            {% endif %}
+            
+            {% if hero_image.title %}
+            <h1 class="hero-title">{{ hero_image.title }}</h1>
+            {% endif %}
+            
+            {% if hero_image.description %}
+            <p class="hero-description">{{ hero_image.description }}</p>
+            {% endif %}
+            
+            {% if hero_image.link and hero_image.link_text %}
+            <a href="{{ hero_image.link }}" class="hero-btn">
+                {{ hero_image.link_text }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="breadcrumb-section">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+            <div class="breadcrumb-arrow">
+                <div class="arrow-line arrow-top"></div>
+                <div class="arrow-line arrow-bottom"></div>
+            </div>
+            <a href="{% url 'departments:departments_list' %}" class="breadcrumb-link">Отделения академии</a>
+            <div class="breadcrumb-arrow">
+                <div class="arrow-line arrow-top"></div>
+                <div class="arrow-line arrow-bottom"></div>
+            </div>
+            <span class="breadcrumb-current">Архив программ</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Search Rectangle -->
+<div class="search-rectangle-section">
+    <div class="container">
+        <div class="search-rectangle-wrapper">
+            <div class="search-rectangle">
+                <input type="text" 
+                       class="search-rectangle-input" 
+                       placeholder="Поиск отделений с архивными программами..." 
+                       id="archiveSearch">
+            </div>
+            <button class="search-rectangle-btn" id="archiveSearchBtn">
+                <svg width="40" height="40" viewBox="0 0 111 109" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M49.052 1.09342e-07C41.2295 0.000658788 33.5206 1.85024 26.5684 5.39443C19.6163 8.93862 13.6224 14.0747 9.08701 20.374C4.55158 26.6734 1.60608 33.9534 0.496248 41.6067C-0.613585 49.26 0.144434 57.0647 2.70706 64.3696C5.2697 71.6745 9.56263 78.2677 15.2277 83.5993C20.8928 88.9308 27.7657 92.8461 35.2731 95.0184C42.7804 97.1907 50.7046 97.557 58.3843 96.0868C66.0641 94.6167 73.2768 91.3526 79.4206 86.567L100.497 107.399C101.586 108.438 103.044 109.013 104.557 109C106.07 108.987 107.518 108.387 108.588 107.329C109.658 106.272 110.265 104.841 110.278 103.345C110.291 101.85 109.709 100.409 108.658 99.333L87.5813 78.5013C93.2833 71.3517 96.8336 62.76 97.8259 53.7092C98.8182 44.6585 97.2124 33.5145 93.1923 27.3237C89.1721 19.1329 82.9001 12.2261 75.0939 7.39397C67.2877 2.5618 58.2628 -0.000611168 49.052 1.09342e-07ZM11.5385 48.4857C11.5385 38.6522 15.4908 29.2215 22.5259 22.2681C29.5611 15.3148 39.1028 11.4084 49.052 11.4084C59.0012 11.4084 68.5429 15.3148 75.5781 22.2681C82.6132 29.2215 86.5655 38.6522 86.5655 48.4857C86.5655 58.3193 82.6132 67.75 75.5781 74.7034C68.5429 81.6567 59.0012 85.5631 49.052 85.5631C39.1028 85.5631 29.5611 81.6567 22.5259 74.7034C15.4908 67.75 11.5385 58.3193 11.5385 48.4857Z" fill="#7F1726"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Scrollable Calendar Bar -->
+<div class="calendar-nav">
+    <div class="container">
+        <div class="calendar-controls">
+            <button class="calendar-nav-btn prev-btn">
+                <svg class="calendar-arrow-icon arrow-left" width="24" height="24" viewBox="0 0 56 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(0.725274 -0.68846 0.439823 0.898085 2.25 103.971)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(0.725274 0.68846 0.439823 -0.898085 2.25 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="calendar-dates-wrapper">
+                <div class="calendar-dates" id="calendarDates"></div>
+            </div>
+            <button class="calendar-nav-btn next-btn">
+                <svg class="calendar-arrow-icon arrow-right" width="24" height="24" viewBox="0 0 56 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(-0.725274 -0.68846 -0.439823 0.898085 53.75 103.971)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(-0.725274 0.68846 -0.439823 -0.898085 53.75 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Grid - Three columns -->
+<div class="schedule-filter departments-filter">
+    <div class="container">
+        <div class="filter-grid departments-filter-grid">
+            <!-- Program Type Filter -->
+            <div class="filter-group">
+                <div class="filter-item custom-dropdown">
+                    <div class="filter-input custom-dropdown-toggle" id="programTypeFilter" aria-expanded="false" aria-controls="programTypeDropdown">
+                        <span class="filter-text">Все программы</span>
+                        <div class="filter-arrow">
+                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="custom-dropdown-menu filter-dropdown" id="programTypeDropdown" aria-labelledby="programTypeFilter">
+                        <div class="dropdown-content">
+                            <div class="dropdown-item-custom" data-value="all">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox checked"></div>
+                                    <span>Все программы</span>
+                                </div>
+                            </div>
+                            {% for program_type in program_types %}
+                            <div class="dropdown-item-custom" data-value="{{ program_type.0 }}">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox"></div>
+                                    <span>{{ program_type.1 }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Format Filter -->
+            <div class="filter-group">
+                <div class="filter-item custom-dropdown">
+                    <div class="filter-input custom-dropdown-toggle" id="formatFilter" aria-expanded="false" aria-controls="formatDropdown">
+                        <span class="filter-text">Все форматы</span>
+                        <div class="filter-arrow">
+                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="custom-dropdown-menu filter-dropdown" id="formatDropdown" aria-labelledby="formatFilter">
+                        <div class="dropdown-content">
+                            <div class="dropdown-item-custom" data-value="all">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox checked"></div>
+                                    <span>Все форматы</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item-custom" data-value="offline">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox"></div>
+                                    <span>Очно</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item-custom" data-value="blended">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox"></div>
+                                    <span>Очно-заочно</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item-custom" data-value="correspondence">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox"></div>
+                                    <span>Заочно</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item-custom" data-value="online">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox"></div>
+                                    <span>Онлайн</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Month/Year Filter -->
+            <div class="filter-group">
+                <div class="filter-item custom-dropdown">
+                    <div class="filter-input custom-dropdown-toggle" id="monthYearFilter" aria-expanded="false" aria-controls="monthYearDropdown">
+                        <span class="filter-text">Все месяцы</span>
+                        <div class="filter-arrow">
+                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1.5L6 6.5L11 1.5" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="custom-dropdown-menu filter-dropdown" id="monthYearDropdown" aria-labelledby="monthYearFilter">
+                        <div class="dropdown-content">
+                            <div class="dropdown-item-custom" data-value="all">
+                                <div class="checkbox-item">
+                                    <div class="custom-checkbox checked"></div>
+                                    <span>Все месяцы</span>
+                                </div>
+                            </div>
+                            {% for year in available_years %}
+                                {% for month_num, month_name in months %}
+                                <div class="dropdown-item-custom" data-value="{{ year }}-{{ month_num }}">
+                                    <div class="checkbox-item">
+                                        <div class="custom-checkbox"></div>
+                                        <span>{{ month_name }}, {{ year }}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Counter -->
+        <div class="results-count" id="resultsCount">
+            Найдено отделений: <span id="departmentsCount">{{ total_departments_count }}</span>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden JSON data for filters -->
+<script id="programTypesJson" type="application/json">
+    {{ program_types_json|safe }}
+</script>
+<script id="filterMapsJson" type="application/json">
+    {{ filter_maps_json|safe }}
+</script>
+
+<!-- Page Title (تحت الفلاتر وفوق البطاقات) -->
+<div class="archive-page-title">
+    <div class="container">
+        <h1 class="archive-main-title">Архивные программы</h1>
+    </div>
+</div>
+
+<!-- بطاقات الأقسام الأرشيفية -->
+<div class="archive-programs-page" style="margin-top: 0; padding-top: 0;">
+    <div class="archive-programs-container py-3">
+        <div class="container">
+            <div class="row" id="archiveDepartmentsList">
+                {% for department in departments %}
+                    {% if forloop.last %}
+                        <div class="col-12 mb-3 department-card-wrapper"
+                             data-department-id="{{ department.id }}">
+                            <div class="department-card large-card" onclick="location.href='{% url 'departments:department_detail' department.pk %}?archive=1'">
+                                <div class="department-image">
+                                    <img src="{{ department.image.url }}" alt="{{ department.name }}" class="img-fluid">
+                                    <div class="department-title-top">
+                                        <h3>{{ department.name }}</h3>
+                                    </div>
+                                    <div class="programs-count-bottom">
+                                        {{ department.archived_programs_count }} программ
+                                    </div>
+                                    <div class="arrow-bottom-right">
+                                        <div class="arrow-icon">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-xl-6 col-lg-6 col-md-6 mb-3 department-card-wrapper"
+                             data-department-id="{{ department.id }}">
+                            <div class="department-card" onclick="location.href='{% url 'departments:department_detail' department.pk %}?archive=1'">
+                                <div class="department-image">
+                                    <img src="{{ department.image.url }}" alt="{{ department.name }}" class="img-fluid">
+                                    <div class="department-title-top">
+                                        <h3>{{ department.name }}</h3>
+                                    </div>
+                                    <div class="programs-count-bottom">
+                                        {{ department.archived_programs_count }} программ
+                                    </div>
+                                    <div class="arrow-bottom-right">
+                                        <div class="arrow-icon">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% empty %}
+                    <div class="col-12">
+                        <div class="no-programs">
+                            <i class="fas fa-archive"></i>
+                            <p>Нет отделений с архивными программами.</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== КАРУСЕЛЬ "Интересные программы" ===== -->
+{% if interesting_programs %}
+<div class="archive-carousel-section">
+    <div class="container">
+        <h2 class="archive-carousel-title">Интересные программы</h2>
+        <div class="carousel-container">
+            <!-- Стрелки -->
+            <button class="carousel-arrow carousel-prev" aria-label="Предыдущий" id="interestingPrev">
+                <svg width="24" height="24" viewBox="0 0 56 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(-0.725274 -0.68846 -0.439823 0.898085 53.75 103.971)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(-0.725274 0.68846 -0.439823 -0.898085 53.75 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="carousel-track" id="interestingCarousel">
+                {% for program in interesting_programs %}
+                <div class="carousel-slide">
+                    <a href="{% url 'schedule:program_detail' program.slug %}" class="program-card-link">
+                        <div class="program-card-new program-card-archive"
+                             data-program-type="{{ program.program_type }}"
+                             data-format="{{ program.format }}"
+                             data-date="{{ program.start_date|date:'Y-m-d' }}"
+                             data-title="{{ program.title|lower }}"
+                             data-description="{{ program.detailed_description|striptags|lower }}">
+                            <div class="program-image-section-new">
+                                {% if program.image %}
+                                    <img src="{{ program.image.url }}" alt="{{ program.title }}" class="program-image-new">
+                                {% else %}
+                                    <div class="program-image-placeholder-new">
+                                        <span>Картинка</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="program-content-new">
+                                <h3 class="program-title-new">{{ program.title }}</h3>
+                                <div class="program-divider"></div>
+                                <div class="program-details-new">
+                                    <div class="detail-row">
+                                        <span class="detail-label">Стоимость:</span>
+                                        <span class="detail-value">
+                                            {% if program.cost %}
+                                                {{ program.cost }} р
+                                            {% else %}
+                                                Уточняйте
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Начало обучения:</span>
+                                        <span class="detail-value">
+                                            {{ program.start_date|date:"j F" }}
+                                        </span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-label">Длительность:</span>
+                                        <span class="detail-value">
+                                            {% if program.duration %}
+                                                {{ program.duration }}
+                                            {% else %}
+                                                {{ program.duration_hours }} часов
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <div class="detail-row">
+                                        <span class="detail-value status-{{ program.enrollment_status }}">
+                                            <span class="status-indicator"></span>
+                                            {% if program.enrollment_status == 'postponed' and program.postponed_date %}
+                                                Перенесен на {{ program.postponed_date|date:"d.m.Y" }}
+                                            {% else %}
+                                                {{ program.get_enrollment_status_display }}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-arrow carousel-next" aria-label="Следующий" id="interestingNext">
+                <svg width="24" height="24" viewBox="0 0 56 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(0.725274 -0.68846 0.439823 0.898085 2.25 103.971)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                    <line x1="4" y1="-4" x2="69.0758" y2="-4" transform="matrix(0.725274 0.68846 0.439823 -0.898085 2.25 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="carousel-dots" id="interestingCarouselDots"></div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/archive_programs_list.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Патенты{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'patents/css/patents.css' %}">
+
+<div class="patents-page">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="/" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <a href="/science/" class="breadcrumb-link">Наука</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Патенты</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Заголовок -->
+    <h1 class="patents-title">ПАТЕНТЫ</h1>
+
+    <!-- الخط العلوي (يمتد بعرض الصفحة بالكامل) -->
+    <div class="divider"></div>
+
+    <!-- حاوية الكاروسيل والأسهم -->
+    <div class="carousel-wrapper">
+        <div id="patentsCarousel" class="carousel slide patents-carousel" data-bs-ride="carousel">
+            <!-- Indicators -->
+            <div class="carousel-indicators">
+                {% for image in patent_images %}
+                    <button type="button" data-bs-target="#patentsCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+                {% endfor %}
+            </div>
+
+            <!-- Images -->
+            <div class="carousel-inner">
+                {% for image in patent_images %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}" data-caption="{{ image.caption|default:'' }}">
+                    <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ image.title }}">
+                    {% if image.title %}
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ image.title }}</h5>
+                    </div>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <div class="carousel-item active" data-caption="Нет изображений">
+                    <img src="https://via.placeholder.com/780x1040?text=No+Images+Uploaded" class="d-block w-100" alt="Нет изображений">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- السهم الأيسر -->
+        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#patentsCarousel" data-bs-slide="prev">
+            <svg width="60" height="112" viewBox="0 0 134 249" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="-4" x2="176.308" y2="-4" transform="matrix(-0.729107 0.6844 -0.443801 -0.896126 131.464 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                <line x1="4" y1="-4" x2="176.308" y2="-4" transform="matrix(-0.729107 -0.6844 -0.443801 0.896126 131.464 248.604)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <span class="visually-hidden">Предыдущий</span>
+        </button>
+
+        <!-- السهم الأيمن -->
+        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#patentsCarousel" data-bs-slide="next">
+            <svg width="60" height="112" viewBox="0 0 134 249" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="4" y1="-4" x2="176.308" y2="-4" transform="matrix(-0.729107 0.6844 -0.443801 -0.896126 131.464 0)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+                <line x1="4" y1="-4" x2="176.308" y2="-4" transform="matrix(-0.729107 -0.6844 -0.443801 0.896126 131.464 248.604)" stroke="#052946" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <span class="visually-hidden">Следующий</span>
+        </button>
+    </div> <!-- نهاية carousel-wrapper -->
+
+    <!-- الخط السفلي (خارج carousel-wrapper، بعرض الصورة) -->
+    <div class="carousel-divider"></div>
+
+    <!-- ===== المسافة البيضاء + النص الديناميكي ===== -->
+    <div class="caption-container">
+        <div class="patent-caption" id="patentCaption">
+            {% if patent_images.0.caption %}
+                {{ patent_images.0.caption }}
+            {% else %}
+                Патент на изобретение
+            {% endif %}
+        </div>
+    </div>
+
+</div> <!-- نهاية patents-page -->
+
+<script src="{% static 'patents/js/patents.js' %}"></script>
+{% endblock %}

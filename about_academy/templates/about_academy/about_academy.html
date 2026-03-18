@@ -1,0 +1,311 @@
+<!-- about_academy/about_academy.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Об академии  {% endblock %}
+
+{% block content %}
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'about_academy/css/about_academy.css' %}">
+<link rel="stylesheet" href="{% static 'about_academy/css/about_academy_animations.css' %}">
+<link rel="stylesheet" href="{% static 'css/team_member_detail.css' %}">   {# تم إضافة هذا السطر #}
+<div class="about-academy-page">
+    <!-- Hero Section - Full Width With Navigation Tabs -->
+    <div class="academy-hero-fullwidth">
+        <div class="hero-background-container">
+            {% if main_slider %}
+                <img src="{{ main_slider.0.image.url }}" alt="{{ main_slider.0.title }}" class="hero-background-image">
+            {% else %}
+                <div class="hero-placeholder"></div>
+            {% endif %}
+        </div>
+        
+        <!-- Hero Breadcrumb -->
+        <div class="hero-breadcrumb schedule-slider-breadcrumb">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Об академии</span>
+            </div>
+        </div>
+        
+        <div class="hero-content-wrapper">
+            <div class="hero-text-container">
+                {% if main_slider and main_slider.0.title %}
+                    <h1 class="hero-title">{{ main_slider.0.title }}</h1>
+                {% else %}
+                    <h1 class="hero-title">Бизнес-Мастерская Академия</h1>
+                {% endif %}
+                
+                {% if main_slider and main_slider.0.description %}
+                    <p class="hero-description">{{ main_slider.0.description }}</p>
+                {% else %}
+                    <p class="hero-description">Лидер в области бизнес-образования и профессионального развития</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Navigation Tabs -->
+        <div class="hero-navigation-tabs">
+            <div class="nav-tab-container">
+                <a href="#about" class="nav-tab-hero active" data-section="about">
+                    <div class="nav-tab-background">
+                        <div class="nav-tab-content">
+                            <span class="nav-tab-text">Об академии</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="#leadership" class="nav-tab-hero" data-section="leadership">
+                    <div class="nav-tab-background">
+                        <div class="nav-tab-content">
+                            <span class="nav-tab-text">Руководство</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="#team" class="nav-tab-hero" data-section="team">
+                    <div class="nav-tab-background">
+                        <div class="nav-tab-content">
+                            <span class="nav-tab-text">Команда</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Раздел файлов для скачивания (добавлен id) -->
+    {% if downloadable_files %}
+    <div id="downloadable-section" class="downloadable-files-section">
+        <div class="container">
+            <div class="downloadable-files-container">
+                {% for file in downloadable_files %}
+                {% if file.position_right %}
+                <div class="downloadable-file-wrapper">
+                    <a href="{{ file.file.url }}" class="downloadable-file-button download-button-small simple-download-button" 
+                       download 
+                       style="background-color: {{ file.button_color }}; color: {{ file.text_color }};">
+                        <div class="download-button-content">
+                            <div class="download-arrow-simple">
+                                <svg width="20" height="20" viewBox="0 0 48 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M24 34.5L9 20.125L13.2 15.9563L21 23.4312V0H27V23.4312L34.8 15.9563L39 20.125L24 34.5ZM6 46C4.35 46 2.938 45.4375 1.764 44.3124C0.589999 43.1873 0.002 41.8332 0 40.25V31.625H6V40.25H42V31.625H48V40.25C48 41.8312 47.413 43.1854 46.239 44.3124C45.065 45.4394 43.652 46.0019 42 46H6Z" 
+                                          fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="presentation-text">Презентация</span>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <div class="academy-main-content">
+        <!-- About Section -->
+        <section id="about" class="content-section always-open">
+            <div class="container">
+                <!-- Values Section -->
+                <div class="sub-section">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <div class="red-dot-small"></div>
+                            <h2 class="section-main-title">Наши ценности</h2>
+                        </div>
+                    </div>
+                    <div class="section-content about-content">
+                        <div class="about-text">
+                            {% if values_section %}
+                                {% if values_section.quote_1 %}
+                                <p>{{ values_section.quote_1 }}</p>
+                                {% endif %}
+                                
+                                {% if values_section.quote_2 %}
+                                <p>{{ values_section.quote_2 }}</p>
+                                {% endif %}
+                                
+                                {% if values_section.content %}
+                                <p>{{ values_section.content }}</p>
+                                {% endif %}
+                            {% else %}
+                                <p>Мы создаем свободное пространство для идей и развития, помогая проявить достаточно смелости, чтобы воплотить их в жизнь с верой в себя.</p>
+                                <p>Наша уникальность заключается в объединении четырех школ: Академии Аристотеля, Майевтики Сократа, Мастерской да Винчи и Методики воспитания силы воли Сеченова.</p>
+                            {% endif %}
+                        </div>
+                        <div class="academy-side-content">
+                            {% if values_section and values_section.rocket_image %}
+                            <div class="side-image-container">
+                                <img src="{{ values_section.rocket_image.url }}" alt="Наши ценности" class="side-image">
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote Section -->
+                {% if quote_section %}
+                <div class="sub-section quote-under-values">
+                    <div class="section-header" style="justify-content: center;">
+                        <div class="header-left">
+                            <div class="red-dot-small"></div>
+                            <h2 class="section-main-title">{{ quote_section.title }}</h2>
+                        </div>
+                    </div>
+                    <div class="section-content quote-content">
+                        {% if quote_section.image %}
+                        <div class="quote-image-container">
+                            <img src="{{ quote_section.image.url }}" alt="{{ quote_section.title }}">
+                        </div>
+                        {% endif %}
+                        <div class="quote-text">
+                            {{ quote_section.quote_text|linebreaks }}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Leader Speech Section -->
+                <div class="sub-section">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <div class="red-dot-small"></div>
+                            <h2 class="section-main-title">Речь руководителя</h2>
+                        </div>
+                    </div>
+                    <div class="section-content leader-content">
+                        {% if leader_speech %}
+                        <div class="leader-videos-carousel">
+                            <div class="carousel-container">
+                                <div class="carousel-slides">
+                                    {% for video in leader_speech.videos.all %}
+                                    {% if video.is_active %}
+                                    <div class="carousel-slide">
+                                        <h3 class="video-title">{{ video.title }}</h3>
+                                        <div class="video-container">
+                                            {% if video.video_file %}
+                                            <video controls poster="{% if video.thumbnail %}{{ video.thumbnail.url }}{% endif %}" class="leader-video">
+                                                <source src="{{ video.video_file.url }}" type="video/mp4">
+                                                Ваш браузер не поддерживает видео тег.
+                                            </video>
+                                            {% else %}
+                                            <iframe src="{{ video.video_url }}" 
+                                                    title="{{ video.title }}" 
+                                                    allowfullscreen
+                                                    class="leader-video"></iframe>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <button class="carousel-prev" aria-label="Предыдущее видео">&#10094;</button>
+                            <button class="carousel-next" aria-label="Следующее видео">&#10095;</button>
+                            <div class="carousel-dots"></div>
+                        </div>
+                        {% else %}
+                        <div class="no-content-message">
+                            <p>Информация о речи руководителя будет добавлена позже.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Statistics Section -->
+                <div class="sub-section">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <div class="red-dot-small"></div>
+                            <h2 class="section-main-title">Академия в цифрах</h2>
+                        </div>
+                    </div>
+                    <div class="section-content statistics-content">
+                        <div class="statistics-grid">
+                            {% if statistics_section %}
+                            <div class="statistic-item">
+                                <div class="statistic-number">{{ statistics_section.stat_number_1 }}</div>
+                                <div class="statistic-label">{{ statistics_section.stat_label_1 }}</div>
+                            </div>
+                            <div class="statistic-item">
+                                <div class="statistic-number">{{ statistics_section.stat_number_2 }}</div>
+                                <div class="statistic-label">{{ statistics_section.stat_label_2 }}</div>
+                            </div>
+                            <div class="statistic-item">
+                                <div class="statistic-number">{{ statistics_section.stat_number_3 }}</div>
+                                <div class="statistic-label">{{ statistics_section.stat_label_3 }}</div>
+                            </div>
+                            {% else %}
+                            <div class="statistic-item">
+                                <div class="statistic-number">20 000</div>
+                                <div class="statistic-label">Тысяч выпущенных учеников</div>
+                            </div>
+                            <div class="statistic-item">
+                                <div class="statistic-number">380</div>
+                                <div class="statistic-label">Телефонных звонков</div>
+                            </div>
+                            <div class="statistic-item">
+                                <div class="statistic-number">983</div>
+                                <div class="statistic-label">Котят</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        {% if statistics_section and statistics_section.content %}
+                        <div class="statistics-description">
+                            {{ statistics_section.content|linebreaks }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Gallery Section -->
+                <div class="sub-section">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <div class="red-dot-small"></div>
+                            <h2 class="section-main-title">Фотогалерея Академии</h2>
+                        </div>
+                    </div>
+                    <div class="section-content gallery-content">
+                        {% if photo_albums %}
+                        <div class="gallery-grid">
+                            {% for album in photo_albums %}
+                            <a href="{% url 'album_detail' album.id %}" class="gallery-item-link">
+                                <div class="gallery-item">
+                                    <div class="gallery-image">
+                                        <img src="{{ album.cover_image.url }}" alt="{{ album.title }}">
+                                        <div class="gallery-info">
+                                            <h3 class="gallery-title">{{ album.title }}</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="no-content-message">
+                            <p>Фотогалерея будет добавлена позже.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic containers for leadership and team (initially hidden) -->
+        <div id="leadership-dynamic-content" class="leadership-dynamic-content" style="display: none;"></div>
+        <div id="team-dynamic-content" class="team-dynamic-content" style="display: none;"></div>
+    </div>
+</div>
+
+
+
+<!-- JS -->
+<script src="{% static 'about_academy/js/about_academy.js' %}"></script>
+<script src="{% static 'about_academy/js/about_academy_animations.js' %}"></script>
+{% endblock %}

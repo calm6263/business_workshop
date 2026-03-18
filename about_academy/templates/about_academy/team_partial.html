@@ -1,0 +1,67 @@
+{% load static %}
+
+<!-- قسم الفلتر -->
+<div class="filters-section" id="team-filters">
+    <div class="container">
+        <div class="filters-container">
+            <div class="main-filter">
+                <div class="filter-trigger">
+                    <span class="filter-label">Все отделения</span>
+                    <div class="filter-arrow open">
+                        <svg width="24" height="14" viewBox="0 0 67 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(0.66919 0.743092 -0.88859 0.458703 0 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="2" y1="-2" x2="46.4462" y2="-2" transform="matrix(-0.66919 0.743092 0.88859 0.458703 67 1.17969)" stroke="#052946" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="filter-dropdown">
+                    <div class="filter-options">
+                        <div class="filter-option active" data-filter="all">
+                            <span class="option-text">Все отделения</span>
+                        </div>
+                        {% for department in departments %}
+                        <div class="filter-option" data-filter="dept-{{ department.id }}">
+                            <span class="option-text">{{ department.name }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- قائمة بطاقات أعضاء الفريق -->
+<div class="team-members-list">
+    {% for department, members in members_by_department.items %}
+    <div class="department-section" id="dept-{{ department.id }}">
+        <div class="department-title-wrapper">
+            <div class="department-title-inner">
+                <div class="department-circle"></div>
+                <h3 class="department-title">{{ department.name }}</h3>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for member in members %}
+            <div class="col-lg-4 col-md-6">
+                <div class="team-card" data-department="dept-{{ department.id }}" data-member-id="{{ member.pk }}">
+                    <a href="#" class="team-card-link view-member-detail" data-member-id="{{ member.pk }}">
+                        <div class="team-card-image">
+                            <img src="{{ member.image.url }}" alt="{{ member.name }}">
+                        </div>
+                        <div class="team-card-content">
+                            <h4 class="team-card-name">{{ member.name }}</h4>
+                            <p class="team-card-position">{{ member.position|linebreaksbr }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-5">
+        <p class="text-muted">Нет членов команды для отображения.</p>
+    </div>
+    {% endfor %}
+</div>

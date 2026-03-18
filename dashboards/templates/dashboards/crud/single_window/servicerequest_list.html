@@ -1,0 +1,80 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Заявки на услуги (одно окно)</h2>
+</div>
+
+<table class="dashboard-table crud-table">
+    <thead>
+        <tr>
+            <th>№ заявки</th>
+            <th>Услуга</th>
+            <th>Контактное лицо</th>
+            <th>Телефон</th>
+            <th>Email</th>
+            <th>Статус</th>
+            <th>Дата</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td><strong>{{ item.request_number }}</strong></td>
+            <td>{{ item.service_type }}</td>
+            <td>{{ item.contact_person }}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.email }}</td>
+            <td>
+                <span style="display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; 
+                    {% if item.status == 'new' %}background-color: blue; color: white;
+                    {% elif item.status == 'in_progress' %}background-color: orange; color: white;
+                    {% elif item.status == 'completed' %}background-color: green; color: white;
+                    {% elif item.status == 'rejected' %}background-color: red; color: white;
+                    {% else %}background-color: gray; color: white;{% endif %}">
+                    {{ item.get_status_display }}
+                </span>
+            </td>
+            <td>{{ item.created_at|date:"d.m.Y H:i" }}</td>
+            <td class="crud-actions">
+                <a href="{% url 'dashboards:servicerequest_edit' item.pk %}" class="btn-action btn-edit" title="Редактировать">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                    </svg>
+                </a>
+                <a href="{% url 'dashboards:servicerequest_delete' item.pk %}" class="btn-action btn-delete" title="Удалить" onclick="return confirm('Вы уверены?')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0h10" />
+                    </svg>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center">Нет заявок</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">следующая</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">последняя &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+{% endblock %}

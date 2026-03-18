@@ -1,0 +1,1722 @@
+/* static/schedule/css/calendar.css - النسخة المعدلة */
+
+/* Slider Styles */
+.slider-section {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    margin-bottom: 0;
+    border-radius: 0 0 20px 20px;
+}
+
+.slider-container {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.slider-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.slider-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+.slide-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    z-index: 2;
+}
+
+/* Breadcrumb внутри слайдера */
+.slider-breadcrumb {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+}
+
+.slider-breadcrumb .breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.slider-breadcrumb .breadcrumb-link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.slider-breadcrumb .breadcrumb-link:hover {
+    color: rgb(255, 255, 255);
+    transform: translateY(-1px);
+}
+
+.slider-breadcrumb .breadcrumb-current {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    opacity: 0.9;
+}
+
+.slider-breadcrumb .breadcrumb-arrow {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-breadcrumb .breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.slider-breadcrumb .breadcrumb-arrow .arrow-top {
+    width: 10px;
+    height: 2px;
+    top: 7px;
+    right: 3px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.slider-breadcrumb .breadcrumb-arrow .arrow-bottom {
+    width: 10px;
+    height: 2px;
+    bottom: 7px;
+    right: 3px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+.slide-subtitle {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    display: block !important;
+}
+
+.slide-title {
+    font-family: 'Prata', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: block !important;
+}
+
+.slide-description {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    display: block !important;
+}
+
+.slide-btn {
+    display: inline-block;
+    background: #7F1726;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid #7F1726;
+    display: inline-block !important;
+}
+
+.slide-btn:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 10;
+    transform: translateY(-50%);
+}
+
+.slider-prev,
+.slider-next {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.slider-prev:hover,
+.slider-next:hover {
+    background: #7F1726;
+    border-color: #7F1726;
+    transform: scale(1.1);
+}
+
+.slider-dot {
+    display: none !important;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+    background: #7F1726;
+    transform: scale(1.2);
+}
+
+/* Responsive adjustments for slider */
+@media (max-width: 992px) {
+    .slider-section {
+        height: 400px;
+    }
+    
+    .slide-title {
+        font-size: 2.5rem;
+    }
+    
+    .slide-description {
+        font-size: 1rem;
+        max-width: 500px;
+    }
+    
+    .slider-breadcrumb {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider-section {
+        height: 350px;
+    }
+    
+    .slide-title {
+        font-size: 2rem;
+    }
+    
+    .slide-subtitle {
+        font-size: 1rem;
+    }
+    
+    .slide-description {
+        font-size: 0.9rem;
+        max-width: 400px;
+    }
+    
+    .slider-controls {
+        padding: 0 1rem;
+    }
+    
+    .slider-prev,
+    .slider-next {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .slider-breadcrumb {
+        top: 0.8rem;
+        left: 0.8rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-content {
+        gap: 0.5rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-link,
+    .slider-breadcrumb .breadcrumb-current {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .slider-section {
+        height: 300px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .slide-title {
+        font-size: 1.6rem;
+    }
+    
+    .slide-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .slide-description {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .slide-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .slider-breadcrumb {
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-content {
+        gap: 0.3rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-link,
+    .slider-breadcrumb .breadcrumb-current {
+        font-size: 0.75rem;
+    }
+    
+    .slider-breadcrumb .breadcrumb-arrow {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* أنماط التنقل السفلي خارج الكونتينر */
+.calendar-bottom-navigation {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.back-section {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding-left: 2rem;
+}
+
+.download-section {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    padding-right: 2rem;
+}
+
+.back-content,
+.download-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-content:hover,
+.download-content:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.back-arrow-icon {
+    width: 60px;
+    height: 48px;
+    transition: all 0.3s ease;
+}
+
+.download-icon {
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+.back-text,
+.download-text {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #052946;
+    transition: all 0.3s ease;
+}
+
+.back-content:hover .back-arrow-icon path {
+    stroke: #7F1726;
+}
+
+.back-content:hover .back-text {
+    color: #7F1726;
+}
+
+.download-content:hover .download-icon path {
+    fill: #7F1726;
+}
+
+.download-content:hover .download-text {
+    color: #7F1726;
+}
+
+/* الخط تحت التنقل السفلي */
+.slider-bottom-line {
+    width: 100%;
+    height: 6px;
+    background: transparent;
+    position: relative;
+    margin: 0 auto 2.16rem;
+}
+
+.slider-bottom-line::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-top: 4px solid #052946;
+    transform: matrix(1, 0, 0, -1, 0, 0);
+}
+
+/* باقي الأنماط الأصلية تبقى كما هي... */
+
+/* static/schedule/css/calendar.css - النسخة المعدلة */
+
+
+.breadcrumb-section {
+    padding: 0.72rem 0 0.216rem 0;
+    background: #FFFFFF;
+}
+
+.breadcrumb-content {
+    display: flex;
+    align-items: center;
+    gap: 0.576rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.breadcrumb-link {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.648rem;
+    color: #052946;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #7F1726;
+    transform: translateY(-1px);
+}
+
+.breadcrumb-current {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.648rem;
+    color: #052946;
+}
+
+.breadcrumb-arrow {
+    position: relative;
+    width: 11.52px;
+    height: 11.52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breadcrumb-arrow .arrow-line {
+    position: absolute;
+    background: #052946;
+    border-radius: 1.44px;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-arrow .arrow-top {
+    width: 7.2px;
+    height: 1.44px;
+    top: 5.04px;
+    right: 2.16px;
+    transform: rotate(45deg);
+    transform-origin: right center;
+}
+
+.breadcrumb-arrow .arrow-bottom {
+    width: 7.2px;
+    height: 1.44px;
+    bottom: 5.04px;
+    right: 2.16px;
+    transform: rotate(-45deg);
+    transform-origin: right center;
+}
+
+.calendar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.44rem;
+    background: #FFFFFF;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.16rem;
+    flex-direction: row;
+}
+
+.calendar-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Prata', serif;
+    color: #052946;
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+}
+
+#currentYear {
+    font-size: 2.52rem;
+    color: #052946;
+    line-height: 1.2;
+}
+
+#currentMonth {
+    font-size: 2.52rem;
+    line-height: 1.2;
+}
+
+.month-red {
+    color: #7F1726 !important;
+}
+
+/* تعديل أزرار التنقل - إزالة الشكل الدائري */
+.calendar-nav-btn {
+    background: transparent;
+    border: none;
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+}
+
+.calendar-nav-btn:hover svg path {
+    stroke: #7F1726;
+}
+
+/* حاوية التقويم الرئيسية */
+.calendar-main-container {
+    position: relative;
+    width: 100%;
+}
+
+/* شبكة الخطوط - يجب أن تكون في الخلفية */
+.calendar-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 80px);
+    margin-top: 80px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* الخطوط الأفقية الرئيسية */
+.calendar-horizontal-line {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    border-top: 1.44px solid rgba(5, 41, 70, 0.2);
+    left: 0;
+}
+
+/* الخطوط العمودية */
+.calendar-vertical-line {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    border-left: 1.44px solid rgba(5, 41, 70, 0.2);
+    top: 0;
+}
+
+/* أيام الأسبوع */
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    height: 80px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 3;
+}
+
+.weekday {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Prata', serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    color: #7F1726;
+    padding: 0.5rem;
+    border: none;
+}
+
+/* الخلايا المعدلة */
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    min-height: 300px;
+    position: relative;
+    z-index: 2;
+}
+
+.calendar-day {
+    min-height: 100px;
+    max-height: 140px;
+    overflow: hidden;
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    position: relative;
+    border: none;
+    background: transparent;
+}
+
+/* محاذاة أرقام الأيام للخلايا الفارغة */
+.calendar-day:not(.has-events) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.calendar-day:not(.has-events) .calendar-day-number {
+    text-align: center !important;
+    margin-bottom: 0 !important;
+    position: static !important;
+    transform: none !important;
+    align-self: center !important;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+/* إخفاء العناصر السابقة التي قد تتداخل */
+.calendar-day:not(.has-events) .single-event-container,
+.calendar-day:not(.has-events) .two-events-container,
+.calendar-day:not(.has-events) .multi-events-container {
+    display: none !important;
+}
+
+/* تحسين مظهر أرقام الأيام الفارغة */
+.calendar-day.other-month:not(.has-events) .calendar-day-number {
+    opacity: 0.4;
+}
+
+.calendar-day.weekend:not(.has-events) .calendar-day-number {
+    opacity: 0.8;
+    color: #7F1726 !important;
+}
+
+.calendar-day.today:not(.has-events) .calendar-day-number {
+    opacity: 1;
+    font-weight: 500;
+    color: #7F1726 !important;
+}
+
+/* إظهار أرقام الأيام في الخلايا التي تحتوي على أحداث */
+.calendar-day.has-events .calendar-day-number {
+    display: none !important;
+}
+
+.calendar-day.other-month {
+    background: transparent;
+}
+
+.calendar-day-number {
+    font-family: 'Prata', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: #000000;
+    text-align: right;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    z-index: 2;
+}
+
+/* ألوان خاصة للأيام */
+.calendar-day.other-month .calendar-day-number {
+    color: #CACCD1 !important;
+}
+
+.calendar-day.weekend .calendar-day-number {
+    color: #7F1726 !important;
+}
+
+.calendar-day.today .calendar-day-number {
+    color: #7F1726 !important;
+    font-weight: 500;
+}
+
+/* === تصميم لحدث واحد === */
+.single-event-container {
+    position: absolute;
+    top: 0.4rem;
+    left: 0.4rem;
+    right: 0.4rem;
+    bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+}
+
+.single-event {
+    background: #7F1726;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.72rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 5.76px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.72rem;
+    width: 100%;
+    box-shadow: 0 1.44px 2.88px rgba(0, 0, 0, 0.1);
+    position: relative;
+    min-height: 50px;
+}
+
+.single-event:hover {
+    transform: translateY(-1.44px);
+    box-shadow: 0 2.88px 5.76px rgba(0, 0, 0, 0.15);
+}
+
+.single-event-content {
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+    max-height: 2.4em;
+    min-height: 1.2em;
+}
+
+.single-event-day-number {
+    font-family: 'Prata', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    min-width: 2rem;
+    text-align: right;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+/* === تصميم لحدثين === */
+.two-events-container {
+    position: absolute;
+    top: 0.4rem;
+    left: 0.4rem;
+    right: 0.4rem;
+    bottom: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+}
+
+.shared-day-number {
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Prata', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #FFFFFF;
+    z-index: 4;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    width: 1.6rem;
+}
+
+.two-events-event {
+    flex: 1;
+    border-radius: 14px;
+    margin-bottom: 1px;
+    padding: 0.4rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 30px;
+    box-shadow: 0 1.44px 2.88px rgba(0, 0, 0, 0.1);
+}
+
+.two-events-event.event-top {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+}
+
+.two-events-event.event-bottom {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.two-events-event:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2.88px 5.76px rgba(0, 0, 0, 0.15);
+}
+
+.two-events-content {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: #FFFFFF;
+    line-height: 1.2;
+    flex: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding-right: 1.8rem;
+    max-height: 2.4em;
+    min-height: 1.2em;
+}
+
+/* === تصميم لـ 3 أحداث أو أكثر === */
+.multi-events-container {
+    position: absolute;
+    top: 0.4rem;
+    left: 0.4rem;
+    right: 0.4rem;
+    bottom: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+}
+
+.multi-day-number {
+    font-family: 'Prata', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 0.2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 0.15rem 0.4rem;
+    align-self: center;
+    z-index: 4;
+    flex-shrink: 0;
+}
+
+.multi-events-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    overflow-y: auto;
+    max-height: calc(100% - 2rem);
+}
+
+.multi-event {
+    background: #7F1726;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    min-height: 25px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.multi-event:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.multi-event-content {
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding-right: 0.5rem;
+    line-height: 1.2;
+    max-height: 2.4em;
+    min-height: 1.2em;
+}
+
+.more-events-button {
+    background: #052946;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    text-align: center;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.more-events-button:hover {
+    background: #7F1726;
+    transform: translateY(-1px);
+}
+
+/* ألوان لأنواع البرامج المختلفة */
+.single-event.professional_retraining,
+.two-events-event.professional_retraining,
+.multi-event.professional_retraining {
+    background: #052946;
+}
+
+.single-event.qualification_upgrade,
+.two-events-event.qualification_upgrade,
+.multi-event.qualification_upgrade {
+    background: #2E7D32;
+}
+
+.single-event.seminar,
+.two-events-event.seminar,
+.multi-event.seminar {
+    background: #7F1726;
+}
+
+.single-event.training,
+.two-events-event.training,
+.multi-event.training {
+    background: #FF9800;
+    color: #000;
+}
+
+.single-event.other,
+.two-events-event.other,
+.multi-event.other {
+    background: #6A1B9A;
+}
+
+.calendar-vertical-line.first-column,
+.calendar-vertical-line.last-column,
+.calendar-horizontal-line.last-row {
+    display: none;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 1200px) {
+    #currentYear,
+    #currentMonth {
+        font-size: 2.16rem;
+    }
+    
+    .calendar-title {
+        font-size: 2.16rem;
+    }
+    
+    .weekday {
+        font-size: 2.2rem;
+    }
+    
+    .calendar-day-number {
+        font-size: 2.4rem;
+    }
+    
+    .calendar-day:not(.has-events) .calendar-day-number {
+        font-size: 2.4rem !important;
+    }
+    
+    .calendar-day {
+        min-height: 90px;
+        max-height: 130px;
+    }
+    
+    .shared-day-number {
+        font-size: 1.4rem;
+        width: 1.4rem;
+    }
+    
+    .multi-day-number {
+        font-size: 1.4rem;
+    }
+    
+    .single-event-day-number {
+        font-size: 1.4rem;
+    }
+    
+    .single-event {
+        font-size: 0.68rem;
+        min-height: 45px;
+    }
+    
+    .two-events-content {
+        font-size: 0.68rem;
+        padding-right: 1.6rem;
+    }
+    
+    .two-events-event {
+        min-height: 27px;
+    }
+    
+    .multi-event {
+        font-size: 0.68rem;
+        min-height: 23px;
+    }
+    
+    .slider-bottom-line {
+        height: 5px;
+        margin-bottom: 1.8rem;
+    }
+    
+    .slider-bottom-line::before {
+        border-top-width: 3.5px;
+    }
+    
+    .back-section {
+        padding-left: 1.5rem;
+    }
+    
+    .download-section {
+        padding-right: 1.5rem;
+    }
+    
+    .back-arrow-icon {
+        width: 55px;
+        height: 44px;
+    }
+    
+    .download-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .back-text,
+    .download-text {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 992px) {
+    #currentYear,
+    #currentMonth {
+        font-size: 1.8rem;
+    }
+    
+    .calendar-container {
+        padding: 1.08rem;
+    }
+
+    .calendar-title {
+        font-size: 1.8rem;
+    }
+    
+    .weekday {
+        font-size: 1.9rem;
+        padding: 0.4rem;
+    }
+    
+    .calendar-day-number {
+        font-size: 2rem;
+    }
+    
+    .calendar-day:not(.has-events) .calendar-day-number {
+        font-size: 2rem !important;
+    }
+    
+    .calendar-nav-btn {
+        padding: 0.4rem;
+    }
+    
+    .calendar-nav-btn svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .calendar-days {
+        min-height: 280px;
+    }
+    
+    .calendar-day {
+        min-height: 80px;
+        max-height: 120px;
+    }
+    
+    .shared-day-number {
+        font-size: 1.2rem;
+        width: 1.2rem;
+        right: 0.2rem;
+    }
+    
+    .two-events-event {
+        padding: 0.3rem 0.4rem;
+        min-height: 25px;
+    }
+    
+    .two-events-content {
+        font-size: 0.65rem;
+        padding-right: 1.4rem;
+    }
+    
+    .multi-event {
+        padding: 0.25rem 0.35rem;
+        min-height: 22px;
+        font-size: 0.65rem;
+    }
+    
+    .more-events-button {
+        font-size: 0.6rem;
+        padding: 0.25rem 0.35rem;
+        min-height: 22px;
+    }
+    
+    .single-event {
+        font-size: 0.65rem;
+        min-height: 40px;
+    }
+    
+    .single-event-day-number {
+        font-size: 1.2rem;
+        min-width: 1.6rem;
+    }
+    
+    .slider-bottom-line {
+        height: 4px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .slider-bottom-line::before {
+        border-top-width: 3px;
+    }
+    
+    .calendar-bottom-navigation {
+        margin: 1.5rem 0;
+    }
+    
+    .back-section {
+        padding-left: 1rem;
+    }
+    
+    .download-section {
+        padding-right: 1rem;
+    }
+    
+    .back-arrow-icon {
+        width: 50px;
+        height: 40px;
+    }
+    
+    .download-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-text,
+    .download-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #currentYear,
+    #currentMonth {
+        font-size: 1.44rem;
+    }
+    
+    .calendar-container {
+        padding: 0.72rem;
+    }
+
+    .calendar-title {
+        font-size: 1.44rem;
+    }
+    
+    .weekday {
+        font-size: 1.5rem;
+        padding: 0.3rem;
+    }
+    
+    .calendar-day-number {
+        font-size: 1.7rem;
+    }
+    
+    .calendar-day:not(.has-events) .calendar-day-number {
+        font-size: 1.7rem !important;
+    }
+
+    .calendar-nav-btn {
+        padding: 0.3rem;
+    }
+    
+    .calendar-nav-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .calendar-days {
+        min-height: 240px;
+    }
+    
+    .calendar-day {
+        min-height: 70px;
+        max-height: 100px;
+        padding: 0.3rem;
+    }
+    
+    .shared-day-number {
+        font-size: 1.1rem;
+        width: 1.1rem;
+        right: 0.2rem;
+    }
+    
+    .two-events-event {
+        padding: 0.25rem 0.35rem;
+        min-height: 22px;
+        border-radius: 10px;
+    }
+    
+    .two-events-content {
+        font-size: 0.6rem;
+        padding-right: 1.2rem;
+    }
+    
+    .multi-day-number {
+        font-size: 1.2rem;
+        margin-bottom: 0.15rem;
+    }
+    
+    .multi-event {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.3rem;
+        min-height: 20px;
+        border-radius: 6px;
+    }
+    
+    .multi-event-content {
+        -webkit-line-clamp: 2;
+    }
+    
+    .more-events-button {
+        font-size: 0.55rem;
+        padding: 0.2rem 0.3rem;
+        min-height: 20px;
+    }
+    
+    .single-event {
+        font-size: 0.6rem;
+        padding: 0.3rem 0.4rem;
+        min-height: 35px;
+    }
+    
+    .single-event-content {
+        -webkit-line-clamp: 2;
+    }
+    
+    .single-event-day-number {
+        font-size: 1.1rem;
+        min-width: 1.4rem;
+    }
+    
+    .slider-bottom-line {
+        height: 3px;
+        margin-bottom: 1.2rem;
+    }
+    
+    .slider-bottom-line::before {
+        border-top-width: 2.5px;
+    }
+    
+    .calendar-bottom-navigation {
+        margin: 1.2rem 0;
+    }
+    
+    .back-section {
+        padding-left: 0.8rem;
+    }
+    
+    .download-section {
+        padding-right: 0.8rem;
+    }
+    
+    .back-arrow-icon {
+        width: 40px;
+        height: 32px;
+    }
+    
+    .download-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .back-text,
+    .download-text {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #currentYear,
+    #currentMonth {
+        font-size: 1.296rem;
+    }
+    
+    .calendar-title {
+        font-size: 1.296rem;
+    }
+    
+    .weekday {
+        font-size: 1.3rem;
+        padding: 0.25rem;
+    }
+    
+    .calendar-day-number {
+        font-size: 1.5rem;
+    }
+    
+    .calendar-day:not(.has-events) .calendar-day-number {
+        font-size: 1.5rem !important;
+    }
+
+    .calendar-nav-btn {
+        padding: 0.2rem;
+    }
+    
+    .calendar-nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .calendar-days {
+        min-height: 210px;
+    }
+    
+    .calendar-day {
+        min-height: 60px;
+        max-height: 90px;
+        padding: 0.2rem;
+    }
+    
+    .shared-day-number {
+        font-size: 1rem;
+        width: 1rem;
+        right: 0.15rem;
+    }
+    
+    .two-events-event {
+        padding: 0.2rem 0.3rem;
+        min-height: 20px;
+        border-radius: 8px;
+    }
+    
+    .two-events-content {
+        font-size: 0.55rem;
+        padding-right: 1.1rem;
+        line-height: 1.1;
+    }
+    
+    .multi-day-number {
+        font-size: 1rem;
+        padding: 0.1rem 0.3rem;
+    }
+    
+    .multi-events-list {
+        gap: 0.15rem;
+        max-height: calc(100% - 1.8rem);
+    }
+    
+    .multi-event {
+        font-size: 0.55rem;
+        padding: 0.15rem 0.25rem;
+        min-height: 18px;
+        border-radius: 5px;
+    }
+    
+    .multi-event-content {
+        line-height: 1.1;
+    }
+    
+    .more-events-button {
+        font-size: 0.5rem;
+        padding: 0.15rem 0.25rem;
+        min-height: 18px;
+    }
+    
+    .single-event {
+        font-size: 0.55rem;
+        padding: 0.25rem 0.35rem;
+        min-height: 30px;
+    }
+    
+    .single-event-content {
+        -webkit-line-clamp: 2;
+    }
+    
+    .single-event-day-number {
+        font-size: 1rem;
+        min-width: 1.2rem;
+    }
+    
+    .slider-bottom-line {
+        height: 2px;
+        margin-bottom: 1rem;
+    }
+    
+    .slider-bottom-line::before {
+        border-top-width: 2px;
+    }
+    
+    .calendar-bottom-navigation {
+        margin: 1rem 0;
+    }
+    
+    .back-section {
+        padding-left: 0.6rem;
+    }
+    
+    .download-section {
+        padding-right: 0.6rem;
+    }
+    
+    .back-arrow-icon {
+        width: 35px;
+        height: 28px;
+    }
+    
+    .download-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .back-text,
+    .download-text {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #currentYear,
+    #currentMonth {
+        font-size: 1.08rem;
+    }
+    
+    .calendar-title {
+        font-size: 1.08rem;
+    }
+    
+    .weekday {
+        font-size: 1.1rem;
+    }
+    
+    .calendar-day-number {
+        font-size: 1.3rem;
+    }
+    
+    .calendar-day:not(.has-events) .calendar-day-number {
+        font-size: 1.3rem !important;
+    }
+    
+    .calendar-days {
+        min-height: 190px;
+    }
+    
+    .calendar-day {
+        min-height: 55px;
+        max-height: 80px;
+    }
+    
+    .shared-day-number {
+        font-size: 0.9rem;
+        width: 0.9rem;
+        right: 0.1rem;
+    }
+    
+    .two-events-event {
+        padding: 0.15rem 0.25rem;
+        min-height: 18px;
+        border-radius: 6px;
+    }
+    
+    .two-events-content {
+        font-size: 0.5rem;
+        padding-right: 1rem;
+    }
+    
+    .multi-day-number {
+        font-size: 0.9rem;
+        margin-bottom: 0.1rem;
+    }
+    
+    .multi-event {
+        font-size: 0.5rem;
+        padding: 0.1rem 0.2rem;
+        min-height: 16px;
+    }
+    
+    .single-event {
+        font-size: 0.5rem;
+        padding: 0.2rem 0.3rem;
+        min-height: 25px;
+    }
+    
+    .single-event-day-number {
+        font-size: 0.9rem;
+        min-width: 1rem;
+    }
+    
+    .slider-bottom-line {
+        height: 1.5px;
+        margin-bottom: 0.8rem;
+    }
+    
+    .slider-bottom-line::before {
+        border-top-width: 1.5px;
+    }
+    
+    .calendar-bottom-navigation {
+        margin: 0.8rem 0;
+    }
+    
+    .back-section {
+        padding-left: 0.5rem;
+    }
+    
+    .download-section {
+        padding-right: 0.5rem;
+    }
+    
+    .back-arrow-icon {
+        width: 30px;
+        height: 24px;
+    }
+    
+    .download-icon {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .back-text,
+    .download-text {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 360px) {
+    #currentYear,
+    #currentMonth {
+        font-size: 0.9rem;
+    }
+    
+    .calendar-weekdays {
+        height: 50px;
+    }
+    
+    .weekday {
+        font-size: 0.9rem;
+        padding: 0.2rem;
+    }
+    
+    .calendar-day-number {
+        font-size: 1rem;
+    }
+    
+    .calendar-day:not(.has-events) .calendar-day-number {
+        font-size: 1rem !important;
+    }
+    
+    .calendar-days {
+        min-height: 170px;
+    }
+    
+    .calendar-day {
+        min-height: 45px;
+        max-height: 70px;
+    }
+    
+    .single-event-content,
+    .two-events-content,
+    .multi-event-content {
+        -webkit-line-clamp: 1;
+        max-height: 1.3em;
+    }
+    
+    .back-text,
+    .download-text {
+        display: none;
+    }
+    
+    .back-content,
+    .download-content {
+        gap: 0;
+    }
+    
+    .back-arrow-icon {
+        width: 25px;
+        height: 20px;
+    }
+    
+    .download-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.calendar-nav-btn {
+    padding: 1rem;
+}
+
+.calendar-nav-btn svg {
+    width: 66px;
+    height: 66px;
+}
+/* ===== إنشاء مسافة بيضاء فوق الأزرار والخط ===== */
+.calendar-bottom-navigation {
+    margin-top: 70px !important;
+}
+
+/* ===== مسافة بين الأزرار والخط ===== */
+.slider-bottom-line {
+    margin-top: 65px !important;
+}
+
+/* ===== تقليل عرض الخط 5% مع إبقائه في المنتصف ===== */
+.slider-bottom-line::before {
+    width: 95% !important;
+    left: 50%;
+    transform: translateX(-50%) matrix(1, 0, 0, -1, 0, 0);
+}
+.slider-bottom-line::before {
+    border-top-width: 1px !important;
+}
+/* تقليل حجم Назад و Скачать PDF والنصوص */
+.back-text,
+.download-text {
+    font-size: 1rem !important; /* حجم النص */
+}
+
+/* تقليل حجم الأيقونات بجانبهم */
+.back-arrow-icon {
+    width: 25px !important;
+    height: 20px !important;
+}
+
+.download-icon {
+    width: 25px !important;
+    height: 25px !important;
+}
+/* تقليل ارتفاع خانات الجدول فقط للشاشات الكبيرة */
+@media (min-width: 1200px) {
+    .calendar-day {
+        min-height: 70px;   /* ارتفاع أقل */
+        max-height: 110px;  /* ارتفاع أقصى أقل */
+    }
+
+    /* إذا كانت الخانات بدون أحداث، نقوم بنفس التعديل */
+    .calendar-day:not(.has-events) {
+        min-height: 70px;
+        max-height: 110px;
+    }
+}
+/* تصغير أسهم التنقل 40% على الشاشات الصغيرة فقط */
+@media (max-width: 768px) {
+    .calendar-nav-btn svg {
+        transform: scale(0.6);
+    }
+}

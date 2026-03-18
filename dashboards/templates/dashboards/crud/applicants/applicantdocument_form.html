@@ -1,0 +1,15 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>{% if object %}Редактировать документ{% else %}Добавить документ{% endif %}</h2>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-add">Сохранить</button>
+    <a href="{% url 'dashboards:applicantdocument_list' %}" class="btn-action btn-view">Отмена</a>
+</form>
+{% endblock %}

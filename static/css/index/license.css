@@ -1,0 +1,182 @@
+/* ===== Лицензия на образовательную деятельность Section ===== */
+.license-section {
+    background: #ffffff;
+    margin: 0.3rem 0 !important;
+    padding: 0.3rem 0 !important;
+}
+
+.license-title-container {
+    text-align: right;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.license-title {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    text-align: right;
+    text-decoration-line: underline;
+    color: #052946;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.1rem 0.3rem;
+    transition: none !important;
+    cursor: pointer;
+    margin-bottom: 0.1rem;
+    transform: none !important;
+}
+
+/* إضافة أيقونة PDF على يسار النص */
+.license-title::before {
+    content: "📄";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.1rem;
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    box-shadow: none;
+}
+
+/* بديل باستخدام رمز FontAwesome إذا كان متوفراً */
+.license-title.pdf-icon::before {
+    content: "\f1c1";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+/* ===== إصلاح حركة رابط الرخصة ===== */
+.license-title-link {
+    display: inline-block;
+    transition: none !important;
+    transform: none !important;
+    cursor: pointer;
+    width: 100%;
+}
+
+.license-title-link:hover {
+    transform: none !important;
+}
+
+.license-title-link:hover .license-title {
+    color: #7F1726;
+    text-decoration-color: #7F1726;
+    transform: none !important;
+    text-shadow: none !important;
+}
+
+.license-title-link:hover .license-title::before {
+    transform: none !important;
+    color: #7F1726;
+    transition: none !important;
+}
+
+.license-title:hover {
+    color: #7F1726;
+    text-decoration-color: #7F1726;
+    transform: none !important;
+    text-shadow: none !important;
+}
+
+.license-title:hover::before {
+    transform: none !important;
+    transition: none !important;
+}
+
+.license-items-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.license-item-inline {
+    display: inline-block;
+}
+
+.license-file-link {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: #052946;
+    text-decoration: none;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #052946;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.license-file-link:hover {
+    background-color: #052946;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.license-file-link i {
+    font-size: 0.9rem;
+}
+
+.license-separator {
+    color: #052946;
+    font-size: 1rem;
+    margin: 0 0.2rem;
+    opacity: 0.7;
+}
+
+/* ===== إصلاح رابط الرخصة لجعله ثابتًا بدون حركة ===== */
+.license-section * {
+    transition: none !important;
+    transform: none !important;
+}
+
+.license-title-link:active,
+.license-title-link:focus {
+    transform: none !important;
+    outline: none;
+}
+
+.license-section a,
+.license-section h2,
+.license-section div {
+    transition: none !important;
+    transform: none !important;
+}
+
+.license-section a:hover,
+.license-section a:focus,
+.license-section a:active {
+    transform: none !important;
+}
+
+/* ===== تحسينات الشاشات الصغيرة (من index.css) ===== */
+@media (max-width: 991.98px) {
+    .license-section .license-title {
+        font-size: 0.9rem !important;
+        gap: 5px !important;
+        padding: 0.1rem 0.2rem !important;
+    }
+    .license-section .license-title::before {
+        font-size: 1rem !important;
+        margin-right: 2px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .license-title {
+        font-size: 1rem;
+        line-height: 1.2;
+        padding: 0.1rem 0.2rem;
+    }
+}

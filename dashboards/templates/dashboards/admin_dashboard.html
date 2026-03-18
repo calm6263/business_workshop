@@ -1,0 +1,2188 @@
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dashboards/css/admin_dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'dashboards/css/notifications.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="{% static 'images/Logo.png' %}" alt="Логотип" class="sidebar-logo">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active">
+                    <a href="#about-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16v16H4z" /><path d="M9 9h6v6H9z" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Об академии</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#applicants-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10v6M12 2v20M4 6h16M4 18h16" stroke="currentColor" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Поступающим</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#consultations-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Консультации</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contacts-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2.18" /><path d="M8 12h8" /><path d="M12 8v8" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Контакты</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#departments-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="9" y1="3" x2="9" y2="21"></line>
+                                <line x1="15" y1="3" x2="15" y2="21"></line>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Отделения</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#events-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Мероприятия</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#fta-journal-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16v16H4z" /><path d="M8 8h8v8H8z" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Журнал</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#news-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 5h16v14H4z" /><circle cx="8" cy="9" r="1" /><circle cx="16" cy="15" r="1" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Новости</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#partners-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Партнеры</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#press-center-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16v16H4z" /><circle cx="12" cy="12" r="2" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Пресс-центр</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                <path d="M12 22V12" />
+                                <path d="M3.3 7L12 12l8.7-5" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Проекты</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#research-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16v16H4z" /><circle cx="8.5" cy="8.5" r="1.5" /><circle cx="15.5" cy="15.5" r="1.5" /><path d="M8.5 15.5L15.5 8.5" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Исследования</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#schedule-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Расписание</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#single-window-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
+                                <line x1="8" y1="2" x2="8" y2="22"></line>
+                                <line x1="16" y1="2" x2="16" y2="22"></line>
+                                <line x1="2" y1="8" x2="22" y2="8"></line>
+                                <line x1="2" y1="16" x2="22" y2="16"></line>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Одно окно</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#staff-section">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </span>
+                        <span class="nav-text">Персонал</span>
+                    </a>
+                </li>
+                <!-- ===== Патенты ===== -->
+                 
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:patentimage_list' %}">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                                <rect x="8" y="8" width="8" height="8" rx="1" ry="1" />
+                                <line x1="9" y1="12" x2="15" y2="12" />
+                                <line x1="12" y1="9" x2="12" y2="15" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Изображения патентов</span>
+                    </a>
+                </li>
+                <!-- ===== Обратная связь ===== -->
+                <li class="nav-item nav-header">Обратная связь</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:contactmessage_list' %}">
+                        <span class="nav-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="M22 6L12 13 2 6" />
+                            </svg>
+                        </span>
+                        <span class="nav-text">Заявки с формы</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Top Bar -->
+        <header class="dashboard-topbar">
+            <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+
+            <div class="topbar-left">
+                <h1 class="page-title">Панель управления</h1>
+            </div>
+
+            <div class="topbar-right">
+                <!-- Иконка уведомлений (колокольчик) -->
+                <div class="notifications-dropdown" id="notificationsDropdown">
+                    <button class="notifications-toggle" id="notificationsToggle" title="Уведомления">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="badge" id="notificationsBadge" style="display: none;">0</span>
+                    </button>
+                    <div class="dropdown-menu notifications-menu" id="notificationsMenu">
+                        <div class="notifications-header">
+                            <h4>Уведомления</h4>
+                            <button id="markAllRead">Отметить все как прочитанные</button>
+                        </div>
+                        <div class="notifications-list" id="notificationsList">
+                            <!-- будут загружены через JS -->
+                        </div>
+                        <div class="notifications-footer">
+                            <a href="{% url 'notifications:list' %}">Все уведомления</a>
+                            <a href="{% url 'notifications:activity_log' %}">Журнал действий</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{% url 'index' %}" class="topbar-btn" title="На сайт">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </a>
+                <div class="user-dropdown" id="userDropdown">
+                    <span class="user-name">{{ user.get_full_name|default:user.username }}</span>
+                    <div class="user-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="userDropdownMenu">
+                        <a href="{% url 'accounts:profile' %}">Профиль</a>
+                        <a href="{% url 'accounts:logout' %}">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #7F1726;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><path d="M12 22V12" /><path d="M3.3 7L12 12l8.7-5" />
+                        </svg>
+                    </div>
+                    <div class="stat-details">
+                        <h3>{{ total_applications }}</h3>
+                        <p>Всего заявок</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #f39c12;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <div class="stat-details">
+                        <h3>{{ pending_applications }}</h3>
+                        <p>В обработке</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #052946;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="2.18" /><circle cx="8.5" cy="8.5" r="1.5" /><circle cx="15.5" cy="15.5" r="1.5" /><path d="M8.5 15.5L15.5 8.5" />
+                        </svg>
+                    </div>
+                    <div class="stat-details">
+                        <h3>{{ photo_albums|length }}</h3>
+                        <p>Фотоальбомов</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #27ae60;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <circle cx="12" cy="8" r="4" /><path d="M5.3 18.2c.8-1.5 2.2-2.7 4-3.2 1.8-.5 3.8-.5 5.6 0 1.8.5 3.2 1.7 4 3.2" />
+                        </svg>
+                    </div>
+                    <div class="stat-details">
+                        <h3>{{ team_members|length }}</h3>
+                        <p>Сотрудников</p>
+                    </div>
+                </div>
+                <!-- Новая карточка: непрочитанные сообщения обратной связи -->
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #e67e22;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="2.18" />
+                            <line x1="8" y1="12" x2="16" y2="12" />
+                            <line x1="12" y1="8" x2="12" y2="16" />
+                        </svg>
+                    </div>
+                    <div class="stat-details">
+                        <h3>{{ unread_contact_messages|default:"0" }}</h3>
+                        <p>Новых заявок</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== Главная страница (Slides & Licenses) ========== -->
+            <section id="home-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление главной страницей
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Slides Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Слайды</h3>
+                            </div>
+                            <span class="badge">{{ slides_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление слайдами на главной странице (изображения/видео).</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:slide_list' %}" class="btn-action btn-edit">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                                </svg>
+                                Редактировать
+                            </a>
+                            <a href="{% url 'dashboards:slide_list' %}" class="btn-action btn-view">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3" /><path d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7z" />
+                                </svg>
+                                Все записи
+                            </a>
+                            <a href="{% url 'dashboards:slide_add' %}" class="btn-action btn-add-small">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                                Добавить
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Licenses Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📜</span>
+                                <h3>Лицензии</h3>
+                            </div>
+                            <span class="badge">{{ licenses_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление лицензиями на образовательную деятельность.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:license_list' %}" class="btn-action btn-edit">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                                </svg>
+                                Редактировать
+                            </a>
+                            <a href="{% url 'dashboards:license_list' %}" class="btn-action btn-view">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3" /><path d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7z" />
+                                </svg>
+                                Все записи
+                            </a>
+                            <a href="{% url 'dashboards:license_add' %}" class="btn-action btn-add-small">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                                Добавить
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Academy Management Section -->
+            <section id="about-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление разделом "Об академии"
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Main Slider Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Главный слайдер</h3>
+                            </div>
+                            <span class="badge">{{ main_slider_items|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление слайдами на главной странице раздела.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:main_slider_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:main_slider_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:main_slider_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Values Section Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">💎</span>
+                                <h3>Наши ценности</h3>
+                            </div>
+                            <span class="badge">{{ values_sections|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Тексты и изображения для блока ценностей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:values_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:values_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:values_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Statistics Section Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📊</span>
+                                <h3>Академия в цифрах</h3>
+                            </div>
+                            <span class="badge">{{ statistics_sections|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Статистические данные и показатели.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:statistics_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:statistics_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:statistics_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Leader Speech Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎤</span>
+                                <h3>Речь руководителя</h3>
+                            </div>
+                            <span class="badge">{{ leader_speeches|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Видео и тексты выступлений.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:leaderspeech_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:leaderspeech_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:leaderspeech_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Photo Albums Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📸</span>
+                                <h3>Фотоальбомы</h3>
+                            </div>
+                            <span class="badge">{{ photo_albums|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление галереей изображений.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:photoalbum_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:photoalbum_list' %}" class="btn-action btn-view">Все альбомы</a>
+                            <a href="{% url 'dashboards:photoalbum_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Downloadable Files Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📎</span>
+                                <h3>Файлы для скачивания</h3>
+                            </div>
+                            <span class="badge">{{ downloadable_files|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>PDF, презентации и другие материалы.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:downloadablefile_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:downloadablefile_list' %}" class="btn-action btn-view">Все файлы</a>
+                            <a href="{% url 'dashboards:downloadablefile_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Quote Section Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">💬</span>
+                                <h3>Цитаты</h3>
+                            </div>
+                            <span class="badge">{{ quote_sections|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Вдохновляющие цитаты на странице.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:quotesection_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:quotesection_list' %}" class="btn-action btn-view">Все цитаты</a>
+                            <a href="{% url 'dashboards:quotesection_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Leadership Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">👔</span>
+                                <h3>Руководство</h3>
+                            </div>
+                            <span class="badge">{{ leadership_members|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Информация о руководителях.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:leadership_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:leadership_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:leadership_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Team Members Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">👥</span>
+                                <h3>Команда академии</h3>
+                            </div>
+                            <span class="badge">{{ team_members|length }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Сотрудники и преподаватели.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:team_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:team_list' %}" class="btn-action btn-view">Все члены</a>
+                            <a href="{% url 'dashboards:team_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Staff Management Section -->
+            <section id="staff-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление персоналом
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Team Members Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">👥</span>
+                                <h3>Преподаватели и сотрудники</h3>
+                            </div>
+                            <span class="badge">{{ team_members_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление составом преподавателей, сотрудников и учебного совета.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:teammember_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:teammember_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:teammember_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Teacher Programs Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📚</span>
+                                <h3>Программы преподавателей</h3>
+                            </div>
+                            <span class="badge">{{ teacher_programs_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Связь преподавателей с учебными программами.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:teacherprogram_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:teacherprogram_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:teacherprogram_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Page Hero Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Hero-секции</h3>
+                            </div>
+                            <span class="badge">{{ page_heroes_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения и заголовки для страницы "Преподаватели и сотрудники".</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:pagehero_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:pagehero_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:pagehero_add' %}" class="btn-action btn-add-small">Создать</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== Патенты (новый раздел) ===== -->
+            <section id="patents-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление патентами
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Patent Images Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        <rect x="8" y="8" width="8" height="8" rx="1" ry="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        <line x1="9" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="12" y1="9" x2="12" y2="15" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </span>
+                                <h3>Изображения патентов</h3>
+                            </div>
+                            <span class="badge">{{ patent_images_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление изображениями патентов в разделе "Наука".</p>
+                            <p><strong>Активных:</strong> {{ active_patent_images }}</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:patentimage_list' %}" class="btn-action btn-edit">Управление</a>
+                            <a href="{% url 'dashboards:patentimage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applicants Section -->
+            <section id="applicants-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление разделом "Поступающим"
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Applicants Page Card (singleton) -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📄</span>
+                                <h3>Страница "Поступающим"</h3>
+                            </div>
+                            <span class="badge">{{ applicants_page|yesno:"1,0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Основные настройки страницы, файлы и тексты.</p>
+                        </div>
+                        <div class="card-actions">
+                            {% if applicants_page %}
+                                <a href="{% url 'dashboards:applicantspage_edit' applicants_page.pk %}" class="btn-action btn-edit">Редактировать</a>
+                                <a href="{% url 'dashboards:applicantspage_delete' applicants_page.pk %}" class="btn-action btn-delete">Удалить</a>
+                            {% else %}
+                                <a href="{% url 'dashboards:applicantspage_add' %}" class="btn-action btn-add-small">Создать</a>
+                            {% endif %}
+                            <a href="{% url 'dashboards:applicantspage_list' %}" class="btn-action btn-view">Просмотр</a>
+                        </div>
+                    </div>
+
+                    <!-- Application Methods Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📬</span>
+                                <h3>Способы подачи</h3>
+                            </div>
+                            <span class="badge">{{ application_methods_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление способами подачи документов (иконки, тексты).</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:applicationmethod_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:applicationmethod_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:applicationmethod_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Enrollment Stages Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📅</span>
+                                <h3>Этапы зачисления</h3>
+                            </div>
+                            <span class="badge">{{ enrollment_stages_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление этапами зачисления с изображениями.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:enrollmentstage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:enrollmentstage_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:enrollmentstage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Applicant Documents Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📎</span>
+                                <h3>Документы для скачивания</h3>
+                            </div>
+                            <span class="badge">{{ applicant_documents_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Файлы, которые могут скачать поступающие.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:applicantdocument_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:applicantdocument_list' %}" class="btn-action btn-view">Все файлы</a>
+                            <a href="{% url 'dashboards:applicantdocument_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Applicant Applications Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Заявки</h3>
+                            </div>
+                            <span class="badge">{{ applicant_applications_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление заявками от поступающих.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:applicantapplication_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:applicantapplication_list' %}" class="btn-action btn-view">Все заявки</a>
+                            <a href="{% url 'dashboards:applicantapplication_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Consultations Section -->
+            <section id="consultations-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление консультациями
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Consultation Requests Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Заявки на консультацию</h3>
+                            </div>
+                            <span class="badge">{{ consultation_requests_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление заявками от посетителей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:consultationrequest_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:consultationrequest_list' %}" class="btn-action btn-view">Все заявки</a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Slides Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Слайды Hero</h3>
+                            </div>
+                            <span class="badge">{{ hero_slides_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление слайдами на странице консультаций.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:heroslide_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:heroslide_list' %}" class="btn-action btn-view">Все слайды</a>
+                            <a href="{% url 'dashboards:heroslide_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">❓</span>
+                                <h3>FAQ</h3>
+                            </div>
+                            <span class="badge">{{ faqs_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Часто задаваемые вопросы.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:faq_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:faq_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:faq_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Success Page Images Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Изображения успеха</h3>
+                            </div>
+                            <span class="badge">{{ success_images_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения на странице успешной отправки.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:successpageimage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:successpageimage_list' %}" class="btn-action btn-view">Все изображения</a>
+                            <a href="{% url 'dashboards:successpageimage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contacts Management Section -->
+            <section id="contacts-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление контактами
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Contact Sections Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📞</span>
+                                <h3>Разделы контактов</h3>
+                            </div>
+                            <span class="badge">{{ contact_sections_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление разделами с телефонами и email.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:contactsection_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:contactsection_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:contactsection_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Organization Info Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🏢</span>
+                                <h3>Информация об организации</h3>
+                            </div>
+                            <span class="badge">{{ organization_info_exists|yesno:"1,0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Основные данные организации (название, адрес, логотип).</p>
+                        </div>
+                        <div class="card-actions">
+                            {% if organization_info_exists %}
+                                <a href="{% url 'dashboards:organizationinfo_edit' organization_info_pk %}" class="btn-action btn-edit">Редактировать</a>
+                            {% else %}
+                                <a href="{% url 'dashboards:organizationinfo_add' %}" class="btn-action btn-add-small">Создать</a>
+                            {% endif %}
+                            <a href="{% url 'dashboards:organizationinfo_list' %}" class="btn-action btn-view">Просмотр</a>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🌐</span>
+                                <h3>Социальные сети</h3>
+                            </div>
+                            <span class="badge">{{ social_media_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Ссылки на соцсети и иконки.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:socialmedia_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:socialmedia_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:socialmedia_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Page Settings Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">⚙️</span>
+                                <h3>Настройки страницы</h3>
+                            </div>
+                            <span class="badge">{{ page_settings_exists|yesno:"1,0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Мета-теги, отображение хлебных крошек и т.д.</p>
+                        </div>
+                        <div class="card-actions">
+                            {% if page_settings_exists %}
+                                <a href="{% url 'dashboards:contactpagesettings_edit' page_settings_pk %}" class="btn-action btn-edit">Редактировать</a>
+                            {% else %}
+                                <a href="{% url 'dashboards:contactpagesettings_add' %}" class="btn-action btn-add-small">Создать</a>
+                            {% endif %}
+                            <a href="{% url 'dashboards:contactpagesettings_list' %}" class="btn-action btn-view">Просмотр</a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Hero-раздел</h3>
+                            </div>
+                            <span class="badge">{{ contact_hero_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Заголовок, подзаголовок, изображение на странице контактов.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:contacthero_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:contacthero_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:contacthero_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Departments Management Section -->
+            <section id="departments-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление отделениями
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Departments Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🏛️</span>
+                                <h3>Отделения</h3>
+                            </div>
+                            <span class="badge">{{ departments_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление отделениями академии.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:department_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:department_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:department_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Images Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Изображения героев</h3>
+                            </div>
+                            <span class="badge">{{ hero_images_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения для страниц списка отделений и деталей отделения.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:heroimage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:heroimage_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:heroimage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events Management Section -->
+            <section id="events-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление мероприятиями
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Events Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📅</span>
+                                <h3>Мероприятия</h3>
+                            </div>
+                            <span class="badge">{{ events_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление событиями и активностями.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:event_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:event_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:event_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Event Registrations Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Регистрации</h3>
+                            </div>
+                            <span class="badge">{{ event_registrations_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Заявки на участие в мероприятиях.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:eventregistration_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:eventregistration_list' %}" class="btn-action btn-view">Все записи</a>
+                        </div>
+                    </div>
+
+                    <!-- Interesting Programs Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎯</span>
+                                <h3>Интересные программы</h3>
+                            </div>
+                            <span class="badge">{{ interesting_programs_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Программы обучения и мероприятия.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:interestingprogram_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:interestingprogram_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:interestingprogram_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Subscriptions Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📧</span>
+                                <h3>Подписки на рассылку</h3>
+                            </div>
+                            <span class="badge">{{ newsletter_subscriptions_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Email-подписчики новостей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:newslattersubscription_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:newslattersubscription_list' %}" class="btn-action btn-view">Все записи</a>
+                        </div>
+                    </div>
+
+                    <!-- Page Settings Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">⚙️</span>
+                                <h3>Настройки страниц</h3>
+                            </div>
+                            <span class="badge">{{ page_settings_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Настройки героя и оформления страниц мероприятий и галереи.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:pagesettings_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:pagesettings_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:pagesettings_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Albums Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📸</span>
+                                <h3>Фотоальбомы</h3>
+                            </div>
+                            <span class="badge">{{ albums_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Альбомы фотографий мероприятий.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:album_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:album_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:album_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Photos Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Фотографии</h3>
+                            </div>
+                            <span class="badge">{{ photos_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Отдельные фотографии в альбомах.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:photo_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:photo_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:photo_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FTA Journal Management Section -->
+            <section id="fta-journal-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление журналом
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Journal Issues Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📰</span>
+                                <h3>Выпуски журнала</h3>
+                            </div>
+                            <span class="badge">{{ journal_issues_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление выпусками, обложками, PDF-файлами.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:journalissue_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:journalissue_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:journalissue_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Slider Images Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Слайдер журнала</h3>
+                            </div>
+                            <span class="badge">{{ journal_slider_images_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения для главного слайдера журнала.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:sliderimage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:sliderimage_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:sliderimage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Section Settings Card (singleton) -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">⚙️</span>
+                                <h3>Настройки разделов</h3>
+                            </div>
+                            <span class="badge">{{ journal_section_settings_exists|yesno:"1,0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Названия разделов: Лучшее, Новые поступления, Ранние выпуски.</p>
+                        </div>
+                        <div class="card-actions">
+                            {% if journal_section_settings_pk %}
+                                <a href="{% url 'dashboards:sectionsettings_edit' journal_section_settings_pk %}" class="btn-action btn-edit">Редактировать</a>
+                            {% else %}
+                                <a href="{% url 'dashboards:sectionsettings_add' %}" class="btn-action btn-add-small">Создать</a>
+                            {% endif %}
+                            <a href="{% url 'dashboards:sectionsettings_list' %}" class="btn-action btn-view">Просмотр</a>
+                        </div>
+                    </div>
+
+                    <!-- Issue Pages Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📄</span>
+                                <h3>Страницы выпусков</h3>
+                            </div>
+                            <span class="badge">{{ journal_pages_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения отдельных страниц журнала.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:issuepage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:issuepage_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:issuepage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Management Section -->
+            <section id="news-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление новостями
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- News Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📰</span>
+                                <h3>Новости</h3>
+                            </div>
+                            <span class="badge">{{ news_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление новостными статьями.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:news_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:news_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:news_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Categories Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🏷️</span>
+                                <h3>Категории</h3>
+                            </div>
+                            <span class="badge">{{ categories_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление категориями новостей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:category_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:category_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:category_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Banners Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Баннеры страницы</h3>
+                            </div>
+                            <span class="badge">{{ hero_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление баннерами на странице списка новостей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:newspagehero_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:newspagehero_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:newspagehero_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Subscribers Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📧</span>
+                                <h3>Подписчики</h3>
+                            </div>
+                            <span class="badge">{{ subscribers_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление подписками на новости.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:subscriber_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:subscriber_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:subscriber_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Partners Management Section -->
+            <section id="partners-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление партнерами
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Home Sliders Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Слайдер главной</h3>
+                            </div>
+                            <span class="badge">{{ home_sliders_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление слайдами на странице партнеров.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:homeslider_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:homeslider_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:homeslider_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Partners Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🤝</span>
+                                <h3>Партнеры</h3>
+                            </div>
+                            <span class="badge">{{ partners_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление партнерами, логотипами, типами.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:partner_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:partner_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:partner_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Partnership Applications Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Заявки на партнерство</h3>
+                            </div>
+                            <span class="badge">{{ applications_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление входящими заявками от партнеров.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:application_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:application_list' %}" class="btn-action btn-view">Все заявки</a>
+                        </div>
+                    </div>
+
+                    <!-- Logo Carousel Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Карусель логотипов</h3>
+                            </div>
+                            <span class="badge">{{ logo_carousel_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление отображением логотипов в карусели.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:logocarousel_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:logocarousel_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:logocarousel_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Press Center Management Section -->
+            <section id="press-center-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление Пресс-центром
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Press Center Page Card (singleton) -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📄</span>
+                                <h3>Страница Пресс-центра</h3>
+                            </div>
+                            <span class="badge">{{ press_page_exists|yesno:"1,0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Основная информация, фон, правила публикации.</p>
+                        </div>
+                        <div class="card-actions">
+                            {% if press_page_exists %}
+                                <a href="{% url 'dashboards:presscenterpage_edit' press_page_pk %}" class="btn-action btn-edit">Редактировать</a>
+                                <a href="{% url 'dashboards:presscenterpage_delete' press_page_pk %}" class="btn-action btn-delete">Удалить</a>
+                            {% else %}
+                                <a href="{% url 'dashboards:presscenterpage_add' %}" class="btn-action btn-add-small">Создать</a>
+                            {% endif %}
+                            <a href="{% url 'dashboards:presscenterpage_list' %}" class="btn-action btn-view">Просмотр</a>
+                        </div>
+                    </div>
+
+                    <!-- Press Images Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Изображения</h3>
+                            </div>
+                            <span class="badge">{{ press_images_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Дополнительные изображения для страницы.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:presscenterimage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:presscenterimage_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:presscenterimage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Publication Requests Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Заявки на публикацию</h3>
+                            </div>
+                            <span class="badge">{{ publication_requests_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление входящими заявками.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:publicationrequest_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:publicationrequest_list' %}" class="btn-action btn-view">Все заявки</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Management Section -->
+            <section id="projects-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление проектами
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Project Categories Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🏷️</span>
+                                <h3>Категории проектов</h3>
+                            </div>
+                            <span class="badge">{{ project_categories_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление категориями.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:projectcategory_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:projectcategory_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:projectcategory_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Projects Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📁</span>
+                                <h3>Проекты</h3>
+                            </div>
+                            <span class="badge">{{ projects_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление проектами (слайды, участники, партнеры).</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:project_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:project_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:project_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Members Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">👥</span>
+                                <h3>Участники проектов</h3>
+                            </div>
+                            <span class="badge">{{ project_members_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление участниками и их ролями.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:projectmember_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:projectmember_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:projectmember_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Partners Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🤝</span>
+                                <h3>Партнеры проектов</h3>
+                            </div>
+                            <span class="badge">{{ project_partners_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление партнерами и логотипами.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:projectpartner_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:projectpartner_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:projectpartner_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Slides Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Слайды проектов</h3>
+                            </div>
+                            <span class="badge">{{ project_slides_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление слайдами на странице списка проектов.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:projectslide_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:projectslide_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:projectslide_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Images Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Галерея изображений</h3>
+                            </div>
+                            <span class="badge">{{ project_gallery_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения для галереи проектов.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:projectgallery_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:projectgallery_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:projectgallery_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Requests Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📞</span>
+                                <h3>Запросы обратной связи</h3>
+                            </div>
+                            <span class="badge">{{ contact_requests_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление запросами от посетителей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:contactrequest_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:contactrequest_list' %}" class="btn-action btn-view">Все записи</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Proposals Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">💡</span>
+                                <h3>Предложения проектов</h3>
+                            </div>
+                            <span class="badge">{{ project_proposals_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Предложения от пользователей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:projectproposal_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:projectproposal_list' %}" class="btn-action btn-view">Все записи</a>
+                        </div>
+                    </div>
+
+                    <!-- Join Requests Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Запросы на вступление</h3>
+                            </div>
+                            <span class="badge">{{ project_join_requests_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Заявки на участие в проектах.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:projectjoinrequest_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:projectjoinrequest_list' %}" class="btn-action btn-view">Все записи</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Research Management Section -->
+            <section id="research-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление исследованиями
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Research Categories Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📂</span>
+                                <h3>Категории исследований</h3>
+                            </div>
+                            <span class="badge">{{ research_categories_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление категориями исследований.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:researchcategory_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:researchcategory_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:researchcategory_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Research Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📄</span>
+                                <h3>Исследования</h3>
+                            </div>
+                            <span class="badge">{{ research_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление исследованиями и статьями.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:research_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:research_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:research_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Research Tags Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🏷️</span>
+                                <h3>Теги исследований</h3>
+                            </div>
+                            <span class="badge">{{ research_tags_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление тегами для исследований.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:researchtag_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:researchtag_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:researchtag_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Research Hero Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🖼️</span>
+                                <h3>Hero-раздел</h3>
+                            </div>
+                            <span class="badge">{{ research_hero_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление фоном и брошюрой на странице исследований.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:researchhero_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:researchhero_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:researchhero_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Conferences Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🗓️</span>
+                                <h3>Конференции</h3>
+                            </div>
+                            <span class="badge">{{ conferences_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление конференциями и мероприятиями.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:conference_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:conference_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:conference_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Conference Registrations Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Регистрации на конференции</h3>
+                            </div>
+                            <span class="badge">{{ conference_registrations_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление заявками на участие.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:conferenceregistration_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:conferenceregistration_list' %}" class="btn-action btn-view">Все записи</a>
+                        </div>
+                    </div>
+
+                    <!-- Youth Council Departments Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🏛️</span>
+                                <h3>Отделения молодежного совета</h3>
+                            </div>
+                            <span class="badge">{{ youth_departments_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление отделениями совета.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:youthcouncildepartment_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:youthcouncildepartment_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:youthcouncildepartment_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Youth Council Members Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">👥</span>
+                                <h3>Члены молодежного совета</h3>
+                            </div>
+                            <span class="badge">{{ youth_members_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление участниками совета.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:youthcouncilmember_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:youthcouncilmember_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:youthcouncilmember_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Schedule Management Section -->
+            <section id="schedule-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление расписанием
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Programs Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📅</span>
+                                <h3>Программы</h3>
+                            </div>
+                            <span class="badge">{{ schedule_programs_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление программами расписания.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:scheduleprogram_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:scheduleprogram_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:scheduleprogram_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Curriculum Modules Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📚</span>
+                                <h3>Модули</h3>
+                            </div>
+                            <span class="badge">{{ schedule_modules_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление модулями учебной программы.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:curriculummodule_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:curriculummodule_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:curriculummodule_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Curriculum Documents Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📎</span>
+                                <h3>Документы программ</h3>
+                            </div>
+                            <span class="badge">{{ schedule_documents_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Учебные материалы, программы, расписания.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:curriculumdocument_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:curriculumdocument_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:curriculumdocument_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Program Applications Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Заявки на обучение</h3>
+                            </div>
+                            <span class="badge">{{ schedule_applications_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление заявками от слушателей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:programapplication_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:programapplication_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:programapplication_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Schedule Slider Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Слайдер расписания</h3>
+                            </div>
+                            <span class="badge">{{ schedule_slider_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения для слайдера на странице расписания.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:schedulesliderimage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:schedulesliderimage_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:schedulesliderimage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Slider Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📆</span>
+                                <h3>Слайдер календаря</h3>
+                            </div>
+                            <span class="badge">{{ calendar_slider_count|default:"0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Изображения для слайдера на странице календаря.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:calendarsliderimage_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:calendarsliderimage_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:calendarsliderimage_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Single Window Management Section -->
+            <section id="single-window-section" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <span class="title-dot"></span>
+                        Управление разделом "Одно окно"
+                    </h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Basic Info Card (singleton) -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">ℹ️</span>
+                                <h3>Основные сведения</h3>
+                            </div>
+                            <span class="badge">{{ basic_info_exists|yesno:"1,0" }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Адрес, телефон, email, руководитель, файл положения и др.</p>
+                        </div>
+                        <div class="card-actions">
+                            {% if basic_info_exists %}
+                                <a href="{% url 'dashboards:basicinfo_edit' basic_info_pk %}" class="btn-action btn-edit">Редактировать</a>
+                                <a href="{% url 'dashboards:basicinfo_delete' basic_info_pk %}" class="btn-action btn-delete">Удалить</a>
+                            {% else %}
+                                <a href="{% url 'dashboards:basicinfo_add' %}" class="btn-action btn-add-small">Создать</a>
+                            {% endif %}
+                            <a href="{% url 'dashboards:basicinfo_list' %}" class="btn-action btn-view">Просмотр</a>
+                        </div>
+                    </div>
+
+                    <!-- Sliders Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">🎠</span>
+                                <h3>Слайдеры</h3>
+                            </div>
+                            <span class="badge">{{ sliders_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление слайдами на странице "Одно окно".</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:slider_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:slider_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:slider_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">❓</span>
+                                <h3>FAQ</h3>
+                            </div>
+                            <span class="badge">{{ singlewindow_faqs_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Часто задаваемые вопросы по услугам.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:faq_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:faq_list' %}" class="btn-action btn-view">Все записи</a>
+                            <a href="{% url 'dashboards:faq_add' %}" class="btn-action btn-add-small">Добавить</a>
+                        </div>
+                    </div>
+
+                    <!-- Service Requests Card -->
+                    <div class="management-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <span class="card-icon">📋</span>
+                                <h3>Заявки на услуги</h3>
+                            </div>
+                            <span class="badge">{{ service_requests_count }}</span>
+                        </div>
+                        <div class="card-body">
+                            <p>Управление входящими заявками от посетителей.</p>
+                        </div>
+                        <div class="card-actions">
+                            <a href="{% url 'dashboards:servicerequest_list' %}" class="btn-action btn-edit">Редактировать</a>
+                            <a href="{% url 'dashboards:servicerequest_list' %}" class="btn-action btn-view">Все записи</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+<script>
+    window.NOTIFICATIONS_URLS = {
+        unread: "{% url 'notifications:api_unread' %}",
+        mark_read: "{% url 'notifications:api_mark_read' 0 %}".replace('/0/', '/'),
+        mark_all_read: "{% url 'notifications:api_mark_all_read' %}",
+        archive: "{% url 'notifications:api_archive' 0 %}".replace('/0/', '/'),
+        unarchive: "{% url 'notifications:api_unarchive' 0 %}".replace('/0/', '/'),
+        delete: "{% url 'notifications:api_delete' 0 %}".replace('/0/', '/'),
+        archive_all_read: "{% url 'notifications:api_archive_all_read' %}",
+        delete_all_archived: "{% url 'notifications:api_delete_all_archived' %}",
+    };
+</script>
+<script src="{% static 'dashboards/js/notifications.js' %}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+        const mobileToggle = document.getElementById('mobileSidebarToggle');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                sidebar.classList.toggle('collapsed');
+            });
+        }
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                sidebar.classList.toggle('mobile-open');
+            });
+        }
+
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 768) {
+                if (sidebar && !sidebar.contains(event.target) && mobileToggle && !mobileToggle.contains(event.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                if (sidebar) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const userDropdown = document.getElementById('userDropdown');
+    
+        if (userDropdown) {
+            userDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('open');
+            });
+    
+            document.addEventListener('click', function(e) {
+                if (!userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('open');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Заявка отправлена{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'consultations/css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="success-page">
+    <!-- رابط العودة في الزاوية اليمنى السفلية -->
+    <a href="{% url 'consultations:consultation_form' %}" class="back-link-fixed">
+        <svg width="115" height="91" viewBox="0 0 115 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M111.5 45.5H3.5M3.5 45.5L50.75 87.5M3.5 45.5L50.75 3.5" stroke="#052946" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="back-text">Назад</span>
+    </a>
+
+    <div class="success-container">
+        <h1 class="success-main-title">Заявка на консультацию отправлена</h1>
+        <p class="success-subtitle">Подробности будут в личном кабинете учащегося</p>
+        
+        <!-- حاوية الصورة -->
+        {% if success_image %}
+        <div class="success-image-wrapper">
+            <img src="{{ success_image.image.url }}" alt="{{ success_image.alt_text }}" class="success-image">
+        </div>
+        {% endif %}
+
+        <!-- الزر الجديد أسفل الصورة -->
+        <a href="{% url 'accounts:login' %}" class="auth-button">Авторизироваться</a>
+    </div>
+</div>
+{% endblock %}

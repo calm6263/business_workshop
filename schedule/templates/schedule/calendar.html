@@ -1,0 +1,168 @@
+<!-- schedule/templates/schedule/calendar.html - النسخة المعدلة -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'schedule/css/calendar.css' %}">
+
+<div class="calendar-page">
+    <!-- Slider Section - إضافة السلايدر -->
+    {% if slider_images %}
+    <div class="slider-section">
+        <div class="slider-container" id="calendarSlider">
+            {% for slide in slider_images %}
+            <div class="slider-slide">
+                <div class="slide-image">
+                    <img src="{{ slide.image.url }}" alt="{{ slide.title }}" class="slider-img">
+                    <div class="slide-overlay"></div>
+                </div>
+                <div class="slide-content">
+                    <div class="container">
+                        <!-- Breadcrumb داخل السلايدر -->
+                        <div class="slider-breadcrumb">
+                            <div class="breadcrumb-content">
+                                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                                <div class="breadcrumb-arrow">
+                                    <div class="arrow-line arrow-top"></div>
+                                    <div class="arrow-line arrow-bottom"></div>
+                                </div>
+                                <a href="{% url 'schedule:schedule_page' %}" class="breadcrumb-link">Расписание</a>
+                                <div class="breadcrumb-arrow">
+                                    <div class="arrow-line arrow-top"></div>
+                                    <div class="arrow-line arrow-bottom"></div>
+                                </div>
+                                <span class="breadcrumb-current">Календарь</span>
+                            </div>
+                        </div>
+                        
+                        <!-- عرض المحتوى الأصلي للسلايدر -->
+                        {% if slide.subtitle %}
+                        <div class="slide-subtitle">{{ slide.subtitle }}</div>
+                        {% endif %}
+                        <h1 class="slide-title">{{ slide.title }}</h1>
+                        {% if slide.description %}
+                        <p class="slide-description">{{ slide.description }}</p>
+                        {% endif %}
+                        {% if slide.link and slide.link_text %}
+                        <a href="{{ slide.link }}" class="slide-btn">
+                            {{ slide.link_text }}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Slider Navigation -->
+        <div class="slider-controls">
+            <button class="slider-prev" aria-label="Предыдущий">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="slider-dots" id="sliderDots">
+                <!-- Точки будут добавлены динамически -->
+            </div>
+            <button class="slider-next" aria-label="Следующий">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Breadcrumb Section - только если нет слайдера -->
+    {% if not slider_images %}
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <a href="{% url 'schedule:schedule_page' %}" class="breadcrumb-link">Расписание</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Календарь</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- التنقل السفلي خارج الكونتينر -->
+    <div class="calendar-bottom-navigation">
+        <!-- زر العودة على اليسار -->
+        <div class="back-section">
+            <div class="back-content">
+                <svg class="back-arrow-icon" width="115" height="91" viewBox="0 0 115 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M111.5 45.5H3.5M3.5 45.5L50.75 87.5M3.5 45.5L50.75 3.5" stroke="#052946" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="back-text">Назад</span>
+            </div>
+        </div>
+        
+        <!-- زر التحميل على اليمين -->
+        <div class="download-section">
+            <div class="download-content">
+                <span class="download-text">Скачать PDF</span>
+                <svg class="download-icon" width="82" height="82" viewBox="0 0 82 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M41 59.3219C40.3166 59.3219 39.676 59.216 39.0781 59.0041C38.4802 58.7923 37.925 58.4284 37.4125 57.9125L18.9625 39.4625C17.9375 38.4375 17.4455 37.2417 17.4865 35.875C17.5275 34.5083 18.0195 33.3125 18.9625 32.2875C19.9875 31.2625 21.2055 30.7295 22.6166 30.6885C24.0277 30.6475 25.244 31.1378 26.2656 32.1594L35.875 41.7688V5.12502C35.875 3.67293 36.367 2.4566 37.351 1.47602C38.335 0.495435 39.5513 0.00343434 41 1.76724e-05C42.4486 -0.00339899 43.6667 0.488601 44.6541 1.47602C45.6415 2.46343 46.1318 3.67977 46.125 5.12502V41.7688L55.7343 32.1594C56.7593 31.1344 57.9774 30.6424 59.3885 30.6834C60.7995 30.7244 62.0159 31.2591 63.0374 32.2875C63.977 33.3125 64.469 34.5083 64.5134 35.875C64.5579 37.2417 64.0659 38.4375 63.0374 39.4625L44.5875 57.9125C44.075 58.425 43.5198 58.7889 42.9218 59.0041C42.3239 59.2194 41.6833 59.3253 41 59.3219ZM10.25 82C7.43124 82 5.01908 80.9972 3.0135 78.9916C1.00791 76.986 0.00341666 74.5722 0 71.75V61.5C0 60.0479 0.492 58.8316 1.476 57.851C2.46 56.8704 3.67633 56.3784 5.125 56.375C6.57366 56.3716 7.7917 56.8636 8.77912 57.851C9.76653 58.8384 10.2568 60.0547 10.25 61.5V71.75H71.7499V61.5C71.7499 60.0479 72.2419 58.8316 73.2259 57.851C74.2099 56.8704 75.4263 56.3784 76.8749 56.375C78.3236 56.3716 79.5416 56.8636 80.5291 57.851C81.5165 58.8384 82.0068 60.0547 81.9999 61.5V71.75C81.9999 74.5687 80.9971 76.9826 78.9916 78.9916C76.986 81.0006 74.5721 82.0034 71.7499 82H10.25Z" fill="#052946"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- الخط تحت التنقل السفلي -->
+    <div class="slider-bottom-line"></div>
+
+    <!-- حاوية التقويم الرئيسية -->
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button class="calendar-nav-btn prev-month" aria-label="Предыдущий месяц">
+                <svg width="30" height="30" viewBox="0 0 207 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M202 70H5M5 70L91.1875 5M5 70L91.1875 135" stroke="#052946" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="calendar-title">
+                <div id="currentYear">2026</div>
+                <div id="currentMonth" class="month-red">Январь</div>
+            </div>
+            <button class="calendar-nav-btn next-month" aria-label="Следующий месяц">
+                <svg width="30" height="30" viewBox="0 0 199 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 70H194M194 70L111.313 5M194 70L111.313 135" stroke="#052946" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- حاوية التقويم الرئيسية -->
+        <div class="calendar-main-container">
+            <!-- شبكة الخطوط -->
+            <div class="calendar-grid">
+                <!-- الخطوط الأفقية والعمودية ستُنشأ بواسطة JavaScript -->
+            </div>
+
+            <!-- أيام الأسبوع -->
+            <div class="calendar-weekdays">
+                <div class="weekday">пн</div>
+                <div class="weekday">вт</div>
+                <div class="weekday">ср</div>
+                <div class="weekday">чт</div>
+                <div class="weekday">пт</div>
+                <div class="weekday">сб</div>
+                <div class="weekday">вс</div>
+            </div>
+
+            <!-- خلايا الأيام -->
+            <div class="calendar-days" id="calendarDays">
+                <!-- سيتم ملؤها ديناميكياً بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var calendarData = {{ calendar_data|safe }};
+</script>
+<script src="{% static 'schedule/js/calendar.js' %}"></script>
+{% endblock %}

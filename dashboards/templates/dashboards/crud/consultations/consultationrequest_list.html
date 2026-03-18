@@ -1,0 +1,53 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>Заявки на консультацию</h2>
+    <span class="badge" style="background: #052946;">{{ items|length }} заявок</span>
+</div>
+
+<table class="dashboard-table crud-table">
+    <thead>
+        <tr>
+            <th>Номер заявки</th>
+            <th>Направление</th>
+            <th>Дата/Время</th>
+            <th>Контакты</th>
+            <th>Обработано</th>
+            <th>Дата создания</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td><span style="font-family: monospace;">{{ item.request_id|upper|slice:":8" }}</span></td>
+            <td>{{ item.get_direction_display|truncatechars:30 }}</td>
+            <td>{{ item.date|date:"d.m.Y" }} {{ item.time|time:"H:i" }}</td>
+            <td>
+                {{ item.contact_phone }}<br>
+                {{ item.contact_email }}
+            </td>
+            <td>{% if item.is_processed %}✅{% else %}❌{% endif %}</td>
+            <td>{{ item.created_at|date:"d.m.Y H:i" }}</td>
+            <td class="crud-actions">
+                <a href="{% url 'dashboards:consultationrequest_edit' item.pk %}" class="btn-action btn-edit" title="Редактировать">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+                    </svg>
+                </a>
+                <a href="{% url 'dashboards:consultationrequest_delete' item.pk %}" class="btn-action btn-delete" title="Удалить" onclick="return confirm('Вы уверены?')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0h10" />
+                    </svg>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center">Нет заявок</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

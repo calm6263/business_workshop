@@ -1,0 +1,522 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}пять башен{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/google-fonts/raleway.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/google-fonts/prata.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- إضافة كتلة CSS إضافية -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <header class="full-width-container">
+        <!-- الشريط العلوي -->
+        <nav class="navbar navbar-top full-width-container">
+            <div class="top-bar-content">
+                <!-- الجزء الأيسر: اللوجو والعلم -->
+                <div class="left-section">
+                    <div class="logo-section">
+                        <a href="{% url 'index' %}" style="text-decoration: none; display: inline-block;">
+                            <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo-img">
+                        </a>
+                    </div>
+                    <div class="flag-container" id="flagContainer">
+                        <!-- تم إزالة العلم -->
+                        <span class="flag-text">Ru</span>
+                        <!-- إضافة سهم للقائمة المنسدلة -->
+                        <div class="dropdown-arrow">
+                            <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L7 7L13 1" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <!-- قائمة اللغات المنسدلة -->
+                        <div class="language-dropdown" id="languageDropdown">
+                            <div class="language-option">
+                                <div class="language-flag russian-flag-small"></div>
+                                <span class="language-name">Русский</span>
+                            </div>
+                            <div class="language-option">
+                                <div class="language-flag english-flag"></div>
+                                <span class="language-name">English</span>
+                            </div>
+                            <div class="language-option">
+                                <div class="language-flag chinese-flag"></div>
+                                <span class="language-name">中文</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الجزء الأيمن: الروابط والزر -->
+                <div class="right-section">
+                    <div class="nav-top-links">
+                        <a href="{% url 'contacts:contacts_page' %}" class="nav-top-link">КОНТАКТЫ</a>
+                        <a href="{% url 'coworking:coworking_home' %}" class="nav-top-link">КОВОРКИНГ</a>
+                        {% if user.is_authenticated %}
+                            <span class="user-status">
+                                <i class="fas fa-circle text-success me-1" style="font-size: 8px;"></i>
+                                Online
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div class="position-relative">
+                        {% if user.is_authenticated %}
+                            <!-- حالة تسجيل الدخول -->
+                            <a href="#" class="contact-btn profile-btn" id="accountBtn" title="{{ user.get_full_name|default:user.username }}">
+                                <svg class="profile-icon" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </a>
+                            <!-- القائمة المنسدلة للمستخدم المسجل -->
+                            <div class="account-dropdown" id="accountDropdown">
+                                <!-- عنصر دخول إلى الحساب الشخصي حسب نوع المستخدم -->
+                                <div class="account-option">
+                                    <div class="account-icon">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                    </div>
+                                    <a href="{% url 'dashboards:dashboard' %}" class="account-text">панель управления</a>
+                                </div>
+                                <!-- عناصر معطلة مؤقتاً - تم إزالتها بناءً على طلب سابق -->
+                                <!-- عنصر الخروج -->
+                                <div class="account-option">
+                                    <div class="account-icon" style="background: #dc3545;">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                    </div>
+                                    <a href="{% url 'accounts:logout' %}" class="account-text" style="color: #dc3545;">Выйти</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <!-- حالة عدم تسجيل الدخول -->
+                            <a href="{% url 'accounts:login' %}" class="contact-btn profile-btn" id="accountBtn" title="Личный кабинет">
+                                <svg class="profile-icon" viewBox="0 0 24 24">
+                                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                            </a>
+                            <!-- القائمة المنسدلة لـ "Личный кабинет" (عند عدم الدخول) -->
+                            <div class="account-dropdown" id="accountDropdown">
+                                <div class="account-option">
+                                    <div class="account-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <a href="{% url 'accounts:login' %}" class="account-text">Вход в кабинет</a>
+                                </div>
+                                <div class="account-option disabled">
+                                    <div class="account-icon">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <span class="account-text disabled-link">Регистрация</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- القائمة الرئيسية -->
+        <nav class="navbar navbar-expand-lg navbar-main navbar-custom full-width-container">
+            <div class="main-nav-content">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <div class="nav-main-links-container">
+                        <!-- Академия -->
+                        <div class="nav-item dropdown nav-main-item">
+                            <a class="nav-link nav-main-link dropdown-toggle" href="#" id="academyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Академия
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="academyDropdown">
+                                <div class="dropdown-content">
+                                    <!-- العمود الأول -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-main-title">ПРО АКАДЕМИЮ</div>
+                                            <div class="dropdown-subtitle">Общая информация, руководство, фотогалерея документация</div>
+                                            <a href="{% url 'about_academy' %}" class="dropdown-item-custom">Об академии</a>
+                                            <a href="{% url 'staff:teachers_and_staff' %}" class="dropdown-item-custom">Преподаватели и сотрудники</a>
+                                            <a href="{% url 'contacts:contacts_page' %}" class="dropdown-item-custom">Контакты</a>
+                                            <a href="{% url 'projects:projects_list' %}" class="dropdown-item-custom">Проекты</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثاني -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">РЕЕСТР</div>
+                                            <div class="dropdown-subtitle">Общая информация, руководство, фотогалерея документация</div>
+                                            <a href="{% url 'events' %}" class="dropdown-item-custom">Мероприятия</a>
+                                            <a href="{% url 'education_info:education_info' %}" class="dropdown-item-custom">Сведения об образовательной деятельности</a>
+                                            <a href="{% url 'under_construction' 'Общежития' %}" class="dropdown-item-custom">Общежития</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثالث -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">СЕЛЕКЦИЯ</div>
+                                            <div class="dropdown-subtitle">Общая информация, руководство, фотогалерея документация</div>
+                                            <a href="{% url 'partners:partners_list' %}" class="dropdown-item-custom">Партнеры</a>
+                                            <a href="{% url 'news:news_list' %}" class="dropdown-item-custom">СМИ</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الرابع -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">Поступление</div>
+                                            <a href="{% url 'about_academy' %}" class="dropdown-item-custom">Об академии</a>
+                                            <a href="{% url 'contacts:contacts_page' %}" class="dropdown-item-custom">Контакты</a>
+                                            <a href="/events/" class="dropdown-item-custom">Мероприятия</a>
+                                            <a href="{% url 'under_construction' 'Общежития' %}" class="dropdown-item-custom">Общежития</a>
+                                            <a href="{% url 'partners:partners_list' %}" class="dropdown-item-custom">Партнеры</a>
+                                        </div>
+                                        
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">Обучение</div>
+                                            <a href="{% url 'staff:teachers_and_staff' %}" class="dropdown-item-custom">Преподаватели и сотрудники</a>
+                                            <a href="{% url 'projects:projects_list' %}" class="dropdown-item-custom">Проекты</a>               
+                                            <a href="{% url 'education_info:education_info' %}" class="dropdown-item-custom">Сведения об образовательной деятельности</a>
+                                            <a href="{% url 'news:news_list' %}" class="dropdown-item-custom">СМИ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Поступление -->
+                        <div class="nav-item dropdown nav-main-item">
+                            <a class="nav-link nav-main-link dropdown-toggle" href="#" id="admissionDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Поступление
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="admissionDropdown">
+                                <div class="dropdown-content">
+                                    <!-- العمود الأول -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-main-title">ИНФОРМАЦИЯ ДЛЯ АБИТУРИЕНТОВ</div>
+                                            <div class="dropdown-subtitle">Вся необходимая информация для поступающих</div>
+                                            <a href="#" class="dropdown-item-custom">Правила приема</a>
+                                            <a href="#" class="dropdown-item-custom">Программы обучения</a>
+                                            <a href="#" class="dropdown-item-custom">Вступительные испытания</a>
+                                            <a href="#" class="dropdown-item-custom">Сроки подачи документов</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثاني -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">ДОКУМЕНТЫ</div>
+                                            <div class="dropdown-subtitle">Перечень необходимых документов</div>
+                                            <a href="#" class="dropdown-item-custom">Заявление на поступление</a>
+                                            <a href="#" class="dropdown-item-custom">Образовательные документы</a>
+                                            <a href="#" class="dropdown-item-custom">Медицинские справки</a>
+                                            <a href="#" class="dropdown-item-custom">Фотографии</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثالث -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">КОНКУРСЫ И РЕЙТИНГИ</div>
+                                            <div class="dropdown-subtitle">Информация о конкурсе и рейтингах</div>
+                                            <a href="#" class="dropdown-item-custom">Проходные баллы</a>
+                                            <a href="#" class="dropdown-item-custom">Рейтинг абитуриентов</a>
+                                            <a href="#" class="dropdown-item-custom">Конкурсные списки</a>
+                                            <a href="#" class="dropdown-item-custom">Количество мест</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الرابع -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">ПОДДЕРЖКА</div>
+                                            <a href="#" class="dropdown-item-custom">Консультации</a>
+                                            <a href="#" class="dropdown-item-custom">Подготовительные курсы</a>
+                                            <a href="#" class="dropdown-item-custom">Онлайн-запись</a>
+                                            <a href="#" class="dropdown-item-custom">Частые вопросы</a>
+                                        </div>
+                                        
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">КОНТАКТЫ</div>
+                                            <a href="#" class="dropdown-item-custom">Приемная комиссия</a>
+                                            <a href="#" class="dropdown-item-custom">Телефоны горячей линии</a>
+                                            <a href="#" class="dropdown-item-custom">Электронная почта</a>
+                                            <a href="#" class="dropdown-item-custom">График работы</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Обучение -->
+                        <div class="nav-item dropdown nav-main-item">
+                            <a class="nav-link nav-main-link dropdown-toggle" href="#" id="educationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Обучение
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="educationDropdown">
+                                <div class="dropdown-content">
+                                    <!-- العمود الأول -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-main-title">ОБРАЗОВАТЕЛЬНЫЕ ПРОГРАММЫ</div>
+                                            <div class="dropdown-subtitle">Программы бакалавриата, магистратуры и аспирантуры</div>
+                                            <a href="#" class="dropdown-item-custom">Бакалавриат</a>
+                                            <a href="#" class="dropdown-item-custom">Магистратура</a>
+                                            <a href="#" class="dropdown-item-custom">Дополнительное образование</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثاني -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">УЧЕБНЫЙ ПРОЦЕСС</div>
+                                            <div class="dropdown-subtitle">Организация учебного процесса</div>
+                                            <a href="#" class="dropdown-item-custom">Расписание занятий</a>
+                                            <a href="#" class="dropdown-item-custom">Учебные планы</a>
+                                            <a href="#" class="dropdown-item-custom">Академический календарь</a>
+                                            <a href="#" class="dropdown-item-custom">Сессия и экзамены</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثالث -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">ЭЛЕКТРОННОЕ ОБУЧЕНИЕ</div>
+                                            <div class="dropdown-subtitle">Дистанционные образовательные технологии</div>
+                                            <a href="#" class="dropdown-item-custom">Электронные курсы</a>
+                                            <a href="#" class="dropdown-item-custom">Виртуальные лаборатории</a>
+                                            <a href="#" class="dropdown-item-custom">Онлайн-библиотека</a>
+                                            <a href="#" class="dropdown-item-custom">Вебинары</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الرابع -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">СТУДЕНЧЕСКАЯ ЖИЗНЬ</div>
+                                            <a href="#" class="dropdown-item-custom">Студенческие объединения</a>
+                                            <a href="#" class="dropdown-item-custom">Спортивные секции</a>
+                                            <a href="/events/" class="dropdown-item-custom">Мероприятия</a>
+                                            <a href="{% url 'under_construction' 'Общежития' %}" class="dropdown-item-custom">Общежития</a>
+                                        </div>
+                                        
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">ПОДДЕРЖКА СТУДЕНТОВ</div>
+                                            <a href="#" class="dropdown-item-custom">Стипендии</a>
+                                            <a href="#" class="dropdown-item-custom">Карьерный центр</a>
+                                            <a href="#" class="dropdown-item-custom">Психологическая помощь</a>
+                                            <a href="#" class="dropdown-item-custom">Инклюзивное образование</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Наука -->
+                        <div class="nav-item dropdown nav-main-item">
+                            <a class="nav-link nav-main-link dropdown-toggle" href="#" id="scienceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                Наука
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-custom" aria-labelledby="scienceDropdown">
+                                <div class="dropdown-content">
+                                    <!-- العمود الأول -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-main-title">НАУЧНЫЕ НАПРАВЛЕНИЯ</div>
+                                            <div class="dropdown-subtitle">Основные научные исследования и разработки</div>
+                                            <a href="#" class="dropdown-item-custom">НИИ</a>
+                                            <a href="#" class="dropdown-item-custom">Прикладные науки</a>
+                                            <a href="#" class="dropdown-item-custom">Инновационные проекты</a>
+                                            <a href="#" class="dropdown-item-custom">Междисциплинарные исследования</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثاني -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">НАУЧНЫЕ ЦЕНТРЫ И ЛАБОРАТОРИИ</div>
+                                            <div class="dropdown-subtitle">Структура научных подразделений</div>
+                                            <a href="#" class="dropdown-item-custom">Научно-исследовательские центры</a>
+                                            <a href="#" class="dropdown-item-custom">Лаборатории</a>
+                                            <a href="#" class="dropdown-item-custom">Опытные производства</a>
+                                            <a href="#" class="dropdown-item-custom">Технопарк</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الثالث -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <a href="{% url 'patents:patents_list' %}" class="dropdown-item-custom">Патенты</a>
+                                            <div class="dropdown-subtitle">Научные достижения и публикации</div>
+                                            <a href="#" class="dropdown-item-custom">Научные журналы</a>
+                                            <a href="#" class="dropdown-item-custom">Монографии</a>
+                                            <a href="{% url 'patents:patents_list' %}" class="dropdown-item-custom">Патенты</a>
+                                            <a href="#" class="dropdown-item-custom">Цитирования</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- العمود الرابع -->
+                                    <div class="dropdown-column">
+                                        <div class="dropdown-section">
+                                            <div class="dropdown-title">КОНФЕРЕНЦИИ И ГРАНТЫ</div>
+                                            <a href="#" class="dropdown-item-custom">Научные конференции</a>
+                                            <a href="#" class="dropdown-item-custom">Гранты и финансирование</a>
+                                            <a href="{% url 'consultations:consultation_form' %}" class="dropdown-item-custom">Консультации</a>
+                                            <a href="#" class="dropdown-item-custom">Конкурсы и олимпиады</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- زر البحث -->
+                        <div class="nav-item nav-main-item">
+                            <div class="search-container">
+                                <div class="search-icon" id="searchIcon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div class="search-box" id="searchBox">
+                                    <input type="text" class="search-input" placeholder="Поиск...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="{% block main_class %}full-width-container{% endblock %}">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-dark text-white py-5" style="background: #052946 !important;">
+        <div class="container">
+            <div class="row">
+                <!-- العمود الأول: الاتصالات والعنوان -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4" style="color: #FFFFFF; font-weight: 600; font-size: 18px;">КОНТАКТЫ</h5>
+                    <div class="contact-info">
+                        <p class="mb-2">
+                            <span style="color: #FFFFFF;">7 (968) 418-44-88</span>
+                        </p>
+                        <p class="mb-2">
+                            <span style="color: #FFFFFF;">7 (495) 000-00-00</span>
+                        </p>
+                        <p class="mb-4">
+                            <a href="mailto:info.fta@mail.ru" class="text-white text-decoration-none">info.fta@mail.ru</a>
+                        </p>
+                        
+                        <div class="mb-4">
+                            <h6 class="mb-3" style="color: #FFFFFF; font-weight: 600; font-size: 16px;">Продукция FTA</h6>
+                            <p class="mb-1 small" style="color: #CCCCCC;">Ждем в гости: с 10:00 до 19:00</p>
+                            <p class="small mb-1" style="color: #CCCCCC;">г. Москва, Садовая-Спасская 19К1</p>
+                            <p class="small mb-1" style="color: #CCCCCC;">(м. Красные ворота)</p>
+                            <p class="small mb-3" style="color: #CCCCCC;">Вход со стороны Красноворотского проезда</p>
+                            <a href="#" class="text-white-50 small text-decoration-none">Публичная оферта</a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- العمود الثاني: التعليم (روابط مُحدَّثة) -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4" style="color: #FFFFFF; font-weight: 600; font-size: 18px;">ОБРАЗОВАНИЕ</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}?type=professional_retraining" class="text-white text-decoration-none small">Профессиональная переподготовка</a></li>
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}?type=qualification_upgrade" class="text-white text-decoration-none small">Повышение квалификации</a></li>
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}?type=training" class="text-white text-decoration-none small">Тренинги</a></li>
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}" class="text-white text-decoration-none small">Коучинг</a></li>
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}?type=seminar" class="text-white text-decoration-none small">Семинар</a></li>
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}?format=online" class="text-white text-decoration-none small">Онлайн</a></li>
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}" class="text-white text-decoration-none small">Лекторий</a></li>
+                        <li class="mb-2"><a href="{% url 'schedule:schedule_page' %}" class="text-white text-decoration-none small">Мастер класс</a></li>
+                    </ul>
+                </div>
+    
+                <!-- العمود الثالث: الطباعة -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4" style="color: #FFFFFF; font-weight: 600; font-size: 18px;">ПЕЧАТЬ</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Печатная продукция</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Полиграфические материалы</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Готовые решения</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Логистика</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Издательство</a></li>
+                    </ul>
+                </div>
+    
+                <!-- العمود الرابع: الإعلام -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4" style="color: #FFFFFF; font-weight: 600; font-size: 18px;">МЕДИА</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{% url 'news:news_list' %}?tab=journal" class="text-white text-decoration-none small">Журнал FTA</a>
+                        </li>
+                        <li class="mb-2"><a href="{% url 'research:research_list' %}" class="text-white text-decoration-none small">Исследования</a></li>
+                        <li class="mb-2"><a href="{% url 'news:news_list' %}" class="text-white text-decoration-none small">СМИ</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Партнерские программы</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Цифровая башня</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none small">Реквизиты</a></li>
+                    </ul>
+    
+                    <!-- وسائل التواصل الاجتماعي -->
+                    <div class="social-icons mt-4 pt-3 border-top border-secondary">
+                        <h6 class="mb-3" style="color: #FFFFFF; font-size: 16px;">Мы в соцсетях</h6>
+                        <div class="d-flex gap-3">
+                            <!-- أيقونة Telegram -->
+                            <a href="#" class="text-white">
+                                <i class="fab fa-telegram fa-lg" style="color: #0088cc;"></i>
+                            </a>
+                            <!-- أيقونة VK -->
+                            <a href="#" class="text-white">
+                                <i class="fab fa-vk fa-lg" style="color: #4C75A3;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- حقوق النشر واللوجو -->
+            <div class="row mt-5 pt-4 border-top border-secondary">
+                <div class="col-md-6 d-flex align-items-center">
+                    <!-- اللوجو -->
+                    <div class="me-4">
+                        <a href="{% url 'index' %}" style="text-decoration: none; display: inline-block;">
+                            <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid" style="max-height: 50px; filter: brightness(0) invert(1);">
+                        </a>
+                    </div>
+                    <p class="small text-white-50 mb-0">
+                        &copy; . Все права защищены.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white-50 small text-decoration-none me-3">Политика конфиденциальности</a>
+                    <a href="#" class="text-white-50 small text-decoration-none">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="{% static 'js/base.js' %}"></script>
+    
+    <!-- إضافة كتلة JavaScript إضافية -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,729 @@
+<!-- program_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block main_class %}container-fluid p-0{% endblock %}
+
+{% block content %}
+<div class="program-detail-page">
+    <!-- Hero Section - Full Width بدون container -->
+    <div class="program-hero-fullwidth">
+        <div class="hero-background-fullwidth">
+            {% if program.image %}
+                <img src="{{ program.image.url }}" alt="{{ program.title }}" class="hero-image-fullwidth">
+            {% else %}
+                <div class="hero-placeholder-fullwidth"></div>
+            {% endif %}
+        </div>
+        <div class="hero-content-fullwidth">
+            <div class="hero-title-container">
+                <h1 class="hero-title-fullwidth">{{ program.title }}</h1>
+            </div>
+        </div>
+        
+        <!-- Breadcrumb داخل الصورة الرئيسية مثل صفحة الجدول -->
+        <div class="slider-breadcrumb">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                
+                {% if from_department %}
+                    <a href="{% url 'departments:departments_list' %}" class="breadcrumb-link">Академия</a>
+                    <div class="breadcrumb-arrow">
+                        <div class="arrow-line arrow-top"></div>
+                        <div class="arrow-line arrow-bottom"></div>
+                    </div>
+                    {% if department %}
+                        <a href="{% url 'departments:department_detail' department.pk %}" class="breadcrumb-link">{{ department.name }}</a>
+                        <div class="breadcrumb-arrow">
+                            <div class="arrow-line arrow-top"></div>
+                            <div class="arrow-line arrow-bottom"></div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'schedule:schedule_page' %}" class="breadcrumb-link">Расписание</a>
+                    <div class="breadcrumb-arrow">
+                        <div class="arrow-line arrow-top"></div>
+                        <div class="arrow-line arrow-bottom"></div>
+                    </div>
+                {% endif %}
+                
+                <span class="breadcrumb-current">{{ program.title|truncatewords:5 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔥 КНОПКА «НАЗАД» – ТЕПЕРЬ ПОД БАННЕРОМ, БЕЗ ФОНА -->
+    <div class="back-button-under-image">
+        {% if from_department and department %}
+            <a href="{% url 'departments:department_detail' department.pk %}" class="back-link-under-image">
+                <i class="fas fa-arrow-left"></i>
+                Назад
+            </a>
+        {% else %}
+            <a href="{% url 'schedule:schedule_page' %}" class="back-link-under-image">
+                <i class="fas fa-arrow-left"></i>
+                Назад
+            </a>
+        {% endif %}
+    </div>
+
+    <!-- Main Content - مع container داخلي فقط للمحتوى -->
+    <div class="program-main-content">
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <div class="content-container">
+                <div class="about-header-margin">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <div class="red-dot" style="display: none;"></div>
+                            <div class="section-title-with-line">
+                                <h2 class="section-main-title red-underline large-title">Управление проектами и программы</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-content-new">
+                    <div class="about-left-section">
+                        {% if program.side_image %}
+                        <div class="side-image-container-large">
+                            <img src="{{ program.side_image.url }}" alt="{{ program.title }}" class="side-image-large">
+                        </div>
+                        {% else %}
+                        <div class="side-image-placeholder-large">
+                            <span>Изображение программы</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="about-right-section">
+                        <div class="program-info-simple">
+                            <div class="program-type-simple">
+                                {{ program.get_program_type_display }}  <!-- 🔥 ИСПРАВЛЕНО: динамический тип -->
+                            </div>
+                            
+                            <div class="info-grid-simple">
+                                <div class="info-column">
+                                    <div class="info-item-simple">
+                                        <div class="info-icon-simple">
+                                            <svg width="32" height="32" viewBox="0 0 117 117" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M34.125 53.625H43.875V63.375H34.125V53.625ZM34.125 73.125H43.875V82.875H34.125V73.125ZM53.625 53.625H63.375V63.375H53.625V53.625ZM53.625 73.125H63.375V82.875H53.625V73.125ZM73.125 53.625H82.875V63.375H73.125V53.625ZM73.125 73.125H82.875V82.875H73.125V73.125Z" fill="currentColor"/>
+                                                <path d="M24.375 107.25H92.625C98.0021 107.25 102.375 102.877 102.375 97.5V29.25C102.375 23.8729 98.0021 19.5 92.625 19.5H82.875V9.75H73.125V19.5H43.875V9.75H34.125V19.5H24.375C18.9979 19.5 14.625 23.8729 14.625 29.25V97.5C14.625 102.877 18.9979 107.25 24.375 107.25ZM92.625 39L92.6299 97.5H24.375V39H92.625Z" fill="currentColor"/>
+                                            </svg>
+                                        </div>
+                                        <div class="info-text-simple">
+                                            <div class="info-label-simple">Длительность программы</div>
+                                            <div class="info-value-simple">
+                                                {% if program.duration %}
+                                                    {{ program.duration }}
+                                                {% elif program.start_date and program.end_date %}
+                                                    от {{ program.start_date|date:"j F Y" }} до {{ program.end_date|date:"j F Y" }}
+                                                {% else %}
+                                                    {{ program.duration_hours }} часов
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {% if program.cost %}
+                                    <div class="info-item-simple">
+                                        <div class="info-icon-simple">
+                                            <svg width="32" height="32" viewBox="0 0 62 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.32 10.5V42H33.723C44.3077 42 49.6 35.868 49.6 26.1896C49.6 16.5716 44.3077 10.5 33.7776 10.5H22.32ZM36.9942 52.857H22.6746V64.365H44.4242V71.0666H22.6746V84H10.6863V71.0666H0V64.365H10.6863V52.857H0V46.0924H10.6863V0H37.3736C52.2908 0 62 11.2717 62 26.5177C62 41.7034 52.0726 52.857 36.9942 52.857Z" fill="currentColor"/>
+                                            </svg>
+                                        </div>
+                                        <div class="info-text-simple">
+                                            <div class="info-label-simple">Стоимость</div>
+                                            <div class="info-value-simple">{{ program.cost }} р</div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="info-column">
+                                    <div class="info-item-simple">
+                                        <div class="info-icon-simple">
+                                            <svg width="32" height="32" viewBox="0 0 117 117" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M58.5 9.75C85.4246 9.75 107.25 31.5754 107.25 58.5C107.25 85.4246 85.4246 107.25 58.5 107.25C31.5754 107.25 9.75 85.4246 9.75 58.5C9.75 31.5754 31.5754 9.75 58.5 9.75ZM58.5 19.5C48.1566 19.5 38.2368 23.6089 30.9228 30.9228C23.6089 38.2368 19.5 48.1566 19.5 58.5C19.5 68.8434 23.6089 78.7632 30.9228 86.0772C38.2368 93.3911 48.1566 97.5 58.5 97.5C68.8434 97.5 78.7632 93.3911 86.0772 86.0772C93.3911 78.7632 97.5 68.8434 97.5 58.5C97.5 48.1566 93.3911 38.2368 86.0772 30.9228C78.7632 23.6089 68.8434 19.5 58.5 19.5ZM58.5 29.25C59.694 29.2502 60.8465 29.6885 61.7388 30.482C62.6311 31.2754 63.2012 32.3688 63.3409 33.5546L63.375 34.125V56.4818L76.5716 69.6784C77.4459 70.5557 77.9536 71.7329 77.9914 72.9709C78.0292 74.2089 77.5943 75.4148 76.7752 76.3439C75.956 77.2729 74.8139 77.8552 73.5809 77.9727C72.3479 78.0901 71.1165 77.7339 70.1366 76.9762L69.6784 76.5716L55.0534 61.9466C54.2957 61.1883 53.8091 60.2014 53.6689 59.1386L53.625 58.5V34.125C53.625 32.8321 54.1386 31.5921 55.0529 30.6779C55.9671 29.7636 57.2071 29.25 58.5 29.25Z" fill="currentColor"/>
+                                            </svg>
+                                        </div>
+                                        <div class="info-text-simple">
+                                            <div class="info-label-simple">Объем программы</div>
+                                            <div class="info-value-simple">{{ program.duration_hours }} часов</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="info-item-simple">
+                                        <div class="info-icon-simple">
+                                            <svg width="32" height="32" viewBox="0 0 138 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M58.65 75.9016L52.6125 69.8641C53.3792 68.8099 53.9062 67.7327 54.1938 66.6326C54.4813 65.5324 54.625 64.4054 54.625 63.2516C54.625 62.0977 54.4813 60.9726 54.1938 59.8763C53.9062 58.78 53.3792 57.7488 52.6125 56.7828L58.65 50.6016C60.1833 52.4224 61.3333 54.4349 62.1 56.6391C62.8667 58.8432 63.25 61.0474 63.25 63.2516C63.25 65.4557 62.8667 67.6369 62.1 69.7951C61.3333 71.9532 60.1833 73.9887 58.65 75.9016ZM70.8688 88.2641L64.6875 82.0828C67.0833 79.3995 68.8812 76.4286 70.081 73.1703C71.2808 69.912 71.8788 66.6057 71.875 63.2516C71.8712 59.8974 71.2732 56.6161 70.081 53.4076C68.8888 50.1991 67.091 47.2512 64.6875 44.5641L70.8688 38.3828C74.1271 41.9286 76.5478 45.8348 78.131 50.1013C79.7142 54.3678 80.5038 58.7512 80.5 63.2516C80.4962 67.7519 79.7046 72.1602 78.1253 76.4766C76.5459 80.7929 74.1271 84.7221 70.8688 88.2641ZM28.75 69.0016C25.5875 69.0016 22.8812 67.8765 20.631 65.6263C18.3808 63.3761 17.2538 60.6679 17.25 57.5016C17.2462 54.3352 18.3732 51.6289 20.631 49.3826C22.8888 47.1362 25.5952 46.0092 28.75 46.0016C31.9048 45.9939 34.6131 47.1209 36.8748 49.3826C39.1364 51.6442 40.2615 54.3506 40.25 57.5016C40.2385 60.6526 39.1134 63.3608 36.8748 65.6263C34.6361 67.8918 31.9278 69.0169 28.75 69.0016ZM5.75 92.0016V88.6953C5.75 86.3953 6.37292 84.287 7.61875 82.3703C8.86458 80.4536 10.5896 79.0161 12.7937 78.0578C15.2854 77.0036 17.8499 76.1891 20.4872 75.6141C23.1246 75.0391 25.8788 74.7516 28.75 74.7516C31.6212 74.7516 34.3773 75.0391 37.0185 75.6141C39.6597 76.1891 42.2223 77.0036 44.7062 78.0578C46.9104 79.0161 48.6354 80.4536 49.8813 82.3703C51.1271 84.287 51.75 86.3953 51.75 88.6953V92.0016H5.75ZM109.25 69.0016C106.088 69.0016 103.381 67.8765 101.131 65.6263C98.8808 63.3761 97.7538 60.6679 97.75 57.5016C97.7462 54.3352 98.8732 51.6289 101.131 49.3826C103.389 47.1362 106.095 46.0092 109.25 46.0016C112.405 45.9939 115.113 47.1209 117.375 49.3826C119.636 51.6442 120.761 54.3506 120.75 57.5016C120.739 60.6526 119.613 63.3608 117.375 65.6263C115.136 67.8918 112.428 69.0169 109.25 69.0016ZM86.25 92.0016V88.6953C86.25 86.3953 86.8729 84.287 88.1188 82.3703C89.3646 80.4536 91.0896 79.0161 93.2938 78.0578C95.7854 77.0036 98.348 76.1891 100.981 75.6141C103.615 75.0391 106.371 74.7516 109.25 74.7516C112.129 74.7516 114.883 75.0391 117.513 75.6141C120.142 76.1891 122.707 77.0036 125.206 78.0578C127.41 79.0161 129.135 80.4536 130.381 82.3703C131.627 84.287 132.25 86.3953 132.25 88.6953V92.0016H86.25Z" fill="currentColor"/>
+                                            </svg>
+                                        </div>
+                                        <div class="info-text-simple">
+                                            <div class="info-label-simple">Формат</div>
+                                            <div class="info-value-simple">Онлайн, с применением ДОТ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 🔥 ДИНАМИЧЕСКИЙ СТАТУС НАБОРА -->
+                            <div class="status-section status-{{ program.enrollment_status }}">
+                                <div class="status-indicator"></div>
+                                <div class="status-text">
+                                    {% if program.enrollment_status == 'postponed' and program.postponed_date %}
+                                        Перенесен на {{ program.postponed_date|date:"d.m.Y" }}
+                                    {% else %}
+                                        {{ program.get_enrollment_status_display }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <button class="apply-button-simple">
+                                Подать заявку
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4L10.59 5.41L16.17 11H4V13H16.17L10.59 18.59L12 20L20 12L12 4Z" fill="white"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Program Tabs Section -->
+        <section id="program-tabs" class="content-section">
+            <div class="content-container">
+                <div class="program-tabs-container">
+                    <div class="program-tabs-header">
+                        <button class="program-tab-btn active" data-tab="description">
+                            <span class="tab-btn-text">Описание программы</span>
+                        </button>
+                        <button class="program-tab-btn" data-tab="audience">
+                            <span class="tab-btn-text">Для кого предназначена программа</span>
+                        </button>
+                    </div>
+                    
+                    <div class="program-tabs-content">
+                        <div class="program-tab-pane active" id="tab-description">
+                            <div class="tab-pane-inner">
+                                <div class="tab-content">
+                                    {{ program.detailed_description|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="program-tab-pane" id="tab-audience">
+                            <div class="tab-pane-inner">
+                                <div class="tab-content">
+                                    <div class="audience-content">
+                                        <h3 class="audience-title" style="display: none;">Программа для вас, если вы:</h3>
+                                        <ul class="audience-list">
+                                            {% for item in program.get_target_audience_list %}
+                                                <li class="audience-item">{{ item }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructors Section -->
+        <section id="instructors" class="content-section">
+            <div class="content-container">
+                <div class="section-header">
+                    <div class="header-left">
+                        <div class="red-dot"></div>
+                        <h2 class="section-main-title">Преподаватели</h2>
+                    </div>
+                </div>
+                <div class="instructors-content">
+                    {% if teachers %}
+                    <div class="instructors-list">  <!-- single column container -->
+                        {% for teacher_program in teachers %}
+                        <a href="{% url 'staff:team_member_detail' teacher_program.teacher.pk %}" class="instructor-card-link">
+                            <div class="instructor-card">
+                                <div class="instructor-image-wrapper">
+                                    <div class="instructor-image">
+                                        <img src="{{ teacher_program.teacher.image.url }}" 
+                                             alt="{{ teacher_program.teacher.name }}" 
+                                             class="teacher-main-image">
+                                    </div>
+                                </div>
+                                <div class="instructor-info">
+                                    <h3 class="instructor-name">{{ teacher_program.teacher.name }}</h3>
+                                    <p class="instructor-position">{{ teacher_program.teacher.position }}</p>
+                                    {% if teacher_program.role %}
+                                    <p class="instructor-role">
+                                        <span class="role-label">Роль в программе:</span>
+                                        {{ teacher_program.role }}
+                                    </p>
+                                    {% endif %}
+                                    {% if teacher_program.teacher.description %}
+                                    <p class="instructor-bio">{{ teacher_program.teacher.description|truncatewords:20 }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="no-instructors">Информация о преподавателях будет добавлена позже.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Combined Sections with Tabs -->
+        <section id="combined-program-sections" class="content-section">
+            <div class="content-container">
+                <div class="combined-tabs-container">
+                    <div class="combined-tabs-header">
+                        <button class="combined-tab-btn active" data-tab="curriculum">
+                            <span class="combined-tab-btn-text">Программа обучения</span>
+                        </button>
+                        <button class="combined-tab-btn" data-tab="schedule">
+                            <span class="combined-tab-btn-text">Расписание занятий</span>
+                        </button>
+                        <button class="combined-tab-btn" data-tab="admission">
+                            <span class="combined-tab-btn-text">Как поступить</span>
+                        </button>
+                    </div>
+                    
+                    <div class="combined-tabs-content">
+                        <div class="combined-tab-pane active" id="tab-curriculum">
+                            <div class="combined-tab-pane-inner">
+                                <div class="curriculum-modules-new">
+                                    {% for module in curriculum_modules %}
+                                    <div class="curriculum-module-new">
+                                        <div class="module-header-new">
+                                            <h3 class="module-title-new">{{ module.title }}</h3>
+                                            <div class="module-toggle-new">
+                                                <svg class="toggle-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 17L22 25L30 17" stroke="#052946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        {% if module.description %}
+                                        <div class="module-content-new" style="display: none;">
+                                            <div class="module-description-new">
+                                                {{ module.description|linebreaks }}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% empty %}
+                                    <div class="curriculum-module-new">
+                                        <div class="module-header-new">
+                                            <h3 class="module-title-new">Вводная сессия</h3>
+                                            <div class="module-toggle-new">
+                                                <svg class="toggle-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 17L22 25L30 17" stroke="#052946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="module-content-new" style="display: none;">
+                                            <div class="module-description-new">
+                                                <p>Знакомство с программой, целями и задачами обучения. Обзор методологии управления проектами.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="curriculum-module-new">
+                                        <div class="module-header-new">
+                                            <h3 class="module-title-new">Основы управления проектами</h3>
+                                            <div class="module-toggle-new">
+                                                <svg class="toggle-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 17L22 25L30 17" stroke="#052946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="module-content-new" style="display: none;">
+                                            <div class="module-description-new">
+                                                <p>Изучение основных принципов, процессов и методологий управления проектами. Стандарты PMI, PRINCE2.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="curriculum-module-new">
+                                        <div class="module-header-new">
+                                            <h3 class="module-title-new">Планирование и запуск проекта</h3>
+                                            <div class="module-toggle-new">
+                                                <svg class="toggle-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 17L22 25L30 17" stroke="#052946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="module-content-new" style="display: none;">
+                                            <div class="module-description-new">
+                                                <p>Разработка устава проекта, создание плана управления проектом, определение целей и результатов.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="curriculum-module-new">
+                                        <div class="module-header-new">
+                                            <h3 class="module-title-new">Управление рисками, качеством и изменениями</h3>
+                                            <div class="module-toggle-new">
+                                                <svg class="toggle-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 17L22 25L30 17" stroke="#052946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="module-content-new" style="display: none;">
+                                            <div class="module-description-new">
+                                                <p>Методы идентификации и анализа рисков, управление качеством проекта, контроль изменений.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="curriculum-module-new">
+                                        <div class="module-header-new">
+                                            <h3 class="module-title-new">Гибкие методологии и современные подходы</h3>
+                                            <div class="module-toggle-new">
+                                                <svg class="toggle-icon" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M14 17L22 25L30 17" stroke="#052946" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="module-content-new" style="display: none;">
+                                            <div class="module-description-new">
+                                                <p>Изучение Agile, Scrum, Kanban и других гибких методологий управления проектами.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                
+                                <div class="curriculum-documents-section-new" style="margin-top: 2rem;">
+                                    <div class="curriculum-documents-grid-new">
+                                        {% for document in curriculum_documents %}
+                                        <a href="{{ document.file.url }}" class="curriculum-document-card-new" download>
+                                            <div class="document-card-icon">
+                                                <svg width="24" height="24" viewBox="0 0 48 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M24 0V20.2176C24.0001 21.3774 24.4168 22.4956 25.1689 23.3542C25.921 24.2127 26.9545 24.7501 28.068 24.8614L28.5 24.8832H48V55.9871C48.0005 57.5566 47.4288 59.0682 46.3995 60.219C45.3702 61.3698 43.9595 62.0747 42.45 62.1924L42 62.2079H6C4.48627 62.2084 3.0283 61.6157 1.91836 60.5486C0.808412 59.4814 0.12853 58.0187 0.0150006 56.4537L3.00804e-07 55.9871V6.22079C-0.000478738 4.65136 0.571219 3.13974 1.60049 1.98895C2.62976 0.838161 4.04053 0.13326 5.55 0.0155523L6 0H24ZM30 0.133747C30.9701 0.347275 31.8741 0.806802 32.631 1.47122L33 1.82269L46.242 15.552C46.9449 16.2802 47.4624 17.1779 47.748 18.1647L47.868 18.6624H30V0.133747Z" fill="#052946"/>
+                                                </svg>
+                                            </div>
+                                            <div class="document-card-info">
+                                                <h4 class="document-card-title">{{ document.title }}</h4>
+                                            </div>
+                                        </a>
+                                        {% empty %}
+                                        <p class="no-documents">Программа обучения будет добавлена позже.</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="combined-tab-pane" id="tab-schedule">
+                            <div class="combined-tab-pane-inner">
+                                <div class="schedule-section">
+                                    <div class="schedule-description">
+                                        {{ program.get_schedule_description_display|linebreaks }}
+                                    </div>
+                                </div>
+                                
+                                {% if program.schedule_document %}
+                                <div class="curriculum-documents-section-new" style="margin-top: 2rem;">
+                                    <div class="curriculum-documents-grid-new">
+                                        <a href="{{ program.schedule_document.url }}" class="curriculum-document-card-new" download>
+                                            <div class="document-card-icon">
+                                                <svg width="24" height="24" viewBox="0 0 48 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M24 0V20.2176C24.0001 21.3774 24.4168 22.4956 25.1689 23.3542C25.921 24.2127 26.9545 24.7501 28.068 24.8614L28.5 24.8832H48V55.9871C48.0005 57.5566 47.4288 59.0682 46.3995 60.219C45.3702 61.3698 43.9595 62.0747 42.45 62.1924L42 62.2079H6C4.48627 62.2084 3.0283 61.6157 1.91836 60.5486C0.808412 59.4814 0.12853 58.0187 0.0150006 56.4537L3.00804e-07 55.9871V6.22079C-0.000478738 4.65136 0.571219 3.13974 1.60049 1.98895C2.62976 0.838161 4.04053 0.13326 5.55 0.0155523L6 0H24ZM30 0.133747C30.9701 0.347275 31.8741 0.806802 32.631 1.47122L33 1.82269L46.242 15.552C46.9449 16.2802 47.4624 17.1779 47.748 18.1647L47.868 18.6624H30V0.133747Z" fill="#052946"/>
+                                                </svg>
+                                            </div>
+                                            <div class="document-card-info">
+                                                <h4 class="document-card-title single-line">Расписание программ обучения</h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="combined-tab-pane" id="tab-admission">
+                            <div class="combined-tab-pane-inner">
+                                <div class="admission-requirements">
+                                    {{ program.get_admission_requirements_display|linebreaks }}
+                                </div>
+                                
+                                {% if program.admission_form_document %}
+                                <div class="curriculum-documents-section-new" style="margin-top: 2rem;">
+                                    <div class="curriculum-documents-grid-new">
+                                        <a href="{{ program.admission_form_document.url }}" class="curriculum-document-card-new" download>
+                                            <div class="document-card-icon">
+                                                <svg width="24" height="24" viewBox="0 0 48 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M24 0V20.2176C24.0001 21.3774 24.4168 22.4956 25.1689 23.3542C25.921 24.2127 26.9545 24.7501 28.068 24.8614L28.5 24.8832H48V55.9871C48.0005 57.5566 47.4288 59.0682 46.3995 60.219C45.3702 61.3698 43.9595 62.0747 42.45 62.1924L42 62.2079H6C4.48627 62.2084 3.0283 61.6157 1.91836 60.5486C0.808412 59.4814 0.12853 58.0187 0.0150006 56.4537L3.00804e-07 55.9871V6.22079C-0.000478738 4.65136 0.571219 3.13974 1.60049 1.98895C2.62976 0.838161 4.04053 0.13326 5.55 0.0155523L6 0H24ZM30 0.133747C30.9701 0.347275 31.8741 0.806802 32.631 1.47122L33 1.82269L46.242 15.552C46.9449 16.2802 47.4624 17.1779 47.748 18.1647L47.868 18.6624H30V0.133747Z" fill="#052946"/>
+                                                </svg>
+                                            </div>
+                                            <div class="document-card-info">
+                                                <h4 class="document-card-title single-line">Образец заявления на поступление</h4>
+                                             </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ===== زر التقديم الأحمر أسفل التبويبات ===== -->
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="apply-button-red">
+                            Подать заявку
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- New Section: Diploma and Images -->
+    <section class="diploma-section-fullwidth">
+        <div class="content-container">
+            <div class="diploma-content">
+                <div class="diploma-text-large">
+                    Слушателям, успешно освоившим учебную программу, выдается диплом о профессиональной переподготовке государственного образца
+                </div>
+                <div class="diploma-images-grid">
+                    <div class="diploma-image-item">
+                        {% if program.diploma_image_1 %}
+                            <img src="{{ program.diploma_image_1.url }}" alt="Диплом образца 1" class="diploma-img">
+                        {% else %}
+                            <div class="diploma-image-placeholder">
+                                <span>Изображение диплома 1</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="diploma-image-item">
+                        {% if program.diploma_image_2 %}
+                            <img src="{{ program.diploma_image_2.url }}" alt="Диплом образца 2" class="diploma-img">
+                        {% else %}
+                            <div class="diploma-image-placeholder">
+                                <span>Изображение диплома 2</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ДРУГИЕ ПРОГРАММЫ – КАРУСЕЛЬ (обновлённый дизайн) ========== -->
+    <!-- ========== ДРУГИЕ ПРОГРАММЫ – КАРУСЕЛЬ (обновлённый дизайн) ========== -->
+<section class="other-programs-carousel-section">
+    <div class="content-container">
+        <h2 class="section-main-title red-underline other-programs-title">
+            {% if program.program_type == 'qualification_upgrade' %}
+                Другие программы повышения квалификации
+            {% elif program.program_type == 'professional_retraining' %}
+                Другие программы профессиональной переподготовки
+            {% elif program.program_type == 'seminar' %}
+                Другие семинары
+            {% elif program.program_type == 'training' %}
+                Другие тренинги
+            {% else %}
+                Другие программы
+            {% endif %}
+        </h2>
+
+        <div class="carousel-container">
+            <!-- Кнопка назад -->
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Предыдущие программы">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <!-- Обёртка трека -->
+            <div class="carousel-track-wrapper">
+                <div class="carousel-track">
+                    {% for prog in other_programs %}
+                        <a href="{% url 'schedule:program_detail' prog.slug %}" class="program-card-link">
+                            <div class="program-card-new" data-program-type="{{ prog.program_type }}" data-format="{{ prog.format }}" data-date="{{ prog.start_date|date:'Y-m-d' }}">
+                                <!-- صورة البرنامج -->
+                                <div class="program-image-section-new">
+                                    {% if prog.image %}
+                                        <img src="{{ prog.image.url }}" alt="{{ prog.title }}" class="program-image-new">
+                                    {% else %}
+                                        <div class="program-image-placeholder-new">
+                                            <span>Картинка</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <!-- محتوى البطاقة -->
+                                <div class="program-content-new">
+                                    <h3 class="program-title-new">{{ prog.title|truncatechars:60 }}</h3>
+                                    <div class="program-divider"></div>
+                                    <div class="program-details-new">
+                                        <!-- Стоимость -->
+                                        <div class="detail-row">
+                                            <span class="detail-label">Стоимость:</span>
+                                            <span class="detail-value">
+                                                {% if prog.cost %}
+                                                    {{ prog.cost }} р
+                                                {% else %}
+                                                    Уточняйте
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <!-- Начало обучения -->
+                                        <div class="detail-row">
+                                            <span class="detail-label">Начало обучения:</span>
+                                            <span class="detail-value">{{ prog.start_date|date:"j F" }}</span>
+                                        </div>
+                                        <!-- Длительность -->
+                                        <div class="detail-row">
+                                            <span class="detail-label">Длительность:</span>
+                                            <span class="detail-value">
+                                                {% if prog.duration %}
+                                                    {{ prog.duration }}
+                                                {% else %}
+                                                    {{ prog.duration_hours }} часов
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                        <!-- Статус набора -->
+                                        <div class="detail-row">
+                                            <span class="detail-value status-{{ prog.enrollment_status }}">
+                                                <span class="status-indicator"></span>
+                                                {% if prog.enrollment_status == 'postponed' and prog.postponed_date %}
+                                                    Перенесен на {{ prog.postponed_date|date:"d.m.Y" }}
+                                                {% else %}
+                                                    {{ prog.get_enrollment_status_display }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% empty %}
+                        <p class="no-other-programs">Скоро будут добавлены новые программы</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Кнопка вперёд -->
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Следующие программы">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Индикаторы (точки) -->
+        <div class="carousel-dots"></div>
+    </div>
+</section>
+<!-- ========== КОНЕЦ КАРУСЕЛИ ========== -->
+
+</div>
+
+<!-- نافذة تقديم الطلب - مصغرة (تم إضافة Отделение и Программа) -->
+<div class="application-modal" id="applicationModal">
+    <div class="modal-content-small">
+        <span class="close-modal">&times;</span>
+        
+        <!-- Success Message (Initially Hidden) -->
+        <div class="success-message" id="successMessage" style="display: none;">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="success-title">Заявка отправлена!</h3>
+            <p class="success-text" id="successText"></p>
+            <button class="success-close-btn" onclick="closeApplicationModal()">Закрыть</button>
+        </div>
+        
+        <!-- Application Form -->
+        <div class="application-form-container" id="applicationForm">
+            <h2 class="modal-title-small">Заявка на обучение</h2>
+            
+            <form class="application-form-small" id="applicationFormElement">
+                {% csrf_token %}
+                <input type="hidden" name="program_slug" value="{{ program.slug }}">
+                
+                <div class="form-group-small">
+                    <input type="text" id="contactName" name="contactName" class="form-input-small" required placeholder=" ">
+                    <label for="contactName" class="form-label-small">Контактное лицо</label>
+                </div>
+                
+                <div class="form-group-small">
+                    <input type="tel" id="phone" name="phone" class="form-input-small" required placeholder=" ">
+                    <label for="phone" class="form-label-small">Телефон</label>
+                </div>
+                
+                <div class="form-group-small">
+                    <input type="email" id="email" name="email" class="form-input-small" required placeholder=" ">
+                    <label for="email" class="form-label-small">Электронная почта</label>
+                </div>
+
+                <!-- Отделение - قائمة منسدلة مع سهم - تم إضافة required -->
+                <div class="form-group-small select-wrapper">
+                    <select id="department" name="department" class="form-select-small" required>
+                        <option value="" selected disabled>Выберите отделение</option>
+                        {% for dept in departments %}
+                            <option value="{{ dept.id }}">{{ dept.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="department" class="form-label-small">Отделение</label>
+                    <span class="select-arrow"></span>
+                </div>
+
+                <!-- Программа - قائمة منسدلة مع سهم - تم إضافة required -->
+                <div class="form-group-small select-wrapper">
+                    <select id="program" name="program" class="form-select-small" required>
+                        <option value="" selected disabled>Выберите программу</option>
+                        {% for prog in all_programs %}
+                            <option value="{{ prog.id }}" {% if prog.slug == program.slug %}selected{% endif %}>
+                                {{ prog.title }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <label for="program" class="form-label-small">Программа</label>
+                    <span class="select-arrow"></span>
+                </div>
+                
+                <div class="form-group-small">
+                    <textarea id="additionalInfo" name="additionalInfo" class="form-textarea-small" rows="2" placeholder=" "></textarea>
+                    <label for="additionalInfo" class="form-label-small">Дополнительные пожелания</label>
+                </div>
+
+                <div class="form-toggle-group">
+                    <span class="toggle-label">Регистрирую нескольких участников от одного юридического лица</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="multipleParticipants" name="multiple_participants">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="form-checkbox-small">
+                    <input type="checkbox" id="agreement" name="agreement" class="checkbox-input-small" required>
+                    <label for="agreement" class="checkbox-label-small">
+                        Я согласен с условиями <a href="#" target="_blank">пользовательского соглашения</a> и <a href="#" target="_blank">политикой конфиденциальности</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn-small">
+                    <span class="submit-text">Отправить</span>
+                    <span class="loading-spinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- روابط الملفات المنفصلة -->
+<link rel="stylesheet" href="{% static 'schedule/css/program_detail.css' %}">
+<script src="{% static 'schedule/js/program_detail.js' %}"></script>
+{% endblock %}

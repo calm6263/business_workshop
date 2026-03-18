@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Личный кабинет студента{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1>Привет, {{ user.first_name }}! (Студент)</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Мои курсы</div>
+                <div class="card-body">
+                    <p>Список курсов появится здесь.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Расписание</div>
+                <div class="card-body">
+                    <p>Ближайшие занятия...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

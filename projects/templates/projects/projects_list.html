@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Проекты - Бизнес-Мастерская{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'projects/css/projects_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="projects-page">
+    <!-- سلايدر الصور -->
+    {% if slides %}
+    <div class="project-slider mb-5">
+        <!-- Breadcrumb داخل السلايدر -->
+        <div class="slider-breadcrumb">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <a href="#" class="breadcrumb-link">Академия</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Проекты</span>
+            </div>
+        </div>
+        
+        <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for slide in slides %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="slide-image-container">
+                        <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.title }}">
+                    </div>
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
+                        <div class="caption-content text-center">
+                            <h2 class="slide-title">{{ slide.title }}</h2>
+                            {% if slide.description %}
+                            <p class="slide-description">{{ slide.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- زر اقتراح مشروع داخل السلايدر -->
+            <div class="carousel-propose-btn-container">
+                <button type="button" class="btn propose-project-btn" id="openProposalModal">
+                    <span class="btn-text">Предложить проект</span>
+                </button>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Breadcrumb فقط إذا لم يكن هناك سلايدر -->
+    {% if not slides %}
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <a href="#" class="breadcrumb-link">Академия</a>
+                <div class="breadcrumb-arrow">
+                    <div class="arrow-line arrow-top"></div>
+                    <div class="arrow-line arrow-bottom"></div>
+                </div>
+                <span class="breadcrumb-current">Проекты</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <!-- قسم فلاتر التصنيفات مع إمكانية التوسيع -->
+        <div class="category-filters-section mb-4">
+            <div class="filters-container-collapsible" id="filtersContainer">
+                <div class="category-filter-tags">
+                    <!-- زر "Все" (دائماً رئيسي) -->
+                    <a href="{% url 'projects:projects_list' %}" 
+                       class="category-tag filter-item {% if not current_category %}active{% endif %}">
+                        <div class="checkbox-wrapper">
+                            <div class="checkbox-square"></div>
+                            <div class="checkmark"></div>
+                        </div>
+                        <span class="category-name">Все</span>
+                    </a>
+                    
+                    {% for category in categories %}
+                        {% with forloop.counter as cat_index %}
+                            {% with total_visible=6 %}
+                                <a href="{% url 'projects:projects_list' %}?category={{ category.id }}" 
+                                   class="category-tag filter-item 
+                                          {% if cat_index|add:1 > total_visible %}extra-filter{% endif %}
+                                          {% if current_category == category.id|stringformat:'i' %}active{% endif %}">
+                                    <div class="checkbox-wrapper">
+                                        <div class="checkbox-square"></div>
+                                        <div class="checkmark"></div>
+                                    </div>
+                                    <span class="category-name">{{ category.name }}</span>
+                                </a>
+                            {% endwith %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- السهم ونص إظهار/إخفاء الفلاتر -->
+            <div class="toggle-footer-wrapper text-center mt-3">
+                <div class="toggle-header" id="toggleFilters">
+                    <svg class="toggle-arrow" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 9L12 16L5 9" stroke="#052946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="toggle-text" id="toggleText">Показать все</span>
+                </div>
+                <div class="filters-count text-muted small mt-2" id="filtersCount">
+                    Фильтры ({{ categories|length|add:1 }})
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم جميع المشاريع (دائم الظهور) -->
+        <div class="all-projects-section mb-5">
+            <div class="projects-container" id="projectsContainer">
+                <div class="projects-grid">
+                    {% for project in projects %}
+                    <div class="project-card-new">
+                        <!-- صورة المشروع -->
+                        <div class="project-image-new">
+                            {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-img">
+                            {% endif %}
+                            <div class="project-date-new">
+                                {{ project.start_date|date:"m.Y" }}
+                            </div>
+                        </div>
+                        
+                        <!-- محتوى البطاقة -->
+                        <div class="project-content-new">
+                            <h3 class="project-title-new">{{ project.title|truncatewords:10 }}</h3>
+                            <div class="project-separator"></div>
+                            <p class="project-description-new">{{ project.short_description|truncatewords:30 }}</p>
+                            
+                            <!-- قسم الشركاء -->
+                            <div class="project-partners-section">
+                                <span class="partners-label">Партнеры:</span>
+                                <span class="partners-list">
+                                    {% with project.projectpartner_set.all|slice:":2" as partners %}
+                                        {% for partner in partners %}
+                                            {{ partner.name }}{% if not forloop.last %}, {% endif %}
+                                        {% empty %}
+                                            Не указаны
+                                        {% endfor %}
+                                    {% endwith %}
+                                </span>
+                            </div>
+                            
+                            <!-- زر التفاصيل -->
+                            <div class="project-action">
+                                <a href="{% url 'projects:project_detail' project.id %}" class="read-more-btn">Читать</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="no-projects-message">
+                        <p>Проекты не найдены</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة اقتراح المشروع المنبثقة -->
+    <div class="proposal-modal" id="proposalModal">
+        <div class="proposal-modal-content expanded">
+            <div class="modal-header">
+                <h2 class="modal-title">Предложить проект</h2>
+                <button type="button" class="close-modal" id="closeModal">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                        <path d="M22.5 7.5L7.5 22.5" stroke="#052946" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M7.5 7.5L22.5 22.5" stroke="#052946" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- خيارات نوع الشخص -->
+                <div class="person-type-section">
+                    <div class="person-type-options">
+                        <div class="person-type-option active" data-type="individual">
+                            <span class="person-type-text">Физическое лицо</span>
+                        </div>
+                        <div class="person-type-option" data-type="legal">
+                            <span class="person-type-text">Юридическое лицо</span>
+                            <div class="legal-underline"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- رسائل النجاح والخطأ -->
+                <div class="success-message" id="successMessage"></div>
+                <div class="error-message" id="errorMessage"></div>
+                
+                <!-- النموذج -->
+                <form class="proposal-form" id="proposalForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="person_type" id="personType" value="individual">
+                    
+                    <!-- حقول الشخص الطبيعي -->
+                    <div id="individualFields" class="fields-section">
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="text" class="form-control" id="full_name_individual" name="full_name_individual" placeholder="Фамилия Имя Отчество" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Адрес">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <textarea class="form-control" id="comments_individual" name="comments_individual" placeholder="Комментарии" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- حقول الشخص الاعتباري -->
+                    <div id="legalFields" class="fields-section" style="display: none;">
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Ответственное лицо" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="tel" class="form-control" id="phone_legal" name="phone_legal" placeholder="+7" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="email" class="form-control" id="email_legal" name="email_legal" placeholder="E-mail" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Название компании" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="text" class="form-control" id="inn" name="inn" placeholder="ИНН" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="text" class="form-control" id="kpp" name="kpp" placeholder="КПП">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <input type="text" class="form-control" id="legal_address" name="legal_address" placeholder="Юридический адрес" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-container">
+                                <textarea class="form-control" id="comments" name="comments" placeholder="Комментарии" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- خانة الموافقة -->
+                    <div class="agreement-section">
+                        <div class="agreement-container">
+                            <input type="checkbox" id="agreement" name="agreement" class="agreement-checkbox" required>
+                            <label for="agreement" class="agreement-label">
+                                Я согласен с условиями 
+                                <a href="#" class="agreement-link">пользовательского соглашения</a> 
+                                и 
+                                <a href="#" class="agreement-link">политикой конфиденциальности</a>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="submit" class="submit-proposal-btn" id="submitProposal" form="proposalForm">
+                    <span id="submitText">Отправить</span>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة نجاح التسجيل المنبثقة -->
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <div class="success-modal-header">
+                <div class="success-icon">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 4L12 14.01L9 11.01" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h2 class="success-modal-title">Успешно отправлено!</h2>
+                <button type="button" class="close-success-modal" id="closeSuccessModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18" stroke="#052946" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6 6L18 18" stroke="#052946" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="success-modal-body">
+                <div class="success-message-content" id="successMessageContent"></div>
+                <div class="proposal-id-section">
+                    <div class="proposal-id-label">Номер вашей заявки:</div>
+                    <div class="proposal-id-value" id="proposalIdValue"></div>
+                </div>
+            </div>
+            
+            <div class="success-modal-footer">
+                <button type="button" class="close-success-btn" id="closeSuccessBtn">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'projects/js/projects_list.js' %}"></script>
+{% endblock %}

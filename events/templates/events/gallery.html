@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Фотогалерея - Бизнес-Мастерская{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'events/css/events.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Prata&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block main_class %}events-page{% endblock %}
+
+{% block content %}
+    <!-- Hero Slider Section -->
+    <div class="hero-slider-section">
+        <div class="hero-slider-container">
+            <div class="hero-slide">
+                <!-- Breadcrumb -->
+                <div class="slider-breadcrumb">
+                    <div class="breadcrumb-content">
+                        <a href="{% url 'index' %}" class="breadcrumb-link">Главная</a>
+                        <div class="breadcrumb-arrow">
+                            <div class="arrow-line arrow-top"></div>
+                            <div class="arrow-line arrow-bottom"></div>
+                        </div>
+                        <span class="breadcrumb-current">Фотогалерея</span>
+                    </div>
+                </div>
+                
+                <!-- Hero image -->
+                <div class="slide-image">
+                    {% if page_settings.hero_image %}
+                        <img src="{{ page_settings.hero_image.url }}" 
+                             alt="{{ page_settings.hero_title }}" 
+                             class="hero-slider-img">
+                    {% else %}
+                        <img src="{% static 'events/images/gallery_hero.jpg' %}" 
+                             alt="Фотогалерея" 
+                             class="hero-slider-img">
+                    {% endif %}
+                    <div class="slide-overlay"></div>
+                </div>
+                
+                <!-- Hero content -->
+                <div class="slide-content">
+                    <div class="hero-content-center">
+                        <h1 class="slide-title">{{ page_settings.hero_title|default:"Фотогалерея" }}</h1>
+                        {% if page_settings.hero_subtitle %}
+                            <p class="slide-description">{{ page_settings.hero_subtitle }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Bottom navigation -->
+                <div class="hero-bottom-nav">
+                    <div class="hero-nav-links">
+                        <a href="{% url 'events' %}" class="hero-nav-link hero-nav-events">
+                            <div class="hero-nav-bg"></div>
+                            <span class="hero-nav-text">Мероприятия</span>
+                        </a>
+                        <a href="{% url 'gallery' %}" class="hero-nav-link hero-nav-gallery active">
+                            <div class="hero-nav-bg"></div>
+                            <span class="hero-nav-text">Фотогалерея</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== GALLERY CONTENT – GROUPED BY YEAR ===== -->
+    <div class="container-custom gallery-container">
+        {% regroup albums by event_date.year as year_list %}
+
+        {% for year_group in year_list %}
+            {# Albums with a valid year #}
+            {% if year_group.grouper %}
+                <div class="gallery-year-section">
+                    <h2 class="gallery-year-heading">{{ year_group.grouper }}</h2>
+                    <div class="album-grid overlay-grid">
+                        {% for album in year_group.list %}
+                        <a href="{% url 'events_album_detail' album.slug %}" class="album-card-overlay">
+                                <div class="album-image-wrapper">
+                                    <img src="{{ album.cover_image.url }}" 
+                                         alt="{{ album.title }}" 
+                                         class="album-cover-overlay"
+                                         loading="lazy">
+                                    <div class="album-overlay-content">
+                                        <h3 class="album-title-overlay">{{ album.title }}</h3>
+                                        {% if album.event_date %}
+                                            <span class="album-date-overlay">{{ album.event_date|date:"d.m.Y" }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <div class="no-albums-message">
+                <h4>Альбомы не найдены</h4>
+                <p>В данный момент нет доступных фотоальбомов.</p>
+                <p>Пожалуйста, проверьте позже.</p>
+            </div>
+        {% endfor %}
+
+        {# Albums without a date #}
+        {% regroup albums by event_date.year as year_list %}
+        {% for year_group in year_list %}
+            {% if year_group.grouper is None %}
+                <div class="gallery-year-section">
+                    <h2 class="gallery-year-heading">Без даты</h2>
+                    <div class="album-grid overlay-grid">
+                        {% for album in year_group.list %}
+                            <a href="{% url 'album_detail' album.slug %}" class="album-card-overlay">
+                                <div class="album-image-wrapper">
+                                    <img src="{{ album.cover_image.url }}" 
+                                         alt="{{ album.title }}" 
+                                         class="album-cover-overlay"
+                                         loading="lazy">
+                                    <div class="album-overlay-content">
+                                        <h3 class="album-title-overlay">{{ album.title }}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // Keep hero nav active state
+        const heroNavLinks = document.querySelectorAll('.hero-nav-link');
+        heroNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                heroNavLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+{% endblock %}

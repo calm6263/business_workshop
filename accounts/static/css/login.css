@@ -1,0 +1,243 @@
+/* static/css/login.css */
+
+/* الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Prata&family=Raleway:wght@400&display=swap');
+
+/* إعادة تعيين هوامش الجسم لهذه الصفحة فقط */
+.login-page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+/* العنوان الرئيسي: Личный портал сотрудника */
+.main-title {
+    position: absolute;
+    width: 2376px;
+    height: 220px;
+    left: calc(50% - 2376px/2 + 18.43px);
+    top: calc(50% - 220px/2 - 590px);
+    font-family: 'Prata', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 96px;
+    line-height: 257px;
+    text-align: center;
+    color: #052946;
+    white-space: nowrap;
+}
+
+/* تسمية الحقل: Логин */
+.label-login {
+    position: absolute;
+    width: 819px;
+    height: 115px;
+    left: calc(50% - 819px/2 - 607.07px);
+    top: calc(50% - 115px/2 - 215.5px);
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 70px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+/* تسمية الحقل: Пароль */
+.label-password {
+    position: absolute;
+    width: 819px;
+    height: 115px;
+    left: calc(50% - 819px/2 - 607.07px);
+    top: calc(50% - 115px/2 + 60.5px);
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 70px;
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+}
+
+/* مستطيل حقل اسم المستخدم */
+.rect-username {
+    box-sizing: border-box;
+    position: absolute;
+    width: 2196px;
+    height: 181px;
+    left: 423.93px;
+    top: 1129px;
+    border: 5px solid #052946;
+    border-radius: 80px;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+/* مستطيل حقل كلمة المرور */
+.rect-password {
+    box-sizing: border-box;
+    position: absolute;
+    width: 2196px;
+    height: 181px;
+    left: 423.93px;
+    top: 1405px;
+    border: 5px solid #052946;
+    border-radius: 80px;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+/* حقول الإدخال */
+.login-input {
+    position: absolute;
+    width: 2196px;
+    height: 181px;
+    left: 423.93px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 64px;
+    padding-left: 50px;
+    color: #052946;
+}
+
+.login-input#id_username {
+    top: 1129px;
+}
+
+.login-input#id_password {
+    top: 1405px;
+}
+
+.login-input:focus {
+    border: none;
+    outline: none;
+}
+
+/* أيقونات صغيرة (اختيارية) */
+.vector-red {
+    position: absolute;
+    width: 107px;
+    height: 72px;
+    background: #B4B6B7;
+}
+
+.vector-red-1 {
+    left: 2442.93px;
+    top: 1183px;
+}
+
+.vector-red-2 {
+    left: 2442.93px;
+    top: 1459px;
+}
+
+/* الزر */
+.btn-login-rect {
+    position: absolute;
+    width: 734px;
+    height: 178px;
+    left: 1060.93px;
+    top: 1714px;
+    background: #052946;
+    border-radius: 80px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-login-text {
+    position: absolute;
+    width: 551px;
+    height: 72px;
+    left: 1151.93px;
+    top: 1767px;
+    font-family: 'Prata', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 96px;
+    line-height: 257px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FDFDFD;
+    pointer-events: none;
+}
+
+/* الزخرفة اليسارية */
+.left-decoration {
+    position: absolute;
+    left: 146.93px;
+    top: 129.99px;
+    width: 175.27px;
+    height: 718px;
+    transform: rotate(-90deg);
+    background: transparent;
+}
+
+/* رسائل الخطأ */
+.error-messages {
+    position: absolute;
+    top: 900px;
+    left: 423.93px;
+    width: 2196px;
+    font-family: 'Raleway', sans-serif;
+    color: red;
+    font-size: 36px;
+}
+
+.alert {
+    background: #ffe6e6;
+    border: 2px solid red;
+    border-radius: 40px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* النسخة المحمولة (مخفية افتراضياً) */
+.mobile-login-form {
+    display: none;
+}
+
+/* تعديلات للشاشات الصغيرة: إخفاء العناصر المطلقة وإظهار النسخة المحمولة */
+@media (max-width: 1600px) {
+    .main-title, .label-login, .label-password, .rect-username, .rect-password,
+    .login-input, .btn-login-rect, .btn-login-text, .left-decoration {
+        display: none;
+    }
+
+    .mobile-login-form {
+        display: block !important;
+        width: 90%;
+        margin: 50px auto;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .mobile-login-form input {
+        width: 100%;
+        height: 60px;
+        font-size: 24px;
+        margin-bottom: 20px;
+        border: 2px solid #052946;
+        border-radius: 20px;
+        padding: 10px;
+    }
+
+    .mobile-login-form button {
+        width: 100%;
+        height: 80px;
+        background: #052946;
+        color: white;
+        font-size: 48px;
+        border-radius: 40px;
+        border: none;
+    }
+}

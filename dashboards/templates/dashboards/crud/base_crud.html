@@ -1,0 +1,714 @@
+<!-- dashboards/templates/dashboards/crud/base_crud.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление контентом | Академия</title>
+    <link rel="stylesheet" href="{% static 'dashboards/css/admin_dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboards/css/crud.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboards/css/notifications.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="admin-dashboard">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="{% static 'images/Logo.png' %}" alt="Логотип" class="sidebar-logo">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:dashboard' %}">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-text">Главная панель</span>
+                    </a>
+                </li>
+
+                <!-- ===== Главная страница ===== -->
+                <li class="nav-item nav-header">Главная страница</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:slide_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Слайды</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:license_list' %}">
+                        <span class="nav-icon">📜</span>
+                        <span class="nav-text">Лицензии</span>
+                    </a>
+                </li>
+
+                <!-- ===== Об академии ===== -->
+                <li class="nav-item nav-header">Об академии</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:main_slider_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Главный слайдер</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:values_list' %}">
+                        <span class="nav-icon">💎</span>
+                        <span class="nav-text">Наши ценности</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:statistics_list' %}">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-text">Академия в цифрах</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:leaderspeech_list' %}">
+                        <span class="nav-icon">🎤</span>
+                        <span class="nav-text">Речь руководителя</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:photoalbum_list' %}">
+                        <span class="nav-icon">📸</span>
+                        <span class="nav-text">Фотоальбомы</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:downloadablefile_list' %}">
+                        <span class="nav-icon">📎</span>
+                        <span class="nav-text">Файлы для скачивания</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:quotesection_list' %}">
+                        <span class="nav-icon">💬</span>
+                        <span class="nav-text">Цитаты</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:leadership_list' %}">
+                        <span class="nav-icon">👔</span>
+                        <span class="nav-text">Руководство</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:team_list' %}">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Команда академии</span>
+                    </a>
+                </li>
+
+                <!-- ===== Поступающим ===== -->
+                <li class="nav-item nav-header">Поступающим</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:applicantspage_list' %}">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-text">Страница "Поступающим"</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:applicationmethod_list' %}">
+                        <span class="nav-icon">📬</span>
+                        <span class="nav-text">Способы подачи</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:enrollmentstage_list' %}">
+                        <span class="nav-icon">📅</span>
+                        <span class="nav-text">Этапы зачисления</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:applicantdocument_list' %}">
+                        <span class="nav-icon">📎</span>
+                        <span class="nav-text">Документы для скачивания</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:applicantapplication_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Заявки поступающих</span>
+                    </a>
+                </li>
+
+                <!-- ===== Консультации ===== -->
+                <li class="nav-item nav-header">Консультации</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:consultationrequest_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Заявки на консультацию</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:heroslide_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Слайды Hero</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:faq_list' %}">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-text">FAQ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:successpageimage_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Изображения успеха</span>
+                    </a>
+                </li>
+
+                <!-- ===== Контакты ===== -->
+                <li class="nav-item nav-header">Контакты</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:contactsection_list' %}">
+                        <span class="nav-icon">📞</span>
+                        <span class="nav-text">Разделы контактов</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:organizationinfo_list' %}">
+                        <span class="nav-icon">🏢</span>
+                        <span class="nav-text">Информация об организации</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:socialmedia_list' %}">
+                        <span class="nav-icon">🌐</span>
+                        <span class="nav-text">Социальные сети</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:contactpagesettings_list' %}">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-text">Настройки страницы</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:contacthero_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Hero-раздел</span>
+                    </a>
+                </li>
+
+                <!-- ===== Отделения ===== -->
+                <li class="nav-item nav-header">Отделения</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:department_list' %}">
+                        <span class="nav-icon">🏛️</span>
+                        <span class="nav-text">Отделения</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:heroimage_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Изображения героев</span>
+                    </a>
+                </li>
+
+                <!-- ===== Мероприятия ===== -->
+                <li class="nav-item nav-header">Мероприятия</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:event_list' %}">
+                        <span class="nav-icon">📅</span>
+                        <span class="nav-text">Мероприятия</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:eventregistration_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Регистрации</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:interestingprogram_list' %}">
+                        <span class="nav-icon">🎯</span>
+                        <span class="nav-text">Интересные программы</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:newslattersubscription_list' %}">
+                        <span class="nav-icon">📧</span>
+                        <span class="nav-text">Подписки на рассылку</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:pagesettings_list' %}">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-text">Настройки страниц</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:album_list' %}">
+                        <span class="nav-icon">📸</span>
+                        <span class="nav-text">Фотоальбомы</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:photo_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Фотографии</span>
+                    </a>
+                </li>
+
+                <!-- ===== Журнал ===== -->
+                <li class="nav-item nav-header">Журнал</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:journalissue_list' %}">
+                        <span class="nav-icon">📰</span>
+                        <span class="nav-text">Выпуски журнала</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:sliderimage_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Слайдер журнала</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:sectionsettings_list' %}">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-text">Настройки разделов</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:issuepage_list' %}">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-text">Страницы выпусков</span>
+                    </a>
+                </li>
+
+                <!-- ===== Новости ===== -->
+                <li class="nav-item nav-header">Новости</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:news_list' %}">
+                        <span class="nav-icon">📰</span>
+                        <span class="nav-text">Новости</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:category_list' %}">
+                        <span class="nav-icon">🏷️</span>
+                        <span class="nav-text">Категории</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:newspagehero_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Баннеры страницы</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:subscriber_list' %}">
+                        <span class="nav-icon">📧</span>
+                        <span class="nav-text">Подписчики</span>
+                    </a>
+                </li>
+
+                <!-- ===== Партнеры ===== -->
+                <li class="nav-item nav-header">Партнеры</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:homeslider_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Слайдер главной</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:partner_list' %}">
+                        <span class="nav-icon">🤝</span>
+                        <span class="nav-text">Партнеры</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:application_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Заявки на партнерство</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:logocarousel_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Карусель логотипов</span>
+                    </a>
+                </li>
+
+                <!-- ===== Пресс-центр ===== -->
+                <li class="nav-item nav-header">Пресс-центр</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:presscenterpage_list' %}">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-text">Страница Пресс-центра</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:presscenterimage_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Изображения</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:publicationrequest_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Заявки на публикацию</span>
+                    </a>
+                </li>
+
+                <!-- ===== Проекты ===== -->
+                <li class="nav-item nav-header">Проекты</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:projectcategory_list' %}">
+                        <span class="nav-icon">🏷️</span>
+                        <span class="nav-text">Категории проектов</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:project_list' %}">
+                        <span class="nav-icon">📁</span>
+                        <span class="nav-text">Проекты</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:projectmember_list' %}">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Участники проектов</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:projectpartner_list' %}">
+                        <span class="nav-icon">🤝</span>
+                        <span class="nav-text">Партнеры проектов</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:projectslide_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Слайды проектов</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:projectgallery_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Галерея изображений</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:contactrequest_list' %}">
+                        <span class="nav-icon">📞</span>
+                        <span class="nav-text">Запросы обратной связи</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:projectproposal_list' %}">
+                        <span class="nav-icon">💡</span>
+                        <span class="nav-text">Предложения проектов</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:projectjoinrequest_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Запросы на вступление</span>
+                    </a>
+                </li>
+
+                <!-- ===== Исследования ===== -->
+                <li class="nav-item nav-header">Исследования</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:researchcategory_list' %}">
+                        <span class="nav-icon">📂</span>
+                        <span class="nav-text">Категории исследований</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:research_list' %}">
+                        <span class="nav-icon">📄</span>
+                        <span class="nav-text">Исследования</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:researchtag_list' %}">
+                        <span class="nav-icon">🏷️</span>
+                        <span class="nav-text">Теги исследований</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:researchhero_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Hero-раздел</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:conference_list' %}">
+                        <span class="nav-icon">🗓️</span>
+                        <span class="nav-text">Конференции</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:conferenceregistration_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Регистрации на конференции</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:youthcouncildepartment_list' %}">
+                        <span class="nav-icon">🏛️</span>
+                        <span class="nav-text">Отделения молодежного совета</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:youthcouncilmember_list' %}">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Члены молодежного совета</span>
+                    </a>
+                </li>
+
+                <!-- ===== Расписание ===== -->
+                <li class="nav-item nav-header">Расписание</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:scheduleprogram_list' %}">
+                        <span class="nav-icon">📅</span>
+                        <span class="nav-text">Программы</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:curriculummodule_list' %}">
+                        <span class="nav-icon">📚</span>
+                        <span class="nav-text">Модули</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:curriculumdocument_list' %}">
+                        <span class="nav-icon">📎</span>
+                        <span class="nav-text">Документы программ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:programapplication_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Заявки на обучение</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:schedulesliderimage_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Слайдер расписания</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:calendarsliderimage_list' %}">
+                        <span class="nav-icon">📆</span>
+                        <span class="nav-text">Слайдер календаря</span>
+                    </a>
+                </li>
+
+                <!-- ===== Одно окно ===== -->
+                <li class="nav-item nav-header">Одно окно</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:basicinfo_list' %}">
+                        <span class="nav-icon">ℹ️</span>
+                        <span class="nav-text">Основные сведения</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:slider_list' %}">
+                        <span class="nav-icon">🎠</span>
+                        <span class="nav-text">Слайдеры</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:faq_list' %}">
+                        <span class="nav-icon">❓</span>
+                        <span class="nav-text">FAQ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:servicerequest_list' %}">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Заявки на услуги</span>
+                    </a>
+                </li>
+                <!-- ===== Патенты ===== -->
+<li class="nav-item nav-header">Патенты</li>
+<li class="nav-item">
+    <a href="{% url 'dashboards:patentimage_list' %}">
+        <span class="nav-icon">📜</span>
+        <span class="nav-text">Изображения патентов</span>
+    </a>
+</li>
+                <!-- ===== Персонал ===== -->
+                <li class="nav-item nav-header">Персонал</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:teammember_list' %}">
+                        <span class="nav-icon">👥</span>
+                        <span class="nav-text">Преподаватели и сотрудники</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:teacherprogram_list' %}">
+                        <span class="nav-icon">📚</span>
+                        <span class="nav-text">Программы преподавателей</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:pagehero_list' %}">
+                        <span class="nav-icon">🖼️</span>
+                        <span class="nav-text">Hero-секции</span>
+                    </a>
+                </li>
+
+                <!-- ===== Обратная связь ===== -->
+                <li class="nav-item nav-header">Обратная связь</li>
+                <li class="nav-item">
+                    <a href="{% url 'dashboards:contactmessage_list' %}">
+                        <span class="nav-icon">📬</span>
+                        <span class="nav-text">Заявки с формы</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main">
+        <!-- Top Bar -->
+        <header class="dashboard-topbar">
+            <button class="mobile-sidebar-toggle" id="mobileSidebarToggle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+            <div class="topbar-left">
+                <h1 class="page-title">Управление контентом</h1>
+            </div>
+            <div class="topbar-right">
+                <!-- Иконка уведомлений -->
+                <div class="notifications-dropdown" id="notificationsDropdown">
+                    <button class="notifications-toggle" id="notificationsToggle" title="Уведомления">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="badge" id="notificationsBadge" style="display: none;">0</span>
+                    </button>
+                    <div class="dropdown-menu notifications-menu" id="notificationsMenu">
+                        <div class="notifications-header">
+                            <h4>Уведомления</h4>
+                            <button id="markAllRead">Отметить все как прочитанные</button>
+                        </div>
+                        <div class="notifications-list" id="notificationsList">
+                            <!-- будут загружены через JS -->
+                        </div>
+                        <div class="notifications-footer">
+                            <a href="{% url 'notifications:list' %}">Все уведомления</a>
+                            <a href="{% url 'notifications:activity_log' %}">Журнал действий</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{% url 'index' %}" class="topbar-btn" title="На сайт">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                </a>
+                <div class="user-dropdown" id="userDropdown">
+                    <span class="user-name">{{ user.get_full_name|default:user.username }}</span>
+                    <div class="user-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="userDropdownMenu">
+                        <a href="{% url 'accounts:profile' %}">Профиль</a>
+                        <a href="{% url 'accounts:logout' %}">Выйти</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content crud-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% block crud_content %}{% endblock %}
+        </div>
+    </main>
+</div>
+<script>
+    window.NOTIFICATIONS_URLS = {
+        unread: "{% url 'notifications:api_unread' %}",
+        mark_read: "{% url 'notifications:api_mark_read' 0 %}".replace('/0/', '/'),
+        mark_all_read: "{% url 'notifications:api_mark_all_read' %}",
+        archive: "{% url 'notifications:api_archive' 0 %}".replace('/0/', '/'),
+        unarchive: "{% url 'notifications:api_unarchive' 0 %}".replace('/0/', '/'),
+        delete: "{% url 'notifications:api_delete' 0 %}".replace('/0/', '/'),
+        archive_all_read: "{% url 'notifications:api_archive_all_read' %}",
+        delete_all_archived: "{% url 'notifications:api_delete_all_archived' %}",
+    };
+</script>
+<script src="{% static 'dashboards/js/notifications.js' %}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('sidebarToggle');
+        const mobileToggle = document.getElementById('mobileSidebarToggle');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                sidebar.classList.toggle('collapsed');
+            });
+        }
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                sidebar.classList.toggle('mobile-open');
+            });
+        }
+
+        document.addEventListener('click', function(event) {
+            if (window.innerWidth <= 768) {
+                if (sidebar && !sidebar.contains(event.target) && mobileToggle && !mobileToggle.contains(event.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                if (sidebar) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const userDropdown = document.getElementById('userDropdown');
+    
+        if (userDropdown) {
+            userDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('open');
+            });
+    
+            document.addEventListener('click', function(e) {
+                if (!userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('open');
+                }
+            });
+        }
+    });
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
