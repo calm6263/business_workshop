@@ -188,11 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeAllDropdowns();
             }
         });
-        
-        // إغلاق عند التمرير (للجوال)
-        window.addEventListener('scroll', function() {
-            closeAllDropdowns();
-        });
+         
     }
     
     // ===== 5. القوائم المنسدلة الرئيسية (للسطح المكتب) =====
