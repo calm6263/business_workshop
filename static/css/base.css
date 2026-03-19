@@ -155,10 +155,9 @@
 }
 
 .english-flag {
-    background: linear-gradient(to right, 
-        #012169 0%, #012169 33.33%, 
-        #FFFFFF 33.33%, #FFFFFF 66.66%, 
-        #C8102E 66.66%, #C8102E 100%);
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="100" height="100"><rect width="60" height="30" fill="%2300247D"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="%23fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="%23CF142B" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="%23fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="%23CF142B" stroke-width="6"/></svg>');
+    background-size: cover;
+    background-position: center;
 }
 
 .chinese-flag {
