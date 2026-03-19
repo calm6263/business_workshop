@@ -285,3 +285,25 @@
         font-size: clamp(2rem, 5vw, 48px);
     }
 }
+/* تحسين توسيط النص على الشاشات الصغيرة جداً */
+@media (max-width: 576px) {
+    .caption-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .patent-caption {
+        font-size: clamp(1.2rem, 5vw, 24px); /* حجم خط مناسب */
+        max-width: 100%; /* منع التمدد الأفقي */
+    }
+}
+
+/* للشاشات المتوسطة (تابلت) */
+@media (min-width: 577px) and (max-width: 992px) {
+    .caption-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .patent-caption {
+        font-size: clamp(1.5rem, 4vw, 36px);
+    }
+}
