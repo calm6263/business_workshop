@@ -1041,3 +1041,34 @@
         padding: 0.5rem 1rem;
     }
 }
+/* تحسين تمركز العنوان في صورة البطل على جميع الشاشات */
+.hero-content {
+    text-align: center; /* تأكيد التوسيط الأفقي */
+    width: 100%;
+    padding: 0 20px; /* مسافة جانبية افتراضية */
+    box-sizing: border-box;
+}
+
+.consultation-hero-title,
+.consultation-hero-subtitle {
+    max-width: 100%;
+    word-wrap: break-word; /* منع تجاوز النص */
+}
+
+@media (max-width: 992px) {
+    .hero-content {
+        padding: 0 30px; /* مسافة جانبية مناسبة للشاشات المتوسطة */
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content {
+        padding: 0 15px; /* مسافة جانبية بسيطة للشاشات الصغيرة */
+    }
+}
