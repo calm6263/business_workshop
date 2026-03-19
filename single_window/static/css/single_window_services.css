@@ -1154,3 +1154,51 @@ footer {
     }
 
 }
+/* للشاشات الصغيرة (تابلت) */
+@media (max-width: 991px) {
+    .service-icon-new {
+        transform: scale(1.2);
+        margin-bottom: 0.6rem;
+    }
+
+    .service-3 .service-icon-new,
+    .service-6 .service-icon-new {
+        transform: scale(1.4);
+    }
+
+    .service-2 .service-icon-new,
+    .service-8 .service-icon-new {
+        transform: scale(1.1);
+    }
+
+    .service-5 .service-icon-new {
+        transform: scale(1.05);
+    }
+}
+
+/* للشاشات الصغيرة جداً (الهواتف) */
+@media (max-width: 767px) {
+    .service-icon-new {
+        transform: scale(1.0);
+        margin-bottom: 0.4rem;
+    }
+
+    .service-3 .service-icon-new,
+    .service-6 .service-icon-new {
+        transform: scale(1.2);
+    }
+
+    .service-2 .service-icon-new,
+    .service-8 .service-icon-new {
+        transform: scale(0.95);
+    }
+
+    .service-5 .service-icon-new {
+        transform: scale(0.9);
+    }
+
+    /* على الهواتف، الخدمات في صف أفقي، نحتاج ضبط عرض الأيقونة */
+    .service-item-new {
+        gap: 0.5rem;
+    }
+}
