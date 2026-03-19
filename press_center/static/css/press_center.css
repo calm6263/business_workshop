@@ -1620,3 +1620,21 @@ body {
         padding-left: 130px; /* يتحرك لليمين فقط على الشاشات الكبيرة */
     }
 }
+@media (max-width: 992px) {
+    .publication-card {
+        transform: scale(0.85) translate(95px, -20px);
+        transform-origin: top left;
+    }
+}
+@media (max-width: 768px) {
+    .publication-card {
+        transform: scale(0.75) translate(95px, -20px);
+        transform-origin: top left;
+    }
+}
+@media (max-width: 768px) {
+    .publication-card {
+        transform: scale(0.75) translate(95px, -20px);
+        transform-origin: top left;
+    }
+}
