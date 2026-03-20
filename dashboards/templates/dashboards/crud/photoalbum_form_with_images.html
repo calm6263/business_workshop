@@ -1,0 +1,80 @@
+{% extends 'dashboards/crud/base_crud.html' %}
+{% load static %}
+
+{% block crud_content %}
+<div class="crud-header">
+    <h2>{% if object %}Редактировать альбом{% else %}Добавить альбом{% endif %}</h2>
+</div>
+
+<form method="post" enctype="multipart/form-data" id="albumForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <hr>
+    <h3>Фотографии альбома</h3>
+
+    <!-- حقل رفع متعدد الصور -->
+    <div class="form-group">
+        <label for="multiImages">➕ Добавить новые фотографии (можно выбрать несколько):</label>
+        <input type="file" name="image" id="multiImages" multiple accept="image/*">
+        <small class="form-text text-muted">Выберите одно или несколько изображений для загрузки.</small>
+        <div id="preview" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;"></div>
+    </div>
+
+    {% if formset %}
+        <h4>📷 Существующие фотографии</h4>
+        {{ formset.management_form }}
+        <table class="dashboard-table crud-table" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Изображение</th>
+                    <th>Порядок</th>
+                    <th>Активно</th>
+                    <th>Удалить</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in formset %}
+                <tr>
+                    <td>
+                        {{ form.id }}
+                        {% if form.instance.image %}
+                            <img src="{{ form.instance.image.url }}" style="max-height: 80px; max-width: 100px; object-fit: cover;">
+                        {% endif %}
+                    </td>
+                    <td>{{ form.order }}</td>
+                    <td>{{ form.is_active }}</td>
+                    <td>{{ form.DELETE }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="form-actions" style="margin-top: 20px;">
+        <button type="submit" class="btn-add">💾 Сохранить</button>
+        <a href="{% url 'dashboards:photoalbum_list' %}" class="btn-action btn-view">❌ Отмена</a>
+    </div>
+</form>
+
+<script>
+    // معاينة الصور المرفوعة قبل الإرسال
+    document.getElementById('multiImages').addEventListener('change', function(e) {
+        const preview = document.getElementById('preview');
+        preview.innerHTML = '';
+        for (let file of e.target.files) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const img = document.createElement('img');
+                img.src = ev.target.result;
+                img.style.maxHeight = '100px';
+                img.style.margin = '5px';
+                img.style.border = '1px solid #ddd';
+                img.style.borderRadius = '4px';
+                preview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock %}

@@ -71,6 +71,7 @@
     .robot-check-small {
         display: flex !important;
         flex-direction: row !important;
+        flex-wrap: nowrap !important;
         align-items: center !important;
         gap: 0.75rem !important;
         margin: 0.8rem 0 1rem 0 !important;
@@ -89,6 +90,7 @@
         font-size: 0.7rem !important;
         line-height: 1.4 !important;
         color: #333;
+        white-space: normal;
     }
 
     .form-submit-wrapper {
@@ -121,5 +123,19 @@
     .alert {
         font-size: 0.7rem !important;
         padding: 0.6rem 1rem !important;
+    }
+}
+
+/* تحسينات إضافية للشاشات الصغيرة جداً */
+@media (max-width: 576px) {
+    .robot-check-small {
+        gap: 0.5rem !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .robot-label-small {
+        flex: 1;
+        min-width: 120px;
+        font-size: 0.65rem !important;
     }
 }

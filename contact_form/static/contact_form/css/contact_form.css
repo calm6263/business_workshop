@@ -319,6 +319,20 @@
         justify-content: flex-start;
         margin-bottom: 0.3rem;
     }
+    
+    /* تحسين عرض مربع الموافقة ليكون في سطر واحد */
+    .robot-check-small {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 0.75rem !important;
+        align-items: center !important;
+    }
+    
+    .robot-label-small {
+        white-space: normal;
+        font-size: 0.7rem;
+        line-height: 1.3;
+    }
 }
 
 @media (max-width: 768px) {
@@ -356,6 +370,18 @@
         font-size: 0.77rem;
         padding: 0.6rem 1.8rem;
     }
+    
+    /* تكرار لضمان أن الموافقة في سطر واحد */
+    .robot-check-small {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 0.75rem !important;
+    }
+    
+    .robot-label-small {
+        font-size: 0.68rem;
+        line-height: 1.3;
+    }
 }
 
 @media (max-width: 576px) {
@@ -388,12 +414,25 @@
     }
     
     .robot-label-small {
-        font-size: 0.595rem;
+        font-size: 0.59rem;
     }
     
     .submit-button-small {
         font-size: 0.7rem;
         padding: 0.5rem 1.5rem;
+    }
+    
+    /* على الشاشات الصغيرة جداً قد يضطر النص للالتفاف، لكنه يبقى في نفس السطر مع checkbox */
+    .robot-check-small {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+    
+    .robot-label-small {
+        flex: 1;
+        min-width: 120px;
+        font-size: 0.55rem;
     }
 }
 /* رفع العنوان "Форма обратной связи" لأعلى قليلاً */

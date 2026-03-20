@@ -6,7 +6,7 @@ app_name = 'dashboards'
 
 urlpatterns = [
     path('', dashboard.DashboardView.as_view(), name='dashboard'),
-    path('crud/', include('dashboards.urls.crud_urls')),
+    path('crud/', include('dashboards.urls.crud_urls')),   # هذا السطر مهم
     path('applicants/', include('dashboards.urls.crud_applicants_urls')),
     path('consultations/', include('dashboards.urls.crud_consultations_urls')),
     path('contacts/', include('dashboards.urls.crud_contacts_urls')),
@@ -23,5 +23,5 @@ urlpatterns = [
     path('staff/', include('dashboards.urls.crud_staff_urls')),
     path('main/', include('dashboards.urls.crud_main_urls')),
     path('contact-form/', include('dashboards.urls.crud_contact_form_urls')),
-    path('patents/', include('dashboards.urls.crud_patents_urls')),   # <-- добавлено
+    path('patents/', include('dashboards.urls.crud_patents_urls')),
 ]
