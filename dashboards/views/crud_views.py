@@ -1,12 +1,15 @@
+# dashboards/views/crud_views.py
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404  # <-- أضف هذا السطر إن لم يكن موجوداً
-
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from PIL import Image
 from about_academy.models import (
     MainSlider, ValuesSection, StatisticsSection, LeaderSpeech,
     PhotoAlbum, GalleryImage, DownloadableFile, QuoteSection,
-    Leadership, AcademyTeamMember, LeaderSpeechVideo  # استيراد النموذج الجديد
+    Leadership, AcademyTeamMember, LeaderSpeechVideo
 )
 from .mixins import BaseAdminListView, BaseAdminCreateView, BaseAdminUpdateView, BaseAdminDeleteView
+from ..forms import GalleryImageFormSet
 
 # ---------------------- MainSlider ----------------------
 class MainSliderListView(BaseAdminListView):
@@ -173,22 +176,143 @@ class PhotoAlbumListView(BaseAdminListView):
 class PhotoAlbumCreateView(BaseAdminCreateView):
     model = PhotoAlbum
     fields = ['title', 'cover_image', 'description', 'order', 'is_active']
-    template_name = 'dashboards/crud/photoalbum_form.html'
+    template_name = 'dashboards/crud/photoalbum_form_with_images.html'
     success_url = reverse_lazy('dashboards:photoalbum_list')
     success_message = "Альбом добавлен"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = GalleryImageFormSet(self.request.POST, self.request.FILES, instance=None)
+        else:
+            context['formset'] = GalleryImageFormSet(instance=None)
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        # حفظ الصور الجديدة المرفوعة متعددة
+        files = self.request.FILES.getlist('image')
+        saved_count = 0
+        for file in files:
+            try:
+                img = Image.open(file)
+                img.verify()
+                file.seek(0)
+                GalleryImage.objects.create(
+                    album=self.object,
+                    image=file,
+                    order=0,
+                    is_active=True
+                )
+                saved_count += 1
+            except Exception:
+                pass
+        if saved_count:
+            messages.success(self.request, f"Добавлено {saved_count} фото.")
+        return super().form_valid(form)
 
 class PhotoAlbumUpdateView(BaseAdminUpdateView):
     model = PhotoAlbum
     fields = ['title', 'cover_image', 'description', 'order', 'is_active']
-    template_name = 'dashboards/crud/photoalbum_form.html'
+    template_name = 'dashboards/crud/photoalbum_form_with_images.html'
     success_url = reverse_lazy('dashboards:photoalbum_list')
     success_message = "Альбом обновлен"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = GalleryImageFormSet(self.request.POST, self.request.FILES, instance=self.object)
+        else:
+            context['formset'] = GalleryImageFormSet(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        # حفظ الصور الجديدة المرفوعة متعددة
+        files = self.request.FILES.getlist('image')
+        saved_count = 0
+        for file in files:
+            try:
+                img = Image.open(file)
+                img.verify()
+                file.seek(0)
+                GalleryImage.objects.create(
+                    album=self.object,
+                    image=file,
+                    order=0,
+                    is_active=True
+                )
+                saved_count += 1
+            except Exception:
+                pass
+        if saved_count:
+            messages.success(self.request, f"Добавлено {saved_count} новых фото.")
+
+        # معالجة التعديلات على الصور الموجودة (order, is_active, حذف)
+        context = self.get_context_data()
+        formset = context['formset']
+        if formset.is_valid():
+            formset.instance = self.object
+            formset.save()
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
+
+        return super().form_valid(form)
 
 class PhotoAlbumDeleteView(BaseAdminDeleteView):
     model = PhotoAlbum
     template_name = 'dashboards/crud/confirm_delete.html'
     success_url = reverse_lazy('dashboards:photoalbum_list')
     success_message = "Альбом удален"
+
+# ---------------------- GalleryImage ----------------------
+class GalleryImageListView(BaseAdminListView):
+    model = GalleryImage
+    template_name = 'dashboards/crud/galleryimage_list.html'
+    context_object_name = 'items'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        album_id = self.request.GET.get('album')
+        if album_id:
+            qs = qs.filter(album_id=album_id)
+        return qs.select_related('album')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        album_id = self.request.GET.get('album')
+        if album_id:
+            context['album'] = get_object_or_404(PhotoAlbum, pk=album_id)
+        return context
+
+class GalleryImageCreateView(BaseAdminCreateView):
+    model = GalleryImage
+    fields = ['album', 'image', 'order', 'is_active']
+    template_name = 'dashboards/crud/galleryimage_form.html'
+    success_message = "Изображение добавлено"
+
+    def get_success_url(self):
+        album_id = self.object.album_id
+        return reverse_lazy('dashboards:galleryimage_list') + f'?album={album_id}'
+
+class GalleryImageUpdateView(BaseAdminUpdateView):
+    model = GalleryImage
+    fields = ['album', 'image', 'order', 'is_active']
+    template_name = 'dashboards/crud/galleryimage_form.html'
+    success_message = "Изображение обновлено"
+
+    def get_success_url(self):
+        album_id = self.object.album_id
+        return reverse_lazy('dashboards:galleryimage_list') + f'?album={album_id}'
+
+class GalleryImageDeleteView(BaseAdminDeleteView):
+    model = GalleryImage
+    template_name = 'dashboards/crud/confirm_delete.html'
+    success_message = "Изображение удалено"
+
+    def get_success_url(self):
+        album_id = self.object.album_id
+        return reverse_lazy('dashboards:galleryimage_list') + f'?album={album_id}'
 
 # ---------------------- DownloadableFile ----------------------
 class DownloadableFileListView(BaseAdminListView):

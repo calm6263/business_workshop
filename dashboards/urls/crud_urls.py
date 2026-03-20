@@ -1,3 +1,4 @@
+# dashboards/urls/crud_urls.py
 from django.urls import path
 from ..views import crud_views
 
@@ -37,6 +38,12 @@ urlpatterns = [
     path('photo-albums/add/', crud_views.PhotoAlbumCreateView.as_view(), name='photoalbum_add'),
     path('photo-albums/<int:pk>/edit/', crud_views.PhotoAlbumUpdateView.as_view(), name='photoalbum_edit'),
     path('photo-albums/<int:pk>/delete/', crud_views.PhotoAlbumDeleteView.as_view(), name='photoalbum_delete'),
+
+    # GalleryImage (صور الألبوم)
+    path('gallery-images/', crud_views.GalleryImageListView.as_view(), name='galleryimage_list'),
+    path('gallery-images/add/', crud_views.GalleryImageCreateView.as_view(), name='galleryimage_add'),
+    path('gallery-images/<int:pk>/edit/', crud_views.GalleryImageUpdateView.as_view(), name='galleryimage_edit'),
+    path('gallery-images/<int:pk>/delete/', crud_views.GalleryImageDeleteView.as_view(), name='galleryimage_delete'),
 
     # DownloadableFile
     path('downloadable-files/', crud_views.DownloadableFileListView.as_view(), name='downloadablefile_list'),
