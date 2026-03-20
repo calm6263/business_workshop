@@ -8,21 +8,23 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeModal() {
         if (modal) {
             modal.style.display = 'none';
+            // بعد إغلاق المودال، أعد تهيئة القوائم المنسدلة على الشاشات الصغيرة
+            if (window.innerWidth <= 992 && typeof window.reinitMobileDropdowns === 'function') {
+                window.reinitMobileDropdowns();
+            }
         }
     }
 
     function openModal() {
         if (modal) {
-            modal.style.display = 'flex'; // المودال يستخدم flex للتمركز
+            modal.style.display = 'flex';
         }
     }
 
-    // إغلاق المودال عند النقر على زر الإغلاق
     if (closeModalBtn) {
         closeModalBtn.addEventListener('click', closeModal);
     }
 
-    // إغلاق المودال عند النقر على الخلفية (الـ overlay)
     if (modal) {
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
@@ -38,11 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (url && url !== '#') {
                 window.location.href = url;
             } else {
-                openModal(); // فتح المودال إذا لم يوجد رابط صالح
+                openModal();
             }
         });
-
-        // إضافة مؤشر يد عند التحويم
         card.style.cursor = 'pointer';
     });
 
@@ -56,23 +56,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateCardsPerView() {
         if (window.innerWidth < 768) {
-            return 1; // شاشات صغيرة: بطاقة واحدة
+            return 1;
         } else if (window.innerWidth < 992) {
-            return 2; // شاشات متوسطة: بطاقتين
+            return 2;
         } else if (window.innerWidth < 1400) {
-            return 2; // شاشات كبيرة متوسطة: بطاقتين
+            return 2;
         } else {
-            return 3; // شاشات كبيرة جداً: 3 بطاقات
+            return 3;
         }
     }
 
     function updateSlidePosition() {
         const cardsPerView = updateCardsPerView();
-        const cardWidth = newsCards[0] ? newsCards[0].offsetWidth + 20 : 0; // حساب العرض مع المسافة
+        const cardWidth = newsCards[0] ? newsCards[0].offsetWidth + 20 : 0;
         const translateX = -currentIndex * cardWidth;
         newsWrapper.style.transform = `translateX(${translateX}px)`;
 
-        // إدارة حالة أزرار التنقل
         if (prevBtn) {
             prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
             prevBtn.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
@@ -107,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // إضافة مستمع الحدث لتغيير حجم النافذة
     window.addEventListener('resize', function() {
         const cardsPerView = updateCardsPerView();
         const maxIndex = Math.max(0, newsCards.length - cardsPerView);
@@ -117,21 +115,17 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSlidePosition();
     });
 
-    // التهيئة الأولية
     if (newsCards.length > 0) {
         updateSlidePosition();
     }
 
-    // إضافة مؤشر يد للنقر على البطاقات التفاعلية
     const interactiveCards = document.querySelectorAll('.svg-card, .news-card-new');
     interactiveCards.forEach(card => {
         card.style.cursor = 'pointer';
     });
 
-    // جعل البطاقة بأكملها قابلة للنقر (باستثناء الزر)
     document.querySelectorAll('.news-card-new').forEach(card => {
         card.addEventListener('click', function(e) {
-            // إذا كان النقر على الرابط داخل البطاقة، لا نتدخل
             if (e.target.closest('a')) return;
             const url = this.dataset.url;
             if (url && url !== '#') {
@@ -140,40 +134,26 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // إضافة event listener لأزرار "Читать" (لمنع تنشيط حدث البطاقة)
     const readButtons = document.querySelectorAll('.news-read-btn-new');
     readButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            e.stopPropagation(); // منع تفعيل click على البطاقة
-            // الرابط يعمل طبيعي
+            e.stopPropagation();
         });
     });
 
-    // ===== دالة محسنة لضبط بطاقات الأخبار (غير ضرورية مع البطاقات الجديدة، لكن نحتفظ بها للمرونة) =====
-    function setupNewsCards() {
-        // يمكن إبقاؤها فارغة أو حذفها
-    }
-
-    // استدعاء الدالة عند تحميل الصفحة وعند تغيير الحجم
+    function setupNewsCards() {}
     window.addEventListener('load', setupNewsCards);
     window.addEventListener('resize', setupNewsCards);
-
-    // تهيئة فورية بعد تحميل DOM
     setTimeout(setupNewsCards, 100);
 
-    // دالة لتعديل قسم Поступающим عند إخفاء الصورة
     function adjustApplicantsLayout() {
-        const applicantsImage = document.querySelector('.applicants-image');
         const applicantsText = document.querySelector('.applicants-section .col-lg-8');
-
         if (window.innerWidth < 992) {
-            // على الشاشات المتوسطة والصغيرة
             if (applicantsText) {
                 applicantsText.style.maxWidth = '100%';
                 applicantsText.style.flex = '0 0 100%';
             }
         } else {
-            // على الشاشات الكبيرة
             if (applicantsText) {
                 applicantsText.style.maxWidth = '';
                 applicantsText.style.flex = '';
@@ -181,15 +161,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // استدعاء الدالة عند تحميل الصفحة وعند تغيير الحجم
     window.addEventListener('load', adjustApplicantsLayout);
     window.addEventListener('resize', adjustApplicantsLayout);
 
-    // ===== دالة لتحسين أداء الكاروسيل على الشاشات الصغيرة =====
     function optimizeCarouselForMobile() {
         const carousel = document.querySelector('.full-width-carousel');
         if (window.innerWidth <= 768 && carousel) {
-            // تحسين مؤشرات الكاروسيل للشاشات الصغيرة
             const indicators = carousel.querySelectorAll('.carousel-indicators button');
             indicators.forEach(indicator => {
                 indicator.style.width = '8px';
@@ -199,33 +176,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // استدعاء دالة تحسين الكاروسيل
     window.addEventListener('load', optimizeCarouselForMobile);
     window.addEventListener('resize', optimizeCarouselForMobile);
 
-    // ===== Overlay Menu Functionality - NEW DESIGN - مع دعم الروابط =====
-    // فقط على الشاشات الكبيرة (992px فما فوق) وفي صفحة index فقط
+    // ===== Overlay Menu Functionality =====
     if (window.innerWidth >= 992 && document.body.classList.contains('index-page')) {
-        // ===== إضافة event listener لأيقونة البحث لفتح الـ Overlay =====
         const searchIcon = document.getElementById('searchIcon');
         if (searchIcon) {
             searchIcon.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-
-                // إغلاق جميع القوائم المنسدلة الأصلية
                 closeAllOriginalDropdowns();
-
-                // فتح القائمة المنبثقة وعرض محتوى "Академия" كافتراضي
                 const overlay = document.getElementById('menuOverlay');
                 const overlayContent = document.getElementById('overlayMenuContent');
                 const overlayNavItems = document.querySelectorAll('.overlay-nav-item');
 
                 if (overlay && overlayContent) {
-                    // قراءة بيانات الروابط
                     const overlayDataElement = document.getElementById('overlay-data');
                     let overlayData = {};
-
                     if (overlayDataElement) {
                         try {
                             overlayData = JSON.parse(overlayDataElement.textContent);
@@ -233,22 +201,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             console.error('Error parsing overlay data:', e);
                         }
                     }
-
-                    // تفعيل رابط "Академия" في الـ Overlay
                     overlayNavItems.forEach(item => {
                         item.classList.remove('active');
                         if (item.textContent.trim() === 'Академия') {
                             item.classList.add('active');
                         }
                     });
-
-                    // توليد محتوى قائمة "Академия"
                     const content = generateMenuContent('Академия', overlayData);
                     overlayContent.innerHTML = content;
                     overlay.style.display = 'block';
                     document.body.style.overflow = 'hidden';
-
-                    // إغلاق أي قوائم منسدلة مفتوحة
                     const overlayLanguageDropdown = document.getElementById('overlayLanguageDropdown');
                     const overlayAccountDropdown = document.getElementById('overlayAccountDropdown');
                     const overlayLanguage = document.getElementById('overlayLanguage');
@@ -259,10 +221,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // قراءة بيانات الروابط من script tag
         const overlayDataElement = document.getElementById('overlay-data');
         let overlayData = {};
-
         if (overlayDataElement) {
             try {
                 overlayData = JSON.parse(overlayDataElement.textContent);
@@ -271,9 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // دالة لتوليد محتوى القائمة - محدثة حسب الطلب
         function generateMenuContent(menuKey, data) {
-            // بيانات الروابط كما هي (بدون عناوين)
             const menuContents = {
                 'Академия': {
                     links: [
@@ -306,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         { text: 'Материально-техническое обеспечение', url: '#' },
                         { text: 'Услуги одного окна', url: data.single_window_url || '#' },
                         { text: 'Научно-исследовательская деятельность', url: '#' },
-                        { text: 'Консультации', url: data.consultations_url || '#' }   
+                        { text: 'Консультации', url: data.consultations_url || '#' }
                     ]
                 },
                 'Наука': {
@@ -321,18 +279,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     ]
                 }
             };
-
             const linksArray = menuContents[menuKey]?.links;
             if (!linksArray) return '';
-
-            // تقسيم الروابط إلى عمودين
             const half = Math.ceil(linksArray.length / 2);
             const firstColumnLinks = linksArray.slice(0, half);
             const secondColumnLinks = linksArray.slice(half);
-
             let html = '';
-
-            // إنشاء العمود الأول
             html += `<div class="overlay-menu-column">`;
             html += `<div class="overlay-menu-links">`;
             firstColumnLinks.forEach(link => {
@@ -344,8 +296,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
             html += `</div></div>`;
-
-            // إنشاء العمود الثاني
             html += `<div class="overlay-menu-column">`;
             html += `<div class="overlay-menu-links">`;
             secondColumnLinks.forEach(link => {
@@ -357,11 +307,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
             html += `</div></div>`;
-
             return html;
         }
 
-        // الحصول على عناصر الـ Overlay الموجودة في HTML
         const overlay = document.getElementById('menuOverlay');
         const overlayContent = document.getElementById('overlayMenuContent');
         const overlayClose = document.getElementById('overlayClose');
@@ -369,7 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlayNavItems = document.querySelectorAll('.overlay-nav-item');
         const overlaySearchInput = document.querySelector('.overlay-search-input');
 
-        // إضافة event listeners للغة والحساب في الـ Overlay
         const overlayLanguage = document.getElementById('overlayLanguage');
         const overlayLanguageDropdown = document.getElementById('overlayLanguageDropdown');
         const overlayAccount = document.getElementById('overlayAccount');
@@ -377,34 +324,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const overlayContacts = document.getElementById('overlayContacts');
         const overlayCoworking = document.getElementById('overlayCoworking');
 
-        // نسخ قوائم اللغات والحساب من القائمة الأصلية إلى الـ Overlay
         function copyDropdownsToOverlay() {
-            // نسخ قائمة اللغات
             const originalLanguageDropdown = document.getElementById('languageDropdown');
             if (originalLanguageDropdown && overlayLanguageDropdown) {
                 overlayLanguageDropdown.innerHTML = originalLanguageDropdown.innerHTML;
             }
-
-            // نسخ قائمة الحساب
             const originalAccountDropdown = document.getElementById('accountDropdown');
             if (originalAccountDropdown && overlayAccountDropdown) {
                 overlayAccountDropdown.innerHTML = originalAccountDropdown.innerHTML;
             }
         }
-
-        // استدعاء دالة نسخ القوائم عند تحميل الصفحة
         copyDropdownsToOverlay();
 
-        // دالة إغلاق جميع القوائم المنسدلة الأصلية
         function closeAllOriginalDropdowns() {
-            // هذه الدالة تؤثر فقط في الشاشات الكبيرة
             if (window.innerWidth >= 992) {
                 document.querySelectorAll('.dropdown-menu-custom').forEach(menu => {
                     menu.style.display = 'none';
                     menu.classList.remove('show');
                 });
-
-                // إخفاء جميع قوائم Bootstrap المنسدلة
                 document.querySelectorAll('.nav-item.dropdown').forEach(dropdown => {
                     const dropdownInstance = bootstrap.Dropdown.getInstance(dropdown.querySelector('.dropdown-toggle'));
                     if (dropdownInstance) {
@@ -414,53 +351,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // ===== إضافة event listeners للعناصر التفاعلية في الـ Overlay =====
-
-        // 1. اللغة - عند النقر تظهر القائمة المنسدلة فوق الـ Overlay
         if (overlayLanguage && overlayLanguageDropdown) {
             overlayLanguage.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-
-                // إغلاق قائمة الحساب إذا كانت مفتوحة
                 if (overlayAccountDropdown && overlayAccountDropdown.classList.contains('active')) {
                     overlayAccountDropdown.classList.remove('active');
                 }
-
-                // تبديل قائمة اللغة
                 overlayLanguage.classList.toggle('active');
                 overlayLanguageDropdown.classList.toggle('active');
             });
         }
 
-        // 2. الحساب - عند النقر تظهر القائمة المنسدلة فوق الـ Overlay
         if (overlayAccount && overlayAccountDropdown) {
             overlayAccount.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-
-                // إغلاق قائمة اللغة إذا كانت مفتوحة
                 if (overlayLanguageDropdown && overlayLanguageDropdown.classList.contains('active')) {
                     overlayLanguageDropdown.classList.remove('active');
                     overlayLanguage.classList.remove('active');
                 }
-
-                // تبديل قائمة الحساب
                 overlayAccountDropdown.classList.toggle('active');
             });
         }
 
-        // 3. إغلاق القوائم عند النقر خارجها في الـ Overlay
         overlay.addEventListener('click', function(e) {
-            // إغلاق قائمة اللغة إذا تم النقر خارجها
             if (overlayLanguage && overlayLanguageDropdown &&
                 !overlayLanguage.contains(e.target) &&
                 !overlayLanguageDropdown.contains(e.target)) {
                 overlayLanguageDropdown.classList.remove('active');
                 overlayLanguage.classList.remove('active');
             }
-
-            // إغلاق قائمة الحساب إذا تم النقر خارجها
             if (overlayAccount && overlayAccountDropdown &&
                 !overlayAccount.contains(e.target) &&
                 !overlayAccountDropdown.contains(e.target)) {
@@ -468,27 +389,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // 4. منع إغلاق القوائم عند النقر داخلها
         if (overlayLanguageDropdown) {
             overlayLanguageDropdown.addEventListener('click', function(e) {
                 e.stopPropagation();
             });
         }
-
         if (overlayAccountDropdown) {
             overlayAccountDropdown.addEventListener('click', function(e) {
                 e.stopPropagation();
             });
         }
 
-        // 5. روابط КОНТАКТЫ и КОВОРКИНГ - افتح الصفحات الخاصة
         if (overlayContacts) {
             overlayContacts.addEventListener('click', function(e) {
                 e.stopPropagation();
                 window.location.href = overlayData.contacts_page_url || '#';
             });
         }
-
         if (overlayCoworking) {
             overlayCoworking.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -496,36 +413,24 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // ===== event listeners للروابط الرئيسية في الشريط العلوي (فقط في الشاشات الكبيرة) =====
-
-        // إضافة event listeners لعناصر القائمة الأصلية (فقط في الشاشات الكبيرة)
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // تأكد أننا فقط في الشاشات الكبيرة
                 if (window.innerWidth >= 992) {
                     e.preventDefault();
                     e.stopPropagation();
-
-                    // إغلاق جميع القوائم المنسدلة الأصلية
                     closeAllOriginalDropdowns();
-
                     const linkText = this.textContent.trim();
                     const content = generateMenuContent(linkText, overlayData);
-
                     if (content) {
-                        // تفعيل الرابط المحدد في الـ Overlay
                         overlayNavItems.forEach(item => {
                             item.classList.remove('active');
                             if (item.textContent.trim() === linkText) {
                                 item.classList.add('active');
                             }
                         });
-
                         overlayContent.innerHTML = content;
                         overlay.style.display = 'block';
                         document.body.style.overflow = 'hidden';
-
-                        // إغلاق أي قوائم منسدلة مفتوحة
                         if (overlayLanguageDropdown) overlayLanguageDropdown.classList.remove('active');
                         if (overlayAccountDropdown) overlayAccountDropdown.classList.remove('active');
                         if (overlayLanguage) overlayLanguage.classList.remove('active');
@@ -534,46 +439,34 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // إضافة event listeners لعناصر القائمة في الـ Overlay
         overlayNavItems.forEach(item => {
             item.addEventListener('click', function() {
-                // إغلاق جميع القوائم المنسدلة الأصلية
                 closeAllOriginalDropdowns();
-
                 const menuKey = this.getAttribute('data-menu');
                 const content = generateMenuContent(menuKey, overlayData);
-
                 if (content) {
-                    // تفعيل الرابط المحدد
                     overlayNavItems.forEach(item => {
                         item.classList.remove('active');
                     });
                     this.classList.add('active');
-
                     overlayContent.innerHTML = content;
                 }
             });
         });
 
-        // إغلاق الـ Overlay
         if (overlayClose) {
             overlayClose.addEventListener('click', function() {
                 closeOverlay();
             });
         }
 
-        // إغلاق الـ Overlay عند النقر خارج المحتوى
         overlay.addEventListener('click', function(e) {
             if (e.target === overlay) {
                 closeOverlay();
             }
         });
 
-        // ===== إضافة نظام البحث الحي (Live Search) في Overlay =====
-        // إعداد بيانات البحث
         const searchItems = [];
-
-        // إضافة روابط من القوائم الأربعة (أكاديميا، بوستوبليني، أوبوتشيني، ناوكا)
         const menuContentsForSearch = {
             'Академия': [
                 { text: 'Об академии', url: overlayData.about_academy_url },
@@ -613,20 +506,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 { text: 'Совет молодых ученых', url: overlayData.research_list_url ? overlayData.research_list_url + '?tab=youth-council' : '#' }
             ]
         };
-
-        // تجميع جميع العناصر في مصفوفة واحدة (بدون استثناء)
         Object.values(menuContentsForSearch).forEach(category => {
             category.forEach(item => {
-                // نضيف جميع العناصر حتى لو كان الرابط '#'
                 searchItems.push(item);
             });
         });
-
-        // إضافة بعض الروابط الهامة الأخرى (مثل КОНТАКТЫ، КОВОРКИНГ)
         if (overlayData.contacts_page_url) searchItems.push({ text: 'Контакты', url: overlayData.contacts_page_url });
         if (overlayData.coworking_home_url) searchItems.push({ text: 'Коворкинг', url: overlayData.coworking_home_url });
 
-        // إنشاء عنصر عرض النتائج
         const overlaySearchSection = document.querySelector('.overlay-search-section');
         const searchResultsContainer = document.createElement('div');
         searchResultsContainer.className = 'overlay-search-results';
@@ -647,24 +534,18 @@ document.addEventListener('DOMContentLoaded', function() {
         overlaySearchSection.style.position = 'relative';
         overlaySearchSection.appendChild(searchResultsContainer);
 
-        // دالة تصفية وعرض النتائج
         function filterSearchResults(query) {
             if (!query.trim()) {
                 searchResultsContainer.style.display = 'none';
                 return;
             }
-
             const lowerQuery = query.toLowerCase();
-            const filtered = searchItems.filter(item => 
-                item.text.toLowerCase().includes(lowerQuery)
-            );
-
+            const filtered = searchItems.filter(item => item.text.toLowerCase().includes(lowerQuery));
             if (filtered.length === 0) {
                 searchResultsContainer.innerHTML = '<div class="no-results" style="padding: 10px; color: #999;">Ничего не найдено</div>';
                 searchResultsContainer.style.display = 'block';
                 return;
             }
-
             let html = '';
             filtered.forEach(item => {
                 html += `
@@ -675,8 +556,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             searchResultsContainer.innerHTML = html;
             searchResultsContainer.style.display = 'block';
-
-            // إضافة event listeners لنتائج البحث
             document.querySelectorAll('.search-result-item').forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -685,15 +564,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         closeOverlay();
                         setTimeout(() => window.location.href = url, 100);
                     } else {
-                        // إذا كان الرابط '#' نفتح المودال
-                        closeOverlay(); // نغلق الـ overlay أولاً
-                        setTimeout(() => {
-                            openModal(); // فتح المودال
-                        }, 100);
+                        closeOverlay();
+                        setTimeout(() => openModal(), 100);
                     }
                 });
-
-                // تأثير hover
                 item.addEventListener('mouseenter', function() {
                     this.style.backgroundColor = '#f5f5f5';
                 });
@@ -703,13 +577,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // ربط الحدث بحقل الإدخال
         if (overlaySearchInput) {
             overlaySearchInput.addEventListener('input', function(e) {
                 filterSearchResults(this.value);
             });
-
-            // إغلاق النتائج عند الضغط على Escape
             overlaySearchInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     searchResultsContainer.style.display = 'none';
@@ -717,98 +588,67 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // أيقونة البحث الخارجية (الجديدة) - نضيف لها نفس وظيفة البحث مع تنبيه أو تنفيذ البحث
         const overlaySearchIcon = document.getElementById('overlaySearchIcon');
         if (overlaySearchIcon && overlaySearchInput) {
             overlaySearchIcon.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-
-                // تنفيذ نفس وظيفة الضغط على Enter
                 if (overlaySearchInput.value.trim() !== '') {
-                    // هنا يمكن تنفيذ البحث الفعلي، مثلاً عرض النتائج أو التوجيه إلى صفحة بحث
-                    // لكن الأفضل أن نعرض النتائج الموجودة بالفعل
                     filterSearchResults(overlaySearchInput.value);
                 } else {
-                    // إذا كان الحقل فارغاً، يمكن وضع المؤشر فيه
                     overlaySearchInput.focus();
                 }
             });
         }
 
-        // إغلاق نتائج البحث عند النقر خارجها
         document.addEventListener('click', function(e) {
             if (!overlaySearchSection.contains(e.target)) {
                 searchResultsContainer.style.display = 'none';
             }
         });
 
-        // عند فتح الـ overlay، نقوم بإعادة تعيين البحث
         overlay.addEventListener('click', function(e) {
             if (e.target === overlay) {
-                // إعادة تعيين حقل البحث وإخفاء النتائج
                 if (overlaySearchInput) overlaySearchInput.value = '';
                 searchResultsContainer.style.display = 'none';
             }
         });
 
-        // دالة إغلاق الـ Overlay
         function closeOverlay() {
             overlay.style.display = 'none';
             document.body.style.overflow = '';
             overlayContent.innerHTML = '';
-
-            // إزالة التفعيل من جميع الروابط
-            overlayNavItems.forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // إغلاق القوائم المنسدلة
+            overlayNavItems.forEach(item => item.classList.remove('active'));
             if (overlayLanguageDropdown) overlayLanguageDropdown.classList.remove('active');
             if (overlayAccountDropdown) overlayAccountDropdown.classList.remove('active');
             if (overlayLanguage) overlayLanguage.classList.remove('active');
-
-            // إخفاء نتائج البحث
             if (searchResultsContainer) searchResultsContainer.style.display = 'none';
         }
 
-        // إغلاق الـ Overlay عند الضغط على زر Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && overlay.style.display === 'block') {
                 closeOverlay();
             }
         });
 
-        // عند فتح الـ Overlay، تأكد من إغلاق جميع القوائم المنسدلة الأصلية
         overlay.addEventListener('click', function(e) {
             if (e.target === overlay) {
                 closeAllOriginalDropdowns();
             }
         });
 
-        // دالة معالجة نقرات الروابط في الـ Overlay
         window.handleOverlayLinkClick = function(event, url) {
             event.preventDefault();
             event.stopPropagation();
-
             if (url && url !== '#') {
-                // إغلاق الـ Overlay أولاً
                 closeOverlay();
-
-                // الانتقال إلى الصفحة بعد تأخير بسيط
-                setTimeout(() => {
-                    window.location.href = url;
-                }, 100);
+                setTimeout(() => window.location.href = url, 100);
             } else {
-                // إذا كان الرابط '#', نفتح المودال
                 closeOverlay();
-                setTimeout(() => {
-                    openModal();
-                }, 100);
+                setTimeout(() => openModal(), 100);
             }
         };
 
-        // إضافة event listener للروابط في الـ Overlay
         overlayContent.addEventListener('click', function(e) {
             const link = e.target.closest('.overlay-menu-link');
             if (link) {
@@ -816,23 +656,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (url && url !== '#') {
                     e.preventDefault();
                     e.stopPropagation();
-
-                    // إغلاق الـ Overlay أولاً
                     closeOverlay();
-
-                    // الانتقال إلى الصفحة
-                    setTimeout(() => {
-                        window.location.href = url;
-                    }, 100);
+                    setTimeout(() => window.location.href = url, 100);
                 } else {
                     e.preventDefault();
                     e.stopPropagation();
                     closeOverlay();
-                    setTimeout(() => {
-                        openModal();
-                    }, 100);
+                    setTimeout(() => openModal(), 100);
                 }
             }
         });
     }
+
+    // ===== إضافة مستمع للحدث pageshow =====
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            console.log('Page restored from bfcache, reinitializing mobile dropdowns...');
+            if (window.innerWidth <= 992 && typeof window.reinitMobileDropdowns === 'function') {
+                window.reinitMobileDropdowns();
+            }
+        }
+    });
 });
