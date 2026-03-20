@@ -494,3 +494,55 @@ a svg {
     width: 16px !important;
     height: 16px !important;
 }
+/* ===== إصلاح موضع النقاط في صفحة Руководство للشاشات المتوسطة والصغيرة ===== */
+@media (max-width: 992px) {
+    /* 1. النقطة الحمراء بجانب "Контакты" وليس فوقها */
+    .leadership-dynamic-content .section-title-wrapper,
+    .member-detail-container .section-title-wrapper {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 12px !important;
+        text-align: left !important;
+        margin: 1rem 0 !important;
+    }
+
+    .leadership-dynamic-content .section-dot.red,
+    .member-detail-container .section-dot.red {
+        display: inline-block !important;
+        width: 10px !important;
+        height: 10px !important;
+        margin: 0 !important;
+        position: static !important;
+    }
+
+    .leadership-dynamic-content .section-title,
+    .member-detail-container .section-title {
+        display: inline-block !important;
+        margin: 0 !important;
+        font-size: 1.6rem !important;
+    }
+
+    /* 2. النقطة الزرقاء في المنصب بمحاذاة سطر النص */
+    .leadership-dynamic-content .member-positions p,
+    .member-detail-container .member-positions p {
+        position: relative !important;
+        padding-left: 20px !important;
+        margin-bottom: 0.8rem !important;
+        text-align: left !important;
+    }
+
+    .leadership-dynamic-content .member-positions p::before,
+    .member-detail-container .member-positions p::before {
+        content: '' !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0.6rem !important;
+        width: 8px !important;
+        height: 8px !important;
+        background: #052946 !important;
+        border-radius: 50% !important;
+        display: block !important;
+    }
+}

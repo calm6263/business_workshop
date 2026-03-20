@@ -1127,4 +1127,37 @@
 .news-page .card:last-child {
     margin-top: 90px;
 }
- 
+ /* إصلاح مربع التحقق - محاذاة أفقية مع النص */
+.newsletter-section .newsletter-checkbox {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    margin: 1.5rem 0 !important;
+    width: 100% !important;
+}
+
+.newsletter-section .newsletter-checkbox input {
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.newsletter-section .newsletter-checkbox label {
+    display: inline-block !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+}
+
+@media (max-width: 768px) {
+    .newsletter-section .newsletter-checkbox {
+        gap: 8px !important;
+    }
+    .newsletter-section .newsletter-checkbox label {
+        font-size: 0.85rem !important;
+    }
+}

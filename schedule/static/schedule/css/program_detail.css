@@ -2112,3 +2112,41 @@ html {
     0%,100% { transform: translateY(0); }
     50% { transform: translateY(-2px); }
 }
+/* ===== ضبط حجم العنوان والصورة في صفحة تفاصيل البرنامج للشاشات الصغيرة والمتوسطة ===== */
+
+@media (max-width: 992px) {
+    /* تصغير حجم العنوان الرئيسي */
+    #about .section-main-title.large-title {
+        font-size: 2rem !important;
+    }
+
+    /* ضبط ارتفاع الصورة ليكون متناسبًا */
+    .side-image-container-large {
+        height: 380px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* تصغير حجم العنوان أكثر */
+    #about .section-main-title.large-title {
+        font-size: 1.6rem !important;
+    }
+
+    /* تقليل ارتفاع الصورة */
+    .side-image-container-large {
+        height: 280px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* تصغير حجم العنوان للشاشات الصغيرة جدًا */
+    #about .section-main-title.large-title {
+        font-size: 1.3rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    /* جعل الصورة تأخذ عرضًا مناسبًا */
+    .side-image-container-large {
+        height: 220px !important;
+    }
+}
