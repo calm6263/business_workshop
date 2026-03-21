@@ -1,4 +1,4 @@
-// archive_programs_list.js
+// archive_programs_list.js – النسخة النهائية مع تصحيح الجدول
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
@@ -233,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.setupCalendarNavigation();
         }
 
+        // ========== توليد الجدول باستخدام التاريخ المحلي ==========
         generateCalendar() {
             const calendarDates = document.getElementById('calendarDates');
             if (!calendarDates) return;
@@ -251,11 +252,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const dayName = ['пн','вт','ср','чт','пт','сб','вс'][day];
                     const dayNumber = currentDate.getDate();
                     const isWeekend = day === 5 || day === 6;
+                    const year = currentDate.getFullYear();
+                    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+                    const dayStr = String(dayNumber).padStart(2, '0');
+                    const dateStr = `${year}-${month}-${dayStr}`;
                     const isToday = this.isToday(currentDate);
 
                     const dayDiv = document.createElement('div');
                     dayDiv.className = `calendar-day ${isWeekend ? 'weekend' : ''} ${isToday ? 'today' : ''}`;
-                    dayDiv.dataset.date = currentDate.toISOString().split('T')[0];
+                    dayDiv.dataset.date = dateStr;
                     dayDiv.innerHTML = `
                         <div class="day-name">${dayName}</div>
                         <div class="day-number">${dayNumber.toString().padStart(2, '0')}</div>
@@ -308,14 +313,29 @@ document.addEventListener('DOMContentLoaded', function() {
             if (nextBtn) nextBtn.disabled = scrollPosition >= maxScroll;
         }
 
+        // ========== عند اختيار تاريخ، نعيد ضبط فلتر الشهر/السنة ==========
         handleDateSelection(date) {
-            document.querySelectorAll('.calendar-day').forEach(day => {
-                day.classList.remove('active', 'date-filter-active');
-            });
+            // إزالة التحديد من جميع الأيام السابقة
+            document.querySelectorAll('.calendar-day').forEach(day => day.classList.remove('active', 'date-filter-active'));
             const selectedDay = document.querySelector(`.calendar-day[data-date="${date}"]`);
             if (selectedDay) selectedDay.classList.add('active', 'date-filter-active');
 
+            // تعيين التاريخ المختار في الفلتر
             this.filters.selectedDate = date;
+
+            // إعادة ضبط فلتر الشهر/السنة إلى "كل الأشهر" لأن اختيار تاريخ محدد يلغيه
+            if (this.filters.monthYear !== 'all') {
+                this.filters.monthYear = 'all';
+                // تحديث واجهة فلتر الشهر/السنة
+                const monthYearFilterText = document.querySelector('#monthYearFilter .filter-text');
+                if (monthYearFilterText) monthYearFilterText.textContent = 'Все месяцы';
+                // إلغاء تحديد جميع خانات الاختيار في القائمة المنسدلة للشهر/السنة
+                document.querySelectorAll('#monthYearDropdown .custom-checkbox').forEach(cb => cb.classList.remove('checked'));
+                const allCheckbox = document.querySelector('#monthYearDropdown [data-value="all"] .custom-checkbox');
+                if (allCheckbox) allCheckbox.classList.add('checked');
+            }
+
+            // تطبيق الفلاتر
             this.applyFilters();
         }
 

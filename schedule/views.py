@@ -1,4 +1,4 @@
-# schedule/views.py - النسخة المحسنة مع فصل PDF ودعم التصفية
+# schedule/views.py
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.http import JsonResponse
@@ -10,7 +10,6 @@ from .models import ScheduleProgram, CurriculumModule, CurriculumDocument, Progr
 from staff.models import TeacherProgram
 from departments.models import Department
 
-# استيراد دوال PDF من الملف الجديد
 from .pdf_utils import download_calendar_pdf, download_calendar_pdf_simple
 
 def schedule_page(request):
@@ -35,10 +34,47 @@ def schedule_page(request):
         
         schedules = schedules.order_by('start_date', 'order')
         
-        print(f"Найдено программ: {schedules.count()}")
+        # ===== تجميع البيانات حسب الشهر (جميع الأشهر) =====
+        monthly_schedules = defaultdict(list)
         for schedule in schedules:
-            print(f"Программа: {schedule.title}, Дата: {schedule.start_date}, Активна: {schedule.is_active}")
+            if schedule.start_date:
+                month_year = schedule.start_date.strftime("%Y-%m")
+                monthly_schedules[month_year].append(schedule)
         
+        monthly_data = []
+        for month_year, programs in monthly_schedules.items():
+            try:
+                dt = datetime.strptime(month_year, "%Y-%m")
+                month_names_ru = {
+                    1: 'Январь', 2: 'Февраль', 3: 'Март', 4: 'Апрель',
+                    5: 'Май', 6: 'Июнь', 7: 'Июль', 8: 'Август',
+                    9: 'Сентябрь', 10: 'Октябрь', 11: 'Ноябрь', 12: 'Декабрь'
+                }
+                month_name = month_names_ru.get(dt.month, dt.strftime("%B"))
+                monthly_data.append({
+                    'month_year': month_year,
+                    'month_name': month_name,
+                    'year': dt.year,
+                    'programs': programs,
+                    'programs_count': len(programs)
+                })
+            except ValueError as e:
+                print(f"Ошибка обработки даты {month_year}: {e}")
+                continue
+        
+        monthly_data.sort(key=lambda x: x['month_year'])
+        
+        # ===== تحديد الشهرين الأقرب للتاريخ الحالي =====
+        today = date.today()
+        expanded_months = []
+        for month in monthly_data:
+            # هل يحتوي الشهر على برنامج يبدأ اليوم أو بعده؟
+            if any(p.start_date >= today for p in month['programs']):
+                expanded_months.append(month['month_year'])
+                if len(expanded_months) == 2:
+                    break
+        
+        # ===== إعداد باقي البيانات =====
         available_years = sorted(set(
             schedule.start_date.year for schedule in schedules 
             if schedule.start_date
@@ -56,43 +92,7 @@ def schedule_page(request):
             ('10', 'Октябрь'), ('11', 'Ноябрь'), ('12', 'Декабрь')
         ]
         
-        monthly_schedules = defaultdict(list)
-        for schedule in schedules:
-            if schedule.start_date:
-                month_year = schedule.start_date.strftime("%Y-%m")
-                monthly_schedules[month_year].append(schedule)
-        
-        monthly_data = []
-        for month_year, programs in monthly_schedules.items():
-            try:
-                dt = datetime.strptime(month_year, "%Y-%m")
-                
-                month_names_ru = {
-                    1: 'Январь', 2: 'Февраль', 3: 'Март', 4: 'Апрель',
-                    5: 'Май', 6: 'Июнь', 7: 'Июль', 8: 'Август',
-                    9: 'Сентябрь', 10: 'Октябрь', 11: 'Ноябрь', 12: 'Декабрь'
-                }
-                
-                month_name = month_names_ru.get(dt.month, dt.strftime("%B"))
-                year = dt.year
-                
-                monthly_data.append({
-                    'month_year': month_year,
-                    'month_name': month_name,
-                    'year': year,
-                    'programs': programs,
-                    'programs_count': len(programs)
-                })
-            except ValueError as e:
-                print(f"Ошибка обработки даты {month_year}: {e}")
-                continue
-        
-        monthly_data.sort(key=lambda x: x['month_year'])
-        
-        # عرض شهرين فقط عند التحميل الأولي
-        monthly_data_display = monthly_data[:2]
-        
-        total_programs_count = sum(month['programs_count'] for month in monthly_data_display)
+        total_programs_count = sum(month['programs_count'] for month in monthly_data)
         
         # الحصول على البرامج الأرشيفية
         archive_programs = ScheduleProgram.objects.filter(
@@ -105,14 +105,14 @@ def schedule_page(request):
         
         context = {
             'slider_images': slider_images,
-            'monthly_data': monthly_data_display,
+            'monthly_data': monthly_data,                # جميع الأشهر
+            'expanded_months': expanded_months,          # أسماء الأشهر المفتوحة (شهرين فقط)
             'available_years': available_years,
             'program_types': program_types,
             'months': months,
             'total_programs_count': total_programs_count,
             'archive_programs': archive_programs,
             'program_types_json': json.dumps(program_types_list),
-            'all_monthly_data': monthly_data,
         }
         return render(request, 'schedule/schedule.html', context)
         
@@ -121,6 +121,7 @@ def schedule_page(request):
         context = {
             'slider_images': [],
             'monthly_data': [],
+            'expanded_months': [],
             'available_years': [date.today().year],
             'program_types': ScheduleProgram.PROGRAM_TYPES,
             'months': [
@@ -135,6 +136,7 @@ def schedule_page(request):
             'error': str(e)
         }
         return render(request, 'schedule/schedule.html', context)
+
 
 def program_detail(request, slug):
     try:
@@ -161,20 +163,17 @@ def program_detail(request, slug):
         # Определить, пришел ли пользователь со страницы отделения
         from_department = request.GET.get('from') == 'department'
 
-        # ===== الإضافة الجديدة: قائمة الإدارات وجميع البرامج النشطة =====
+        # الإضافات الجديدة
         departments = []
         if Department is not None:
             departments = Department.objects.all()
         
         all_programs = ScheduleProgram.objects.filter(is_active=True).order_by('title')
-        # ===== نهاية الإضافة =====
-
-        # ===== Другие программы того же типа (карусель) =====
+        
         other_programs = ScheduleProgram.objects.filter(
             is_active=True,
-            program_type=program.program_type  # 🔥 ИСПРАВЛЕНО: теперь динамически
+            program_type=program.program_type
         ).exclude(id=program.id).order_by('start_date')[:8]
-        # ===== نهاية الإضافة =====
 
         context = {
             'program': program,
@@ -184,7 +183,6 @@ def program_detail(request, slug):
             'curriculum_modules': curriculum_modules,
             'curriculum_documents': curriculum_documents,
             'from_department': from_department,
-            # الإضافات
             'departments': departments,
             'all_programs': all_programs,
             'other_programs': other_programs,
@@ -194,6 +192,7 @@ def program_detail(request, slug):
         print(f"Ошибка в представлении деталей программы: {e}")
         from django.shortcuts import redirect
         return redirect('schedule:schedule_page')
+
 
 def submit_application(request, slug):
     if request.method == 'POST':
@@ -227,6 +226,7 @@ def submit_application(request, slug):
         'success': False,
         'message': 'Неверный метод запроса'
     })
+
 
 def calendar_view(request):
     """صفحة التقويم السنوي للبرامج"""
