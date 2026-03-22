@@ -5,40 +5,7 @@ from django.shortcuts import redirect
 from django.utils.html import format_html
 from .models import Event, InterestingProgram, EventRegistration, NewsletterSubscription, PageSettings, Album, Photo
 
-# ===== Код для массовой загрузки нескольких изображений (используется только при добавлении) =====
-class MultipleFileInput(forms.ClearableFileInput):
-    allow_multiple_selected = True
-
-class MultipleFileField(forms.FileField):
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault("widget", MultipleFileInput())
-        super().__init__(*args, **kwargs)
-
-    def clean(self, data, initial=None):
-        single_file_clean = super().clean
-        if isinstance(data, (list, tuple)):
-            result = [single_file_clean(d, initial) for d in data]
-        else:
-            result = [single_file_clean(data, initial)]
-        return result
-
-# Форма для добавления (поддерживает множественный выбор файлов)
-class PhotoAdminAddForm(forms.ModelForm):
-    image = MultipleFileField(label="Выберите одно или несколько изображений", required=False)
-
-    class Meta:
-        model = Photo
-        fields = '__all__'
-
-# Форма для редактирования (обычное поле для одного файла)
-class PhotoAdminChangeForm(forms.ModelForm):
-    class Meta:
-        model = Photo
-        fields = '__all__'
-        widgets = {
-            'image': forms.ClearableFileInput,
-        }
-# =====================================================================================
+# ===== تم إزالة كود رفع عدة صور من Admin (لن نستخدمه) =====
 
 @admin.register(EventRegistration)
 class EventRegistrationAdmin(admin.ModelAdmin):
@@ -245,6 +212,7 @@ class AlbumAdmin(admin.ModelAdmin):
         )
     photos_count.short_description = 'Фотографии'
 
+# ===== PhotoAdmin – بدون كود رفع متعدد، فقط عرض بسيط =====
 @admin.register(Photo)
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ['preview_image', 'album', 'title', 'order', 'is_active']
@@ -270,40 +238,3 @@ class PhotoAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="max-height: 50px; max-width: 80px;" />', obj.image.url)
         return "—"
     preview_image.short_description = 'Превью'
-
-    def get_form(self, request, obj=None, **kwargs):
-        if obj is None:
-            return PhotoAdminAddForm
-        else:
-            return PhotoAdminChangeForm
-
-    def add_view(self, request, form_url='', extra_context=None):
-        if request.method == 'POST' and request.FILES.getlist('image'):
-            # استخدام النموذج للتحقق من البيانات بدلاً من request.POST مباشرة
-            form = PhotoAdminAddForm(request.POST, request.FILES)
-            if form.is_valid():
-                album = form.cleaned_data['album']
-                files = request.FILES.getlist('image')
-                created_count = 0
-                for f in files:
-                    # إنشاء كائن Photo باستخدام البيانات المنظفة
-                    photo = Photo(
-                        album=album,
-                        image=f,
-                        title=form.cleaned_data.get('title', ''),
-                        description=form.cleaned_data.get('description', ''),
-                        order=form.cleaned_data.get('order', 0),
-                        is_active=form.cleaned_data.get('is_active', True),
-                    )
-                    photo.save()
-                    created_count += 1
-                self.message_user(request, f"✅ Загружено {created_count} изображений.", level='SUCCESS')
-                return redirect('admin:events_photo_changelist')
-            else:
-                # إذا كان النموذج غير صالح، نعرض الأخطاء
-                for field, errors in form.errors.items():
-                    for error in errors:
-                        self.message_user(request, f"❌ {field}: {error}", level='ERROR')
-                return super().add_view(request, form_url, extra_context)
-        
-        return super().add_view(request, form_url, extra_context)

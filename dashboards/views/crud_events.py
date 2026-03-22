@@ -1,12 +1,15 @@
+# dashboards/views/crud_events.py
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.db.models import Count
-from django.contrib import messages 
+from django.contrib import messages
 from events.models import (
     Event, EventRegistration, InterestingProgram,
     NewsletterSubscription, PageSettings, Album, Photo
 )
 from .mixins import BaseAdminListView, BaseAdminCreateView, BaseAdminUpdateView, BaseAdminDeleteView
+from PIL import Image
+import os
 
 # ----------------------------------------------------------------------
 # Event
@@ -200,7 +203,7 @@ class AlbumDeleteView(BaseAdminDeleteView):
     success_message = "Альбом удалён"
 
 # ----------------------------------------------------------------------
-# Photo
+# Photo – с поддержкой множественной загрузки
 # ----------------------------------------------------------------------
 class PhotoListView(BaseAdminListView):
     model = Photo
@@ -217,10 +220,57 @@ class PhotoListView(BaseAdminListView):
 
 class PhotoCreateView(BaseAdminCreateView):
     model = Photo
-    fields = '__all__'
+    fields = ['album', 'title', 'description', 'order', 'is_active', 'image']
     template_name = 'dashboards/crud/events/photo_form.html'
     success_url = reverse_lazy('dashboards:photo_list')
-    success_message = "Фотография успешно добавлена"
+    success_message = "Фотографии успешно добавлены"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['image'].required = False
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['multiple_files'] = True
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.image = None
+        self.object.save()
+
+        files = self.request.FILES.getlist('images')
+        if not files:
+            messages.error(self.request, "Вы не выбрали ни одного файла.")
+            return self.form_invalid(form)
+
+        created_count = 0
+        for f in files:
+            try:
+                img = Image.open(f)
+                img.verify()
+                f.seek(0)
+
+                Photo.objects.create(
+                    album=self.object.album,
+                    title=form.cleaned_data.get('title', ''),
+                    description=form.cleaned_data.get('description', ''),
+                    order=form.cleaned_data.get('order', 0),
+                    is_active=form.cleaned_data.get('is_active', True),
+                    image=f
+                )
+                created_count += 1
+            except Exception as e:
+                messages.warning(self.request, f"Ошибка при обработке файла {f.name}: {e}")
+
+        self.object.delete()
+
+        if created_count:
+            messages.success(self.request, f"✅ Добавлено {created_count} фотографий.")
+        else:
+            messages.error(self.request, "Не удалось добавить ни одной фотографии.")
+        return redirect(self.get_success_url())
 
 class PhotoUpdateView(BaseAdminUpdateView):
     model = Photo
@@ -228,6 +278,11 @@ class PhotoUpdateView(BaseAdminUpdateView):
     template_name = 'dashboards/crud/events/photo_form.html'
     success_url = reverse_lazy('dashboards:photo_list')
     success_message = "Фотография успешно обновлена"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['multiple_files'] = False
+        return context
 
 class PhotoDeleteView(BaseAdminDeleteView):
     model = Photo

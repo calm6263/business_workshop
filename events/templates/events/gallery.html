@@ -113,7 +113,8 @@
                     <h2 class="gallery-year-heading">Без даты</h2>
                     <div class="album-grid overlay-grid">
                         {% for album in year_group.list %}
-                            <a href="{% url 'album_detail' album.slug %}" class="album-card-overlay">
+                            {# FIXED: correct URL name 'events_album_detail' #}
+                            <a href="{% url 'events_album_detail' album.slug %}" class="album-card-overlay">
                                 <div class="album-image-wrapper">
                                     <img src="{{ album.cover_image.url }}" 
                                          alt="{{ album.title }}" 

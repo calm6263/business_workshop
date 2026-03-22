@@ -1,15 +1,126 @@
 {% extends 'dashboards/crud/base_crud.html' %}
 {% load static %}
 
-{% block crud_content %}
-<div class="crud-header">
-    <h2>{% if object %}Редактировать фотографию{% else %}Добавить фотографию{% endif %}</h2>
-</div>
+{% block title %}
+    {% if object %}Редактировать фотографию{% else %}Добавить фотографии{% endif %}
+{% endblock %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn-add">Сохранить</button>
-    <a href="{% url 'dashboards:photo_list' %}" class="btn-action btn-view">Отмена</a>
-</form>
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        .multiple-files-input {
+            border: 2px dashed #ccc;
+            padding: 1rem;
+            text-align: center;
+            background: #f9f9f9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .multiple-files-input:hover {
+            border-color: #7F1726;
+            background: #fff;
+        }
+        .file-info {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block crud_content %}
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col">
+            <h1 class="h2">
+                {% if object %}Редактировать фотографию{% else %}Добавить фотографии{% endif %}
+            </h1>
+        </div>
+        <div class="col text-end">
+            <a href="{% url 'dashboards:photo_list' %}" class="btn btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Назад
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            {% if multiple_files %}
+                {# Форма для множественной загрузки #}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="id_album" class="form-label">Альбом *</label>
+                        <select name="album" id="id_album" class="form-select" required>
+                            <option value="">---------</option>
+                            {% for album in form.fields.album.queryset %}
+                                <option value="{{ album.pk }}" {% if form.album.value == album.pk %}selected{% endif %}>{{ album.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_title" class="form-label">Название (общее для всех фото, необязательно)</label>
+                        <input type="text" name="title" id="id_title" class="form-control" value="{{ form.title.value|default:'' }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_description" class="form-label">Описание (общее для всех фото)</label>
+                        <textarea name="description" id="id_description" class="form-control" rows="3">{{ form.description.value|default:'' }}</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_order" class="form-label">Порядок (общий)</label>
+                        <input type="number" name="order" id="id_order" class="form-control" value="{{ form.order.value|default:0 }}">
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="is_active" id="id_is_active" class="form-check-input" {% if form.is_active.value %}checked{% endif %}>
+                        <label for="id_is_active" class="form-check-label">Активно</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_images" class="form-label">Выберите одно или несколько изображений *</label>
+                        <div class="multiple-files-input" onclick="document.getElementById('id_images').click();">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#052946" stroke-width="2">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                            <p class="mb-0">Нажмите для выбора файлов</p>
+                        </div>
+                        <input type="file" name="images" id="id_images" class="d-none" multiple accept="image/*" required>
+                        <div class="file-info" id="fileInfo"></div>
+                        <div class="form-text">Можно выбрать несколько файлов одновременно (Ctrl+Click или Shift+Click).</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Добавить фотографии</button>
+                </form>
+
+                <script>
+                    document.getElementById('id_images').addEventListener('change', function(e) {
+                        let files = e.target.files;
+                        let info = document.getElementById('fileInfo');
+                        if (files.length === 0) {
+                            info.innerHTML = '';
+                            return;
+                        }
+                        let names = Array.from(files).map(f => f.name).join(', ');
+                        info.innerHTML = `<strong>Выбрано:</strong> ${names}`;
+                    });
+                </script>
+            {% else %}
+                {# Обычная форма для редактирования #}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
