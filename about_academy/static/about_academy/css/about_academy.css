@@ -1428,34 +1428,4 @@ main.container.my-4 {
       max-width: 260px !important;
     }
   }
-  /* تعديلات خاصة بقسم Руководство للشاشات المتوسطة والصغيرة */
-@media (max-width: 992px) {
-    /* 1. النقطة الحمراء: جعلها بجانب العنوان وليس فوقه */
-    .section-title-wrapper {
-        flex-direction: row !important;      /* ترتيب أفقي */
-        justify-content: flex-start !important; /* محاذاة إلى اليسار */
-        align-items: center !important;      /* توسيط عمودي */
-        gap: 12px;
-        margin: 1.5rem 0;
-        padding: 0 1rem;
-    }
-
-    /* 2. النقطة الزرقاء في المنصب: ضبط المحاذاة مع النص */
-    .member-positions p {
-        position: relative;
-        padding-left: 1.5rem;
-        margin-bottom: 0.8rem;
-        text-align: left;
-    }
-
-    .member-positions p::before {
-        position: absolute;
-        left: 0;
-        top: 0.55rem;   /* يضبط النقطة لتكون بمحاذاة منتصف السطر */
-        width: 8px;
-        height: 8px;
-        background: #052946;
-        border-radius: 50%;
-        content: '';
-    }
-}
+  

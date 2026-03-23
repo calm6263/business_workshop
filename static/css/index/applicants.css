@@ -7,8 +7,9 @@
 
 .applicants-image img {
     width: 100%;
-    height: 450px;
-    object-fit: cover;
+    height: auto;                /* تلقائي حسب النسبة الأصلية */
+    max-height: 450px;          /* حد أقصى اختياري للحفاظ على التناسق */
+    object-fit: contain;        /* لا تقص الصورة */
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
